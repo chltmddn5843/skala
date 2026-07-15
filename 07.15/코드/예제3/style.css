@@ -1,0 +1,12 @@
+.counter { text-align: center; margin-top: 60px; font-family: sans-serif; }
+#count { color: #e74c3c; font-size: 2rem; font-weight: bold; }
+button {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+}
+button:active { transform: scale(0.95); }

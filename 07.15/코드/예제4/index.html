@@ -3,74 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>풍성한교회 (WDChurch) 반응형 레이아웃</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <title>예제4</title>
 </head>
 <body>
-
-  <header class="main-header">
-    <div class="container header-container">
-      <div class="logo">
-        <a href="#">풍성한교회</a>
-      </div>
-      
-      <!-- 모바일용 메뉴 토글 버튼 -->
-      <button class="menu-toggle" aria-label="메뉴 열기">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-
-      <!-- 내비게이션 -->
-      <nav class="main-navigation">
-        <ul>
-          <li><a href="#">교회소개</a></li>
-          <li><a href="#">예배안내</a></li>
-          <li><a href="#">말씀/찬양</a></li>
-          <li><a href="#">교회소식</a></li>
-          <li><a href="#">나눔광장</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- 메인 비주얼, 카드 그리드, 푸터는 이전과 동일하게 유지됩니다 -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h2>하나님을 기쁘시게, 사람을 행복하게</h2>
-      <p>풍성한교회 홈페이지에 오신 것을 환영합니다.</p>
-      <a href="#" class="btn-primary">예배 시간 안내</a>
-    </div>
-  </section>
-
-  <main class="content-area container">
-    <section class="card-grid">
-      <article class="card">
-        <h3>실시간 온라인 예배</h3>
-        <p>어디서나 마음을 다해 드리는 온라인 예배 안내입니다.</p>
-        <a href="#" class="card-link">바로가기 &rarr;</a>
-      </article>
-      <article class="card">
-        <h3>지난 설교 말씀</h3>
-        <p>은혜 넘치는 주일 설교 영상을 다시 보실 수 있습니다.</p>
-        <a href="#" class="card-link">바로가기 &rarr;</a>
-      </article>
-      <article class="card">
-        <h3>새가족 등록</h3>
-        <p>풍성한교회의 따뜻한 가족이 되시는 길을 안내합니다.</p>
-        <a href="#" class="card-link">바로가기 &rarr;</a>
-      </article>
-    </section>
-  </main>
-
-  <footer class="main-footer">
-    <div class="container footer-container">
-      <p>&copy; 풍성한교회. All Rights Reserved.</p>
-      <p>주소: 부산광역시 연제구 | 전화번호: 051-000-0000</p>
-    </div>
-  </footer>
-
-  <!-- 자바스크립트 파일 연결 -->
-  <script src="script.js"></script>
+  <div class="greeting">
+    <h1>인사말 생성기</h1>
+    <label for="nameInput">이름을 입력하세요</label><br>
+    <input id="nameInput" type="text" placeholder="예: 김코딩">
+    <button id="greetBtn">인사하기</button>
+    <h2 id="result"></h2>
+  </div>
 </body>
 </html>

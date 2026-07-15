@@ -1,0 +1,29 @@
+body { font-family: sans-serif; margin: 0; background: #f5f6fa; }
+header, footer { text-align: center; padding: 20px; background: #2c3e50; color: white; }
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 30px;
+}
+.photo-card {
+  flex: 1 1 220px;
+  max-width: 260px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.photo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+}
+.photo-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
