@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 핵심 개념 통합 예제 가이드</title>
+    <style>
+        /* [1] CSS Variables (변수 선언 및 테마 정의) */
+        :root {
+            --primary-color: #004124;    /* SK_Green 분위기의 메인 다크 그린 */
+            --secondary-color: #4CAF50;  /* 포인트 서브 그린 */
+            --danger-color: #de3945;     /* 경고/주의 색상 */
+            --bg-light: #fafafa;         /* 연한 배경색 */
+            --text-dark: #333333;        /* 기본 글자색 */
+            --default-padding: 16px;     /* 기본 패딩 간격 */
+            --base-font: 'Malgun Gothic', sans-serif;
+        }
+
+        /* [2] Universal Selector (전체 선택자) 및 초기화 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--base-font);
+            color: var(--text-dark);
+            background-color: #f0f2f5;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* 전체 레이아웃 구조 */
+        .wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 24pt;
+        }
+
+        header p {
+            color: #666;
+            font-size: 11pt;
+        }
+
+        /* 섹션 공통 스타일 */
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            background-color: var(--bg-light);
+        }
+
+        section h2 {
+            color: var(--primary-color);
+            font-size: 14pt;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 10pt;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        /* ========================================================
+           [3] CSS Selectors (선택자 결합 및 가상 클래스/요소) 예제
+           ======================================================== */
+        /* 자식 선택자 (>) */
+        .parent-box > .child-p {
+            color: blue;
+            font-weight: bold;
+        }
+
+        /* 후손 선택자 (공백) */
+        .parent-box span {
+            background-color: #fff4a3;
+        }
+
+        /* 인접 형제 선택자 (+) */
+        .sibling-title + p {
+            font-style: italic;
+            color: #555;
+        }
+
+        /* 속성 선택자 [type="text"] */
+        input[type="text"] {
+            width: 200px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        /* 속성 선택자 매칭 + 필수가 포함된 경우 조합 */
+        input[type="text"][required] {
+            border: 1px solid var(--danger-color);
+        }
+
+        /* 동적/가상 클래스 (:hover, :active) */
+        .btn-interactive {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .btn-interactive:hover {
+            background-color: var(--secondary-color);
+        }
+        .btn-interactive:active {
+            background-color: #1e5a1f;
+        }
+
+        /* 구조적 가상 클래스 및 가상 요소 (::before, ::after) */
+        .list-example li:first-child {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .list-example li:nth-child(even) {
+            background-color: #e8f5e9;
+        }
+        
+        .tip-box::before {
+            content: "💡 [안내] ";
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        /* ========================================================
+           [4] CSS Box Model (마진, 패딩, 테두리, 병합 현상)
+           ======================================================== */
+        .box-model-demo {
+            width: 100%;
+            max-width: 400px;
+            padding: var(--default-padding); /* 16px */
+            border: 4px solid var(--primary-color);
+            margin: 20px 0;
+            background-color: #ffffff;
+        }
+
+        /* 마진 병합(Collapse) 현상 테스트 요소 */
+        .collapse-top {
+            margin-bottom: 30px;
+            background-color: #ffc0c7;
+            padding: 10px;
+        }
+        .collapse-bottom {
+            margin-top: 20px;
+            background-color: #d9eee1;
+            padding: 10px;
+        }
+
+        /* ========================================================
+           [5] CSS Layout Systems (Flexbox & Grid)
+           ======================================================== */
+        /* 1차원 배치의 Flexbox */
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #eeeeee;
+            padding: 10px;
+            gap: 10px;
+        }
+        .flex-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            flex-grow: 1; /* 남은 공간을 균등 배분 */
+        }
+        .flex-item.special {
+            flex-grow: 2; /* 이 아이템은 2배 비율로 가져감 */
+            background-color: var(--secondary-color);
+        }
+
+        /* 2차원 격자 구조의 Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3열 균등 구조 */
+            grid-template-rows: auto;
+            gap: 12px; /* Grid Gap */
+            margin-top: 15px;
+        }
+        .grid-item {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+        }
+        /* Grid 범위 확장 수동 지정 (예: 1번 아이템을 가로로 2칸 차지하게 함) */
+        .grid-item-wide {
+            grid-column: span 2;
+            background-color: #666;
+        }
+
+        /* ========================================================
+           [6] CSS Position (static, relative, absolute, fixed, sticky)
+           ======================================================== */
+        .pos-container {
+            position: relative; /* 자식 absolute 요소의 기준점역할 */
+            height: 180px;
+            border: 2px dashed #aaa;
+            background: #fff;
+            padding: 10px;
+            margin-top: 15px;
+        }
+        .pos-absolute {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--danger-color);
+            color: white;
+            padding: 5px 10px;
+            font-size: 9pt;
+            border-radius: 4px;
+        }
+        .pos-sticky-nav {
+            position: sticky;
+            top: 0; /* 스크롤 시 브라우저 최상단에 고정됨 */
+            background-color: #fff4a3;
+            padding: 8px;
+            font-weight: bold;
+            border: 1px solid #e1e4e8;
+            margin-bottom: 10px;
+            z-index: 100;
+        }
+
+        /* ========================================================
+           [7] CSS Specificity (우선순위 algorithm 배점 점수 매칭)
+           ======================================================== */
+        /* 요소 선택자 (Score: 0-0-1) */
+        p.specificity-test { color: black; }
+        /* 클래스 선택자 (Score: 0-1-0) -> 승리하여 적용됨 */
+        .spec-class { color: green; }
+        /* 아이디 선택자 (Score: 1-0-0) -> 적용될 경우 최종 승리함 */
+        #spec-id { color: blue; }
+        /* !important 규칙 -> 모든 우선순위를 무시하고 절대적 최우선 순위 */
+        .important-rule { color: var(--danger-color) !important; }
+
+        /* ========================================================
+           [8] Responsive Web Design - Media Query (반응형 모바일 우선)
+           ======================================================== */
+        /* 기본 상태: 모바일 화면 (화면 폭 768px 미만) */
+        .responsive-card {
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+
+        /* 데스크톱/태블릿 화면 전환 브레이크포인트 (768px 이상) */
+        @media (min-width: 768px) {
+            .responsive-card {
+                background-color: #e3f2fd; /* 배경색 변경 */
+                border-color: #2196f3;
+                transform: scale(1.02);    /* 약간의 확대 효과 */
+            }
+            .responsive-card::after {
+                content: " 🖥️ (데스크톱 데코레이션 활성화)";
+                font-size: 9pt;
+                color: #0d47a1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <h1>CSS3 핵심 개념 원파일 종합 예제북</h1>
+            <p>SK AX 교육과정 기반 핵심 CSS 가이드 툴킷 (작성일: 2026.07)</p>
+        </header>
+
+        <!-- Position Sticky 데모 코너 -->
+        <div class="pos-sticky-nav">📌 [Sticky 영역] 스크롤을 내려도 이 바는 상단에 밀착 고정됩니다.</div>
+
+        <!-- SECTION 1: CSS 변수 및 선택자 -->
+        <section>
+            <h2>1. CSS Selectors (다양한 결합 선택자 및 가상 클래스)</h2>
+            <div class="parent-box">
+                <p class="child-p">이 문단은 .parent-box의 직접적인 자식(p)이므로 <span>블루 컬러 및 볼드 처리</span>가 되었습니다.</p>
+                <div>
+                    <p>이 문단은 자식이 아니라 후손이므로 파란색 글씨는 아니지만, 내부 span은 <span>전체 후손 선택자</span> 조건에 맞아 배경색이 노란색입니다.</p>
+                </div>
+            </div>
+            
+            <h3 class="sibling-title" style="margin-top:15px; font-size:11pt;">형제 타이틀</h3>
+            <p>바로 인접해서 다음에 위치한 형제 문단(+)이므로 이탤릭 스타일이 적용되었습니다.</p>
+
+            <div style="margin-top:15px;">
+                <p style="font-size:10pt; margin-bottom:5px;">🔍 <strong>가상 클래스 / 속성 / 가상 요소 테스트:</strong></p>
+                <input type="text" placeholder="일반 텍스트 입력창">
+                <input type="text" required placeholder="필수 입력창 (테두리 레드)"><br>
+                <a href="#" class="btn-interactive" style="margin-top:5px;">버튼 호버 마우스 오버 해보세요</a>
+                
+                <ul class="list-example" style="margin-top:10px; padding-left:20px;">
+                    <li>첫 번째 항목 (:first-child 규칙으로 볼드)</li>
+                    <li>두 번째 항목 (짝수 행 배경색 변경)</li>
+                    <li>세 번째 항목</li>
+                    <li>네 번째 항목 (짝수 행 배경색 변경)</li>
+                </ul>
+                <p class="tip-box" style="margin-top:10px; font-size:10pt; background:#fff; padding:5px; border-radius:4px;"></p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 박스 모델 및 마진 병합 -->
+        <section>
+            <h2>2. CSS Box Model & Margin Collapse</h2>
+            <p>요소의 크기는 Content + Padding + Border의 조합으로 결정됩니다. (box-sizing: border-box 적용됨)</p>
+            <div class="box-model-demo">
+                <strong>[Box Model 테두리 내부 영역]</strong><br>
+                변수로 지정된 패딩 패딩 두께과 다크 그린 4px 솔리드 보더 라인 확인 가능.
+            </div>
+
+            <div style="background:#fff; padding:10px; border-radius:4px;">
+                <p style="font-size:10pt; margin-bottom:5px;">⚠️ <strong>세로 마진 병합(Margin Collapse) 현상 증명:</strong></p>
+                <div class="collapse-top">위 요소 (margin-bottom: 30px;)</div>
+                <div class="collapse-bottom">아래 요소 (margin-top: 20px;)</div>
+                <p style="font-size:9pt; color:#666; margin-top:5px;">* 두 마진이 더해져 50px이 되는 대신, 가장 큰 마진인 30px 하나로 병합되어 표시됩니다.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: 레이아웃 시스템 -->
+        <section>
+            <h2>3. Modern Layout (Flexbox & Grid)</h2>
+            
+            <p style="font-size:10pt; margin-bottom:5px;"><strong>💡 Flexbox (1차원 선형 정렬 - 가로 공간 주도 배분)</strong></p>
+            <div class="flex-container">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item special">Item 2 (flex-grow: 2)</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+
+            <p style="font-size:10pt; margin:15px 0 5px 0;"><strong>💡 Grid System (2차원 행/열 격자 배치 구조)</strong></p>
+            <div class="grid-container">
+                <div class="grid-item grid-item-wide">1번 영역 (2열 차지)</div>
+                <div class="grid-item">2번 영역</div>
+                <div class="grid-item">3번 영역</div>
+                <div class="grid-item">4번 영역</div>
+                <div class="grid-item">5번 영역</div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: 포지션 및 우선순위 법칙 -->
+        <section>
+            <h2>4. CSS Position & Specificity (우선순위 점수계산)</h2>
+            
+            <p><strong>💡 Position Absolute 배치 공간 흐름이 탈락된 자유 배치 기법</strong></p>
+            <div class="pos-container">
+                <p style="font-size:10pt;">부모 콘테이너 요소 기준 (.pos-container { position: relative; })</p>
+                <div class="pos-absolute">우측 상단 절대배치 아이템</div>
+            </div>
+
+            <div style="margin-top:20px;">
+                <p><strong>💡 우선순위 결정 방식 알고리즘 점수 테스트</strong></p>
+                <!-- 아래 문단은 요소, 클래스, 아이디 서식을 모두 가지고 타겟팅됩니다. -->
+                <p id="spec-id" class="spec-class specificity-test">
+                    이 글자의 색상은 무엇일까요? (요소=1점 vs 클래스=10점 vs 아이디=100점 점수 환산 결과에 의해 <strong>아이디 컬러인 블루</strong>로 표현됩니다.)
+                </p>
+                <p class="spec-class important-rule">
+                    이 문단은 클래스 지정이지만 !important 선언이 되어있어 무조건 최우선 적용(레드)됩니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: 반응형 미디어 쿼리 -->
+        <section>
+            <h2>5. Responsive Design (미디어 쿼리 화면 대응 전환)</h2>
+            <p style="margin-bottom:10px;">브라우저 가로 폭을 줄이거나 늘려서 아래 박스의 형태와 색상 변화를 관찰하세요.</p>
+            <div class="responsive-card">
+                <strong>현재 기기 상태 카드</strong><br>
+                (모바일 폭: 흰색 바탕 테두리 회색 / 데스크톱 폭 768px 이상: 연파란 바탕 테두리 파란색 확장 변형됨)
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

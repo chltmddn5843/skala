@@ -1,0 +1,42 @@
+:root{
+    --primary-color: #4CAF50;
+    --secondary-color: #f44336;
+    --background-color: #f5f5f5;
+    --text-color: #333;
+    --bg-color: #fff;
+    --default-padding: 16px;
+    --base-font: 'Malgun Gothic', sans-serif;
+}
+
+/* 선택자 및 초기호 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--base-font);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: var(--default-padding);
+    font-family: var(--base-font);
+}
+
+/* 레이아웃 및 공통 스타일 */
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--default-padding);
+    background-color: var(--bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+header {
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 15px;
+    text-align: center;
+    margin-bottom: 24px;
+}
