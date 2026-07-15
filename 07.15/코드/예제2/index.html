@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+    <a class="logo" href="#">🚀 MySite</a>
+    <ul class="menu">
+        <li><a href="#" class="active">홈</a></li>
+        <li><a href="#">강의</a></li>
+        <li><a href="#">갤러리</a></li>
+        <li><a href="https://codepen.io" target="_blank">CodePen</a></li>
+    </ul>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>나의 첫 웹사이트 ✨</h1>
+        <p>위 메뉴에 마우스를 올려 보세요 👆</p>
+      </div>
+    </section>
+
+    <section class="signup-section">
+      <div class="signup-card">
+        <div class="signup-header">
+          <p class="eyebrow">회원가입</p>
+          <h2>지금 바로 시작하세요</h2>
+          <p>간단한 정보만 입력하면 빠르게 가입이 완료됩니다.</p>
+        </div>
+
+        <form class="signup-form">
+          <div class="form-group">
+            <label for="username">사용자 이름</label>
+            <input type="text" id="username" name="username" required placeholder="홍길동">
+          </div>
+
+          <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" required placeholder="8자 이상 입력하세요">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="userEmail">이메일</label>
+              <input type="email" id="userEmail" name="userEmail" placeholder="example" required>
+            </div>
+            <div class="form-group">
+              <label for="emailDomain">도메인</label>
+              <select name="emailDomain" id="emailDomain">
+                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="daum.net">daum.net</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit">가입하기</button>
+        </form>
+      </div>
+    </section>
+
+</body>
+</html>

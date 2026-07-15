@@ -1,4 +1,10 @@
-1. ! — HTML 기본 뼈대 (압도적 1위)
+
+## 링크 
+https://polarized-pig-889.notion.site/Emmet-362f617e78e3806393a1d659395c8a7a
+
+
+
+## 1. ! — HTML 기본 뼈대 (압도적 1위)
 
 !  →  Tab
 
@@ -13,10 +19,13 @@ html
 <body>
 </body>
 </html>새 파일을 만들 때마다 무조건 첫 입력입니다. JSFiddle/CodePen이 숨겨주던 뼈대가 이것이라고 연결해서 설명하면 VSC 전환 브리지로도 완벽합니다. (lang="en"을 ko로 바꾸는 것까지 세트로 가르치세요.)
-2. .클래스명 — class 있는 div
+
+
+## 2. .클래스명 — class 있는 div
 .card  →  <div class="card"></div>
 .card>img+h1+p  →  카드 구조 한 번에태그를 생략하면 div가 기본입니다. 교재 예제 1의 카드가 한 줄로 나오는 걸 보여주면 반응이 좋아요. (#todoList처럼 #을 쓰면 id가 됩니다.)
-3. ul>li*4 — 자식(>)과 반복(*)
+
+## 3. ul>li*4 — 자식(>)과 반복(*)
 ul>li*4  →  Tab
 
 html

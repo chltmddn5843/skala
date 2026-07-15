@@ -1,0 +1,64 @@
+/* [기존 스타일 하단에 이어서 붙여넣어 주세요] */
+
+/* 모바일 메뉴 토글 버튼 스타일 (기본 상태는 숨김) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 110;
+}
+
+.menu-toggle .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #333;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* 태블릿 및 모바일 반응형 스타일 (화면 폭 768px 이하) */
+@media (max-width: 768px) {
+  /* 햄버거 버튼 표시 */
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* 네비게이션 메뉴를 화면에서 숨기고 세로 정렬로 변경 */
+  .main-navigation {
+    display: none; /* 기본 상태 숨김 */
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+
+  /* active 클래스가 붙으면 메뉴 나타남 */
+  .main-navigation.active {
+    display: block;
+  }
+
+  .main-navigation ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* 히어로 섹션 텍스트 크기 조정 */
+  .hero-content h2 {
+    font-size: 1.8rem;
+    padding: 0 20px;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
