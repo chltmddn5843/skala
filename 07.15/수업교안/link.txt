@@ -1,0 +1,55 @@
+IP 확인
+https://whatismyipaddress.com/
+
+HTML Tutorial
+https://www.w3schools.com/html/default.asp
+
+Emoji 정보
+https://emojipedia.org/
+
+CSS Tutorial
+https://www.w3schools.com/css/default.asp
+
+Grid View 샘플
+https://www.w3schools.com/css/css_rwd_grid.asp
+
+JS Tutorial
+https://www.w3schools.com/js/default.asp
+
+[실습] CSS
+1) CSS How To - https://www.w3schools.com/css/css_challenges_howto.asp
+2) CSS Selectors - https://www.w3schools.com/css/css_challenges_selectors.asp
+3) CSS Pseudo-classes - https://www.w3schools.com/css/css_challenges_pseudo_classes.asp
+
+1) CSS Colors - https://www.w3schools.com/css/css_challenges_colors.asp
+2) CSS Fonts - https://www.w3schools.com/css/css_challenges_font.asp
+3) CSS Text - https://www.w3schools.com/css/css_challenges_text.asp
+4) CSS Backgrounds - https://www.w3schools.com/css/css_challenges_background.asp
+5) CSS Position - https://www.w3schools.com/css/css_challenges_position.asp
+6) CSS Inheritance - https://www.w3schools.com/css/css_challenges_inheritance.asp
+
+1) CSS Float - https://www.w3schools.com/css/css_challenges_float.asp
+2) CSS Inline-block - https://www.w3schools.com/css/css_challenges_inline-block.asp
+3) Flexbox Intro - https://www.w3schools.com/css/css_challenges_flexbox_intro.asp
+4) Flexbox Container - https://www.w3schools.com/css/css_challenges_flexbox_container.asp
+5) Flexbox Items - https://www.w3schools.com/css/css3_flexbox_items.asp
+6) Grid Intro - https://www.w3schools.com/css/css_challenges_grid_intro.asp
+7) Grid Container - https://www.w3schools.com/css/css_challenges_grid_container.asp
+8) Grid Items - https://www.w3schools.com/css/css_challenges_grid_item.asp
+
+1) 2DTransforms - https://www.w3schools.com/css/css_challenges_css3_transforms.asp
+2) 3D Transforms - https://www.w3schools.com/css/css_challenges_css3_3dtransforms.asp
+3) Transition - https://www.w3schools.com/css/css_challenges_css3_transitions.asp
+4) Animations - https://www.w3schools.com/css/css_challenges_css3_animations.asp
+5) RWD Intro - https://www.w3schools.com/css/css_challenges_rwd_intro.asp
+6) RWD Viewport - https://www.w3schools.com/css/css_challenges_rwd_viewport.asp
+7) RWD Grid View- https://www.w3schools.com/css/css_challenges_rwd_grid.asp
+8) RWD Media Queries - https://www.w3schools.com/css/css_challenges_rwd_grid.asp
+9) CSS Variables - https://www.w3schools.com/css/css_challenges_css3_variables.asp
+
+JS 실습
+▪ Mouse Events : https://www.w3schools.com/js/js_events_mouse.asp
+▪ Keyboard Events : https://www.w3schools.com/js/js_events_keyboard.asp
+▪ Load Events : https://www.w3schools.com/js/js_events_load.asp
+▪ Timing Events : https://www.w3schools.com/js/js_events_timing.asp
+▪ 기타Events : https://www.w3schools.com/js/js_htmldom_events.asp
