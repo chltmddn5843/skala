@@ -1,0 +1,52 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.1.0'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.skala'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	implementation files(
+		"$rootDir/local-m2/org/springdoc/springdoc-openapi-starter-webmvc-ui/3.0.3/springdoc-openapi-starter-webmvc-ui-3.0.3.jar",
+		"$rootDir/local-m2/org/springdoc/springdoc-openapi-starter-webmvc-api/3.0.3/springdoc-openapi-starter-webmvc-api-3.0.3.jar",
+		"$rootDir/local-m2/org/springdoc/springdoc-openapi-starter-common/3.0.3/springdoc-openapi-starter-common-3.0.3.jar",
+		"$rootDir/local-m2/io/swagger/core/v3/swagger-core-jakarta/2.2.47/swagger-core-jakarta-2.2.47.jar",
+		"$rootDir/local-m2/io/swagger/core/v3/swagger-models-jakarta/2.2.47/swagger-models-jakarta-2.2.47.jar",
+		"$rootDir/local-m2/io/swagger/core/v3/swagger-annotations-jakarta/2.2.47/swagger-annotations-jakarta-2.2.47.jar",
+		"$rootDir/local-m2/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar",
+		"$rootDir/local-m2/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar",
+		"$rootDir/local-m2/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar",
+		"$rootDir/local-m2/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar",
+		"$rootDir/local-m2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar",
+		"$rootDir/local-m2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.21.4/jackson-dataformat-yaml-2.21.4.jar",
+		"$rootDir/local-m2/jakarta.xml.bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar",
+		"$rootDir/local-m2/jakarta.activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar",
+		"$rootDir/local-m2/org/webjars/swagger-ui/5.32.2/swagger-ui-5.32.2.jar",
+		"$rootDir/local-m2/org/webjars/webjars-locator-lite/1.1.3/webjars-locator-lite-1.1.3.jar"
+	)
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	testCompileOnly 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
