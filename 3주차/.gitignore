@@ -1,5 +1,60 @@
+# Secrets and local environment variables
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
+**/secrets.*
+**/credentials.*
+**/*-credentials.json
+**/application-secret.yml
+**/application-secret.yaml
+**/application-private.yml
+**/application-private.yaml
+**/application-local-overrides.yml
+**/application-local-overrides.yaml
+
+# Private keys, certificates, and keystores
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.jks
+**/*.keystore
+**/id_rsa
+**/id_ed25519
+
+# Gradle and build output
+**/.gradle/
+**/build/
+**/out/
+
 # Compiled IDE output
 **/bin/
 
 # Project-local Maven repository/cache
 **/local-m2/
+
+# IDE settings
+**/.idea/
+**/.vscode/
+**/*.iml
+**/*.ipr
+**/*.iws
+**/.classpath
+**/.project
+**/.settings/
+
+# Logs and runtime files
+**/*.log
+**/logs/
+**/*.pid
+**/uploads/
+**/local-uploads/
+
+# Learning materials and documents not intended for GitHub
+**/*.pdf
+**/*.PDF
+
+# Operating-system metadata
+**/.DS_Store
+**/Thumbs.db
