@@ -1,3 +1,38 @@
-1주차/git사용/git/
-.env
-env
+# 환경변수 및 비밀정보
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
+**/secrets.*
+**/credentials.*
+**/*-credentials.json
+**/application-secret.yml
+**/application-secret.yaml
+**/application-private.yml
+**/application-private.yaml
+**/application-local-overrides.yml
+**/application-local-overrides.yaml
+
+# 개인 키, 인증서, 키 저장소
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.jks
+**/*.keystore
+**/id_rsa
+**/id_ed25519
+
+# Gradle 및 빌드 결과
+**/.gradle/
+**/build/
+**/out/
+**/bin/
+
+# 프로젝트 내부 Maven 저장소
+**/local-m2/
+
+# IDE 설정
+**/.idea/
+**/.vscode/
+**/*.
