@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "Day 2",
+      "path": "."
+    },
+    {
+      "name": "학습자료",
+      "path": "../학습자료"
+    }
+  ],
+  "settings": {
+    "java.import.gradle.enabled": true,
+    "java.import.exclusions": [
+      "**/configuration-profile-sample/**",
+      "**/module05-Dependency-Injection01-basic (2)/**",
+      "**/module10-SpringMVC-CRUD-basic (1)/**"
+    ]
+  }
+}

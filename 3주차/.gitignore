@@ -1,0 +1,5 @@
+# Compiled IDE output
+**/bin/
+
+# Project-local Maven repository/cache
+**/local-m2/
