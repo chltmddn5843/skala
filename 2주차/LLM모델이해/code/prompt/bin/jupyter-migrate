@@ -1,0 +1,8 @@
+#!/bin/sh
+'''exec' "/Users/chltmddn5843/Library/CloudStorage/GoogleDrive-chltmddn5843@gmail.com/내 드라이브/SKALA/2주차/LLM모델이해/code/prompt/bin/python" "$0" "$@"
+' '''
+import sys
+from jupyter_core.migrate import main
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(main())

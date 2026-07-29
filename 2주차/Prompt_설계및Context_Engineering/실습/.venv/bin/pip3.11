@@ -1,0 +1,8 @@
+#!/bin/sh
+'''exec' "/Users/chltmddn5843/Library/CloudStorage/GoogleDrive-chltmddn5843@gmail.com/내 드라이브/SKALA/2주차/Prompt_설계및Context_Engineering/실습/.venv/bin/python3.11" "$0" "$@"
+' '''
+import sys
+from pip._internal.cli.main import main
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(main())

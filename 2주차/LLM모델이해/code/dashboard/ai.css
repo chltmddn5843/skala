@@ -1,0 +1,4 @@
+.ai-button{border:1px solid #cdd8ff;border-radius:10px;padding:11px 16px;background:#eef3ff;color:#315bc7;cursor:pointer;font-size:13px;font-weight:600}
+.ai-button:hover{background:#e2eaff}.ai-button:disabled{cursor:wait;opacity:.65}.ai-button span{margin-right:5px}
+.ai-status{margin:-2px 0 14px;padding:13px 16px;border:1px solid #dce3f8;border-radius:12px;background:#f6f8ff;color:#52617d;font-size:12px}
+.ai-status.error{border-color:#f3cccc;background:#fff4f4;color:#a33}

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="STEP GUARD 에스컬레이터 예방점검 대시보드" />
+  <title>STEP GUARD Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./ai.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="STEP GUARD 홈">
+        <span class="brand-mark">S</span>
+        <span><b>STEP GUARD</b><small>Maintenance Control</small></span>
+      </a>
+      <nav>
+        <a class="active" href="#overview">Overview</a>
+        <a href="#schedule">점검 일정</a>
+        <a href="#workforce">인력 운영</a>
+        <a href="#facilities">시설 현황</a>
+      </nav>
+      <div class="side-note">
+        <span class="live-dot"></span> CSV 데모 데이터
+        <small>최종 승인은 현장 책임자가 수행합니다.</small>
+      </div>
+    </aside>
+
+    <main id="top">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI PREVENTIVE MAINTENANCE</p>
+          <h1>월간 예방점검 관제</h1>
+        </div>
+        <div class="header-actions">
+          <label class="month-control">계획월 <input id="monthFilter" type="month" value="2026-08" /></label>
+          <button id="aiPlanBtn" class="ai-button"><span>✦</span> AI 일정 생성</button>
+          <button id="downloadBtn" class="primary">CSV 다운로드</button>
+        </div>
+      </header>
+
+      <section id="overview" class="kpi-grid" aria-label="주요 현황">
+        <article class="kpi"><span>등록 시설</span><strong id="facilityCount">-</strong><small>대상 에스컬레이터</small></article>
+        <article class="kpi danger"><span>긴급점검</span><strong id="emergencyCount">-</strong><small>즉시 확인 대상</small></article>
+        <article class="kpi"><span>월간 점검</span><strong id="scheduleCount">-</strong><small>3종 점검 합계</small></article>
+        <article class="kpi"><span>운영 인력</span><strong id="workerCount">-</strong><small>17개 고정조 + 대체 1명</small></article>
+      </section>
+      <div id="aiStatus" class="ai-status" hidden></div>
+
+      <section class="panel split-panel">
+        <div>
+          <div class="section-title"><div><p class="eyebrow">INSPECTION MIX</p><h2>점검 구성</h2></div></div>
+          <div id="inspectionMix" class="mix-list"></div>
+        </div>
+        <div class="agent-flow">
+          <div class="section-title"><div><p class="eyebrow">AGENT FLOW</p><h2>판단 흐름</h2></div></div>
+          <div class="flow-row"><span>01</span><p><b>기계 분석</b><small>반복고장·현재 이상</small></p></div>
+          <div class="flow-row"><span>02</span><p><b>이용객 분석</b><small>혼잡·추천시간</small></p></div>
+          <div class="flow-row"><span>03</span><p><b>점검 분류</b><small>긴급·수시특별·자체</small></p></div>
+          <div class="flow-row"><span>04</span><p><b>현장 일정</b><small>2인 1조·3교대</small></p></div>
+        </div>
+      </section>
+
+      <section id="schedule" class="panel">
+        <div class="section-title responsive-title">
+          <div><p class="eyebrow">MONTHLY SCHEDULE</p><h2>2026년 8월 점검 일정</h2></div>
+          <div class="filters">
+            <select id="typeFilter" aria-label="점검 종류"><option value="all">전체 점검</option><option>긴급점검</option><option>수시특별점검</option><option>자체점검</option></select>
+            <select id="stationFilter" aria-label="역 선택"><option value="all">전체 역</option></select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>종류</th><th>점검일</th><th>시간</th><th>시설</th><th>담당조</th><th>중점점검</th><th>승인상태</th></tr></thead>
+            <tbody id="scheduleBody"></tbody>
+          </table>
+        </div>
+        <p class="table-help">날짜와 승인상태를 변경하면 브라우저에 임시 저장됩니다.</p>
+      </section>
+
+      <section id="workforce" class="panel">
+        <div class="section-title"><div><p class="eyebrow">WORKFORCE</p><h2>3교대 운영 현황</h2></div><span class="muted">2인 1조 기준</span></div>
+        <div id="shiftCards" class="shift-grid"></div>
+      </section>
+
+      <section id="facilities" class="panel">
+        <div class="section-title"><div><p class="eyebrow">FACILITIES</p><h2>시설 상태</h2></div></div>
+        <div id="facilityCards" class="facility-grid"></div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
