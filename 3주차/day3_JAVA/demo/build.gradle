@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+	// 에러 해결하려고함 ()
 	implementation platform(
         org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
     )
@@ -26,15 +27,30 @@ dependencies {
     annotationProcessor platform(
         org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
     )
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Spring Boot Web, Thymeleaf ???
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// 애플리케이션 상태와 메트릭 확인
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	// DTO 입력값 검증
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Spring MVC 기반 REST API (*에러)
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// 테스트
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 통합 설치됨
+	// testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'
+	// testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+	// testImplementation 'org.springframework.boot:spring-boot-starter-web-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	// 개발
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 }
