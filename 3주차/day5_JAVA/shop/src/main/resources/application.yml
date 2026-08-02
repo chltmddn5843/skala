@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: skala-shop-api
+  datasource:
+    url: jdbc:h2:mem:shopdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true # 콘솔에 출력되는 sql을 보기 좋게 출력
+
+server:
+  port: 8080
+
+jwt: # jwt가 무엇인가? jwt는 json web token의 약자이며, json 형식으로 데이터를 안전하게 전송하기 위한 웹 표준입니다. jwt는 header, payload, signature로 구성되어 있으며, 주로 인증 및 권한 부여에 사용됩니다.
+  secret: ${JWT_SECRET:U0tBTEEtU0hPUC1KV1QtU0VDUkVULUtFWS0yMDI2LUtFRVAtVEhJUy1TQUZFISE=}
+  expiration-minutes: 60 # 1시간
+logging:
+  level:
+    root: info                 # 전체 기본 레벨: INFO 이상만 출력
+    com.skala.shop: debug      # 우리 패키지만 DEBUG까지 출력 (개발용)
+  file:
+    name: logs/skala-shop.log  # 콘솔과 동시에 파일로도 기록 (logs 디렉터리 자동 생성)
