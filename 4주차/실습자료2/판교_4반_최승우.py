@@ -49,6 +49,23 @@ def read_csv_file(path):
 
 
 # 2. EDA 및 이상치 탐지/제거 함수
+def eda_print_info(df):
+    if df is None:
+        print("원본 데이터가 올바르지 않습니다.")
+        return
+    print("\n" + "=" * 50)
+    print("[EDA 정보]")
+    print("=" * 50)
+    df.info()
+    print("칼럼 정보")
+    print(df.dtypes)
+    print("\n결측치 개수:")
+    print(df.isnull().sum())
+    print("\n결측치 칼럼")
+    print(df.isnull().sum()[df.isnull().sum() > 0])
+    
+
+# 3. 이상치 탐지/제거 함수
 def detect_and_remove_outliers(df, column):
     if df is None:
         print("원본 데이터가 올바르지 않습니다.")
@@ -212,6 +229,9 @@ def main():
 
     _, _, lower_bound, upper_bound = detect_and_remove_outliers(df, 'amount')
 
+    # EDA 정보 출력
+    eda_print_info(df)
+
     # 2. 각 방식별 집계 결과 확인 및 출력
     logging.info("각 도구별 집계를 수행합니다.")
     pandas_df = pandas_groupby_named_aggregation(file_path, lower_bound, upper_bound)
@@ -252,7 +272,15 @@ def main():
 
     benchmark_df = pd.DataFrame(results).sort_values(by="평균 실행 시간(초)")
     print("\n" + benchmark_df.to_string(index=False))
-    
+
+    # iqr 이상치 제거된 데이터프레임 저장
+    cleaned_df = df[(df['amount'] >= lower_bound) & (df['amount'] <= upper_bound)]
+    cleaned_df.to_csv("cleaned_sales.csv", index=False, encoding="utf-8-sig")
+    logging.info("IQR 이상치 제거 후 데이터프레임을 'cleaned_sales.csv'로 저장했습니다.")
+
+    # 이상치 제거된 데이터프레임의 grouby 결과를 CSV로 저장
+    pandas_df.to_csv("pandas_groupby_result.csv", index=False, encoding="utf-8-sig")
+
     # 벤치마크 최종 결과를 로그 파일에 남김
     logging.info(f"최종 벤치마크 결과:\n{benchmark_df.to_string(index=False)}")
     logging.info("================ 프로그램 완료 ================")
