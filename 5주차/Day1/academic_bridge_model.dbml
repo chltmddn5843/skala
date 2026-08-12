@@ -1,0 +1,72 @@
+Project academic_bridge_model {
+  database_type: 'PostgreSQL'
+  Note: '축소된 학사관리시스템 Bridge Model'
+}
+
+Table academic.users {
+  user_id bigint [pk, increment]
+  login_id varchar(50) [not null, unique]
+  password_hash varchar(255) [not null]
+  name varchar(100) [not null]
+  role varchar(20) [not null, note: 'STUDENT | PROFESSOR | ADMIN']
+}
+
+Table academic.terms {
+  term_id bigint [pk, increment]
+  year smallint [not null]
+  semester varchar(10) [not null, note: 'SPRING | SUMMER | FALL | WINTER']
+  registration_start timestamptz [not null]
+  registration_end timestamptz [not null]
+  status varchar(20) [not null, default: 'PLANNED', note: 'PLANNED | OPEN | CLOSED']
+
+  indexes {
+    (year, semester) [unique]
+  }
+}
+
+Table academic.courses {
+  course_id bigint [pk, increment]
+  course_code varchar(20) [not null, unique]
+  name varchar(100) [not null]
+  credits numeric(2,1) [not null]
+}
+
+Table academic.course_offerings {
+  offering_id bigint [pk, increment]
+  course_id bigint [not null]
+  term_id bigint [not null]
+  professor_id bigint [not null]
+  section_no smallint [not null]
+  capacity integer [not null]
+  room varchar(50) [not null]
+  status varchar(20) [not null, default: 'PLANNED', note: 'PLANNED | OPEN | CLOSED | COMPLETED']
+
+  indexes {
+    (term_id, course_id, section_no) [unique]
+    professor_id
+    (term_id, status)
+  }
+}
+
+Table academic.enrollments {
+  enrollment_id bigint [pk, increment]
+  student_id bigint [not null]
+  offering_id bigint [not null]
+  enrolled_at timestamptz [not null, default: `now()`]
+  score numeric(5,2)
+  letter_grade varchar(2) [note: 'A+ | A0 | B+ | B0 | C+ | C0 | D+ | D0 | F']
+  grade_status varchar(20) [not null, default: 'NOT_GRADED', note: 'NOT_GRADED | DRAFT | PUBLISHED']
+
+  indexes {
+    (student_id, offering_id) [unique]
+    offering_id
+  }
+
+  Note: 'Bridge: 학생과 개설 강좌의 N:M 관계 + 성적 처리'
+}
+
+Ref: academic.courses.course_id < academic.course_offerings.course_id
+Ref: academic.terms.term_id < academic.course_offerings.term_id
+Ref: academic.users.user_id < academic.course_offerings.professor_id
+Ref: academic.users.user_id < academic.enrollments.student_id
+Ref: academic.course_offerings.offering_id < academic.enrollments.offering_id

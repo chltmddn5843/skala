@@ -1,0 +1,240 @@
+
+[1. INNER JOIN]
++------------+-----------+----------+-------+
+| student_id | name      | course   | grade |
++------------+-----------+----------+-------+
+| 1          | Student_1 | Course_3 | C     |
+| 2          | Student_2 | Course_4 | D     |
+| 2          | Student_2 | Course_5 | A     |
+| 4          | Student_4 | Course_6 | B     |
+| 5          | Student_5 | Course_7 | C     |
++------------+-----------+----------+-------+
+
+[2. LEFT JOIN]
++------------+-----------+----------+-------+
+| student_id | name      | course   | grade |
++------------+-----------+----------+-------+
+| 1          | Student_1 | Course_3 | C     |
+| 2          | Student_2 | Course_4 | D     |
+| 2          | Student_2 | Course_5 | A     |
+| 3          | Student_3 | NULL     | NULL  |
+| 4          | Student_4 | Course_6 | B     |
++------------+-----------+----------+-------+
+
+[3. RIGHT JOIN]
++------------+-----------+---------------------+----------+-------+
+| student_id | name      | enrolled_student_id | course   | grade |
++------------+-----------+---------------------+----------+-------+
+| NULL       | NULL      | 1001                | AI       | A     |
+| NULL       | NULL      | 1010                | ML       | B     |
+| 1          | Student_1 | 1                   | Course_3 | C     |
+| 2          | Student_2 | 2                   | Course_4 | D     |
+| 2          | Student_2 | 2                   | Course_5 | A     |
++------------+-----------+---------------------+----------+-------+
+
+[4. FULL OUTER JOIN]
++------------+-----------+---------------------+----------+-------+
+| student_id | name      | enrolled_student_id | course   | grade |
++------------+-----------+---------------------+----------+-------+
+| 1          | Student_1 | 1                   | Course_3 | C     |
+| 2          | Student_2 | 2                   | Course_4 | D     |
+| 2          | Student_2 | 2                   | Course_5 | A     |
+| 3          | Student_3 | NULL                | NULL     | NULL  |
+| 4          | Student_4 | 4                   | Course_6 | B     |
++------------+-----------+---------------------+----------+-------+
+
+[5. 미수강 학생]
++------------+------------+-------+------+
+| student_id | name       | major | gpa  |
++------------+------------+-------+------+
+| 3          | Student_3  | CE    | 2.30 |
+| 6          | Student_6  | EE    | 2.60 |
+| 9          | Student_9  | BIO   | 2.90 |
+| 12         | Student_12 | ME    | 3.20 |
+| 15         | Student_15 | CS    | 3.50 |
++------------+------------+-------+------+
+
+[6. 수강 학생]
++------------+-----------+-------+------+
+| student_id | name      | major | gpa  |
++------------+-----------+-------+------+
+| 1          | Student_1 | EE    | 2.10 |
+| 2          | Student_2 | ME    | 2.20 |
+| 4          | Student_4 | BIO   | 2.40 |
+| 5          | Student_5 | CS    | 2.50 |
+| 7          | Student_7 | ME    | 2.70 |
++------------+-----------+-------+------+
+
+[7. 고객별 주문 집계]
++-------------+---------------+-------------+--------------+
+| customer_id | customer_name | order_count | total_amount |
++-------------+---------------+-------------+--------------+
+| 1           | Customer_1    | 6           | 16530.00     |
+| 2           | Customer_2    | 6           | 12608.06     |
+| 3           | Customer_3    | 6           | 12686.12     |
+| 4           | Customer_4    | 6           | 12764.18     |
+| 5           | Customer_5    | 6           | 12842.24     |
++-------------+---------------+-------------+--------------+
+
+[8. 주문 총액 상위 5명]
++-------------+---------------+--------------+
+| customer_id | customer_name | total_amount |
++-------------+---------------+--------------+
+| 154         | Customer_154  | 19467.18     |
+| 153         | Customer_153  | 19389.12     |
+| 152         | Customer_152  | 19311.06     |
+| 151         | Customer_151  | 19233.00     |
+| 150         | Customer_150  | 19154.94     |
++-------------+---------------+--------------+
+
+[9. 직원과 매니저]
++--------+---------------+--------------+
+| emp_id | employee_name | manager_name |
++--------+---------------+--------------+
+| 1      | CEO           | NULL         |
+| 2      | Mgr_2         | CEO          |
+| 3      | Mgr_3         | CEO          |
+| 4      | Mgr_4         | CEO          |
+| 5      | Mgr_5         | CEO          |
++--------+---------------+--------------+
+
+[10. 과목 분포]
++-----------+---------------+
+| course    | student_count |
++-----------+---------------+
+| 미수강       | 333           |
+| Course_1  | 48            |
+| Course_10 | 48            |
+| Course_11 | 48            |
+| Course_12 | 48            |
++-----------+---------------+
+
+[11. DB 미수강 학생]
++------------+-----------+-------+------+
+| student_id | name      | major | gpa  |
++------------+-----------+-------+------+
+| 1          | Student_1 | EE    | 2.10 |
+| 2          | Student_2 | ME    | 2.20 |
+| 3          | Student_3 | CE    | 2.30 |
+| 4          | Student_4 | BIO   | 2.40 |
+| 5          | Student_5 | CS    | 2.50 |
++------------+-----------+-------+------+
+
+[12. 과목별 책임 매니저]
++-----------+---------------+--------------+
+| course    | student_count | manager_name |
++-----------+---------------+--------------+
+| AI        | 1             | Mgr_2        |
+| Course_1  | 48            | Mgr_3        |
+| Course_10 | 48            | Mgr_4        |
+| Course_11 | 48            | Mgr_5        |
+| Course_12 | 48            | Mgr_6        |
++-----------+---------------+--------------+
+
+[13. 학생별 과목 추천 후보]
++------------+-----------+-----------+
+| student_id | name      | course    |
++------------+-----------+-----------+
+| 1          | Student_1 | AI        |
+| 1          | Student_1 | Course_1  |
+| 1          | Student_1 | Course_10 |
+| 1          | Student_1 | Course_11 |
+| 1          | Student_1 | Course_12 |
+| 1          | Student_1 | Course_13 |
+| 1          | Student_1 | Course_14 |
+| 1          | Student_1 | Course_15 |
+| 1          | Student_1 | Course_16 |
+| 1          | Student_1 | Course_17 |
+| 1          | Student_1 | Course_18 |
+| 1          | Student_1 | Course_19 |
+| 1          | Student_1 | Course_2  |
+| 1          | Student_1 | Course_20 |
+| 1          | Student_1 | Course_3  |
+| 1          | Student_1 | Course_4  |
+| 1          | Student_1 | Course_5  |
+| 1          | Student_1 | Course_6  |
+| 1          | Student_1 | Course_7  |
+| 1          | Student_1 | Course_8  |
+| 1          | Student_1 | Course_9  |
+| 1          | Student_1 | DB        |
+| 1          | Student_1 | ML        |
+| 2          | Student_2 | AI        |
+| 2          | Student_2 | Course_1  |
+| 2          | Student_2 | Course_10 |
+| 2          | Student_2 | Course_11 |
+| 2          | Student_2 | Course_12 |
+| 2          | Student_2 | Course_13 |
+| 2          | Student_2 | Course_14 |
+| 2          | Student_2 | Course_15 |
+| 2          | Student_2 | Course_16 |
+| 2          | Student_2 | Course_17 |
+| 2          | Student_2 | Course_18 |
+| 2          | Student_2 | Course_19 |
+| 2          | Student_2 | Course_2  |
+| 2          | Student_2 | Course_20 |
+| 2          | Student_2 | Course_3  |
+| 2          | Student_2 | Course_4  |
+| 2          | Student_2 | Course_5  |
+| 2          | Student_2 | Course_6  |
+| 2          | Student_2 | Course_7  |
+| 2          | Student_2 | Course_8  |
+| 2          | Student_2 | Course_9  |
+| 2          | Student_2 | DB        |
+| 2          | Student_2 | ML        |
+| 3          | Student_3 | AI        |
+| 3          | Student_3 | Course_1  |
+| 3          | Student_3 | Course_10 |
+| 3          | Student_3 | Course_11 |
+| 3          | Student_3 | Course_12 |
+| 3          | Student_3 | Course_13 |
+| 3          | Student_3 | Course_14 |
+| 3          | Student_3 | Course_15 |
+| 3          | Student_3 | Course_16 |
+| 3          | Student_3 | Course_17 |
+| 3          | Student_3 | Course_18 |
+| 3          | Student_3 | Course_19 |
+| 3          | Student_3 | Course_2  |
+| 3          | Student_3 | Course_20 |
+| 3          | Student_3 | Course_3  |
+| 3          | Student_3 | Course_4  |
+| 3          | Student_3 | Course_5  |
+| 3          | Student_3 | Course_6  |
+| 3          | Student_3 | Course_7  |
+| 3          | Student_3 | Course_8  |
+| 3          | Student_3 | Course_9  |
+| 3          | Student_3 | DB        |
+| 3          | Student_3 | ML        |
+| 4          | Student_4 | AI        |
+| 4          | Student_4 | Course_1  |
+| 4          | Student_4 | Course_10 |
+| 4          | Student_4 | Course_11 |
+| 4          | Student_4 | Course_12 |
+| 4          | Student_4 | Course_13 |
+| 4          | Student_4 | Course_14 |
+| 4          | Student_4 | Course_15 |
+| 4          | Student_4 | Course_16 |
+| 4          | Student_4 | Course_17 |
+| 4          | Student_4 | Course_18 |
+| 4          | Student_4 | Course_19 |
+| 4          | Student_4 | Course_2  |
+| 4          | Student_4 | Course_20 |
+| 4          | Student_4 | Course_3  |
+| 4          | Student_4 | Course_4  |
+| 4          | Student_4 | Course_5  |
+| 4          | Student_4 | Course_6  |
+| 4          | Student_4 | Course_7  |
+| 4          | Student_4 | Course_8  |
+| 4          | Student_4 | Course_9  |
+| 4          | Student_4 | DB        |
+| 4          | Student_4 | ML        |
+| 5          | Student_5 | AI        |
+| 5          | Student_5 | Course_1  |
+| 5          | Student_5 | Course_10 |
+| 5          | Student_5 | Course_11 |
+| 5          | Student_5 | Course_12 |
+| 5          | Student_5 | Course_13 |
+| 5          | Student_5 | Course_14 |
+| 5          | Student_5 | Course_15 |
++------------+-----------+-----------+
+
+로그 저장: /Users/chltmddn5843/Downloads/skala/5주차/Day2/실습/logs/종합실습2_all_20260812_154740.log
