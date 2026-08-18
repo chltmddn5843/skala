@@ -1,0 +1,42 @@
+Q07 재고 부족 위험 상품 [after]
+
+SQL
+SELECT
+            p.product_id,
+            p.product_name,
+            i.qty_on_hand,
+            i.reorder_point,
+            i.reorder_point - i.qty_on_hand AS shortage
+        FROM ecom.inventory i
+        JOIN ecom.products p
+          ON p.product_id = i.product_id
+        WHERE i.qty_on_hand < i.reorder_point
+        ORDER BY
+            shortage DESC,
+            p.product_id
+
+RESULT (7.04 ms)
+product_id | product_name | qty_on_hand | reorder_point | shortage
+-----------+--------------+-------------+---------------+---------
+408        | Product 37   | 0           | 30            | 30      
+427        | Product 138  | 0           | 30            | 30      
+567        | Product 20   | 0           | 30            | 30      
+165        | Product 363  | 1           | 30            | 29      
+239        | Product 84   | 1           | 30            | 29      
+378        | Product 357  | 1           | 30            | 29      
+457        | Product 208  | 1           | 30            | 29      
+547        | Product 470  | 1           | 30            | 29      
+560        | Product 560  | 1           | 30            | 29      
+29         | Product 341  | 2           | 30            | 28      
+109        | Product 242  | 2           | 30            | 28      
+304        | Product 26   | 2           | 30            | 28      
+322        | Product 206  | 2           | 30            | 28      
+345        | Product 446  | 2           | 30            | 28      
+499        | Product 209  | 2           | 30            | 28      
+594        | Product 80   | 2           | 30            | 28      
+554        | Product 180  | 3           | 30            | 27      
+465        | Product 318  | 4           | 30            | 26      
+513        | Product 489  | 4           | 30            | 26      
+538        | Product 349  | 4           | 30            | 26      
+... 43 rows omitted
+total rows: 63

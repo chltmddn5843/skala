@@ -1,0 +1,16 @@
+Q01 최근 한 달 실제 총매출 [before]
+
+SQL
+SELECT
+            sum(oi.line_total) AS total_revenue
+        FROM ecom.orders o
+        JOIN ecom.order_items oi
+          ON oi.order_id = o.order_id
+        WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+          AND o.order_ts >= now() - interval '1 month'
+
+RESULT (22.45 ms)
+total_revenue
+-------------
+2063896.36   
+total rows: 1

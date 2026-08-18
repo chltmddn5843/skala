@@ -1,0 +1,40 @@
+Q02 월별 주문 수·매출·AOV [before]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT
+            date_trunc('month', o.order_ts)::date AS month,
+            count(DISTINCT o.order_id) AS order_count,
+            sum(oi.line_total) AS revenue,
+            sum(oi.line_total) / count(DISTINCT o.order_id) AS aov
+        FROM ecom.orders o
+        JOIN ecom.order_items oi
+          ON oi.order_id = o.order_id
+        WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+        GROUP BY date_trunc('month', o.order_ts)::date
+        ORDER BY month
+
+PERFORMANCE RESULT
+GroupAggregate  (cost=2504.56..2881.51 rows=7613 width=76) (actual time=14.644..16.750 rows=5 loops=1)
+  Group Key: ((date_trunc('month'::text, o.order_ts))::date)
+  Buffers: shared hit=366
+  ->  Sort  (cost=2504.56..2555.98 rows=20565 width=18) (actual time=14.462..15.102 rows=20557 loops=1)
+        Sort Key: ((date_trunc('month'::text, o.order_ts))::date), o.order_id
+        Sort Method: quicksort  Memory: 1572kB
+        Buffers: shared hit=366
+        ->  Hash Join  (cost=333.15..1031.30 rows=20565 width=18) (actual time=1.588..10.974 rows=20557 loops=1)
+              Hash Cond: (oi.order_id = o.order_id)
+              Buffers: shared hit=360
+              ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.003..1.413 rows=26716 loops=1)
+                    Buffers: shared hit=258
+              ->  Hash  (cost=237.99..237.99 rows=7613 width=16) (actual time=1.566..1.566 rows=7613 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 421kB
+                    Buffers: shared hit=102
+                    ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=16) (actual time=0.004..1.116 rows=7613 loops=1)
+                          Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                          Rows Removed by Filter: 2277
+                          Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=280
+Planning Time: 0.515 ms
+Execution Time: 16.797 ms

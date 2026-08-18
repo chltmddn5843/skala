@@ -1,0 +1,56 @@
+Q02 월별 주문 수·매출·AOV [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH order_totals AS (
+            SELECT
+                o.order_id,
+                date_trunc('month', o.order_ts)::date AS month,
+                sum(oi.line_total) AS amount
+            FROM ecom.orders o
+            JOIN ecom.order_items oi
+              ON oi.order_id = o.order_id
+            WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+            GROUP BY
+                o.order_id,
+                date_trunc('month', o.order_ts)::date
+        )
+
+        SELECT
+            month,
+            count(*) AS order_count,
+            sum(amount) AS revenue,
+            ecom.safe_div(sum(amount), count(*)) AS aov
+        FROM order_totals
+        GROUP BY month
+        ORDER BY month
+
+PERFORMANCE RESULT
+Sort  (cost=1464.63..1465.13 rows=200 width=76) (actual time=13.735..13.737 rows=5 loops=1)
+  Sort Key: ((date_trunc('month'::text, o.order_ts))::date)
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=363
+  ->  HashAggregate  (cost=1451.99..1456.99 rows=200 width=76) (actual time=13.726..13.728 rows=5 loops=1)
+        Group Key: ((date_trunc('month'::text, o.order_ts))::date)
+        Batches: 1  Memory Usage: 40kB
+        Buffers: shared hit=360
+        ->  HashAggregate  (cost=1185.54..1318.76 rows=7613 width=44) (actual time=12.010..13.063 rows=7613 loops=1)
+              Group Key: o.order_id, (date_trunc('month'::text, o.order_ts))::date
+              Batches: 1  Memory Usage: 3217kB
+              Buffers: shared hit=360
+              ->  Hash Join  (cost=333.15..1031.30 rows=20565 width=18) (actual time=1.071..9.196 rows=20557 loops=1)
+                    Hash Cond: (oi.order_id = o.order_id)
+                    Buffers: shared hit=360
+                    ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.002..1.188 rows=26716 loops=1)
+                          Buffers: shared hit=258
+                    ->  Hash  (cost=237.99..237.99 rows=7613 width=16) (actual time=1.057..1.057 rows=7613 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 421kB
+                          Buffers: shared hit=102
+                          ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=16) (actual time=0.002..0.732 rows=7613 loops=1)
+                                Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                                Rows Removed by Filter: 2277
+                                Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=498
+Planning Time: 0.507 ms
+Execution Time: 13.810 ms

@@ -1,0 +1,187 @@
+Project ecommerce {
+  database_type: 'PostgreSQL'
+  Note: '종합실습 4 E-Commerce ERD'
+}
+
+Table ecom.country {
+  country_code char(2) [pk]
+  country_name text [not null]
+}
+
+Table ecom.customers {
+  customer_id bigint [pk, increment]
+  email citext [not null, unique]
+  full_name text [not null]
+  phone text
+  created_at timestamptz [not null, default: `now()`]
+  marketing_opt_in boolean [not null, default: false]
+  country_code char(2)
+
+  indexes {
+    created_at [name: 'idx_customers_created_at']
+    country_code [name: 'idx_customers_country']
+  }
+}
+
+Table ecom.addresses {
+  address_id bigint [pk, increment]
+  customer_id bigint [not null]
+  line1 text [not null]
+  line2 text
+  city text [not null]
+  state text
+  postal_code text
+  country_code char(2) [not null]
+  is_default boolean [not null, default: false]
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    customer_id [name: 'idx_addresses_customer']
+  }
+}
+
+Table ecom.categories {
+  category_id bigint [pk, increment]
+  parent_id bigint [note: '상위 카테고리. 삭제 시 NULL']
+  category_name text [not null]
+
+  indexes {
+    parent_id [name: 'idx_categories_parent']
+  }
+}
+
+Table ecom.products {
+  product_id bigint [pk, increment]
+  sku text [not null, unique]
+  product_name text [not null]
+  category_id bigint
+  unit text [not null, default: 'each']
+  active boolean [not null, default: true]
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    category_id [name: 'idx_products_category']
+    active [name: 'idx_products_active']
+  }
+}
+
+Table ecom.product_prices {
+  price_id bigint [pk, increment]
+  product_id bigint [not null]
+  price numeric(12,2) [not null, note: '0 이상']
+  currency char(3) [not null, default: 'USD']
+  valid_from timestamptz [not null]
+  valid_to timestamptz [not null]
+  is_current boolean [not null, default: true]
+
+  Note: 'SCD2 가격 이력. valid_from < valid_to. 동일 상품의 유효기간 중복 금지. 현재 가격은 상품당 1개.'
+}
+
+Table ecom.suppliers {
+  supplier_id bigint [pk, increment]
+  supplier_name text [not null]
+  phone text
+}
+
+Table ecom.product_suppliers {
+  product_id bigint [not null]
+  supplier_id bigint [not null]
+  primary_supplier boolean [not null, default: false]
+
+  indexes {
+    (product_id, supplier_id) [pk]
+  }
+}
+
+Table ecom.inventory {
+  product_id bigint [pk]
+  qty_on_hand int [not null, default: 0, note: '0 이상']
+  reorder_point int [not null, default: 10, note: '0 이상']
+  updated_at timestamptz [not null, default: `now()`]
+}
+
+Table ecom.orders {
+  order_id bigint [pk, increment]
+  customer_id bigint [not null]
+  order_status text [not null, note: 'created, paid, shipped, delivered, cancelled, refunded']
+  order_ts timestamptz [not null, default: `now()`]
+  shipping_address_id bigint
+  coupon_code text
+  channel text [not null, default: 'web', note: 'web, mobile, marketplace']
+
+  indexes {
+    (customer_id, order_ts) [name: 'idx_orders_customer_ts']
+    order_status [name: 'idx_orders_status']
+  }
+}
+
+Table ecom.order_items {
+  order_item_id bigint [pk, increment]
+  order_id bigint [not null]
+  product_id bigint [not null]
+  qty int [not null, note: '0보다 큼']
+  unit_price numeric(12,2) [not null, note: '0 이상']
+  discount numeric(12,2) [not null, default: 0, note: '0 이상, unit_price * qty 이하']
+  line_total numeric(12,2) [not null, note: '생성 컬럼: unit_price * qty - discount']
+
+  indexes {
+    order_id [name: 'idx_order_items_order']
+    product_id [name: 'idx_order_items_product']
+  }
+}
+
+Table ecom.payments {
+  payment_id bigint [pk, increment]
+  order_id bigint [not null]
+  method text [not null, note: 'card, bank, paypal, cod']
+  amount numeric(12,2) [not null, note: '0 이상']
+  paid_at timestamptz
+
+  indexes {
+    order_id [name: 'idx_payments_order']
+  }
+}
+
+Table ecom.shipments {
+  shipment_id bigint [pk, increment]
+  order_id bigint [not null]
+  carrier text [not null]
+  tracking_no text
+  shipped_at timestamptz
+  delivered_at timestamptz
+
+  indexes {
+    order_id [name: 'idx_shipments_order']
+  }
+}
+
+Table ecom.reviews {
+  review_id bigint [pk, increment]
+  product_id bigint [not null]
+  customer_id bigint [not null]
+  rating int [not null, note: '1~5']
+  review_text text
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (product_id, customer_id) [unique, name: 'reviews_product_customer_key']
+  }
+}
+
+Ref: ecom.customers.country_code > ecom.country.country_code
+Ref: ecom.addresses.customer_id > ecom.customers.customer_id [delete: cascade]
+Ref: ecom.addresses.country_code > ecom.country.country_code
+Ref: ecom.categories.parent_id > ecom.categories.category_id [delete: set null]
+Ref: ecom.products.category_id > ecom.categories.category_id
+Ref: ecom.product_prices.product_id > ecom.products.product_id [delete: cascade]
+Ref: ecom.product_suppliers.product_id > ecom.products.product_id [delete: cascade]
+Ref: ecom.product_suppliers.supplier_id > ecom.suppliers.supplier_id [delete: cascade]
+Ref: ecom.inventory.product_id - ecom.products.product_id [delete: cascade]
+Ref: ecom.orders.customer_id > ecom.customers.customer_id
+Ref: ecom.orders.shipping_address_id > ecom.addresses.address_id
+Ref: ecom.order_items.order_id > ecom.orders.order_id [delete: cascade]
+Ref: ecom.order_items.product_id > ecom.products.product_id
+Ref: ecom.payments.order_id > ecom.orders.order_id [delete: cascade]
+Ref: ecom.shipments.order_id > ecom.orders.order_id [delete: cascade]
+Ref: ecom.reviews.product_id > ecom.products.product_id [delete: cascade]
+Ref: ecom.reviews.customer_id > ecom.customers.customer_id [delete: cascade]

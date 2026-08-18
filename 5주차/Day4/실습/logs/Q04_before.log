@@ -1,0 +1,48 @@
+Q04 상품별 누적매출 RANK Top 20 [before]
+
+SQL
+SELECT
+            p.product_id,
+            p.product_name,
+            sum(oi.line_total) AS revenue,
+            rank() OVER (
+                ORDER BY sum(oi.line_total) DESC
+            ) AS revenue_rank
+        FROM ecom.products p
+        JOIN ecom.order_items oi
+          ON oi.product_id = p.product_id
+        JOIN ecom.orders o
+          ON o.order_id = oi.order_id
+        WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+        GROUP BY
+            p.product_id,
+            p.product_name
+        ORDER BY
+            revenue_rank,
+            p.product_id
+        LIMIT 20
+
+RESULT (16.65 ms)
+product_id | product_name | revenue    | revenue_rank
+-----------+--------------+------------+-------------
+457        | Product 208  | 2340762.83 | 1           
+588        | Product 510  | 998376.91  | 2           
+85         | Product 112  | 21508.92   | 3           
+317        | Product 156  | 17799.75   | 4           
+347        | Product 466  | 17102.35   | 5           
+467        | Product 58   | 16838.52   | 6           
+234        | Product 174  | 16782.15   | 7           
+540        | Product 359  | 15995.89   | 8           
+380        | Product 267  | 15861.86   | 9           
+136        | Product 163  | 15794.37   | 10          
+104        | Product 212  | 15543.45   | 11          
+542        | Product 150  | 15386.58   | 12          
+523        | Product 529  | 15327.28   | 13          
+453        | Product 218  | 15174.29   | 14          
+522        | Product 9    | 14941.48   | 15          
+291        | Product 535  | 14648.82   | 16          
+510        | Product 479  | 14562.60   | 17          
+267        | Product 235  | 14337.92   | 18          
+75         | Product 72   | 14329.39   | 19          
+140        | Product 303  | 14207.78   | 20          
+total rows: 20

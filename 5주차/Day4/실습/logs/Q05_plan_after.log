@@ -1,0 +1,73 @@
+Q05 고객 RFM [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH order_totals AS (
+            SELECT
+                o.customer_id,
+                o.order_id,
+                o.order_ts,
+                sum(oi.line_total) AS amount
+            FROM ecom.orders o
+            JOIN ecom.order_items oi
+              ON oi.order_id = o.order_id
+            WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+            GROUP BY
+                o.customer_id,
+                o.order_id,
+                o.order_ts
+        )
+
+        SELECT
+            c.customer_id,
+            c.full_name,
+            current_date - max(ot.order_ts)::date AS recency_days,
+            count(*) AS frequency,
+            sum(ot.amount) AS monetary
+        FROM order_totals ot
+        JOIN ecom.customers c
+          ON c.customer_id = ot.customer_id
+        GROUP BY
+            c.customer_id,
+            c.full_name
+        ORDER BY
+            monetary DESC,
+            c.customer_id
+
+PERFORMANCE RESULT
+Sort  (cost=1639.50..1647.00 rows=3000 width=65) (actual time=15.477..15.527 rows=2250 loops=1)
+  Sort Key: (sum((sum(oi.line_total)))) DESC, c.customer_id
+  Sort Method: quicksort  Memory: 237kB
+  Buffers: shared hit=406
+  ->  HashAggregate  (cost=1406.24..1466.24 rows=3000 width=65) (actual time=14.218..14.901 rows=2250 loops=1)
+        Group Key: c.customer_id
+        Batches: 1  Memory Usage: 1137kB
+        Buffers: shared hit=400
+        ->  Hash Join  (cost=1138.80..1330.11 rows=7613 width=61) (actual time=10.028..12.756 rows=7613 loops=1)
+              Hash Cond: (o.customer_id = c.customer_id)
+              Buffers: shared hit=400
+              ->  HashAggregate  (cost=1031.30..1126.46 rows=7613 width=56) (actual time=9.419..10.999 rows=7613 loops=1)
+                    Group Key: o.order_id
+                    Batches: 1  Memory Usage: 3473kB
+                    Buffers: shared hit=360
+                    ->  Hash Join  (cost=333.15..928.47 rows=20565 width=30) (actual time=2.384..6.628 rows=20557 loops=1)
+                          Hash Cond: (oi.order_id = o.order_id)
+                          Buffers: shared hit=360
+                          ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.003..1.193 rows=26716 loops=1)
+                                Buffers: shared hit=258
+                          ->  Hash  (cost=237.99..237.99 rows=7613 width=24) (actual time=2.360..2.361 rows=7613 loops=1)
+                                Buckets: 8192  Batches: 1  Memory Usage: 481kB
+                                Buffers: shared hit=102
+                                ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=24) (actual time=0.005..1.554 rows=7613 loops=1)
+                                      Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                                      Rows Removed by Filter: 2277
+                                      Buffers: shared hit=102
+              ->  Hash  (cost=70.00..70.00 rows=3000 width=21) (actual time=0.597..0.597 rows=3000 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 190kB
+                    Buffers: shared hit=40
+                    ->  Seq Scan on customers c  (cost=0.00..70.00 rows=3000 width=21) (actual time=0.008..0.307 rows=3000 loops=1)
+                          Buffers: shared hit=40
+Planning:
+  Buffers: shared hit=326
+Planning Time: 1.106 ms
+Execution Time: 15.709 ms

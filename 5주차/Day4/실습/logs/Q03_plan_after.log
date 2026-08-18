@@ -1,0 +1,75 @@
+Q03 최근 90일 카테고리 매출 Top 10 [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH recent_sales AS (
+            SELECT
+                oi.product_id,
+                oi.line_total
+            FROM ecom.orders o
+            JOIN ecom.order_items oi
+              ON oi.order_id = o.order_id
+            WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+              AND o.order_ts >= now() - interval '90 days'
+        )
+
+        SELECT
+            c.category_id,
+            c.category_name,
+            sum(rs.line_total) AS revenue
+        FROM recent_sales rs
+        JOIN ecom.products p
+          ON p.product_id = rs.product_id
+        JOIN ecom.categories c
+          ON c.category_id = p.category_id
+        GROUP BY
+            c.category_id,
+            c.category_name
+        ORDER BY
+            revenue DESC,
+            c.category_id
+        LIMIT 10
+
+PERFORMANCE RESULT
+Limit  (cost=1233.23..1233.25 rows=10 width=72) (actual time=12.705..12.710 rows=10 loops=1)
+  Buffers: shared hit=374
+  ->  Sort  (cost=1233.23..1235.90 rows=1070 width=72) (actual time=12.704..12.706 rows=10 loops=1)
+        Sort Key: (sum(oi.line_total)) DESC, c.category_id
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=374
+        ->  HashAggregate  (cost=1196.73..1210.11 rows=1070 width=72) (actual time=12.671..12.683 rows=10 loops=1)
+              Group Key: c.category_id
+              Batches: 1  Memory Usage: 73kB
+              Buffers: shared hit=368
+              ->  Hash Join  (cost=439.59..1118.02 rows=15743 width=46) (actual time=3.649..11.126 rows=15883 loops=1)
+                    Hash Cond: (p.category_id = c.category_id)
+                    Buffers: shared hit=368
+                    ->  Hash Join  (cost=405.51..1042.45 rows=15743 width=14) (actual time=3.632..9.422 rows=15883 loops=1)
+                          Hash Cond: (oi.product_id = p.product_id)
+                          Buffers: shared hit=367
+                          ->  Hash Join  (cost=385.01..980.34 rows=15743 width=14) (actual time=3.513..7.633 rows=15883 loops=1)
+                                Hash Cond: (oi.order_id = o.order_id)
+                                Buffers: shared hit=360
+                                ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=22) (actual time=0.003..1.382 rows=26716 loops=1)
+                                      Buffers: shared hit=258
+                                ->  Hash  (cost=312.16..312.16 rows=5828 width=8) (actual time=3.494..3.495 rows=5873 loops=1)
+                                      Buckets: 8192  Batches: 1  Memory Usage: 294kB
+                                      Buffers: shared hit=102
+                                      ->  Seq Scan on orders o  (cost=0.00..312.16 rows=5828 width=8) (actual time=0.005..2.987 rows=5873 loops=1)
+                                            Filter: ((order_status = ANY ('{paid,shipped,delivered}'::text[])) AND (order_ts >= (now() - '90 days'::interval)))
+                                            Rows Removed by Filter: 4017
+                                            Buffers: shared hit=102
+                          ->  Hash  (cost=13.00..13.00 rows=600 width=16) (actual time=0.112..0.112 rows=600 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 37kB
+                                Buffers: shared hit=7
+                                ->  Seq Scan on products p  (cost=0.00..13.00 rows=600 width=16) (actual time=0.003..0.063 rows=600 loops=1)
+                                      Buffers: shared hit=7
+                    ->  Hash  (cost=20.70..20.70 rows=1070 width=40) (actual time=0.012..0.012 rows=14 loops=1)
+                          Buckets: 2048  Batches: 1  Memory Usage: 17kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on categories c  (cost=0.00..20.70 rows=1070 width=40) (actual time=0.006..0.007 rows=14 loops=1)
+                                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=354
+Planning Time: 1.326 ms
+Execution Time: 12.777 ms

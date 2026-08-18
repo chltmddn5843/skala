@@ -1,0 +1,18 @@
+index_scan
+
+SQL
+SELECT
+            order_id,
+            customer_id,
+            order_ts
+        FROM ecom.orders
+        WHERE order_id = 1
+
+PLAN
+Index Scan using orders_pkey on orders  (cost=0.29..8.30 rows=1 width=24) (actual time=0.040..0.045 rows=1 loops=1)
+  Index Cond: (order_id = 1)
+  Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=104
+Planning Time: 0.873 ms
+Execution Time: 0.122 ms

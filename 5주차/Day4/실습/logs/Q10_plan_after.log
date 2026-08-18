@@ -1,0 +1,55 @@
+Q10 상위 1% 고객의 최근 60일 매출 [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH customer_sales AS (
+            SELECT
+                o.customer_id,
+                sum(oi.line_total) AS lifetime_revenue,
+                sum(oi.line_total) FILTER (
+                    WHERE o.order_ts >= now() - interval '60 days'
+                ) AS recent_60d_revenue
+            FROM ecom.orders o
+            JOIN ecom.order_items oi
+              ON oi.order_id = o.order_id
+            WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+            GROUP BY o.customer_id
+        )
+
+        SELECT
+            customer_id,
+            lifetime_revenue,
+            recent_60d_revenue
+        FROM customer_sales
+        ORDER BY
+            lifetime_revenue DESC,
+            customer_id
+        LIMIT 30
+
+PERFORMANCE RESULT
+Limit  (cost=1369.48..1369.56 rows=30 width=72) (actual time=12.920..12.928 rows=30 loops=1)
+  Buffers: shared hit=366
+  ->  Sort  (cost=1369.48..1376.92 rows=2976 width=72) (actual time=12.919..12.921 rows=30 loops=1)
+        Sort Key: (sum(oi.line_total)) DESC, o.customer_id
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=366
+        ->  HashAggregate  (cost=1236.95..1281.59 rows=2976 width=72) (actual time=12.113..12.627 rows=2250 loops=1)
+              Group Key: o.customer_id
+              Batches: 1  Memory Usage: 1649kB
+              Buffers: shared hit=360
+              ->  Hash Join  (cost=333.15..928.47 rows=20565 width=22) (actual time=2.294..6.494 rows=20557 loops=1)
+                    Hash Cond: (oi.order_id = o.order_id)
+                    Buffers: shared hit=360
+                    ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.006..1.208 rows=26716 loops=1)
+                          Buffers: shared hit=258
+                    ->  Hash  (cost=237.99..237.99 rows=7613 width=24) (actual time=2.272..2.272 rows=7613 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 481kB
+                          Buffers: shared hit=102
+                          ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=24) (actual time=0.004..1.527 rows=7613 loops=1)
+                                Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                                Rows Removed by Filter: 2277
+                                Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.833 ms
+Execution Time: 12.991 ms

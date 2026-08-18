@@ -1,0 +1,37 @@
+Q08 리뷰 기반 효자상품 [before]
+
+SQL
+SELECT
+            p.product_id,
+            p.product_name,
+            avg(r.rating) AS avg_rating,
+            count(*) AS review_count
+        FROM ecom.products p
+        JOIN ecom.reviews r
+          ON r.product_id = p.product_id
+        GROUP BY
+            p.product_id,
+            p.product_name
+        HAVING avg(r.rating) >= 4.5
+           AND count(*) >= 50
+        ORDER BY
+            avg_rating DESC,
+            review_count DESC,
+            p.product_id
+
+RESULT (8.42 ms)
+product_id | product_name | avg_rating         | review_count
+-----------+--------------+--------------------+-------------
+418        | Product 297  | 4.8562500000000000 | 160         
+544        | Product 260  | 4.8074534161490683 | 161         
+166        | Product 83   | 4.8000000000000000 | 160         
+267        | Product 235  | 4.7875000000000000 | 160         
+490        | Product 259  | 4.7875000000000000 | 160         
+552        | Product 60   | 4.7763975155279503 | 161         
+341        | Product 406  | 4.7687500000000000 | 160         
+468        | Product 268  | 4.7625000000000000 | 160         
+4          | Product 511  | 4.7515527950310559 | 161         
+79         | Product 532  | 4.7375000000000000 | 160         
+221        | Product 414  | 4.7250000000000000 | 160         
+517        | Product 119  | 4.7187500000000000 | 160         
+total rows: 12

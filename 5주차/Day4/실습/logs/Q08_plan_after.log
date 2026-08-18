@@ -1,0 +1,53 @@
+Q08 리뷰 기반 효자상품 [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH review_summary AS (
+            SELECT
+                product_id,
+                avg(rating) AS avg_rating,
+                count(*) AS review_count
+            FROM ecom.reviews
+            GROUP BY product_id
+            HAVING avg(rating) >= 4.5
+               AND count(*) >= 50
+        )
+
+        SELECT
+            rs.product_id,
+            p.product_name,
+            rs.avg_rating,
+            rs.review_count
+        FROM review_summary rs
+        JOIN ecom.products p
+          ON p.product_id = rs.product_id
+        ORDER BY
+            rs.avg_rating DESC,
+            rs.review_count DESC,
+            rs.product_id
+
+PERFORMANCE RESULT
+Sort  (cost=74.23..74.27 rows=15 width=59) (actual time=1.023..1.028 rows=12 loops=1)
+  Sort Key: (avg(reviews.rating)) DESC, (count(*)) DESC, reviews.product_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=34
+  ->  Hash Join  (cost=59.35..73.94 rows=15 width=59) (actual time=0.854..0.983 rows=12 loops=1)
+        Hash Cond: (p.product_id = reviews.product_id)
+        Buffers: shared hit=28
+        ->  Seq Scan on products p  (cost=0.00..13.00 rows=600 width=19) (actual time=0.008..0.076 rows=600 loops=1)
+              Buffers: shared hit=7
+        ->  Hash  (cost=59.17..59.17 rows=15 width=48) (actual time=0.834..0.834 rows=12 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=21
+              ->  HashAggregate  (cost=56.80..59.17 rows=15 width=48) (actual time=0.775..0.824 rows=12 loops=1)
+                    Group Key: reviews.product_id
+                    Filter: ((avg(reviews.rating) >= 4.5) AND (count(*) >= 50))
+                    Batches: 1  Memory Usage: 64kB
+                    Rows Removed by Filter: 123
+                    Buffers: shared hit=21
+                    ->  Seq Scan on reviews  (cost=0.00..41.46 rows=2046 width=12) (actual time=0.005..0.238 rows=2046 loops=1)
+                          Buffers: shared hit=21
+Planning:
+  Buffers: shared hit=209
+Planning Time: 0.974 ms
+Execution Time: 1.180 ms

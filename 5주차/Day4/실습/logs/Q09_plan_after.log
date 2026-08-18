@@ -1,0 +1,55 @@
+Q09 쿠폰 사용 여부별 평균 주문 금액 [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH order_totals AS (
+            SELECT
+                o.order_id,
+                o.coupon_code IS NOT NULL AS used_coupon,
+                sum(oi.line_total) AS amount
+            FROM ecom.orders o
+            JOIN ecom.order_items oi
+              ON oi.order_id = o.order_id
+            WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+            GROUP BY
+                o.order_id,
+                o.coupon_code IS NOT NULL
+        )
+
+        SELECT
+            used_coupon,
+            count(*) AS order_count,
+            avg(amount) AS avg_order_amount
+        FROM order_totals
+        GROUP BY used_coupon
+        ORDER BY used_coupon
+
+PERFORMANCE RESULT
+Sort  (cost=1539.53..1539.53 rows=2 width=41) (actual time=8.816..8.819 rows=2 loops=1)
+  Sort Key: ((o.coupon_code IS NOT NULL))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=365
+  ->  HashAggregate  (cost=1539.49..1539.52 rows=2 width=41) (actual time=8.803..8.804 rows=2 loops=1)
+        Group Key: ((o.coupon_code IS NOT NULL))
+        Batches: 1  Memory Usage: 24kB
+        Buffers: shared hit=360
+        ->  HashAggregate  (cost=1082.71..1273.04 rows=15226 width=41) (actual time=7.464..8.391 rows=7613 loops=1)
+              Group Key: o.order_id, (o.coupon_code IS NOT NULL)
+              Batches: 1  Memory Usage: 3601kB
+              Buffers: shared hit=360
+              ->  Hash Join  (cost=333.15..928.47 rows=20565 width=15) (actual time=1.657..5.164 rows=20557 loops=1)
+                    Hash Cond: (oi.order_id = o.order_id)
+                    Buffers: shared hit=360
+                    ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.003..1.023 rows=26716 loops=1)
+                          Buffers: shared hit=258
+                    ->  Hash  (cost=237.99..237.99 rows=7613 width=15) (actual time=1.643..1.643 rows=7613 loops=1)
+                          Buckets: 8192  Batches: 1  Memory Usage: 374kB
+                          Buffers: shared hit=102
+                          ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=15) (actual time=0.004..1.148 rows=7613 loops=1)
+                                Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                                Rows Removed by Filter: 2277
+                                Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=279
+Planning Time: 0.415 ms
+Execution Time: 8.916 ms

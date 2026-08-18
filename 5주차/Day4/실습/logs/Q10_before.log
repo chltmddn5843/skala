@@ -1,0 +1,66 @@
+Q10 상위 1% 고객의 최근 60일 매출 [before]
+
+SQL
+WITH lifetime AS (
+            SELECT
+                o.customer_id,
+                sum(oi.line_total) AS lifetime_revenue
+            FROM ecom.orders o
+            JOIN ecom.order_items oi
+              ON oi.order_id = o.order_id
+            WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+            GROUP BY o.customer_id
+        ),
+        top_customers AS (
+            SELECT
+                customer_id,
+                lifetime_revenue
+            FROM lifetime
+            ORDER BY
+                lifetime_revenue DESC,
+                customer_id
+            LIMIT 30
+        )
+
+        SELECT
+            tc.customer_id,
+            tc.lifetime_revenue,
+            (
+                SELECT sum(oi.line_total)
+                FROM ecom.orders o
+                JOIN ecom.order_items oi
+                  ON oi.order_id = o.order_id
+                WHERE o.customer_id = tc.customer_id
+                  AND o.order_status IN ('paid', 'shipped', 'delivered')
+                  AND o.order_ts >= now() - interval '60 days'
+            ) AS recent_60d_revenue
+        FROM top_customers tc
+        ORDER BY
+            tc.lifetime_revenue DESC,
+            tc.customer_id
+
+RESULT (24.52 ms)
+customer_id | lifetime_revenue | recent_60d_revenue
+------------+------------------+-------------------
+19          | 37803.69         | 37803.69          
+7           | 36318.34         | 36318.34          
+3           | 33809.53         | 32603.95          
+25          | 33689.05         | 32619.33          
+1           | 33226.61         | 30255.84          
+10          | 33080.74         | 32851.70          
+21          | 32305.26         | 31585.52          
+15          | 31575.76         | 30963.58          
+16          | 30700.06         | 28490.61          
+22          | 30529.40         | 30529.40          
+30          | 29970.88         | 26027.56          
+12          | 29817.61         | 26956.66          
+9           | 29163.23         | 29163.23          
+24          | 29124.10         | 26575.38          
+28          | 28958.56         | 27985.30          
+23          | 28766.75         | 28193.79          
+14          | 28710.18         | 24802.84          
+4           | 28245.50         | 28245.50          
+29          | 27990.25         | 26600.03          
+13          | 27532.65         | 27158.76          
+... 10 rows omitted
+total rows: 30

@@ -1,0 +1,489 @@
+
+SKALA FULL-STACK ENGINEERING · 종합실습 4
+E-Commerce 매출 분석 및 정리
+랜덤 데이터 위에서 요청을 분석 조건으로 바꾸고, 검증 가능한 결과로 전달하기
+
+판교 4반 · 최승우 PostgreSQL 17.10 · ecom schema 2026-08-14
+보고서 관점  이번 실습은 가장 빠른 SQL을 고르는 시험이 아니라, 구매·재무·CRM의 요청을 같은 기준으로 재현하고 설명하는 연습이다.
+
+Executive Summary
+분석의 핵심은 ‘누가 요청했는가’보다 ‘무엇을 한 건으로 볼 것인가’를 먼저 정하는 것이었다. 주문과 주문상품의 1:N 관계를 그대로 집계하면 주문 수와 평균 주문 금액이 왜곡되므로, Q2·Q5·Q9는 주문 단위 선집계를 기준으로 재작성했다. 상관 서브쿼리가 반복되던 Q6·Q7·Q10은 윈도 함수·JOIN·조건부 집계로 단순화했다.
+분석 DB
+skala_ecom_practice4 / user=chltmddn5843
+데이터 규모
+고객 3,000 · 상품 600 · 주문 9,890 · 주문상품 26,716
+유효 매출 상태
+paid · shipped · delivered
+공통 매출식
+order_items.line_total = unit_price × qty - discount
+측정 방식
+동일 DB에서 EXPLAIN (ANALYZE, BUFFERS) 3회 실행 후 중앙값
+요청 대응 원칙
+기간·상태·집계 단위·출력 건수를 SQL보다 먼저 확정한다.
+랜덤 데이터에서는 수치보다 결과가 바뀌어도 유지되는 판정 로직을 검증한다.
+실행시간만 보지 않고 실제 행 수와 Buffers를 함께 비교한다.
+결과에는 기준시각과 가정을 붙이고, 관찰 비교를 인과효과로 표현하지 않는다.
+
+Q1. 최근 한 달 실제 총매출
+요청 부서
+재무
+요청 목적
+최근 한 달 실제 매출 규모 확인
+판정 기준
+롤링 1개월·유효 주문 상태
+튜닝 전
+직접 조인 집계
+SELECT             sum(oi.line_total) AS total_revenue         FROM ecom.orders o         JOIN ecom.order_items oi           ON oi.order_id = o.order_id         WHERE o.order_status IN ('paid', 'shipped', 'delivered')           AND o.order_ts >= now() - interval '1 month'
+
+
+튜닝 포인트
+변경  기간·상태 대상 주문을 먼저 명명해 조건과 집계 경로를 분리
+튜닝 후
+WITH recent_orders AS (             SELECT                 order_id             FROM ecom.orders             WHERE order_status IN ('paid', 'shipped', 'delivered')               AND order_ts >= now() - interval '1 month'         )          SELECT             sum(oi.line_total) AS total_revenue         FROM recent_orders ro         JOIN ecom.order_items oi           ON oi.order_id = ro.order_id
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+5.005 ms
+4.685 ms
+Planning Time
+0.096 ms
+0.083 ms
+Shared Hit
+1,182
+1,182
+Top Plan Node
+Aggregate
+Aggregate
+결과 동일
+-
+YES
+판단  PostgreSQL이 CTE를 인라인하면 계획은 같을 수 있다. 성능보다 요청 조건의 가독성이 핵심이다.
+전달 문구  최근 한 달 실제 매출은 2,065,686.28이다.
+
+Q2. 월별 주문 수·매출·AOV
+요청 부서
+재무·경영
+요청 목적
+월별 주문 수·매출·AOV 추이
+판정 기준
+달력 월·주문 단위 평균
+튜닝 전
+주문상품 행에서 COUNT DISTINCT와 합계를 동시에 수행
+SELECT             date_trunc('month', o.order_ts)::date AS month,             count(DISTINCT o.order_id) AS order_count,             sum(oi.line_total) AS revenue,             sum(oi.line_total) / count(DISTINCT o.order_id) AS aov         FROM ecom.orders o         JOIN ecom.order_items oi           ON oi.order_id = o.order_id         WHERE o.order_status IN ('paid', 'shipped', 'delivered')         GROUP BY date_trunc('month', o.order_ts)::date         ORDER BY month
+
+
+튜닝 포인트
+변경  주문별 금액 선집계 후 월 집계
+튜닝 후
+WITH order_totals AS (             SELECT                 o.order_id,                 date_trunc('month', o.order_ts)::date AS month,                 sum(oi.line_total) AS amount             FROM ecom.orders o             JOIN ecom.order_items oi               ON oi.order_id = o.order_id             WHERE o.order_status IN ('paid', 'shipped', 'delivered')             GROUP BY                 o.order_id,                 date_trunc('month', o.order_ts)::date         )          SELECT             month,             count(*) AS order_count,             sum(amount) AS revenue,             ecom.safe_div(sum(amount), count(*)) AS aov         FROM order_totals         GROUP BY month         ORDER BY month
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+10.560 ms
+7.893 ms
+Planning Time
+0.067 ms
+0.059 ms
+Shared Hit
+1,542
+1,902
+Top Plan Node
+Aggregate
+Sort
+결과 동일
+-
+YES
+판단  1:N 조인으로 부푼 행을 주문 단위로 먼저 축소했다.
+전달 문구  최신 월(2026-08-01) 주문은 858건, 매출 871,025.70, AOV 1,015.18로 집계됐다. 부분 월 여부를 함께 전달해야 한다.
+
+Q3. 최근 90일 카테고리 매출 Top 10
+요청 부서
+구매·MD
+요청 목적
+최근 90일 카테고리 성과 비교
+판정 기준
+카테고리 매출 Top 10
+튜닝 전
+전체 조인 후 기간 필터와 집계
+SELECT             c.category_id,             c.category_name,             sum(oi.line_total) AS revenue         FROM ecom.order_items oi         JOIN ecom.orders o           ON o.order_id = oi.order_id         JOIN ecom.products p           ON p.product_id = oi.product_id         JOIN ecom.categories c           ON c.category_id = p.category_id         WHERE o.order_status IN ('paid', 'shipped', 'delivered')           AND o.order_ts >= now() - interval '90 days'         GROUP BY             c.category_id,             c.category_name         ORDER BY             revenue DESC,             c.category_id         LIMIT 10
+
+
+튜닝 포인트
+변경  최근 판매행을 먼저 좁힌 뒤 상품·카테고리 연결
+튜닝 후
+WITH recent_sales AS (             SELECT                 oi.product_id,                 oi.line_total             FROM ecom.orders o             JOIN ecom.order_items oi               ON oi.order_id = o.order_id             WHERE o.order_status IN ('paid', 'shipped', 'delivered')               AND o.order_ts >= now() - interval '90 days'         )          SELECT             c.category_id,             c.category_name,             sum(rs.line_total) AS revenue         FROM recent_sales rs         JOIN ecom.products p           ON p.product_id = rs.product_id         JOIN ecom.categories c           ON c.category_id = p.category_id         GROUP BY             c.category_id,             c.category_name         ORDER BY             revenue DESC,             c.category_id         LIMIT 10
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+5.949 ms
+5.752 ms
+Planning Time
+0.146 ms
+0.142 ms
+Shared Hit
+2,677
+2,677
+Top Plan Node
+Limit
+Limit
+결과 동일
+-
+YES
+판단  소규모 데이터에서는 계획이 같을 수 있으나 분석 경계가 선명해졌다.
+전달 문구  최근 90일 1위 카테고리는 Appliances, 매출은 1,903,110.64다. 순위는 랜덤 시드 재적재 시 바뀔 수 있다.
+
+Q4. 상품별 누적매출 RANK Top 20
+요청 부서
+MD
+요청 목적
+누적매출 상위 상품 선별
+판정 기준
+RANK 기준 정확히 20개
+튜닝 전
+상품명까지 포함해 집계와 순위를 한 단계에서 처리
+SELECT             p.product_id,             p.product_name,             sum(oi.line_total) AS revenue,             rank() OVER (                 ORDER BY sum(oi.line_total) DESC             ) AS revenue_rank         FROM ecom.products p         JOIN ecom.order_items oi           ON oi.product_id = p.product_id         JOIN ecom.orders o           ON o.order_id = oi.order_id         WHERE o.order_status IN ('paid', 'shipped', 'delivered')         GROUP BY             p.product_id,             p.product_name         ORDER BY             revenue_rank,             p.product_id         LIMIT 20
+
+
+튜닝 포인트
+변경  상품 매출 집계→순위→상품명 조회로 역할 분리
+튜닝 후
+WITH product_revenue AS (             SELECT                 oi.product_id,                 sum(oi.line_total) AS revenue             FROM ecom.order_items oi             JOIN ecom.orders o               ON o.order_id = oi.order_id             WHERE o.order_status IN ('paid', 'shipped', 'delivered')             GROUP BY oi.product_id         ),         ranked_products AS (             SELECT                 product_id,                 revenue,                 rank() OVER (ORDER BY revenue DESC) AS revenue_rank             FROM product_revenue         )          SELECT             rp.product_id,             p.product_name,             rp.revenue,             rp.revenue_rank         FROM ranked_products rp         JOIN ecom.products p           ON p.product_id = rp.product_id         WHERE rp.revenue_rank <= 20         ORDER BY             rp.revenue_rank,             rp.product_id         LIMIT 20
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+5.385 ms
+4.440 ms
+Planning Time
+0.087 ms
+0.073 ms
+Shared Hit
+3,038
+3,377
+Top Plan Node
+Limit
+Limit
+결과 동일
+-
+YES
+판단  정확히 20개를 반환하고 동점은 product_id로 결정했다.
+전달 문구  누적매출 1위는 Product 208(ID 457), 매출 2,340,762.83다. 결과는 정확히 20개로 고정했다.
+
+Q5. 고객 RFM
+요청 부서
+CRM
+요청 목적
+고객별 최근성·빈도·금액 파악
+판정 기준
+유효 주문·주문 단위 빈도
+튜닝 전
+주문상품 행에서 COUNT DISTINCT로 빈도 복원
+SELECT             c.customer_id,             c.full_name,             current_date - max(o.order_ts)::date AS recency_days,             count(DISTINCT o.order_id) AS frequency,             sum(oi.line_total) AS monetary         FROM ecom.customers c         JOIN ecom.orders o           ON o.customer_id = c.customer_id         JOIN ecom.order_items oi           ON oi.order_id = o.order_id         WHERE o.order_status IN ('paid', 'shipped', 'delivered')         GROUP BY             c.customer_id,             c.full_name         ORDER BY             monetary DESC,             c.customer_id
+
+
+튜닝 포인트
+변경  주문별 금액을 선집계한 뒤 고객 RFM 계산
+튜닝 후
+WITH order_totals AS (             SELECT                 o.customer_id,                 o.order_id,                 o.order_ts,                 sum(oi.line_total) AS amount             FROM ecom.orders o             JOIN ecom.order_items oi               ON oi.order_id = o.order_id             WHERE o.order_status IN ('paid', 'shipped', 'delivered')             GROUP BY                 o.customer_id,                 o.order_id,                 o.order_ts         )          SELECT             c.customer_id,             c.full_name,             current_date - max(ot.order_ts)::date AS recency_days,             count(*) AS frequency,             sum(ot.amount) AS monetary         FROM order_totals ot         JOIN ecom.customers c           ON c.customer_id = ot.customer_id         GROUP BY             c.customer_id,             c.full_name         ORDER BY             monetary DESC,             c.customer_id
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+9.210 ms
+7.104 ms
+Planning Time
+0.088 ms
+0.076 ms
+Shared Hit
+2,502
+2,462
+Top Plan Node
+Sort
+Sort
+결과 동일
+-
+YES
+판단  빈도와 금액의 집계 단위를 주문으로 통일했다.
+전달 문구  최고 Monetary 고객은 Customer 19(ID 19)이며 구매 26회, 누적금액 37,803.69, 최근성 0일이다.
+
+Q6. 첫 구매 후 30일 내 재구매율
+요청 부서
+CRM
+요청 목적
+첫 구매 후 30일 내 재구매율 확인
+판정 기준
+첫 주문 이후 추가 주문
+튜닝 전
+고객별 EXISTS 상관 서브쿼리를 반복
+WITH purchases AS (             SELECT                 customer_id,                 order_ts             FROM ecom.orders             WHERE order_status IN ('paid', 'shipped', 'delivered')         ),         first_buy AS (             SELECT                 customer_id,                 min(order_ts) AS first_order_ts             FROM purchases             GROUP BY customer_id         )          SELECT             count(*) AS first_buyers,             count(*) FILTER (                 WHERE EXISTS (                     SELECT 1                     FROM purchases p                     WHERE p.customer_id = f.customer_id                       AND p.order_ts > f.first_order_ts                       AND p.order_ts <= f.first_order_ts + interval '30 days'                 )             ) AS repurchasers,             ecom.safe_div(                 count(*) FILTER (                     WHERE EXISTS (                         SELECT 1                         FROM purchases p                         WHERE p.customer_id = f.customer_id                           AND p.order_ts > f.first_order_ts                           AND p.order_ts <= f.first_order_ts + interval '30 days'                     )                 ),                 count(*)             ) AS repurchase_rate         FROM first_buy f
+
+
+튜닝 포인트
+변경  윈도 함수로 첫 구매일 계산 후 BOOL_OR로 고객당 1회 집계
+튜닝 후
+WITH purchases AS (             SELECT                 customer_id,                 order_ts,                 min(order_ts) OVER (                     PARTITION BY customer_id                 ) AS first_order_ts             FROM ecom.orders             WHERE order_status IN ('paid', 'shipped', 'delivered')         ),         customer_flags AS (             SELECT                 customer_id,                 bool_or(                     order_ts > first_order_ts                     AND order_ts <= first_order_ts + interval '30 days'                 ) AS repurchased             FROM purchases             GROUP BY customer_id         )          SELECT             count(*) AS first_buyers,             count(*) FILTER (WHERE repurchased) AS repurchasers,             ecom.safe_div(                 count(*) FILTER (WHERE repurchased),                 count(*)             ) AS repurchase_rate         FROM customer_flags
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+562.528 ms
+2.759 ms
+Planning Time
+0.071 ms
+0.031 ms
+Shared Hit
+408
+510
+Top Plan Node
+Aggregate
+Aggregate
+결과 동일
+-
+YES
+판단  반복 탐색을 단일 스캔·집계 흐름으로 바꾼 대표 개선 사례다.
+전달 문구  첫 구매 고객 2,250명 중 1,378명이 30일 내 재구매해 재구매율은 61.2%다.
+
+Q7. 재고 부족 위험 상품
+요청 부서
+구매·SCM
+요청 목적
+재주문이 필요한 상품 탐지
+판정 기준
+현재고 < 재주문 임계치
+튜닝 전
+상품마다 재고 스칼라 서브쿼리를 네 번 실행
+SELECT             p.product_id,             p.product_name,             (                 SELECT i.qty_on_hand                 FROM ecom.inventory i                 WHERE i.product_id = p.product_id             ) AS qty_on_hand,             (                 SELECT i.reorder_point                 FROM ecom.inventory i                 WHERE i.product_id = p.product_id             ) AS reorder_point,             (                 SELECT i.reorder_point - i.qty_on_hand                 FROM ecom.inventory i                 WHERE i.product_id = p.product_id             ) AS shortage         FROM ecom.products p         WHERE (             SELECT i.qty_on_hand < i.reorder_point             FROM ecom.inventory i             WHERE i.product_id = p.product_id         )         ORDER BY             shortage DESC,             p.product_id
+
+
+튜닝 포인트
+변경  inventory와 products를 한 번 JOIN
+튜닝 후
+SELECT             p.product_id,             p.product_name,             i.qty_on_hand,             i.reorder_point,             i.reorder_point - i.qty_on_hand AS shortage         FROM ecom.inventory i         JOIN ecom.products p           ON p.product_id = i.product_id         WHERE i.qty_on_hand < i.reorder_point         ORDER BY             shortage DESC,             p.product_id
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+0.323 ms
+0.066 ms
+Planning Time
+0.024 ms
+0.032 ms
+Shared Hit
+7,115
+41
+Top Plan Node
+Sort
+Sort
+결과 동일
+-
+YES
+판단  같은 테이블 반복 조회를 제거했다.
+전달 문구  재고 임계치 미달 상품은 63개다. 가장 긴급한 Product 37(ID 408)은 현재고 0, 임계치 30, 부족분 30다.
+
+Q8. 리뷰 기반 효자상품
+요청 부서
+MD·마케팅
+요청 목적
+리뷰 기반 효자상품 선별
+판정 기준
+평점 4.5 이상·리뷰 50개 이상
+튜닝 전
+상품명까지 조인한 뒤 모든 리뷰를 집계
+SELECT             p.product_id,             p.product_name,             avg(r.rating) AS avg_rating,             count(*) AS review_count         FROM ecom.products p         JOIN ecom.reviews r           ON r.product_id = p.product_id         GROUP BY             p.product_id,             p.product_name         HAVING avg(r.rating) >= 4.5            AND count(*) >= 50         ORDER BY             avg_rating DESC,             review_count DESC,             p.product_id
+
+
+튜닝 포인트
+변경  리뷰를 상품별로 먼저 집계·필터 후 상품명 조회
+튜닝 후
+WITH review_summary AS (             SELECT                 product_id,                 avg(rating) AS avg_rating,                 count(*) AS review_count             FROM ecom.reviews             GROUP BY product_id             HAVING avg(rating) >= 4.5                AND count(*) >= 50         )          SELECT             rs.product_id,             p.product_name,             rs.avg_rating,             rs.review_count         FROM review_summary rs         JOIN ecom.products p           ON p.product_id = rs.product_id         ORDER BY             rs.avg_rating DESC,             rs.review_count DESC,             rs.product_id
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+0.440 ms
+0.262 ms
+Planning Time
+0.051 ms
+0.027 ms
+Shared Hit
+119
+126
+Top Plan Node
+Sort
+Sort
+결과 동일
+-
+YES
+판단  효자 후보만 마스터 데이터와 결합한다.
+전달 문구  효자상품 조건을 충족한 상품은 12개다. 상위 Product 297(ID 418)은 평점 4.86, 리뷰 160개다.
+
+Q9. 쿠폰 사용 여부별 평균 주문 금액
+요청 부서
+마케팅·재무
+요청 목적
+쿠폰 사용 여부별 AOV 비교
+판정 기준
+주문별 금액을 먼저 집계
+튜닝 전
+주문상품 행 합계÷COUNT DISTINCT로 AOV 계산
+SELECT             o.coupon_code IS NOT NULL AS used_coupon,             count(DISTINCT o.order_id) AS order_count,             sum(oi.line_total) / count(DISTINCT o.order_id) AS avg_order_amount         FROM ecom.orders o         JOIN ecom.order_items oi           ON oi.order_id = o.order_id         WHERE o.order_status IN ('paid', 'shipped', 'delivered')         GROUP BY o.coupon_code IS NOT NULL         ORDER BY used_coupon
+
+
+튜닝 포인트
+변경  주문별 금액 선집계 후 쿠폰 그룹 AVG
+튜닝 후
+WITH order_totals AS (             SELECT                 o.order_id,                 o.coupon_code IS NOT NULL AS used_coupon,                 sum(oi.line_total) AS amount             FROM ecom.orders o             JOIN ecom.order_items oi               ON oi.order_id = o.order_id             WHERE o.order_status IN ('paid', 'shipped', 'delivered')             GROUP BY                 o.order_id,                 o.coupon_code IS NOT NULL         )          SELECT             used_coupon,             count(*) AS order_count,             avg(amount) AS avg_order_amount         FROM order_totals         GROUP BY used_coupon         ORDER BY used_coupon
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+8.267 ms
+5.526 ms
+Planning Time
+0.081 ms
+0.064 ms
+Shared Hit
+1,542
+1,902
+Top Plan Node
+Aggregate
+Sort
+결과 동일
+-
+YES
+판단  AOV의 업무 단위가 주문임을 SQL 구조에 직접 반영했다.
+전달 문구  쿠폰 사용 주문 AOV는 1,839.69, 미사용 주문은 628.88로 표본상 192.5% 높다. 인과효과가 아니라 관찰 비교다.
+
+Q10. 상위 1% 고객의 최근 60일 매출
+요청 부서
+CRM·VIP
+요청 목적
+상위 1% 고객의 최근 60일 매출
+판정 기준
+누적매출 Top 30 후 60일 집계
+튜닝 전
+Top 30 고객마다 최근 60일 매출 상관 조회
+WITH lifetime AS (             SELECT                 o.customer_id,                 sum(oi.line_total) AS lifetime_revenue             FROM ecom.orders o             JOIN ecom.order_items oi               ON oi.order_id = o.order_id             WHERE o.order_status IN ('paid', 'shipped', 'delivered')             GROUP BY o.customer_id         ),         top_customers AS (             SELECT                 customer_id,                 lifetime_revenue             FROM lifetime             ORDER BY                 lifetime_revenue DESC,                 customer_id             LIMIT 30         )          SELECT             tc.customer_id,             tc.lifetime_revenue,             (                 SELECT sum(oi.line_total)                 FROM ecom.orders o                 JOIN ecom.order_items oi                   ON oi.order_id = o.order_id                 WHERE o.customer_id = tc.customer_id                   AND o.order_status IN ('paid', 'shipped', 'delivered')                   AND o.order_ts >= now() - interval '60 days'             ) AS recent_60d_revenue         FROM top_customers tc         ORDER BY             tc.lifetime_revenue DESC,             tc.customer_id
+
+
+튜닝 포인트
+변경  한 번의 고객 집계에서 누적·60일 매출을 조건부 합산
+튜닝 후
+WITH customer_sales AS (             SELECT                 o.customer_id,                 sum(oi.line_total) AS lifetime_revenue,                 sum(oi.line_total) FILTER (                     WHERE o.order_ts >= now() - interval '60 days'                 ) AS recent_60d_revenue             FROM ecom.orders o             JOIN ecom.order_items oi               ON oi.order_id = o.order_id             WHERE o.order_status IN ('paid', 'shipped', 'delivered')             GROUP BY o.customer_id         )          SELECT             customer_id,             lifetime_revenue,             recent_60d_revenue         FROM customer_sales         ORDER BY             lifetime_revenue DESC,             customer_id         LIMIT 30
+
+
+실행계획 비교
+측정 항목
+튜닝 전
+튜닝 후
+Execution Time
+4.975 ms
+6.728 ms
+Planning Time
+0.102 ms
+0.046 ms
+Shared Hit
+12,330
+1,902
+Top Plan Node
+Subquery Scan
+Limit
+결과 동일
+-
+YES
+판단  고객당 반복 스캔을 한 번의 집계로 줄였다.
+전달 문구  상위 1%는 30명으로 고정했다. 1위 고객 ID 19의 누적매출은 37,803.69, 최근 60일 매출은 37,803.69이며 Top 30의 최근 매출 합계는 823,077.63다.
+
+11. 조인 방식 비교
+같은 고객별 매출 집계 쿼리에서 PostgreSQL의 조인 옵션을 각각 강제해 실제 실행계획을 비교했다. 수치는 현재 시드 데이터와 캐시 상태에서의 관측값이다.
+방식
+실행시간
+Buffers hit
+적합한 상황
+이번 결과
+Nested Loop
+19.833 ms
+23,069
+외부 결과가 작고 내부 인덱스가 유효
+orders 7,613행마다 order_items 인덱스 탐색
+Hash Join
+12.881 ms
+360
+큰 동등 조인·정렬 불필요
+현재 데이터에서 가장 빠르고 버퍼 접근 최소
+Merge Join
+13.837 ms
+442
+양쪽 입력이 조인 키로 정렬
+PK와 order_id 인덱스 순서를 활용
+해석
+핵심  현재 규모에서는 Hash Join이 가장 효율적이었다. 그러나 NLJ가 항상 나쁜 것은 아니다. 외부 행이 매우 적고 내부 인덱스 선택도가 높으면 NLJ가 유리하며, 이미 정렬된 대량 입력에서는 Merge Join이 안정적이다.
+SELECT     o.customer_id,     count(*) AS item_count,     sum(oi.line_total) AS revenue FROM ecom.orders o JOIN ecom.order_items oi   ON oi.order_id = o.order_id WHERE o.order_status IN ('paid', 'shipped', 'delivered') GROUP BY o.customer_id;
+
+
+12. Materialized View
+반복 요청이 많은 일별 GMV 집계를 미리 저장해 조회 비용을 줄이는 구조다. 일반 View와 달리 결과를 물리적으로 보관하므로 원본 변경 후 명시적으로 갱신해야 한다.
+생성 및 갱신 스크립트
+CREATE MATERIALIZED VIEW IF NOT EXISTS ecom.mv_daily_gmv AS SELECT     date_trunc('day', o.order_ts) AS day,     sum(oi.line_total) AS gmv FROM ecom.orders o JOIN ecom.order_items oi   ON oi.order_id = o.order_id WHERE o.order_status IN ('paid', 'shipped', 'delivered') GROUP BY date_trunc('day', o.order_ts);  CREATE INDEX IF NOT EXISTS idx_mv_daily_gmv_day ON ecom.mv_daily_gmv(day);  REFRESH MATERIALIZED VIEW ecom.mv_daily_gmv;  SELECT     count(*) AS days,     sum(gmv) AS gmv,     max(day) AS latest_day FROM ecom.mv_daily_gmv;
+
+
+결과  121일의 집계 결과와 총 GMV 6,987,702.67을 확인했다. 이번 실행에서는 갱신 전후 값이 같았으므로 원본 데이터가 마지막 갱신 이후 바뀌지 않았다는 뜻이다.
+운영 판단  자동 갱신이 아니므로 일 배치나 적재 완료 이벤트 뒤에 REFRESH를 실행해야 한다. 조회 중단을 줄이려면 day UNIQUE 인덱스를 만든 뒤 CONCURRENTLY를 검토한다.
+
+13. 보완 검증과 최종 인사이트
+Q11. 안전한 나눗셈
+SELECT             ecom.f_safe_div(10, 2) AS f_normal,             ecom.f_safe_div(10, 0) AS f_zero,             ecom.safe_div(10, 2) AS safe_normal,             ecom.safe_div(10, 0) AS safe_zero,             ecom.safe_div(10, NULL) AS safe_null
+
+선택  f_safe_div는 분모 0에서 0을, safe_div는 NULL을 반환한다. 평균을 계산할 때 ‘관측 없음’과 실제 0을 구분하기 위해 본 보고서는 safe_div를 사용했다.
+랜덤 데이터에서 배운 점
+숫자 자체보다 정의가 먼저다. 매출 상태·기간·주문 단위를 합의하지 않으면 같은 요청에도 다른 답이 나온다.
+1:N 조인은 주문 수와 AOV를 쉽게 부풀린다. 주문별 선집계는 성능보다 먼저 정확성을 지키는 장치다.
+튜닝 후 SQL이 항상 더 빠르지는 않았다. 작은 테이블에서는 Seq Scan이나 CTE 인라인이 합리적이며, 실행계획과 버퍼를 함께 봐야 한다.
+랜덤 시드는 결과값을 바꾸지만 검증 가능한 로직은 유지된다. 따라서 전달 자료에는 기준시각·조건·단위·가정을 함께 적어야 한다.
+상관관계와 인과관계를 구분해야 한다. 쿠폰 주문의 높은 AOV는 쿠폰 효과일 수도 있지만 고가 상품 편향이나 시드 생성 규칙의 영향일 수도 있다.
+DBMS별 실행계획 확인 도구(선택)
+DBMS
+대표 도구
+확인 포인트
+PostgreSQL
+EXPLAIN (ANALYZE, BUFFERS)
+실제 행·시간·버퍼와 예상치 비교
+MySQL
+EXPLAIN ANALYZE
+실제 반복·행 수와 비용 확인
+Oracle
+DBMS_XPLAN
+실행 통계와 접근 경로 확인
+SQL Server
+Actual Execution Plan
+연산자 비용·실제/예상 행 차이 확인

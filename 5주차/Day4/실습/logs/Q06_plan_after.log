@@ -1,0 +1,54 @@
+Q06 첫 구매 후 30일 내 재구매율 [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH purchases AS (
+            SELECT
+                customer_id,
+                order_ts,
+                min(order_ts) OVER (
+                    PARTITION BY customer_id
+                ) AS first_order_ts
+            FROM ecom.orders
+            WHERE order_status IN ('paid', 'shipped', 'delivered')
+        ),
+        customer_flags AS (
+            SELECT
+                customer_id,
+                bool_or(
+                    order_ts > first_order_ts
+                    AND order_ts <= first_order_ts + interval '30 days'
+                ) AS repurchased
+            FROM purchases
+            GROUP BY customer_id
+        )
+
+        SELECT
+            count(*) AS first_buyers,
+            count(*) FILTER (WHERE repurchased) AS repurchasers,
+            ecom.safe_div(
+                count(*) FILTER (WHERE repurchased),
+                count(*)
+            ) AS repurchase_rate
+        FROM customer_flags
+
+PERFORMANCE RESULT
+Aggregate  (cost=1014.92..1014.95 rows=1 width=48) (actual time=2.957..2.959 rows=1 loops=1)
+  Buffers: shared hit=105
+  ->  GroupAggregate  (cost=728.84..980.29 rows=2309 width=9) (actual time=1.097..2.902 rows=2250 loops=1)
+        Group Key: orders.customer_id
+        Buffers: shared hit=105
+        ->  WindowAgg  (cost=728.84..862.03 rows=7613 width=24) (actual time=1.086..2.016 rows=7613 loops=1)
+              Buffers: shared hit=105
+              ->  Sort  (cost=728.81..747.84 rows=7613 width=16) (actual time=1.080..1.210 rows=7613 loops=1)
+                    Sort Key: orders.customer_id
+                    Sort Method: quicksort  Memory: 430kB
+                    Buffers: shared hit=105
+                    ->  Seq Scan on orders  (cost=0.00..237.99 rows=7613 width=16) (actual time=0.002..0.650 rows=7613 loops=1)
+                          Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                          Rows Removed by Filter: 2277
+                          Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=418
+Planning Time: 0.288 ms
+Execution Time: 2.983 ms

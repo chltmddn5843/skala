@@ -1,0 +1,15 @@
+Q11 안전한 나눗셈 함수 비교
+
+SQL
+SELECT
+            ecom.f_safe_div(10, 2) AS f_normal,
+            ecom.f_safe_div(10, 0) AS f_zero,
+            ecom.safe_div(10, 2) AS safe_normal,
+            ecom.safe_div(10, 0) AS safe_zero,
+            ecom.safe_div(10, NULL) AS safe_null
+
+RESULT
+f_normal           | f_zero | safe_normal        | safe_zero | safe_null
+-------------------+--------+--------------------+-----------+----------
+5.0000000000000000 | 0      | 5.0000000000000000 | NULL      | NULL     
+total rows: 1

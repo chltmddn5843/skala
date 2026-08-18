@@ -1,0 +1,37 @@
+Q01 최근 한 달 실제 총매출 [after]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH recent_orders AS (
+            SELECT
+                order_id
+            FROM ecom.orders
+            WHERE order_status IN ('paid', 'shipped', 'delivered')
+              AND order_ts >= now() - interval '1 month'
+        )
+
+        SELECT
+            sum(oi.line_total) AS total_revenue
+        FROM recent_orders ro
+        JOIN ecom.order_items oi
+          ON oi.order_id = ro.order_id
+
+PERFORMANCE RESULT
+Aggregate  (cost=947.69..947.70 rows=1 width=32) (actual time=8.299..8.303 rows=1 loops=1)
+  Buffers: shared hit=360
+  ->  Hash Join  (cost=338.26..933.59 rows=5640 width=6) (actual time=3.102..7.814 rows=5756 loops=1)
+        Hash Cond: (oi.order_id = orders.order_id)
+        Buffers: shared hit=360
+        ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.004..1.892 rows=26716 loops=1)
+              Buffers: shared hit=258
+        ->  Hash  (cost=312.16..312.16 rows=2088 width=8) (actual time=3.078..3.078 rows=2111 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 115kB
+              Buffers: shared hit=102
+              ->  Seq Scan on orders  (cost=0.00..312.16 rows=2088 width=8) (actual time=0.009..2.857 rows=2111 loops=1)
+                    Filter: ((order_status = ANY ('{paid,shipped,delivered}'::text[])) AND (order_ts >= (now() - '1 mon'::interval)))
+                    Rows Removed by Filter: 7779
+                    Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=357
+Planning Time: 1.156 ms
+Execution Time: 8.346 ms

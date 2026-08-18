@@ -1,0 +1,18 @@
+seq_scan
+
+SQL
+SELECT
+            order_id,
+            customer_id,
+            order_ts
+        FROM ecom.orders
+        WHERE customer_id BETWEEN 1 AND 3000
+
+PLAN
+Seq Scan on orders  (cost=0.00..250.35 rows=9890 width=24) (actual time=0.010..2.133 rows=9890 loops=1)
+  Filter: ((customer_id >= 1) AND (customer_id <= 3000))
+  Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=120
+Planning Time: 0.968 ms
+Execution Time: 2.625 ms

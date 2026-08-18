@@ -1,0 +1,39 @@
+Q09 쿠폰 사용 여부별 평균 주문 금액 [before]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT
+            o.coupon_code IS NOT NULL AS used_coupon,
+            count(DISTINCT o.order_id) AS order_count,
+            sum(oi.line_total) / count(DISTINCT o.order_id) AS avg_order_amount
+        FROM ecom.orders o
+        JOIN ecom.order_items oi
+          ON oi.order_id = o.order_id
+        WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+        GROUP BY o.coupon_code IS NOT NULL
+        ORDER BY used_coupon
+
+PERFORMANCE RESULT
+GroupAggregate  (cost=2401.74..2607.42 rows=2 width=41) (actual time=7.779..8.156 rows=2 loops=1)
+  Group Key: ((o.coupon_code IS NOT NULL))
+  Buffers: shared hit=368
+  ->  Sort  (cost=2401.74..2453.15 rows=20565 width=15) (actual time=6.905..7.259 rows=20557 loops=1)
+        Sort Key: ((o.coupon_code IS NOT NULL)), o.order_id
+        Sort Method: quicksort  Memory: 1572kB
+        Buffers: shared hit=368
+        ->  Hash Join  (cost=333.15..928.47 rows=20565 width=15) (actual time=1.268..3.837 rows=20557 loops=1)
+              Hash Cond: (oi.order_id = o.order_id)
+              Buffers: shared hit=360
+              ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.002..0.785 rows=26716 loops=1)
+                    Buffers: shared hit=258
+              ->  Hash  (cost=237.99..237.99 rows=7613 width=15) (actual time=1.253..1.254 rows=7613 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 376kB
+                    Buffers: shared hit=102
+                    ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=15) (actual time=0.003..0.878 rows=7613 loops=1)
+                          Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                          Rows Removed by Filter: 2277
+                          Buffers: shared hit=102
+Planning:
+  Buffers: shared hit=276
+Planning Time: 0.616 ms
+Execution Time: 8.224 ms

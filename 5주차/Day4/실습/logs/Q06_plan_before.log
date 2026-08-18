@@ -1,0 +1,70 @@
+Q06 첫 구매 후 30일 내 재구매율 [before]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH purchases AS (
+            SELECT
+                customer_id,
+                order_ts
+            FROM ecom.orders
+            WHERE order_status IN ('paid', 'shipped', 'delivered')
+        ),
+        first_buy AS (
+            SELECT
+                customer_id,
+                min(order_ts) AS first_order_ts
+            FROM purchases
+            GROUP BY customer_id
+        )
+
+        SELECT
+            count(*) AS first_buyers,
+            count(*) FILTER (
+                WHERE EXISTS (
+                    SELECT 1
+                    FROM purchases p
+                    WHERE p.customer_id = f.customer_id
+                      AND p.order_ts > f.first_order_ts
+                      AND p.order_ts <= f.first_order_ts + interval '30 days'
+                )
+            ) AS repurchasers,
+            ecom.safe_div(
+                count(*) FILTER (
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM purchases p
+                        WHERE p.customer_id = f.customer_id
+                          AND p.order_ts > f.first_order_ts
+                          AND p.order_ts <= f.first_order_ts + interval '30 days'
+                    )
+                ),
+                count(*)
+            ) AS repurchase_rate
+        FROM first_buy f
+
+PERFORMANCE RESULT
+Aggregate  (cost=1055173.74..1055173.76 rows=1 width=48) (actual time=710.017..710.021 rows=1 loops=1)
+  Buffers: shared hit=102
+  CTE purchases
+    ->  Seq Scan on orders  (cost=0.00..237.99 rows=7613 width=16) (actual time=0.004..0.668 rows=7613 loops=1)
+          Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+          Rows Removed by Filter: 2277
+          Buffers: shared hit=102
+  ->  HashAggregate  (cost=190.32..213.41 rows=2309 width=16) (actual time=1.505..1.847 rows=2250 loops=1)
+        Group Key: purchases.customer_id
+        Batches: 1  Memory Usage: 369kB
+        Buffers: shared hit=102
+        ->  CTE Scan on purchases  (cost=0.00..152.26 rows=7613 width=16) (actual time=0.005..1.098 rows=7613 loops=1)
+              Buffers: shared hit=102
+  SubPlan 2
+    ->  CTE Scan on purchases p  (cost=0.00..228.39 rows=1 width=0) (actual time=0.163..0.163 rows=1 loops=2250)
+          Filter: ((order_ts > (min(purchases.order_ts))) AND (customer_id = purchases.customer_id) AND (order_ts <= ((min(purchases.order_ts)) + '30 days'::interval)))
+          Rows Removed by Filter: 4963
+  SubPlan 3
+    ->  CTE Scan on purchases p_1  (cost=0.00..228.39 rows=1 width=0) (actual time=0.151..0.151 rows=1 loops=2250)
+          Filter: ((order_ts > (min(purchases.order_ts))) AND (customer_id = purchases.customer_id) AND (order_ts <= ((min(purchases.order_ts)) + '30 days'::interval)))
+          Rows Removed by Filter: 4963
+Planning:
+  Buffers: shared hit=408
+Planning Time: 0.424 ms
+Execution Time: 710.099 ms

@@ -1,0 +1,88 @@
+Q10 상위 1% 고객의 최근 60일 매출 [before]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+WITH lifetime AS (
+            SELECT
+                o.customer_id,
+                sum(oi.line_total) AS lifetime_revenue
+            FROM ecom.orders o
+            JOIN ecom.order_items oi
+              ON oi.order_id = o.order_id
+            WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+            GROUP BY o.customer_id
+        ),
+        top_customers AS (
+            SELECT
+                customer_id,
+                lifetime_revenue
+            FROM lifetime
+            ORDER BY
+                lifetime_revenue DESC,
+                customer_id
+            LIMIT 30
+        )
+
+        SELECT
+            tc.customer_id,
+            tc.lifetime_revenue,
+            (
+                SELECT sum(oi.line_total)
+                FROM ecom.orders o
+                JOIN ecom.order_items oi
+                  ON oi.order_id = o.order_id
+                WHERE o.customer_id = tc.customer_id
+                  AND o.order_status IN ('paid', 'shipped', 'delivered')
+                  AND o.order_ts >= now() - interval '60 days'
+            ) AS recent_60d_revenue
+        FROM top_customers tc
+        ORDER BY
+            tc.lifetime_revenue DESC,
+            tc.customer_id
+
+PERFORMANCE RESULT
+Subquery Scan on tc  (cost=1156.39..1753.69 rows=30 width=72) (actual time=7.278..8.608 rows=30 loops=1)
+  Buffers: shared hit=2865
+  ->  Limit  (cost=1156.39..1156.47 rows=30 width=40) (actual time=7.186..7.190 rows=30 loops=1)
+        Buffers: shared hit=366
+        ->  Sort  (cost=1156.39..1163.83 rows=2976 width=40) (actual time=7.185..7.187 rows=30 loops=1)
+              Sort Key: (sum(oi.line_total)) DESC, o.customer_id
+              Sort Method: top-N heapsort  Memory: 27kB
+              Buffers: shared hit=366
+              ->  HashAggregate  (cost=1031.30..1068.50 rows=2976 width=40) (actual time=6.552..6.902 rows=2250 loops=1)
+                    Group Key: o.customer_id
+                    Batches: 1  Memory Usage: 1137kB
+                    Buffers: shared hit=360
+                    ->  Hash Join  (cost=333.15..928.47 rows=20565 width=14) (actual time=1.284..4.740 rows=20557 loops=1)
+                          Hash Cond: (oi.order_id = o.order_id)
+                          Buffers: shared hit=360
+                          ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=14) (actual time=0.004..1.039 rows=26716 loops=1)
+                                Buffers: shared hit=258
+                          ->  Hash  (cost=237.99..237.99 rows=7613 width=16) (actual time=1.265..1.265 rows=7613 loops=1)
+                                Buckets: 8192  Batches: 1  Memory Usage: 421kB
+                                Buffers: shared hit=102
+                                ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=16) (actual time=0.004..0.879 rows=7613 loops=1)
+                                      Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                                      Rows Removed by Filter: 2277
+                                      Buffers: shared hit=102
+  SubPlan 1
+    ->  Aggregate  (cost=19.90..19.91 rows=1 width=32) (actual time=0.047..0.047 rows=1 loops=30)
+          Buffers: shared hit=2499
+          ->  Nested Loop  (cost=4.60..19.89 rows=3 width=6) (actual time=0.006..0.042 rows=68 loops=30)
+                Buffers: shared hit=2499
+                ->  Bitmap Heap Scan on orders o_1  (cost=4.31..11.52 rows=1 width=8) (actual time=0.004..0.010 rows=24 loops=30)
+                      Recheck Cond: ((customer_id = tc.customer_id) AND (order_ts >= (now() - '60 days'::interval)))
+                      Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                      Rows Removed by Filter: 0
+                      Heap Blocks: exact=279
+                      Buffers: shared hit=339
+                      ->  Bitmap Index Scan on idx_orders_customer_ts  (cost=0.00..4.31 rows=2 width=0) (actual time=0.003..0.003 rows=24 loops=30)
+                            Index Cond: ((customer_id = tc.customer_id) AND (order_ts >= (now() - '60 days'::interval)))
+                            Buffers: shared hit=60
+                ->  Index Scan using idx_order_items_order on order_items oi_1  (cost=0.29..8.34 rows=3 width=14) (actual time=0.001..0.001 rows=3 loops=717)
+                      Index Cond: (order_id = o_1.order_id)
+                      Buffers: shared hit=2160
+Planning:
+  Buffers: shared hit=311
+Planning Time: 1.145 ms
+Execution Time: 8.698 ms

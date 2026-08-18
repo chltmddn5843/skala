@@ -1,0 +1,61 @@
+Q07 재고 부족 위험 상품 [before]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT
+            p.product_id,
+            p.product_name,
+            (
+                SELECT i.qty_on_hand
+                FROM ecom.inventory i
+                WHERE i.product_id = p.product_id
+            ) AS qty_on_hand,
+            (
+                SELECT i.reorder_point
+                FROM ecom.inventory i
+                WHERE i.product_id = p.product_id
+            ) AS reorder_point,
+            (
+                SELECT i.reorder_point - i.qty_on_hand
+                FROM ecom.inventory i
+                WHERE i.product_id = p.product_id
+            ) AS shortage
+        FROM ecom.products p
+        WHERE (
+            SELECT i.qty_on_hand < i.reorder_point
+            FROM ecom.inventory i
+            WHERE i.product_id = p.product_id
+        )
+        ORDER BY
+            shortage DESC,
+            p.product_id
+
+PERFORMANCE RESULT
+Sort  (cost=12466.34..12467.09 rows=300 width=31) (actual time=0.908..0.913 rows=63 loops=1)
+  Sort Key: ((SubPlan 3)) DESC, p.product_id
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=2380
+  ->  Seq Scan on products p  (cost=0.00..12454.00 rows=300 width=31) (actual time=0.038..0.872 rows=63 loops=1)
+        Filter: (SubPlan 4)
+        Rows Removed by Filter: 537
+        Buffers: shared hit=2374
+        SubPlan 1
+          ->  Index Scan using inventory_pkey on inventory i  (cost=0.28..8.29 rows=1 width=4) (actual time=0.001..0.001 rows=1 loops=63)
+                Index Cond: (product_id = p.product_id)
+                Buffers: shared hit=189
+        SubPlan 2
+          ->  Index Scan using inventory_pkey on inventory i_1  (cost=0.28..8.29 rows=1 width=4) (actual time=0.001..0.001 rows=1 loops=63)
+                Index Cond: (product_id = p.product_id)
+                Buffers: shared hit=189
+        SubPlan 3
+          ->  Index Scan using inventory_pkey on inventory i_2  (cost=0.28..8.29 rows=1 width=4) (actual time=0.001..0.001 rows=1 loops=63)
+                Index Cond: (product_id = p.product_id)
+                Buffers: shared hit=189
+        SubPlan 4
+          ->  Index Scan using inventory_pkey on inventory i_3  (cost=0.28..8.29 rows=1 width=1) (actual time=0.001..0.001 rows=1 loops=600)
+                Index Cond: (product_id = p.product_id)
+                Buffers: shared hit=1800
+Planning:
+  Buffers: shared hit=171
+Planning Time: 0.637 ms
+Execution Time: 0.964 ms

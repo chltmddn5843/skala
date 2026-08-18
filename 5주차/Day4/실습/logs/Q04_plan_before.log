@@ -1,0 +1,66 @@
+Q04 상품별 누적매출 RANK Top 20 [before]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT
+            p.product_id,
+            p.product_name,
+            sum(oi.line_total) AS revenue,
+            rank() OVER (
+                ORDER BY sum(oi.line_total) DESC
+            ) AS revenue_rank
+        FROM ecom.products p
+        JOIN ecom.order_items oi
+          ON oi.product_id = p.product_id
+        JOIN ecom.orders o
+          ON o.order_id = oi.order_id
+        WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+        GROUP BY
+            p.product_id,
+            p.product_name
+        ORDER BY
+            revenue_rank,
+            p.product_id
+        LIMIT 20
+
+PERFORMANCE RESULT
+Limit  (cost=1167.81..1167.86 rows=20 width=59) (actual time=15.491..15.495 rows=20 loops=1)
+  Buffers: shared hit=373
+  ->  Sort  (cost=1167.81..1169.31 rows=600 width=59) (actual time=15.489..15.490 rows=20 loops=1)
+        Sort Key: (rank() OVER (?)), p.product_id
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=373
+        ->  WindowAgg  (cost=1141.36..1151.85 rows=600 width=59) (actual time=15.306..15.406 rows=600 loops=1)
+              Buffers: shared hit=370
+              ->  Sort  (cost=1141.35..1142.85 rows=600 width=51) (actual time=15.299..15.312 rows=600 loops=1)
+                    Sort Key: (sum(oi.line_total)) DESC
+                    Sort Method: quicksort  Memory: 53kB
+                    Buffers: shared hit=370
+                    ->  HashAggregate  (cost=1106.16..1113.66 rows=600 width=51) (actual time=15.162..15.209 rows=600 loops=1)
+                          Group Key: p.product_id
+                          Batches: 1  Memory Usage: 297kB
+                          Buffers: shared hit=367
+                          ->  Hash Join  (cost=353.65..1003.33 rows=20565 width=25) (actual time=2.766..11.424 rows=20557 loops=1)
+                                Hash Cond: (oi.product_id = p.product_id)
+                                Buffers: shared hit=367
+                                ->  Hash Join  (cost=333.15..928.47 rows=20565 width=14) (actual time=2.538..8.490 rows=20557 loops=1)
+                                      Hash Cond: (oi.order_id = o.order_id)
+                                      Buffers: shared hit=360
+                                      ->  Seq Scan on order_items oi  (cost=0.00..525.16 rows=26716 width=22) (actual time=0.016..1.722 rows=26716 loops=1)
+                                            Buffers: shared hit=258
+                                      ->  Hash  (cost=237.99..237.99 rows=7613 width=8) (actual time=2.493..2.493 rows=7613 loops=1)
+                                            Buckets: 8192  Batches: 1  Memory Usage: 362kB
+                                            Buffers: shared hit=102
+                                            ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=8) (actual time=0.008..1.746 rows=7613 loops=1)
+                                                  Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+                                                  Rows Removed by Filter: 2277
+                                                  Buffers: shared hit=102
+                                ->  Hash  (cost=13.00..13.00 rows=600 width=19) (actual time=0.167..0.168 rows=600 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 39kB
+                                      Buffers: shared hit=7
+                                      ->  Seq Scan on products p  (cost=0.00..13.00 rows=600 width=19) (actual time=0.028..0.105 rows=600 loops=1)
+                                            Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=303
+Planning Time: 2.003 ms
+Execution Time: 15.623 ms

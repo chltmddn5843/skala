@@ -1,0 +1,19 @@
+종합실습4 데이터 모니터링
+기준시각: 2026-08-14T14:54:39
+
+metric                       | value                       
+-----------------------------+-----------------------------
+active_connections           | 1                           
+cache_hit_ratio              | 100.00%                     
+customers                    | 3000                        
+database_size                | 18 MB                       
+latest_order                 | 2026-08-13 22:08:32.471308-0
+lock_waits                   | 0                           
+long_queries_over_5s         | 0                           
+low_stock                    | 63                          
+order_items                  | 26716                       
+orders                       | 9890                        
+replica_lag                  | primary                     
+role_security                | chltmddn5843: superuser=true
+transactions_commit_rollback | 948/0                       
+total rows: 13

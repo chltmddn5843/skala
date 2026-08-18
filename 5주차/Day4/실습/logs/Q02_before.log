@@ -1,0 +1,24 @@
+Q02 월별 주문 수·매출·AOV [before]
+
+SQL
+SELECT
+            date_trunc('month', o.order_ts)::date AS month,
+            count(DISTINCT o.order_id) AS order_count,
+            sum(oi.line_total) AS revenue,
+            sum(oi.line_total) / count(DISTINCT o.order_id) AS aov
+        FROM ecom.orders o
+        JOIN ecom.order_items oi
+          ON oi.order_id = o.order_id
+        WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+        GROUP BY date_trunc('month', o.order_ts)::date
+        ORDER BY month
+
+RESULT (30.07 ms)
+month      | order_count | revenue    | aov                  
+-----------+-------------+------------+----------------------
+2026-04-01 | 823         | 728085.26  | 884.6722478736330498 
+2026-05-01 | 1873        | 1666271.77 | 889.6272130272290443 
+2026-06-01 | 1915        | 1687798.91 | 881.3571331592689295 
+2026-07-01 | 2144        | 2034521.03 | 948.9370475746268657 
+2026-08-01 | 858         | 871025.70  | 1015.1814685314685315
+total rows: 5

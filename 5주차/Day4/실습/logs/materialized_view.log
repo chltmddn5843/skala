@@ -1,0 +1,25 @@
+MATERIALIZED VIEW 자동 갱신 검증
+
+1. BASELINE
+gmv       
+----------
+6987702.67
+total rows: 1
+
+2. TEST INSERT 후, REFRESH 전 (MV는 STALE)
+source_gmv | mv_gmv     | test_amount
+-----------+------------+------------
+6987826.12 | 6987702.67 | 123.45     
+total rows: 1
+
+3. REFRESH 후
+source_gmv | mv_gmv    
+-----------+-----------
+6987826.12 | 6987826.12
+total rows: 1
+
+4. ROLLBACK 후 보존 확인
+test_orders | test_items | mv_gmv     | unique_index
+------------+------------+------------+-------------
+0           | 0          | 6987702.67 | True        
+total rows: 1

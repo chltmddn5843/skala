@@ -1,0 +1,17 @@
+Q11 안전한 나눗셈 함수 비교
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT
+            ecom.f_safe_div(10, 2) AS f_normal,
+            ecom.f_safe_div(10, 0) AS f_zero,
+            ecom.safe_div(10, 2) AS safe_normal,
+            ecom.safe_div(10, 0) AS safe_zero,
+            ecom.safe_div(10, NULL) AS safe_null
+
+PERFORMANCE RESULT
+Result  (cost=0.00..0.01 rows=1 width=160) (actual time=0.001..0.001 rows=1 loops=1)
+Planning:
+  Buffers: shared hit=248
+Planning Time: 2.444 ms
+Execution Time: 0.005 ms

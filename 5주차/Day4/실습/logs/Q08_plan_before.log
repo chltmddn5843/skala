@@ -1,0 +1,47 @@
+Q08 리뷰 기반 효자상품 [before]
+
+PERFORMANCE SQL
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT
+            p.product_id,
+            p.product_name,
+            avg(r.rating) AS avg_rating,
+            count(*) AS review_count
+        FROM ecom.products p
+        JOIN ecom.reviews r
+          ON r.product_id = p.product_id
+        GROUP BY
+            p.product_id,
+            p.product_name
+        HAVING avg(r.rating) >= 4.5
+           AND count(*) >= 50
+        ORDER BY
+            avg_rating DESC,
+            review_count DESC,
+            p.product_id
+
+PERFORMANCE RESULT
+Sort  (cost=95.24..95.41 rows=67 width=59) (actual time=1.308..1.313 rows=12 loops=1)
+  Sort Key: (avg(r.rating)) DESC, (count(*)) DESC, p.product_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=34
+  ->  HashAggregate  (cost=82.71..93.21 rows=67 width=59) (actual time=1.229..1.274 rows=12 loops=1)
+        Group Key: p.product_id
+        Filter: ((avg(r.rating) >= 4.5) AND (count(*) >= 50))
+        Batches: 1  Memory Usage: 73kB
+        Rows Removed by Filter: 123
+        Buffers: shared hit=28
+        ->  Hash Join  (cost=20.50..67.36 rows=2046 width=23) (actual time=0.198..0.825 rows=2046 loops=1)
+              Hash Cond: (r.product_id = p.product_id)
+              Buffers: shared hit=28
+              ->  Seq Scan on reviews r  (cost=0.00..41.46 rows=2046 width=12) (actual time=0.004..0.171 rows=2046 loops=1)
+                    Buffers: shared hit=21
+              ->  Hash  (cost=13.00..13.00 rows=600 width=19) (actual time=0.187..0.187 rows=600 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 39kB
+                    Buffers: shared hit=7
+                    ->  Seq Scan on products p  (cost=0.00..13.00 rows=600 width=19) (actual time=0.004..0.090 rows=600 loops=1)
+                          Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=228
+Planning Time: 1.117 ms
+Execution Time: 1.387 ms

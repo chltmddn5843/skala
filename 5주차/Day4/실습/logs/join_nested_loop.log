@@ -1,0 +1,26 @@
+nested_loop
+
+SQL
+SELECT o.customer_id, count(*) AS item_count, sum(oi.line_total) AS revenue
+    FROM ecom.orders o JOIN ecom.order_items oi USING (order_id)
+    WHERE o.order_status IN ('paid','shipped','delivered')
+    GROUP BY o.customer_id
+
+PLAN
+HashAggregate  (cost=4461.04..4498.24 rows=2976 width=48) (actual time=21.929..22.380 rows=2250 loops=1)
+  Group Key: o.customer_id
+  Batches: 1  Memory Usage: 1137kB
+  Buffers: shared hit=23069
+  ->  Nested Loop  (cost=0.29..4306.80 rows=20565 width=14) (actual time=0.025..16.711 rows=20557 loops=1)
+        Buffers: shared hit=23069
+        ->  Seq Scan on orders o  (cost=0.00..237.99 rows=7613 width=16) (actual time=0.011..2.404 rows=7613 loops=1)
+              Filter: (order_status = ANY ('{paid,shipped,delivered}'::text[]))
+              Rows Removed by Filter: 2277
+              Buffers: shared hit=102
+        ->  Index Scan using idx_order_items_order on order_items oi  (cost=0.29..0.50 rows=3 width=14) (actual time=0.001..0.001 rows=3 loops=7613)
+              Index Cond: (order_id = o.order_id)
+              Buffers: shared hit=22967
+Planning:
+  Buffers: shared hit=252
+Planning Time: 0.746 ms
+Execution Time: 22.607 ms

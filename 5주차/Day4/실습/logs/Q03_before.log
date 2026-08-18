@@ -1,0 +1,38 @@
+Q03 최근 90일 카테고리 매출 Top 10 [before]
+
+SQL
+SELECT
+            c.category_id,
+            c.category_name,
+            sum(oi.line_total) AS revenue
+        FROM ecom.order_items oi
+        JOIN ecom.orders o
+          ON o.order_id = oi.order_id
+        JOIN ecom.products p
+          ON p.product_id = oi.product_id
+        JOIN ecom.categories c
+          ON c.category_id = p.category_id
+        WHERE o.order_status IN ('paid', 'shipped', 'delivered')
+          AND o.order_ts >= now() - interval '90 days'
+        GROUP BY
+            c.category_id,
+            c.category_name
+        ORDER BY
+            revenue DESC,
+            c.category_id
+        LIMIT 10
+
+RESULT (21.60 ms)
+category_id | category_name | revenue   
+------------+---------------+-----------
+6           | Appliances    | 1901671.14
+4           | Audio         | 1256556.19
+13          | Outdoor       | 309921.88 
+3           | Laptops       | 306953.82 
+14          | Fitness       | 303426.89 
+11          | Shoes         | 286309.97 
+7           | Cookware      | 277215.27 
+10          | Women         | 270003.37 
+2           | Phones        | 267209.83 
+9           | Men           | 253157.48 
+total rows: 10

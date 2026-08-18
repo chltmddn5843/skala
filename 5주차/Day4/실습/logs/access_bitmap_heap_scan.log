@@ -1,0 +1,22 @@
+bitmap_heap_scan
+
+SQL
+SELECT
+            order_id,
+            customer_id,
+            order_ts
+        FROM ecom.orders
+        WHERE customer_id BETWEEN 1 AND 100
+
+PLAN
+Bitmap Heap Scan on orders  (cost=34.44..151.31 rows=991 width=24) (actual time=0.151..0.468 rows=992 loops=1)
+  Recheck Cond: ((customer_id >= 1) AND (customer_id <= 100))
+  Heap Blocks: exact=15
+  Buffers: shared hit=24
+  ->  Bitmap Index Scan on idx_orders_customer_ts  (cost=0.00..34.20 rows=991 width=0) (actual time=0.134..0.134 rows=992 loops=1)
+        Index Cond: ((customer_id >= 1) AND (customer_id <= 100))
+        Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=117
+Planning Time: 0.972 ms
+Execution Time: 0.619 ms
