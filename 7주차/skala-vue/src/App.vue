@@ -1,8 +1,5 @@
 <script setup>
-// 1. 학습환경 구성
-import test from './components/practices/basic/test.vue'
-
-// 2. Vue Directive
+import Test from './components/practices/basic/test.vue'
 import VueHtml from './components/practices/basic/VueHtml.vue'
 import VueHtmlXss from './components/practices/basic/VueHtmlXss.vue'
 import VueText from './components/practices/basic/VueText.vue'
@@ -21,30 +18,68 @@ import VueMemo from './components/practices/basic/VueMemo.vue'
 
 <template>
   <div class="practice-container">
-    <h1>1. 학습환경구성</h1>
+    <h1>1. 테스트 실습</h1>
     <hr />
-    <test />
-    <br />
-    <h1>2. Vue Directive</h1>
+    <Test />
+
+    <h1>2. Vue HTML</h1>
     <hr />
     <VueHtml />
+
+    <h1>3. Vue HTML XSS</h1>
+    <hr />
     <VueHtmlXss />
+
+    <h1>4. Vue Text</h1>
+    <hr />
     <VueText />
+
+    <h1>5. Vue Bind</h1>
+    <hr />
     <VueBind />
+
+    <h1>6. Vue Bind Class</h1>
+    <hr />
     <VueBindClass />
+
+    <h1>7. Vue Bind Style</h1>
+    <hr />
     <VueBindStyle />
+
+    <h1>8. Vue Bind Shorthand</h1>
+    <hr />
     <VueBindShorthand />
+
+    <h1>9. Vue If</h1>
+    <hr />
     <VueIf />
+
+    <h1>10. Vue Show</h1>
+    <hr />
     <VueShow />
+
+    <h1>11. Vue For</h1>
+    <hr />
     <VueFor />
+
+    <h1>12. Vue Pre</h1>
+    <hr />
     <VuePre />
+
+    <h1>13. Vue Cloak</h1>
+    <hr />
     <VueCloak />
+
+    <h1>14. Vue Once</h1>
+    <hr />
     <VueOnce />
+
+    <h1>15. Vue Memo</h1>
+    <hr />
     <VueMemo />
   </div>
 </template>
 
 <style>
-/* ⚠️ 외부 스타일 파일(예: 버튼 디자인 뭉치)을 이 방 안으로 쏙 가리켜 가져옵니다 */
 @import '@/assets/practice.css';
 </style>

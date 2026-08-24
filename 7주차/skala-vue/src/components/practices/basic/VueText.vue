@@ -1,10 +1,13 @@
 <script setup>
-const content = '안녕하세요! <strong>Skala-Vue</strong> 강의입니다.'
+import { ref } from 'vue'
+
+const content = ref('안녕하세요! <strong>Skala-Vue</strong> 강의입니다.')
 </script>
 
 <template>
   <div class="practice-section">
     <h2>v-text 디렉티브 학습</h2>
+    <input v-model="content" aria-label="출력할 문장" />
     <h3>1) 일반 보간법 {{}} 결과:</h3>
     <p>출력: {{ content }}</p>
     <br />
