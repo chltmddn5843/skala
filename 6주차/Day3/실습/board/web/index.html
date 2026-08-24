@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>미니 게시판</title>
+  <style>
+    body { max-width: 720px; margin: 40px auto; padding: 0 16px; font-family: sans-serif; }
+    input, textarea { box-sizing: border-box; width: 100%; margin: 6px 0; padding: 10px; }
+    textarea { min-height: 120px; resize: vertical; }
+    button { padding: 8px 14px; cursor: pointer; }
+    article { border-bottom: 1px solid #ddd; padding: 16px 0; }
+    article p { white-space: pre-wrap; }
+    time { color: #666; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>게시판</h1>
+  <form id="form">
+    <input id="title" placeholder="제목" required>
+    <textarea id="content" placeholder="내용" required></textarea>
+    <button>작성</button>
+    <button id="cancel" type="button" hidden>수정 취소</button>
+  </form>
+  <h2>글 목록</h2>
+  <main id="posts"></main>
+
+  <script>
+    const form = document.querySelector('#form');
+    const title = document.querySelector('#title');
+    const content = document.querySelector('#content');
+    const cancel = document.querySelector('#cancel');
+    const posts = document.querySelector('#posts');
+    let editingId = null;
+
+    async function loadPosts() {
+      const response = await fetch('/api/posts');
+      const items = await response.json();
+      posts.replaceChildren(...items.map(post => {
+        const article = document.createElement('article');
+        const heading = document.createElement('h3');
+        const body = document.createElement('p');
+        const date = document.createElement('time');
+        const edit = document.createElement('button');
+        const remove = document.createElement('button');
+        heading.textContent = post.title;
+        body.textContent = post.content;
+        date.textContent = new Date(post.created_at).toLocaleString('ko-KR');
+        edit.textContent = '수정';
+        edit.onclick = () => {
+          editingId = post.id;
+          title.value = post.title;
+          content.value = post.content;
+          form.querySelector('button').textContent = '수정 완료';
+          cancel.hidden = false;
+          title.focus();
+        };
+        remove.textContent = '삭제';
+        remove.onclick = async () => {
+          if (!confirm('이 글을 삭제할까요?')) return;
+          await fetch(`/api/posts/${post.id}`, {method: 'DELETE'});
+          if (editingId === post.id) resetForm();
+          loadPosts();
+        };
+        article.append(heading, date, body, edit, ' ', remove);
+        return article;
+      }));
+    }
+
+    function resetForm() {
+      editingId = null;
+      form.reset();
+      form.querySelector('button').textContent = '작성';
+      cancel.hidden = true;
+    }
+
+    form.onsubmit = async event => {
+      event.preventDefault();
+      const response = await fetch(editingId ? `/api/posts/${editingId}` : '/api/posts', {
+        method: editingId ? 'PUT' : 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({title: title.value, content: content.value})
+      });
+      if (!response.ok) return alert((await response.json()).error);
+      resetForm();
+      loadPosts();
+    };
+
+    cancel.onclick = resetForm;
+    loadPosts();
+  </script>
+</body>
+</html>

@@ -1,0 +1,4521 @@
+PAGES: 264
+
+--- PAGE 1 ---
+1
+본문서는 SK㈜ AX의컨텐츠자산으로, 무단사용및불법배포시법적조치를받을수있습니다.
+HTML, CSS, JavaScript
+2026.7
+Full-Stack Engineering
+--- PAGE 2 ---
+1. Web 개요
+2. HTML 기초
+3. HTML Form
+4. HTML 심화
+5. CSS 기초
+6. CSS 심화
+7. JavaScript 기초
+8. JavaScript 심화
+--- PAGE 3 ---
+3
+교수 소개
+
+--- PAGE 4 ---
+4
+[소스 코드]
+▪ https://github.com/bottletiger/skala-front
+• Git Clone
+• Download ZIP
+• GitHub Fork 
+--- PAGE 5 ---
+5
+[과제 제출]
+▪ 실습내용을제출한다. 
+• 본인의 GitHub 계정에 Public저장소를생성한다. (Private 설정시채점불가). 
+• 저장소주소예: https://github.com/교육생GitHub계정/skala-front
+▪ 제출전확인
+• Browser시크릿창을켜고저장소주소로접속했을때, 로그인요구없이소스코드가정상적으로잘보이는지더블체크후제출한다.
+• Chrome Secret Mode 켜는법
+Windows / Linux: Ctrl + Shift + N
+macOS (Mac): Command(⌘) + Shift + N
+
+--- PAGE 6 ---
+6
+[과제 제출]
+▪ 종합과제평가기준표 (Rubric) 
+점수 구간 평가 등급 기술적 및 실무적 평가 기준
+91 ~ 100점 Excellent • 기본요구사항을완벽히충족
+• 지시되지않은내용을추가로실습한경우
+81 ~ 90점 Good • 기본요구사항을완벽히충족
+• 단순복사-붙여넣기가아닌충분한개인실습흔적이보이는경우
+71 ~ 80점 Fair • 안내된기본요구사항(최소스펙)을부분충족
+• 지정된형식에맞춰 GitHub Public Repository URL을올바르게제출한경우
+61 ~ 70점 Poor • 과제를제출했으나요구사항의핵심기능중상당부분이누락된경우
+• 제출한 GitHub URL이비공개(Private) 설정되어있어소스코드확인및채점이불가능한경우
+--- PAGE 7 ---
+7
+Frontend Beginner Roadmap
+https://roadmap.sh/frontend-beginner
+
+--- PAGE 8 ---
+1. Web 개요
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 9 ---
+9
+Internet - History
+1. Web 개요
+▪ 전세계적으로 연결된컴퓨터네트워크
+▪ 데이터를주고받을수있도록표준화된프로토콜을사용 : 웹, 이메일, 파일등
+▪ 인터넷의역사
+• 1960년대: 미국국방부 ARPANET(Advanced Research Projects Agency Network) 프로젝트에서시작
+• 1970~1980년대: TCP/IP 프로토콜개발, ARPANET의성장
+• 1990년대: WWW(World Wide Web)의등장 ➔대중화
+• 2000년대: 모바일인터넷, Cloud, IoT(Internet of Things) 등으로발전
+--- PAGE 10 ---
+10
+Internet - Physical Infrastructure
+1. Web 개요
+▪ Client & Server (End Systems, 종단시스템)
+• 네트워크의가장자리(Edge)에위치하며, 프로토콜을직접실행하고데이터를생성하거나최종적으로소비하는단말기기
+• Client: 서비스를요청하는단말기. 스마트폰, PC, 노트북등이이에해당하며, 웹브라우저등을통해데이터를요청한다. 
+• Server: 요청에응답하여서비스를제공하는고성능컴퓨터. Web Server, Database Server같이서비스를제공한다.
+• 고유한 IP 주소를할당받아네트워크식별자로사용되며, 웹브라우저나앱같은네트워크애플리케이션수준의프로세스를구동한다.
+▪ 전송매체 (Transmission Media)
+• 종단시스템과네트워크장비, 혹은장비와장비사이를물리적으로연결하여데이터신호가물리적층위에서이동할수있는채널을
+제공하는매체
+• 유선매체: 광케이블(Optical Fiber Cable), Ethernet Cable(LAN선), 해저광케이블(대륙간연결) 
+• 무선매체: Wi-Fi, 5G/LTE, 위성통신등으로공기중으로신호를전달한다.
+▪ 네트워크장비(Network Equipment)
+• 종단시스템이전송한데이터조각(Packet)의헤더정보를파싱하여, 최적의경로를설정하고다음목적지로데이터를포워딩
+(Forwarding)하는네트워크노드장비
+• Router: 서로다른네트워크를연결하고, 데이터패킷이가장효율적인경로로이동할수있도록경로를배정(라우팅)하는장치
+• Switch: 하나의네트워크안에서여러컴퓨터와장비들을유선으로연결하고데이터를분배하는장치입니다
+--- PAGE 11 ---
+11
+Internet - Protocol
+1. Web 개요
+▪ 인터넷에서데이터를주고받기위한일정한규칙과약속으로네트워크기능을계층(Layer)별로정의한다.
+• OSI 7 Layers: 학술적이고이론적인모델표준 (네트워크구조를이해하기좋음)
+• TCP/IP 4 Layers:실무적이고실용적인모델 (인터넷의사실상표준)
+▪ TCP/IP (인터넷표준 Protocol Suite)
+• Network Access Layer : 물리적인케이블, 랜카드등을통해데이터를비트(0,1) 단위로전달
+• Internet Layer : 데이터가이동할최적의경로를찾고 IP 주소를부여하는단계
+• Transport Layer : 데이터를목적지까지안전하고정확하게전달하는단계
+• Application Layer : 사용자가사용하는앱과직접상호작용하는단계
+Data/Message
+(TCP)Segment / (UDP)Datagram
+Packet
+Frame
+Bit
+PDU
+(Protocol Data Unit)
+Protocol
+--- PAGE 12 ---
+12
+Internet - Network Access Layer Protocol
+1. Web 개요
+▪ Network Access Layer
+• OSI 모델의물리계층(Physical Layer)와데이터링크계층(Data Link Layer)를통합한계층이다.
+• 물리적인네트워크매체(광케이블, LAN선, 무선주파수)를통해데이터를전기신호로변환하여실제로전송하는계층
+• 데이터단위: Frame
+▪ 핵심 Protocol
+• Ethernet : 가장널리쓰이는유선네트워크규격
+• Wi-Fi(IEEE 802.11) : 무선로컬네트워크규격
+▪ MAC (Media Access Control) Address
+• IP주소가컴퓨터의논리적위치인반면에 MAC 주소는
+하드웨어고유한물리적식별자
+• 하드웨어내부에영구적으로기록되는주소로값이
+변경되지않는다.
+• 48비트(6바이트)로 16진수 12자리로표기
+▪ 내컴퓨터의상세네트워크 Hardware/IP 정보확인
+• Windows : ipconfig /all
+• macOS :  ifconfig
+MAC 
+MAC 
+--- PAGE 13 ---
+13
+Internet - Internet Layer Protocol
+1. Web 개요
+▪ Internet Layer
+• 논리적인주소인 IP를사용하여서로다른네트워크간의통신을가능하게한다.
+• 핵심 Protocol: IP(Internet Protocol), ICMP(Internet Control Message Protocol)
+• 데이터단위: Packet
+▪ IP Address
+• 인터넷에서각장치를식별하는고유주소
+• IPv4
+- 192.168.0.1 처럼 3개의점으로구분된 4개의숫자로표현
+-약 43억개의주소, 사용량이급증하면서현재주소가거의고갈
+• IPv6
+- IPv4의주소부족문제를해결하기위해등장
+-주소예) 2001:0db8:85a3:0000:0000:8a2e:0370:7334 
+-사실상무한대에가까운주소를제공하므로주소고갈걱정이없다.
+▪ 공인 IP (Public IP)와사설 IP (Private IP)
+• Public IP: 전세계인터넷망(WAN, Wide Area Network)에서유일무이하게식별되는식별자
+• Private IP: 폐쇄된내부네트워크(LAN, Local Area Network) 안에서만사용되는식별자
+• NAT(Network Address Translation): 하나의공인IP 주소를여러개의사설IP 주소로변환하거나그반대로변환하는기술
+Private IP 
+--- PAGE 14 ---
+14
+Internet - Transport Layer Protocol
+1. Web 개요
+▪ Transport Layer
+• 데이터전송의신뢰성을보장한다.
+• 핵심 Protocol: TCP,UDP
+• 데이터단위: Segment 
+▪ TCP (Transmission Control Protocol)
+• 연결지향적프로토콜 : 데이터를주고받기전에송신측과수신측이서로연결을확립하는과정(3-Way Handshake)을거친다. 
+• 높은신뢰성및순서보장: 데이터가중간에유실되면다시재전송을요청하여목적지에도착하도록보장한다.
+• 단점: 연결을설정하고확인하는과정이반복되므로 UDP에비해속도가느리고오버헤드가크다.
+• 주요용도: 신뢰성이절대적으로중요한서비스 -웹(HTTP), 파일전송(FTP), 이메일(SMTP)
+▪ UDP (User Datagram Protocol)
+• 비연결형프로토콜: 연결확립과정없이, 목적지주소만확인하면확인신호도받지않고데이터를일방적으로던지듯보낸다.
+• 장점: 수신측이데이터를잘받았는지, 순서가맞는지신경쓰지않기때문에헤더가가볍고전송속도가매우빠르다.
+• 단점: 데이터가중간에유실되거나순서가뒤바뀌더라도이를해결하지않는비신뢰성구조이다.
+• 주요용도: 실시간성이중요하고약간의데이터손실은허용되는서비스 -실시간스트리밍, 온라인게임
+▪ 내 컴퓨터의 네트워크 연결 및 열려 있는 포트 전체 현황 확인 명령어
+• Windows : netstat -an
+• macOS : lsof -I TCP -P -n
+
+--- PAGE 15 ---
+15
+Internet - Application Layer Protocol
+1. Web 개요
+▪ Application Layer 주요 Protocol
+• HTTP/HTTPS -웹브라우저와서버간의자원(HTML, CSS, JS, 이미지등) 전송을담당하는가장대표적인프로토콜
+• DNS (Domain Name System) -도메인네임을 IP 주소로변환해주는역할
+• FTP (File Transfer Protocol) / SSH (Secure Shell) -파일전송및보안이강화된원격접속서비스를제공하는프로토콜
+• SMTP/POP3/IMAP -이메일송수신을위한프로토콜
+▪ nslookup
+• Nslookup은 DNS에질의하여특정도메인의 IP 주소를확인할수있는명령어 (Windows, macOS 동일)
+
+--- PAGE 16 ---
+16
+Internet - Web Connection Workflow
+1. Web 개요
+1. DNS 서버에 IP 주소를문의
+2. TCP 3-way Handshake과정을통해두컴퓨터(클라이언트와서버)가서로신뢰할수있는통신통로를수립
+• TCP 3-Way Handshake : SYN (연결요청) → SYN+ACK (수락응답+연결요청) → ACK (연결확립)의 3단계과정
+3. 통신통로가수립되면안전하게필요데이터를주고받기시작한다.
+
+--- PAGE 17 ---
+17
+WWW 
+1. Web 개요
+https://doing7.tistory.com/24
+▪ WEB(=WWW, World Wide Web)의정의
+• 인터넷상에서정보를주고받는서비스의한형태
+• 웹페이지를통해정보를사용자에게제공하는서비스
+• 웹페이지는 HTML로작성되며웹브라우저를통해열람가능
+▪ WEB의 3대 개념
+• 어떻게 - HTTP (HyperText Transfer Protocol) 
+• 어디로 - URL (Uniform Resource Locator) 
+• 무엇을 - HTML (HyperText Markup Language)
+▪ Internet vs World Wide Web
+구분 인터넷 (Internet) 웹 (World Wide Web, WWW)
+정의 전세계컴퓨터네트워크를연결한 물리적인 통신망 (인프라) 인터넷망위에서정보를공유할수있도록만든 정보 공간 (서비스)
+핵심 구성 요소 케이블, 라우터, 스위치, 컴퓨터(하드웨어) HTML, HTTP , URL, 웹브라우저(소프트웨어)
+기준 계층 (TCP/IP) 하위계층 (인터넷계층, 전송계층중심) 최상위계층 (응용계층)
+포함 관계 전체 인프라 (웹을포함한모든서비스의기반) 인터넷이라는인프라위에구동되는 수많은 서비스 중 하나
+다른 서비스 예시 이메일(SMTP), 파일전송(FTP), 원격접속(SSH) 등 -
+
+--- PAGE 18 ---
+18
+WWW - Client와 Server
+1. Web 개요
+▪ Client
+• 웹페이지를요청하는사용자의컴퓨터또는장치
+• 웹브라우저는대표적인클라이언트소프트웨어
+• 대표웹브라우저: Chrome, Edge, Safari
+▪ Server
+• 클라이언트의요청을받아서처리하고데이터를제공하는컴퓨터
+• 웹서버는 HTML 페이지, 이미지, CSS, JavaScript 등을저장하고클라이언트에전달
+• 대표웹서버
+Web Server 설명
+Apache • Apache Software Foundation (1995년)
+• 오픈소스, 모든운영체제에서동작가능
+Nginx • 오픈소스 + 상용, 모든운영체제에서동작가능
+• 빠른속도와가벼운리소스, 이벤트기반비동기처리방식
+Microsoft IIS • Microsoft (1995년)
+• Windows 전용으로 Windows 생태계에최적화
+--- PAGE 19 ---
+19
+URL (Uniform Resource Locator)
+1. Web 개요
+http://www.codns.com/b/B05-195
+▪ URL (Uniform Resource Locator)
+• 네트워크상에서자원이어디있는지를알려주기위한규약으로리소스의위치와액세스에사용되는주소를나타낸다. 
+• URL은아래의그림예와같이통신프로토콜과서버의위치를알려주는도메인주소또는 IP주소, 포트번호, 디렉터리경로, 파
+일문서명, 매개변수파라미터와쿼리등이포함된구조로이루어져있다
+
+--- PAGE 20 ---
+20
+HTTP
+1. Web 개요
+https://hyojin96.tistory.com/entry/HTTP-%ED%86%B5%EC%8B%A0
+▪ HTTP (Hyper Text Transfer Protocol)
+• Communication between client computers and web servers is done by sending HTTP Requests and receiving HTTP 
+Responses
+▪ HTTP Request / Response
+1. A client (a browser) sends an HTTP request to the web
+2. A web server receives the request
+3. The server runs an application to process the request
+4. The server returns an HTTP response (output) to the browser
+5. The client (the browser) receives the response
+
+--- PAGE 21 ---
+21
+HTTP - Request
+1. Web 개요
+https://www.w3schools.com/tags/ref_httpmethods.asp
+▪ HTTP Request 구성요소
+1. Request Line : Request Method, URL, HTTP버전
+2. Request Header : User-Agent, Content-Type 등
+3. Request Body : Server로보낼 Data
+▪ HTTP Methods
+• GET: request data from a specified resource.
+• POST: send data to a server to create/update a resource.
+• PUT, HEAD, DELETE, PATCH, OPTIONS, CONNECT, TRACE
+Request Line 
+Request Body 
+--- PAGE 22 ---
+22
+HTTP - Response
+1. Web 개요
+https://www.w3schools.com/tools/tool_http_status.php
+▪ HTTP Response구성요소
+1. Status Line : HTTP Version, Status Code, Status Message
+2. Response Header : Content-Type, Server 등
+3. Response Body : HTML, JSON등
+▪ HTTP Status Codes
+• 1xx(Informational)
+• 2xx(Success): 200 OK, 201 Created
+• 3xx(Redirection): 304 Not Modified
+• 4xx(Client Error): 400 Bad Request, 404 Not Found
+• 5xx(Server Error): 500 Internal Server Error
+Status Line 
+Response Header 
+Response Body 
+--- PAGE 23 ---
+23
+HTTP - HTTPS (Hypertext Transfer Protocol Secure)
+1. Web 개요
+▪ HTTP의보안버전으로 SSL(Secure Sockets Layer)/TLS(Transport Layer Security) 암호화를사용하여데이터보호
+• HTTPS 암호화를사용하면 Request Headers, Request Body, Response Headers, Response Body가암호화된다. 
+• 목적지주소 (도메인과 IP)는암호화되지않는다.
+▪ HTTPS는현재웹사이트의기본표준이며, Google 크롬같은브라우저는 HTTPS를사용하지않는웹사이트에대해 "보
+안위험경고"를표시
+
+--- PAGE 24 ---
+24
+HTML - 개요
+1. Web 개요
+▪ HTML(Hyper-text Markup Language) is the standard markup language for creating Web pages
+• Hyper-text: 링크를통해웹페이지간의이동이가능
+• Markup Language: 태그를사용해문서의구조와스타일을정의
+▪ 웹브라우저는 HTML 문서를해석하여사용자가볼수있는웹페이지로렌더링(Rendering)된다.
+▪ HTML은텍스트, 이미지, 링크, 폼, 멀티미디어등다양한콘텐츠를포함하여구조화한다.
+▪ HTML문서는다양한기기와브라우저에서작동한다. 
+▪ HTML문서는 CSS와 JavaScript를통해스타일링과동작을추가할수있다.
+구분 Markup Markdown
+정의 문서의구조와스타일을태그로지정하는언어
+HTML, XML
+간단한문서작성용경량마크업언어
+- README, 블로그작성: (.md)
+목적 콘텐츠의구조화및표현제어 (스타일포함) 텍스트중심의간단한서식표현
+문법 비교적복잡하고태그기반
+예) <h1>제목</h1>
+직관적이고간단한기호기반
+예) # 제목
+[ 참고 - Markup vs. Markdown ]
+--- PAGE 25 ---
+25
+HTML - History
+1. Web 개요
+▪ 1989년 - Tim Berners-Lee 의해처음 www개발
+▪ 1991년 - Tim Berners-Lee 의해처음 HTML개발
+▪ 1995년 - HTML Working Group에의해표준화 (HTML 2.0)
+• 기본적인폼과테이블요소가추가
+▪ 1997년 - W3C(World Wide Web Consortium)에서 관리시작 (HTML 3.2)
+• JavaScript 및 CSS가도입됨
+▪ 1999년 - W3C에서 HTML 4.01 발표
+▪ 2000년 - W3C에서 XHTML 1.0 발표
+▪ 2014년 - W3C에서 HTML5 발표
+• 멀티미디어콘텐츠를기본적으로포함하고 Semantic태그구조명확화 →브라우저호환성
+▪ 2017년 - W3C에서 HTML 5.2 발표
+--- PAGE 26 ---
+26
+HTML - Page Structure
+1. Web 개요
+1
+2
+3
+4
+DTD : 문서형정의 (<!DOCTYPE html>는 HTML5 문서라는것을의미한다.)
+html : HTML문서의시작과끝
+head : 문서정보정의
+body : 웹브라우저에표시할내용
+1
+2
+3
+4
+--- PAGE 27 ---
+27
+HTML - 주요 태그 (문서 구조와 Metadata)
+1. Web 개요
+카테고리 태그 설명
+문서구조 <html> HTML 문서의루트요소로, 문서의시작과끝을표시
+<head> 메타데이터(문서제목, 스타일, 스크립트등)를정의
+<title> 브라우저탭에표시되는문서의제목
+<body> 문서의본문콘텐츠를정의
+Metadata <meta> 문서의메타데이터를정의하며, SEO및브라우저동작에영향을줌
+<link> 외부리소스(CSS 파일등)와의관계를정의
+<script> JavaScript 코드를삽입하거나외부스크립트를연결
+--- PAGE 28 ---
+28
+HTML - 주요 태그 (Text/Contents)
+1. Web 개요
+카테고리 태그 설명
+Text/Contents <h1> ~ <h6> 제목(Heading)을정의하며, <h1>이가장크고 <h6>이가장작음
+<p> 단락을정의
+<br> 줄바꿈을삽입
+<span> 인라인요소,텍스트를묶어스타일링이나스크립트를적용할때사용
+<strong> 중요성을나타내는텍스트를굵게표시
+<em> 강조된텍스트를기울임꼴로표시
+<a> 하이퍼링크를생성하며, href속성을통해링크대상을지정
+<hr> 수평선
+<mark> 형광펜강조
+<small> 작은글씨
+<blockquote> 인용문단
+<cite> 출처인용
+<code> 코드조각표현
+<pre> 공백/줄바꿈유지한채코드나텍스트표시
+<div> 의미없는구획(block), 스타일/스크립트용도
+--- PAGE 29 ---
+29
+HTML - 주요 태그 (List, Table)
+1. Web 개요
+카테고리 태그 설명
+List Tag <ul> 순서없는목록(Unordered List)을정의
+<ol> 순서있는목록(Ordered List)을정의
+<li> 목록의항목을정의:  <ul> 및 <ol>에서모두사용
+<dl> 설명목록
+<dt> 설명제목
+<dd> 설명내용
+Table Tag <table> 테이블(표양식)을정의
+<thead> 표의머리글부분
+<tbody> 표의본문
+<tfoot> 표의바닥글
+<tr> 테이블행(Row)을정의
+<th> 테이블의헤더셀을정의하며, 기본적으로텍스트를굵게표시하고가운데정렬
+<td> 테이블데이터셀을정의
+--- PAGE 30 ---
+30
+HTML - 주요 태그 (Form)
+1. Web 개요
+카테고리 태그 설명
+Form Tag <form> 사용자가데이터를입력하여서버로전송할수있는폼을정의
+<input> 다양한입력필드를정의(텍스트, 비밀번호, 체크박스등)
+<button> 버튼
+<label> 입력필드에대한설명을제공
+<textarea> 여러줄의텍스트입력필드
+<select> 드롭다운선택필드
+<option> 선택항목
+<fieldset> 입력항목그룹화
+<legend> 그룹설명제목
+--- PAGE 31 ---
+31
+HTML - 주요 태그 (Media)
+1. Web 개요
+카테고리 태그 설명
+Media Tag <img> 이미지를삽입하며, src속성으로이미지경로를, alt속성으로대체텍스트를지정
+<audio> 오디오콘텐츠를삽입
+<video> 비디오콘텐츠를삽입
+<source> <audio>나 <video>에미디어소스를지정
+<track> 자막트랙
+<figure> 미디어와캡션묶음
+<figcaption> 설명캡션
+--- PAGE 32 ---
+32
+HTML - 주요 태그 (Semantic)
+1. Web 개요
+카테고리 태그 설명
+Semantic Tag <header> 문서나섹션의머리글을정의
+<footer> 문서나섹션의바닥글을정의
+<main> 문서의주콘텐츠
+<article> 독립적인콘텐츠를정의
+<section> 문서의주제를정의하는섹션
+<aside> 부가적인콘텐츠(예: 사이드바)를정의.
+<nav> 네비게이션링크를포함하는섹션을정의
+--- PAGE 33 ---
+33
+VS Code - Live Server Installation
+1. Web 개요
+▪ VS Code Live Server는웹개발(HTML, CSS, JavaScript)을할때내가코드를수정하고저장(Ctrl + S)하면, 브라우저가
+알아서새로고침되어실습결과를실시간으로바로확인하게해주는확장프로그램(Extension)이다.
+
+--- PAGE 34 ---
+34
+VS Code - 프로젝트 폴더 및 파일 생성
+1. Web 개요
+▪ 프로젝트폴더생성
+▪ 파일생성 (index.html)
+
+--- PAGE 35 ---
+35
+VS Code - 코드작성 Emmet(에밋)
+1. Web 개요
+▪ Emmet은 HTML, CSS 등의코드를빠르게작성할수있도록도와주는코드자동완성기능(Code Snippet Engine)이다.
+▪ Emmet은 VS Code에탑재(내장)되어있어별도 Extention으로설치할필요는없다. 
+▪ 현재편집중인파일의이름이 .html로끝나야지 Emmet이동작한다.
+▪ Emmet 활용하기
+• 뼈대코드작성: ! 
+• 자식노드생성: >
+• 형제노드생성: +
+• 반복노드생성: * 
+• 클래스명(.) 또는 ID(#) 지정과동시에만들기
+
+--- PAGE 36 ---
+36
+VS Code－문서보기 (Open with Live Server)
+1. Web 개요
+▪ 방법1) 오른쪽하단“Go Live” 영역선택
+▪ 방법2) Ctrl + Shift + P를클릭 (또는검색창에“>” 입력) Live Server: Open with Live Server 선택
+▪ 코드를수정하고저장(Ctrl + S)하면, 브라우저가알아서새로고침된다.
+
+--- PAGE 37 ---
+37
+[실습] What is my IP?
+1. Web 개요
+https://whatismyipaddress.com/
+▪ 윈도우터미널 “ipconfig /all” 또는맥OS 터미널 “ifconfig” 명령을통해내 IP를확인
+→ Private IP
+▪ 웹사이트 “what is my ip”
+→ Public IP
+▪ (참고) NAT (Network Address Translation, 네트워크주소변환)
+• NAT는 IP 패킷의헤더에있는 IP 주소를다른주소로변환하여라우팅하는기술이다.
+• 주로기관내부의 Private IP를인터넷상의 Public IP로변환할때사용하며, 라우터같은네트워크장비에서수행된다.
+• 변환된내역은 NAT 매핑테이블에기록된다. 
+--- PAGE 38 ---
+38
+[실습] HTTP Request Circle
+1. Web 개요
+▪ Chrome개발자도구(F12 or Ctrl+Shift+I)를연다.
+▪ Network Tab으로이동해서 Clear Networking Log를한다.
+▪ 주소창에 https://example.com/입력한다.
+▪ Network Tab에서목록을확인한다.
+▪ Network Tab에서 example.com을클릭한후, Header, Preview, Response, Initiator, Timing을확인한다.
+
+--- PAGE 39 ---
+39
+[과제] Project 구성과 index.html 생성
+1. Web 개요
+▪ Project Name: SKALA-FRONT
+▪ Folder: html
+▪ File: index.html
+• 브라우저타이틀(title): “Welcome SKALA”
+• 본문타이틀(h1) : “환영인사＂
+• 본문(p): “스칼라에오신것을환영합니다.”
+▪ Live Server로확인
+
+--- PAGE 40 ---
+2. HTML 기초
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 41 ---
+41
+HTML Roadmap
+2. HTML 기초
+https://roadmap.sh/html
+
+--- PAGE 42 ---
+42
+HTML Elements
+2. HTML 기초
+https://www.w3schools.com/html/html_elements.asp
+▪ An HTML element is defined by a start tag, some content, and an end tag
+• <tagname> Content goes here... </tagname>
+▪ The HTML element is everything from the start tag to the end tag
+• HTML elements with no content are called empty elements.
+▪ HTML elements can be nested (this means that elements can contain other elements).
+▪ HTML is Not Case Sensitive
+Start Tag Element Content End Tag
+<h1> My First Heading </h1>
+<p> My first paragraph. </p>
+<br> none none
+<html>
+<body>
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+</body>
+</html>
+--- PAGE 43 ---
+43
+HTML Attributes
+2. HTML 기초
+https://www.w3schools.com/html/html_attributes.asp
+▪ HTML attributes provide additional information about HTML elements.
+• All HTML elements can have attributes
+• Attributes provide additional information about elements
+• Attributes are always specified in the start tag
+• Attributes usually come in name/value pairs like: name="value"
+▪ Double quotes around attribute values are the most common in HTML, but single quotes can also be used.
+<a href="https://www.w3schools.com">Visit W3Schools</a>
+<img src="img_girl.jpg" width="500" height="600">
+<p style="color:red;">This is a red paragraph.</p>
+<p title='John "ShotGun" Nelson’>
+<p title="John 'ShotGun' Nelson">
+--- PAGE 44 ---
+44
+HTML Attributes - Global attributes
+2. HTML 기초
+▪ 다음속성은모든 HTML Element에서사용되는속성이다.
+Attribute 설명 예시
+id 요소의고유식별자 - JS, CSS 등에서참조할때사용 <div id=“title”>…</div>
+class CSS나 JS에서참조가능한클래스이름 (여러개가능) <p class=“red-color”>…</p>
+style 인라인스타일을지정 <h1 style="color:red;"></h1>
+title 엘리먼트의추가정보 (마우스를위에올리면툴팁으로표시) <img src="cat.jpg" title="고양이">
+lang 엘리먼트에사용한텍스트의언어정보를지정 <html lang=“ko”>
+hidden 요소를화면에표시하지않음 (렌더링 X) <div hidden>비밀정보</div>
+tabindex 키보드탭순서지정 (작은숫자가먼저) <button tabindex="1">확인</button>
+draggable 요소를드래그할수있는지여부설정 (true / false) <img src="logo.png" draggable="true">
+spellcheck 입력된텍스트의맞춤법검사여부 (true / false) <textarea spellcheck="true“ lang=“kr”></textarea>
+contenteditable 사용자가콘텐츠를편집할수있도록설정 (true / false) <div contenteditable="true">편집 가능</div>
+dir 텍스트방향설정 (ltr, rtl, auto) <p dir="rtl“>שלוםp>
+lang 콘텐츠언어지정 (en, ko, fr등) <p lang="en">Hello</p>
+data-* 사용자가임의의속성을생성 <p data-name=“spiderMan” data-hero=“true”>…</p>
+--- PAGE 45 ---
+45
+HTML Attributes - Id
+2. HTML 기초
+https://www.w3schools.com/html/html_id.asp
+▪ The id attribute specifies a unique id for an HTML element. 
+▪ The value of the id attribute must be unique within the HTML document.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#myHeader {
+background-color: lightblue;
+color: black;
+padding: 40px;
+text-align: center;
+} 
+</style>
+</head>
+<body>
+<h2>The id Attribute</h2>
+<p>Use CSS to style an element with the id "myHeader":</p>
+<h1 id="myHeader">My Header</h1>
+</body>
+</html>
+
+--- PAGE 46 ---
+46
+HTML Attributes - class
+2. HTML 기초
+https://www.w3schools.com/html/html_classes.asp
+▪ The class attribute is often used to point to a class name in a style sheet. 
+▪ It can also be used by JavaScript to access and manipulate elements with the specific class name.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.note {
+font-size: 120%;
+color: red;
+}
+</style>
+</head>
+<body>
+<h1>My <span class="note">Important</span> Heading</h1>
+<p>This is some <span class="note">important</span> text.</p>
+</body>
+</html>
+
+--- PAGE 47 ---
+47
+HTML Attributes - style
+2. HTML 기초
+https://www.w3schools.com/html/html_styles.asp
+▪ The HTML style attribute is used to add styles to an element, such as color, font, size, and more.
+• <tagname style="property:value;">
+• The property is a CSS property. The value is a CSS value.
+▪ The CSS background-color property defines the background color for an HTML element.
+▪ CSS의 color, font-family, font-size, text-align 같은 property를통해 HTML을꾸밀수있다.
+<body style="background-color:powderblue;">
+<h1 style="background-color:lightgray;">제목</h1>
+<p style="background-color:tomato;">문단</p>
+</body>
+<h1 style="color:blue;">Heading</h1>
+<p style="color:red;">Paragraph</p>
+<h1 style="font-family:verdana;">Heading</h1>
+<p style="font-family:courier;">Paragraph</p>
+<h1 style="font-size:300%;">Heading</h1>
+<p style="font-size:160%;">Paragraph</p>
+<h1 style="text-align:center;">Heading</h1>
+<p style="text-align:center;">Paragraph</p>
+
+--- PAGE 48 ---
+48
+HTML Headings - <h1>~<h6>
+2. HTML 기초
+https://www.w3schools.com/html/html_headings.asp
+▪ HTML headings are titles or subtitles that you want to display on a webpage.
+▪ 검색엔진(Search engines)이웹페이지의구조와내용을파악하는데도사용한다.
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+</body>
+</html>
+
+--- PAGE 49 ---
+49
+HTML Paragraphs - <p>
+2. HTML 기초
+https://www.w3schools.com/html/html_paragraphs.asp
+▪ The HTML <p> element defines a paragraph.
+▪ A paragraph always starts on a new line.
+▪ The browser will automatically remove any extra spaces and lines when the page is displayed
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>
+<p>
+이 문단은
+소스 코드에서 많은 줄 바꿈이 있지만
+브라우저는 이를 무시합니다.
+</p>
+<p>
+이 문단은 소스 코드에서 많은 공백이 있지만
+브라우저는 이를 무시합니다.
+</p>
+
+--- PAGE 50 ---
+50
+HTML Paragraphs - <hr>/<br>
+2. HTML 기초
+https://www.w3schools.com/html/html_paragraphs.asp
+▪ The <hr> tag defines a thematic break in an HTML page
+• 대부분수평선을그려서시각적으로구분된다.
+▪ The HTML <br> element defines a line break.
+▪ <hr>과 <br> 태그는 empty tag로 end tag가필요하지않다.
+<!DOCTYPE html>
+<html>
+<body>
+<h1>This is heading 1</h1>
+<p>This is some text.</p>
+<hr>
+<h2>This is heading 2</h2>
+<p>This is some other text.</p>
+<hr>
+<p>This is<br>a paragraph<br>with line breaks.</p>
+</body>
+</html>
+
+--- PAGE 51 ---
+51
+HTML Block & Inline
+2. HTML 기초
+https://www.w3schools.com/html/html_blocks.asp
+구분 Block Elements Inline Elements
+디스플레이 화면에새줄에서시작하며, 가로폭을가능한한최대로차
+지 텍스트또는다른인라인요소와같은줄에서표시
+영역크기 기본적으로전체폭을차지 콘텐츠의크기만큼공간을차지
+배치 위/아래로쌓이며(수직정렬) 다른요소와겹치지않음 다른인라인요소와가로로나란히배치
+주요태그
+<div>, <p>, <h1> ~ <h6>, <ul>, <ol>, <li>, <table>, 
+<form>, <section>, <article>, <header>, <footer>, 
+<nav> 등
+<span>, <a>, <strong>, <em>, <b>, <i>, <img>, 
+<input>, <label>, <button>, <small>, <code>, <mark> 
+등
+CSS 적용 width, height, margin, padding 모두적용가능 width와 height는무시, margin과 padding은수평방향만적
+용
+용도 레이아웃구성및큰영역을나타낼때사용 텍스트나소규모콘텐츠강조, 링크, 스타일적용시사용
+▪ 모든 HTML Element는기본표시(display)값을가지고있다. 
+--- PAGE 52 ---
+52
+HTML Inline Container - <span>
+2. HTML 기초
+https://www.w3schools.com/html/html_blocks.asp
+▪ <span> element는텍스트또는문서의일부를표시하는데사용되는 inline container이다. 
+▪ <span> 요소에는필수속성이없지만 style, class, id 속성이일반적으로사용되며, CSS와함께사용하면서텍스트의
+특정부분에스타일을지정할수있다.
+<!DOCTYPE html>
+<html>
+<body>
+<h1>The span element</h1>
+<p>My mother has <span style="color:blue;font-weight:bold;">blue</span> eyes and my father has <span 
+style="color:darkolivegreen;font-weight:bold;">dark green</span> eyes.</p>
+</body>
+</html>
+
+--- PAGE 53 ---
+53
+HTML Div - <div>
+2. HTML 기초
+https://www.w3schools.com/html/html_div.asp
+▪ The <div> element is used as a container for other HTML elements.
+▪ The <div> element is by default a block element, meaning that it takes all available width, and comes with line breaks 
+before and after.
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Multiple DIV Elements</h1>
+<div style="background-color:#FFF4A3;">
+<h2>London</h2>
+<p>London is the capital city of England.</p>
+<p>London has over 9 million inhabitants.</p>
+</div>
+<div style="background-color:#FFC0C7;">
+<h2>Oslo</h2>
+<p>Oslo is the capital city of Norway.</p>
+<p>Oslo has over 700,000 inhabitants.</p>
+</div>
+<div style="background-color:#D9EEE1;">
+<h2>Rome</h2>
+<p>Rome is the capital city of Italy.</p>
+<p>Rome has over 4 million inhabitants.</p>
+</div>
+<p>CSS styles are added to make it easier to separate the divs, 
+and to make them more pretty:)</p>
+</body>
+</html>
+
+--- PAGE 54 ---
+54
+HTML Links - <a> 
+2. HTML 기초
+https://www.w3schools.com/html/html_links.asp
+▪ The HTML <a> tag defines a hyperlink. 
+▪ href속성은링크의목적지 URL을지정한다.
+▪ target 속성은링크된문서가열리는공간을지정한다.
+• _self - Default. Opens the document in the same window/tab as it was clicked
+• _blank - Opens the document in a new window or tab
+• _parent - Opens the document in the parent frame
+• _top - Opens the document in the full body of the window
+▪ Link Bookmarks
+• Bookmarks can be useful if a web page is very long.
+<a href="https://www.w3schools.com/">Visit W3Schools.com!</a>
+<a href="https://www.w3schools.com/" target="_blank">Visit W3Schools!</a>
+<a href="#C4">Jump to Chapter 4</a>
+…
+<h2 id="C4">Chapter 4</h2>
+…
+--- PAGE 55 ---
+55
+HTML Text Formatting - <b><string><i><em><small><mark>…
+2. HTML 기초
+https://www.w3schools.com/html/html_formatting.asp
+▪ Formatting elements were designed to display special types of text
+<body>
+<p><b>This text is bold</b></p>
+<p><strong>This text is important!</strong></p>
+<p><i>This text is italic</i></p>
+<p><em>This text is emphasized</em></p>
+<p><small>This is some smaller text.</small></p>
+<p>Do not forget to buy <mark>milk</mark> today.</p>
+<p>My favorite color is <del>blue</del> red.</p>
+<p>My favorite color is <del>blue</del> <ins>red</ins>.</p>
+<p>This is <sub>subscripted</sub> text.</p>
+<p>This is <sup>superscripted</sup> text.</p>
+</body>
+
+--- PAGE 56 ---
+56
+HTML Lists - Unordered Lists <ul><li>
+2. HTML 기초
+https://www.w3schools.com/html/html_lists_unordered.asp
+▪ An unordered list starts with the <ul> tag. Each list item starts with the <li> tag.
+▪ The CSS list-style-type property is used to define the style of the list item marker.
+<ul style="list-style-type:disc;">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ul>
+<ul style="list-style-type:circle;">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ul>
+<ul style="list-style-type:square;">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ul>
+<ul style="list-style-type:none;">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ul>
+
+--- PAGE 57 ---
+57
+HTML Lists - ordered Lists <ol><li>
+2. HTML 기초
+https://www.w3schools.com/html/html_lists_ordered.asp
+▪ An ordered list starts with the <ol> tag. Each list item starts with the <li> tag.
+▪ The type attribute of the <ol> tag, defines the type of the list item marker:
+<ol type="1">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ol>
+<ol type="A">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ol>
+<ol type="a">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ol>
+<ol type="I">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ol>
+<ol type="i">
+<li>Coffee</li>
+<li>Tea</li>
+<li>Milk</li>
+</ol>
+
+--- PAGE 58 ---
+58
+HTML Lists - Nested HTML Lists
+2. HTML 기초
+▪ Lists can be nested (list inside list)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Document</title>
+</head>
+<body>
+<ol>
+<li>Coffee</li>
+<li>Tea
+<ul>
+<li>Black tea</li>
+<li>Green tea</li>
+</ul>
+</li>
+<li>Milk</li>
+</ol>
+</body>
+</html>
+
+--- PAGE 59 ---
+59
+HTML Lists - Description Lists <dl><dt><dd>
+2. HTML 기초
+▪ <dl>: 정의리스트전체를감싸는태그로정의할항목들의목록을포함
+▪ <dt>: 목록항목의제목으로주로용어나항목이름을입력
+▪ <dd>: dt에서정의된항목에대한상세설명
+<body>
+<dl>
+<dt>HTML</dt>
+<dd>Hypertext Markup Language, 웹 페이지를 만드는 데 사용되는 마크업 언어입니다.</dd>
+<dt>CSS</dt>
+<dd>Cascading Style Sheets, 웹 페이지의 스타일을 정의하는 언어입니다.</dd>
+<dt>JavaScript</dt>
+<dd>웹 페이지의 동적인 기능을 구현하는 프로그래밍 언어입니다.</dd>
+</dl>
+</body>
+
+--- PAGE 60 ---
+60
+HTML Tables
+2. HTML 기초
+https://www.w3schools.com/html/html_tables.asp
+▪ A table in HTML consists of table cells inside rows and columns.
+<h2>TR elements define table rows</h2>
+<table style="width:100%">
+<tr>
+<td>Emil</td>
+<td>Tobias</td>
+<td>Linus</td>
+</tr>
+<tr>
+<td>16</td>
+<td>14</td>
+<td>10</td>
+</tr>
+</table>
+<table> 표전체를감싸는태그
+<thead> 표의머리글(제목행)을정의합니다. <tr>과 <th>로구성
+<tbody> 실제데이터행을담는부분입니다. <tr>과 <td>로구성됩니다.
+<tfoot> 표의바닥글을정의합니다. 합계나요약정보를넣는데사용됩니다.
+<tr> 표의한행(Row)을의미합니다.
+<th> 머리글셀(Header cell)을정의하며, 기본적으로굵은글씨와가운데정렬입니다.
+<td> 일반셀(Data cell)을정의합니다.
+
+--- PAGE 61 ---
+61
+HTML Tables - <thead><tbody><tfoot>
+2. HTML 기초
+▪ 단순예제나소규모표에서는 <tr><th>만으로사용가능.
+▪ 접근성, 유지보수, 스타일링, 상호작용구현측면에서는반드시 <thead>, <tbody>, <tfoot>을구분해서사용
+<body>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>나이</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>홍길동</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
+</body>
+
+--- PAGE 62 ---
+62
+HTML Tables - Styling
+2. HTML 기초
+▪ Use CSS to make your tables look better.
+https://www.w3schools.com/html/html_table_styling.asp
+주요항목 HTML 속성사용 (지양) CSS 사용 (권장)
+테두리 border border, border-collapse
+셀간격 cellspacing border-spacing
+셀안쪽여백 cellpadding padding
+정렬 align margin, text-align
+배경색 bgcolor background-color
+<head>
+<style>
+table {border-collapse: collapse; width: 100%;}
+th,td {text-align: left; padding: 8px;}
+tr:nth-child(even) {background-color: #D6EEEE;}
+</style>
+</head>
+<body>
+<h2>Zebra Striped Table</h2>
+<table>
+<tr>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Points</th>
+</tr>
+…
+
+--- PAGE 63 ---
+63
+HTML에서 Emoji 활용
+2. HTML 기초
+https://www.w3schools.com/html/html_emojis.asp, https://en.wikipedia.org/wiki/List_of_emojis, https://emojipedia.org
+▪ Emojis are letters (characters) from the UTF-8 (Unicode) character set
+• 이모지(Emoji): 감정, 사물, 개념등을나타내는그림문자
+• 유니코드(Unicode, 국제문자인코딩표준의일부)로관리
+• 일반텍스트처럼전송되며유니코드코드포인트(U+1F600형식)로표현
+▪ Emoji 역사
+▪ Emoji는문자임으로그냥복사하고붙여넣기하면다른문자들처럼 HTML에서사용될수있다.
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<body>
+<h1>Sized Emojis</h1>
+<p style="font-size:48px">&#128512; &#128516; &#128525; &#128151;</p>
+</body>
+</html>
+1999년 일본통신사 NTT 도코모가세계최초로휴대폰용이모지도입 (176개)
+2010년 유니코드 6.0에 처음으로 722개의 이모지가공식포함
+2016년 성별(남성/여성/성중립), 직업관련이모지추가
+2025년 3,800개 이상의이모지가등록되어있으며, 매년유니코드에서새로운이모지승인
+
+--- PAGE 64 ---
+64
+[과제] 나의 휴일 일과
+2. HTML 기초
+▪ 나의휴일일과를 “myHoliday.html” 문서로작성한다.
+• Folder: html
+• File: myHoliday.html
+▪ 필수사용 Element
+• <h1>
+• <h2>
+• <br>
+• <p>
+• <mark> 
+
+--- PAGE 65 ---
+65
+[과제] 나의 소개
+2. HTML 기초
+▪ 나의소개를 “myProfile.html” 문서로작성한다.
+• Folder: html
+• File: myProfile.html
+▪ 필수사용 Element
+• <ul> 내가좋아하는음식
+• <ol> 올해할일
+• <dl> 나를설명하는단어들
+• CSS는사용하지말것
+
+--- PAGE 66 ---
+66
+[과제] 나의 강의 일정
+2. HTML 기초
+▪ 나의소개를 “myClass.html” 문서로작성한다.
+• Folder: html
+• File: myClass.html
+▪ 필수사용 Element
+• <table> 
+• <thead> -시간, 요일
+• <tbody>
+• <td> - 2시간이상의강의나, 점심시간은셀을
+합쳐서표시
+• CSS는사용하지말것
+
+--- PAGE 67 ---
+67
+[과제] 바로가기
+2. HTML 기초
+▪ index.html에나의수업, 휴일, 프로필바로가기를추가한다.
+• Folder: html
+• File: index.html
+▪ 필수사용 Element
+• <a> 
+• CSS는사용하지말것
+
+--- PAGE 68 ---
+3. HTML Form
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 69 ---
+69
+HTML Roadmap
+3. HTML Form
+https://roadmap.sh/html
+
+--- PAGE 70 ---
+70
+HTML Forms
+3. HTML Form
+https://www.w3schools.com/html/html_forms.asp
+▪ An HTML form is used to collect user input. 
+▪ The user input is most often sent to a server for processing.
+▪ The HTML <form> element is used to create an HTML form for user input
+▪ The <form> element is a container for different types of input elements, such as: text fields, checkboxes, radio 
+buttons, submit buttons, etc.
+<form>
+.
+form elements
+.
+</form>
+<h2>HTML Forms</h2>
+<form action="signUpResult.php" method="get">
+<label for="fname">First name:</label><br>
+<input type="text" id="fname" name="fname" value="John"><br>
+<label for="lname">Last name:</label><br>
+<input type="text" id="lname" name="lname" value="Doe"><br><br>
+<input type="submit" value="Submit">
+</form> 
+
+--- PAGE 71 ---
+71
+HTML Form Attributes
+3. HTML Form
+https://www.w3schools.com/html/html_forms_attributes.asp
+Attribute Description
+accept-charset Specifies the character encodings used for form submission
+action Specifies where to send the form-data when a form is submitted
+autocomplete Specifies whether a form should have autocomplete on or off
+enctype Specifies how the form-data should be encoded when submitting it to the server (only for method="post")
+method Specifies the HTTP method to use when sending form-data
+name Specifies the name of the form
+novalidate Specifies that the form should not be validated when submitted
+rel Specifies the relationship between a linked resource and the current document
+target Specifies where to display the response that is received after submitting the form
+--- PAGE 72 ---
+72
+HTML Form Elements
+3. HTML Form
+https://www.w3schools.com/html/html_form_elements.asp
+▪ The HTML <form> element can contain one or more of the following form elements
+태그 설명 주요 속성
+<input> 사용자로부터다양한형태의입력을받음 type, name, value, placeholder, required 등
+<label> 입력필드에대한텍스트설명을제공 for (ID와연결)
+<textarea> 여러줄의텍스트입력 rows, cols, placeholder, name
+<select> 드롭다운목록을제공 name, multiple, required
+<option> <select> 안에서선택가능한항목 value, selected
+<button> 클릭가능한버튼생성 type (submit, reset, button)
+<fieldset> 관련입력필드를그룹화 없음
+<legend> <fieldset>에대한제목제공 없음
+<datalist> <input>에자동완성옵션제공 <option>과함께사용
+<output> 계산결과등의출력용필드 for, name
+Demo
+--- PAGE 73 ---
+73
+HTML Input Types
+3. HTML Form
+https://www.w3schools.com/html/html_form_input_types.asp
+▪ Here are the different input types you can use in HTML
+태그 설명 주요 속성
+text 일반텍스트입력필드 <input type="text" placeholder="이름입력">
+password 입력내용을숨기는비밀번호필드 <input type="password" placeholder="비밀번호입력">
+email 이메일주소입력필드. 이메일형식검증제공 <input type="email" placeholder="이메일입력">
+number 숫자입력필드. min, max, step속성을사용가능 <input type="number" min="1" max="100" step="1">
+tel 전화번호입력필드. 전화번호형식검증은없음 <input type="tel" placeholder="전화번호입력">
+url URL 입력필드. URL 형식검증제공 <input type="url" placeholder="https://example.com">
+color 색상선택기제공 <input type="color">
+date 날짜선택필드 (YYYY-MM-DD 형식) <input type="date">
+checkbox 체크박스. 하나이상의선택지를선택할수있음 <input type="checkbox">
+radio 라디오버튼. 하나의그룹내에서하나만선택가능 <input type="radio" name="group">
+file 파일선택필드. 파일업로드를처리할때사용 <input type="file">
+hidden 숨겨진입력필드 –미노출데이터를전송할때 <input type="hidden" name="token" value="12345">
+range 슬라이더로범위값을선택 <input type="range" min="0" max="100" step="10">
+Demo
+--- PAGE 74 ---
+74
+HTML Input Attributes
+3. HTML Form
+https://www.w3schools.com/html/html_form_attributes.asp
+Demo
+Attribute Description
+value Specifies an initial value for an input field
+readonly Specifies that an input field is read-only.
+disabled Specifies that an input field should be disabled.
+size Specifies the visible width, in characters, of an input field.
+maxlength Specifies the maximum number of characters allowed in an input field.
+min/max Specifies the minimum and maximum values for an input field
+multiple Specifies that the user is allowed to enter more than one value in an input field.
+pattern Specifies a regular expression that the input field's value is checked against, when the form is submitted.
+placeholder Specifies a short hint that describes the expected value of an input field
+required Specifies that an input field must be filled out before submitting the form.
+step Specifies the legal number intervals for an input field
+autofocus Specifies that an input field should automatically get focus when the page loads
+height/width Specify the height and width of an <input type="image"> element.
+list Refers to a <datalist> element that contains pre-defined options for an <input> element.
+autocomplete Specifies whether a form or an input field should have autocomplete on or off.
+--- PAGE 75 ---
+75
+HTML Buttons
+3. HTML Form
+https://www.w3schools.com/html/html_buttons.asp
+▪ The <button> element defines a clickable button.
+▪ Button Types – type attribute
+• type="button" - A normal clickable button (does nothing by default)
+• type="submit" - Submits a form
+• type="reset" - Resets all form fields
+▪ Disabled Buttons – disabled attribute
+• Use the disabled attribute to make a button unclickable:
+Demo
+--- PAGE 76 ---
+76
+HTML Form Example I
+3. HTML Form
+<form>
+<fieldset>
+<legend>계정 정보</legend>
+<p>
+<label for="userId">아이디: </label>
+<input type="text" id="userId" name="userId" minlength="4" maxlength="15" required placeholder="4~15자 영문/숫자">
+<small>(필수)</small>
+</p>
+<p>
+<label for="userPw">비밀번호: </label>
+<input type="password" id="userPw" name="userPw" minlength="8" required placeholder="8자 이상 입력">
+<small>(필수)</small>
+</p>
+<p>
+<label for="userEmail">이메일: </label>
+<input type="text" id="userEmail" name="userEmail" placeholder="example">
+@
+<select name="emailDomain">
+<option value="direct">직접 입력</option>
+<option value="naver.com">naver.com</option>
+<option value="gmail.com">gmail.com</option>
+<option value="daum.net">daum.net</option>
+</select>
+</p>
+</fieldset>
+</form>
+
+--- PAGE 77 ---
+77
+HTML Form Example II
+3. HTML Form
+<form>
+<fieldset>
+<legend>개인 프로필 정보</legend>
+<p>
+<label for="userName">이름: </label>
+<input type="text" id="userName" name="userName" required>
+</p>
+<p>
+<label for="userBirth">생년월일: </label>
+<input type="date" id="userBirth" name="userBirth">
+</p>
+<p>
+성별: 
+<label><input type="radio" name="gender" value="male" checked> 남성</label>
+<label><input type="radio" name="gender" value="female"> 여성</label>
+<label><input type="radio" name="gender" value="none"> 선택안함</label>
+</p>
+<p>
+관심 분야 (중복 선택 가능): <br>
+<label><input type="checkbox" name="interest" value="frontend"> 웹 프론트엔드 (Vue.js/HTML)</label><br>
+<label><input type="checkbox" name="interest" value="uiux"> UI/UX 디자인 표준</label><br>
+<label><input type="checkbox" name="interest" value="backend"> 백엔드 & 데이터베이스</label><br>
+<label><input type="checkbox" name="interest" value="devops"> 클라우드 & 인프라</label>
+</p>
+</fieldset>
+</form>
+
+--- PAGE 78 ---
+78
+HTML Form Example III
+3. HTML Form
+<form>
+<fieldset>
+<legend>자기소개</legend>
+<p>
+<label for="intro">나를 표현하는 한 줄 소개 또는 가입 인사:</label><br>
+<textarea id="intro" name="intro" rows="5" cols="50" placeholder="여기에 내용을 입력하세요 (최대 200자)"></textarea>
+</p>
+</fieldset>
+<br>
+<input type="submit" value="동의하고 회원가입">
+<input type="reset" value="다시 작성">
+</form>
+
+--- PAGE 79 ---
+79
+[과제] 회원가입
+3. HTML Form
+▪ 회원가입페이지를작성한다.
+• Folder: html
+• File: signUp.html
+▪ 필수사용 Element
+• <form> - action은 signUpResult.html, method는 get
+• <fieldset><legend><label> 
+• <input> - placeholder, required 등속성사용
+• <select><option><textarea>
+• <submit><reset>
+
+--- PAGE 80 ---
+80
+[과제] 회원가입결과
+3. HTML Form
+▪ 회원가입결과페이지를작성한다.
+• Folder: html
+• File: signUpResult.html
+▪ 회원가입에서회원가입버튼을클릭하면회원가입결과
+페이지로이동한다.
+
+--- PAGE 81 ---
+4. HTML 심화
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 82 ---
+82
+HTML Roadmap
+4. HTML 심화
+https://roadmap.sh/html
+
+--- PAGE 83 ---
+83
+Embedding Media - <img>
+4. HTML 심화
+https://www.w3schools.com/html/html_links.asp
+▪ The HTML <img> tag is used to embed an image in a web page.
+▪ The <img> tag has two required attributes
+• src - Specifies the path to the image
+• alt - Specifies an alternate text for the image
+▪ 이미지의크기를지정할때는 width, height 속성으로지정하는대신 style 속성을통해지정하는것을지향한다.
+<body>
+<h2>Images on Another Server</h2>
+<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com" style="width:104px;height:142px;">
+</body>
+Demo
+--- PAGE 84 ---
+84
+Embedding Media - <picture>
+4. HTML 심화
+https://www.w3schools.com/htmL/html_images_picture.asp
+▪ The HTML <picture> element allows you to display different pictures for different devices or screen sizes.
+• The <picture> element contains one or more <source> elements.
+• Always specify an <img> element as the last child element of the <picture> element.
+<picture>
+<source media="(min-width: 650px)" srcset="img_food.jpg">
+<source media="(min-width: 465px)" srcset="img_car.jpg">
+<img src="img_girl.jpg">
+</picture>
+Demo
+--- PAGE 85 ---
+85
+Embedding Media - <audio>
+4. HTML 심화
+https://www.w3schools.com/htmL/html5_audio.asp
+▪ The HTML <audio> element is used to play an audio file on a web page.
+• The <source> element allows you to specify alternative audio files which the browser may choose from. The browser will use 
+the first recognized format.
+• The text between the <audio> and </audio> tags will only be displayed in browsers that do not support the <audio> element.
+▪ Attributes
+• controls: play, pause, volume같은기본컨트롤표시
+• autoplay: 자동재생 (브라우저에서제한될수있음)
+• loop: 반복재생
+• muted: 음소거
+<audio controls autoplay>
+<source src="horse.ogg" type="audio/ogg">
+<source src="horse.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+Demo
+--- PAGE 86 ---
+86
+Embedding Media - <video>
+4. HTML 심화
+https://www.w3schools.com/html/html5_video.asp
+▪ The HTML <video> element is used to show a video on a web page.
+• The <source> element allows you to specify alternative video files which the browser may choose from. The browser will use the 
+first recognized format.
+• The text between the <video> and </video> tags will only be displayed in browsers that do not support the <video> element.
+▪ Attributes
+• controls: play, pause, volume같은기본컨트롤표시
+• autoplay: 자동재생 (브라우저에서제한될수있음)
+• poster: 동영상로딩전표시할이미지
+• width, height: 비디오플레이어의크기지정
+<video width="320" height="240" autoplay>
+<source src="movie.mp4" type="video/mp4">
+<source src="movie.ogg" type="video/ogg">
+Your browser does not support the video tag.
+</video>
+Demo
+--- PAGE 87 ---
+87
+Semantic Layout Tags - What are Semantic Elements?
+4. HTML 심화
+https://www.w3schools.com/html/html5_semantic_elements.asp
+▪ Semantic elements = elements with a meaning.
+▪ A semantic element clearly describes its meaning to both the browser and the developer.
+• Examples of non-semantic elements: <div> and <span>
+• Examples of semantic elements: <img>, <table>, and <article> 
+▪ semantic element의장점
+• 가독성: 코드의구조가명확하여쉽게이해
+• 접근성: 화면낭독기등의보조기술이구조를더잘이해
+• SEO(Search Engine Optimization) 
+: 검색엔진이콘텐츠의구조와주요정보를효율적으로파악
+
+--- PAGE 88 ---
+88
+Semantic Layout Tags - Semantic Elements in HTML
+4. HTML 심화
+https://www.w3schools.com/html/html5_semantic_elements.asp
+태그 설명
+<header> 헤더영역을구분하는데사용
+<nav> 내부의다른영역이나외부를연결하는링크영역을구분하는데사용
+<main> 문서의주요콘텐츠. 페이지에서핵심적인내용을포함
+<section> 논리적으로관련있는내용영역을구분할때사용
+<article> 독립적인영역을구분할때사용
+<aside> 주력내용이나독립적인내용으로보기어려워서 article 태그나 section태그로영역을구분할수없을때사용
+<footer> footer영역을구분할때사용
+<figure> 이미지, 도표, 코드등삽입된콘텐츠를감쌈. <figcaption>과함께사용
+<figcaption> <figure>에대한설명을제공
+--- PAGE 89 ---
+89
+Semantic Text Markup - <blockquote><abbr>
+4. HTML 심화
+https://www.w3schools.com/html/html_quotation_elements.asp
+▪ 인용: The HTML <blockquote> element defines a section that is quoted from another source.
+▪ 약어: The HTML <abbr> tag defines an abbreviation or an acronym, like "HTML", "CSS", "Mr.", "Dr.", "ASAP", "ATM".
+<body>
+<p>Here is a quote from WWF's website:</p>
+<blockquote cite="http://www.worldwildlife.org/who/index.html">
+For 60 years, WWF has worked to help people and nature thrive. As the 
+world's leading conservation organization, WWF works in nearly 100 countries. At 
+every level, we collaborate with people around the world to develop and deliver 
+innovative solutions that protect communities, wildlife, and the places in which 
+they live.
+</blockquote>
+</body>
+</head>
+<body>
+<p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p>
+</body>
+
+--- PAGE 90 ---
+90
+HTML Head
+4. HTML 심화
+https://www.w3schools.com/html/html_head.asp
+▪ The <head> element is a container for metadata (data about data).
+▪ The <head> element is placed between the <html> tag and the <body> tag
+▪ HTML metadata is data about the HTML document. Metadata is not displayed on the page.
+▪ The HTML <head> element is a container for the following elements
+• The <title> element is required and it defines the title of the document
+• The <style> element is used to define style information for a single document
+• The <link> tag is most often used to link to external style sheets
+• The <meta> element is typically used to specify the character set, page description, keywords, author of the document, and 
+viewport settings
+• The <script> element is used to define client-side JavaScripts
+• The <base> element specifies the base URL and/or target for all relative URLs in a page
+Demo
+--- PAGE 91 ---
+91
+HTML Comments
+4. HTML 심화
+https://www.w3schools.com/html/html_comments.asp
+▪ Comments are not displayed by the browser, but they can help document your HTML source code.
+<body>
+<!-- This is a comment -->
+<p>This is a paragraph.</p>
+<!-- Remember to add more information here -->
+<p>This <!-- great text --> is a paragraph.</p>
+<!--
+<p>Look at this cool image:</p>
+<img border="0" src="pic_trulli.jpg" alt="Trulli">
+-->
+<p>This is a paragraph too.</p>
+</body>
+
+--- PAGE 92 ---
+92
+Accessibility
+4. HTML 심화
+https://www.w3schools.com/html/html_accessibility.asp
+▪ Web Accessibility (웹접근성) 
+• Web Accessibility은시각, 청각, 지체장애를가진분들을포함하여 "그어떤사용자도웹사이트를이용하는데소외되지않도록
+HTML 문서를친절하고표준에맞게작성하는기술을의미.
+• 화면을눈으로보지못해소리로읽어주는프로그램(스크린리더)을쓰는시각장애인등모두에게동등한사용자경험을제공하
+는것이목적.
+▪ 웹접근성을높이는 HTML 작성규칙
+• 시맨틱태그를쓰면스크린리더가화면의구조를컴퓨터공학적으로정확하게파악할수있다.
+• 문서의구조와각섹션간의관계를명확히보여주기위해 Heading Elements을사용하는것이중요하다.
+• <img> 태그를쓸때는눈이보이지않는사용자를위해 "이이미지가어떤내용인지" 말로설명해주는 alt 속성을적어야한다.
+• 회원가입폼등을만들때, 글자(텍스트)와실제입력창(input)을눈으로만묶어두면안된다. 두요소를코드로단단히연결해주
+어야스크린리더가입력창에포커스가갔을때 "어떤내용을적는칸"인지정확히읽어준다.
+--- PAGE 93 ---
+93
+[과제] 나의 여행지
+4. HTML 심화
+▪ 나의여행지를소개하는페이지를작성한다.
+• Folder: html
+• File: myTrip.html
+• Media Resource Folder: media 
+▪ 필수사용 Element
+• <audio><source>
+• <img> 
+• <video><source>
+
+--- PAGE 94 ---
+94
+[과제] 포털 사이트형 메인 Hub 만들기
+4. HTML 심화
+▪ 기존에만든 myClass, myHoliday, myProfile, myTrip, 
+signUp을한곳에모아볼수있는개인메인포털작성
+• 수정 File: index.html
+▪ 필수사용 Element
+• <nav> -다른파일로이동하는메뉴링크를넣기
+• <main> -본문영역을선언하고컨텐츠넣기
+• <aside> -사이드바넣고부가정보넣기
+
+--- PAGE 95 ---
+5. CSS 기초
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 96 ---
+96
+CSS Roadmap
+5. CSS기초
+https://roadmap.sh/css
+
+--- PAGE 97 ---
+97
+CSS 개요
+5. CSS기초
+https://www.w3schools.com/css/css_intro.asp
+▪ Cascading Style Sheets (CSS)는웹 페이지의 스타일을 정의하는 스타일시트 언어
+• CSS stands for Cascading Style Sheets
+• CSS describes how HTML elements are to be displayed on screen, paper, or in other media
+▪ CSS를사용하면색상, 글꼴, 텍스트크기, element간격, element 의위치및레이아웃, 사용할배경이미지또는배경
+색, 다양한장치및화면크기에따른표시방식등을제어할수있습니다!
+▪ CSS Demo - One HTML Page - Multiple Styles!
+• https://www.w3schools.com/css/css_intro.asp
+Demo
+--- PAGE 98 ---
+98
+CSS Syntax
+5. CSS기초
+https://www.w3schools.com/css/css_syntax.asp
+▪ A CSS rule consists of a selector and a declaration block
+• The selector points to the HTML element you want to style.
+• The declaration block contains one or more declarations separated by semicolons.
+• Each declaration includes a CSS property name and a value, separated by a colon.
+• Multiple CSS declarations are separated with semicolons, and declaration blocks are surrounded by curly braces.
+p {
+color: red;
+text-align: center;
+}
+
+--- PAGE 99 ---
+99
+CSS How To - Inline CSS, Internal CSS
+5. CSS기초
+▪ CSS를사용하는 3가지방법
+• Inline CSS - by using the style attribute inside HTML elements
+• Internal CSS - by using a <style> element in the <head> section
+<h1 style="color:blue;text-align:center;">This is a heading</h1>
+<p style="color:red;">This is a paragraph.</p>
+<html>
+<head>
+<style>
+body {background-color: linen;}
+h1 {color: maroon; margin-left: 40px;}
+</style>
+</head>
+<body>
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+</body>
+</html>
+https://www.w3schools.com/css/css_howto.asp
+--- PAGE 100 ---
+100
+CSS How To - External CSS
+5. CSS기초
+▪ CSS를사용하는 3가지방법
+• External CSS - by using a <link> element to link to an external CSS file
+<html>
+<head>
+<link rel="stylesheet" href="mystyle.css">
+</head>
+<body>
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+</body>
+</html>
+body {background-color: lightblue;}
+h1 {color: navy; margin-left: 20px;}
+https://www.w3schools.com/css/css_howto_inline.asp https://www.w3schools.com/css/css_howto_internal.asp
+--- PAGE 101 ---
+101
+CSS Selectors - Simple Selectors
+5. CSS기초
+https://www.w3schools.com/css/css_selectors.asp
+▪ CSS selectors are used to "find" (or select) the HTML elements you want to style.
+• The CSS element Selector
+• The CSS id Selector
+• The CSS class Selector
+p {
+color: red;
+text-align: center;
+}
+#para1 {
+text-align: center;
+color: red;
+}
+.center {
+text-align: center;
+color: red;
+}
+--- PAGE 102 ---
+102
+CSS Selectors - Grouping Selectors
+5. CSS기초
+https://www.w3schools.com/css/css_selectors_grouping.asp
+▪ The universal selector (*) selects all HTML elements on the page.
+▪ The grouping selector selects all the HTML elements with the same style definitions.
+* {
+text-align: center;
+color: blue;
+}
+h1, h2, p {
+text-align: center;
+color: red;
+}
+--- PAGE 103 ---
+103
+CSS Selectors - Attribute Selectors
+5. CSS기초
+https://www.w3schools.com/css/css_attribute_selectors.asp, https://www.w3schools.com/css/css_attribute_selectors_advanced.asp
+▪ CSS attribute selectors are used to select and style HTML elements with a specific attribute or attribute value, 
+or both.
+• [attribute] - Select elements with the specified attribute
+• [attribute="value"] - Select elements with a specific attribute and an exact value
+• [attribute~="value"] - Select elements with an attribute value containing a specific word
+• [attribute|="value"] - Select elements with the specific attribute, whose value can be exactly the value, or start with the value 
+followed by a hyphen (-)
+• [attribute^="value"] - Select elements whose attribute value starts with a specific value
+• [attribute$="value"] - Select elements whose attribute value ends with a specific value
+• [attribute*="value"] - Select elements whose attribute value contains a specific value
+input[type="text"] {
+width: 150px;
+padding: 6px;
+margin-bottom: 10px;
+background-color: pink;
+}
+input[type="button"] {
+width: 100px;
+padding: 6px;
+background-color: lightgreen;
+}
+Demo
+--- PAGE 104 ---
+104
+CSS Selectors - Combinator
+5. CSS기초
+https://www.w3schools.com/css/css_combinators.asp
+▪ A CSS selector can contain more than one selector. Between the selectors, we can include a combinator to create a 
+more specific selection.
+• Descendant combinator (space): all elements that are descendants (children, grandchildren, etc.) of a specified element.
+• Child combinator (>) : all elements that are direct children of a specified element
+• Next sibling combinator (+) : an element that is directly after a specific element
+• Subsequent-sibling combinator (~) : all elements that are next siblings of a specified element
+Demo
+--- PAGE 105 ---
+105
+CSS Selectors - Summary
+5. CSS기초
+▪ CSS selectors are used to "find" (or select) the HTML elements you want to style.
+선택자 종류 설명 예시
+유니버설선택자 모든요소를선택 * { color: blue; }
+요소선택자 특정 HTML 태그를선택 p { font-size: 16px; }
+아이디선택자 특정아이디를가진요소를선택 #header { background-color: grey; }
+클래스선택자 특정클래스를가진요소를선택 .menu { display: flex; }
+그룹화선택자 여러선택자를그룹화하여한번에스타일적용 h1, h2, h3 { color: green; }
+자식선택자 직접자식요소를선택 div > p { margin-top: 10px; }
+후손선택자 자식뿐아니라모든후손요소를선택 div p { color: red; }
+인접형제선택자 특정요소바로다음에위치한형제요소를선택 h1 + p { font-weight: bold; }
+일반형제선택자 특정요소뒤에있는모든형제요소를선택 h1 ~ p { color: blue; }
+속성선택자 특정속성을가진요소를선택 a[href] { color: red; }
+속성값선택자 특정속성값이일치하는요소를선택 a[href="https://example.com"] { font-weight: bold; }
+--- PAGE 106 ---
+106
+CSS Selectors - Pseudo-classes
+5. CSS기초
+https://www.w3schools.com/css/css_pseudo_classes.asp
+▪ A CSS pseudo-class(의사클래스 or가상클래스) is a keyword that can be added to a selector, to define a style for a 
+special state of an element.
+▪ Some common use for pseudo-classes
+• Style an element when a user moves the mouse over it
+• Style visited and unvisited links differently
+• Style an element when it gets focus
+• Style valid/invalid/required/optional form elements
+• Style an element that is the first child of its parent
+▪ Syntax: 선택자뒤에콜론(:)을붙여사용
+▪ Pseudo-class Category
+• Interactive Pseudo-classes
+• Structural Pseudo-classes
+selector:pseudo-class-name {
+CSS properties
+}
+--- PAGE 107 ---
+107
+CSS Selectors - Interactive Pseudo-classes
+5. CSS기초
+https://www.w3schools.com/css/css_pseudo_classes_interactive.asp
+▪ Interactive pseudo-classes apply styles based on user interaction with elements.
+• :link -방문한적이없는링크상태
+• :visited -사용자가이미방문한(클릭한적이있는) 링크상태
+• :hover -요소위에마우스커서가올라가있는상태
+• :active -요소를마우스로클릭하고있는(누르고있는) 상태
+• :focus - 키보드탭(Tab) 키나마우스클릭으로인해해당요소(주로 input, button 등)가선택되어초점이맞춰진상태
+Demo
+--- PAGE 108 ---
+108
+CSS Selectors - Structural Pseudo-classes
+5. CSS기초
+https://www.w3schools.com/css/css_pseudo_classes_structural.asp
+▪ Structural pseudo-classes select elements based on their position in the document tree.
+• :first-child -부모요소의자식들중첫번째에위치하는요소
+• :last-child -부모요소의자식들중마지막에위치하는요소
+• :nth-child(n) -부모요소의자식들중 n번째에위치하는요소 (예: :nth-child(2)는 2번째자식, :nth-child(2n)은짝수번째자식들)
+• :nth-last-child(n) - Matches the nth child from the end
+• :only-child - Matches an element that is the only child
+• :first-of-type - Matches the first element of its type
+• :last-of-type - Matches the last element of its type
+Demo
+--- PAGE 109 ---
+109
+CSS Selectors - Pseudo-elements
+5. CSS기초
+https://www.w3schools.com/css/css_pseudo_elements.asp
+▪ A CSS pseudo-element(의사요소 or 가상요소) is a keyword that can be added to a selector, to style a specific part of 
+an element.
+▪ Some common use for pseudo-elements
+• Style the first letter or first line, of an element
+• Insert content before or after an element
+• Style the markers of list items
+• Style the user-selected portion of an element
+• Style the viewbox behind a dialog box
+▪ Syntax: 선택자뒤에더블콜론(::)을붙여사용
+▪ Pseudo-element Category
+• Text Pseudo-elements
+• Content Pseudo-elements
+selector::pseudo-element-name {
+CSS properties
+}
+--- PAGE 110 ---
+110
+CSS Selectors - Text Pseudo-elements
+5. CSS기초
+https://www.w3schools.com/css/css_pseudo_elements_text.asp
+▪ Text pseudo-elements style specific parts of text content.
+• ::first-line - 텍스트블록의첫번째줄만선택. Browser창의너비에따라줄바꿈이바뀌면자동으로첫줄의범위도갱신된다.
+• ::first-letter - 텍스트블록의첫번째글자만선택
+• ::selection -사용자가마우스로드래그하여선택한텍스트영역을선택
+Demo
+--- PAGE 111 ---
+111
+CSS Selectors - Content Pseudo-elements
+5. CSS기초
+https://www.w3schools.com/css/css_pseudo_elements_content.asp
+▪ Content pseudo-elements insert or style generated content. Use the content property to specify the content to insert.
+• ::before -선택한요소의가장앞쪽(내부시작점)에가상콘텐츠를생성
+• ::after -선택한요소의가장뒤쪽(내부끝점)에가상콘텐츠를생성
+Demo
+--- PAGE 112 ---
+112
+CSS Selectors - Selector의 조합 예
+5. CSS기초
+▪ Class가 notice인 p element
+▪ Id가 header인 div element
+▪ Class가 btn이면서 primary인 button element
+▪ Type attribute가 "text"이고 required attribute가있는 input element
+▪ ul element 내첫번째 li element에마우스를올렸을때
+▪ 마우스를올린모든 element
+▪ new class를가진 section의자식중 featured class를가진 article의후손중 title class를가진 h2 element 바로다음에
+오는 summary class를가진 p element
+p.notice {font-size: 18px;}
+div#header {background: gray;}
+button.btn.primary {background-color: blue;}
+input[type="text"][required] {border: 1px solid red;}
+ul li:first-child:hover {color: red;}
+*:hover {background-color: yellow;}
+section.news > article.featured h2.title + p.summary {font-style: italic;}
+--- PAGE 113 ---
+113
+CSS Specificity
+5. CSS기초
+▪ CSS specificity(우선순위 or 명시도) is an algorithm that determines which style declaration is ultimately applied to an 
+element.
+▪ If two or more CSS rules point to the same element, the declaration with the highest specificity will "win", and that 
+style will be applied to the HTML element.
+https://www.w3schools.com/css/css_specificity.asp
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.test {color: green;} 
+p {color: red;} 
+</style>
+</head>
+<body>
+<p class="test">Hello World!</p>
+</body>
+</html>
+<html>
+<head>
+<style>
+#demo {color: blue;}
+.test {color: green;}
+p {color: red;}
+</style>
+</head>
+<body>
+<p id="demo" class="test">Hello World!</p>
+</body>
+</html>
+<html>
+<head>
+<style>
+#demo {color: blue;}
+.test {color: green;}
+p {color: red;}
+</style>
+</head>
+<body>
+<p id="demo" class="test" style="color: 
+pink;">Hello World!</p>
+</body>
+</html>
+--- PAGE 114 ---
+114
+CSS Specificity - Hierarchy
+5. CSS기초
+▪ Each type of CSS selector has a position in the specificity hierarchy, and the selector types carry different "weights".
+▪ Specificity 작동원칙
+• 자릿수가높으면무조건승리 - [0, 0, 1, 0](클래스 1개)이 [0, 0, 0, 15](태그 15개)보다우선순위가높다.
+• 점수가같으면 '가장아래에있는코드'가승리 -두선택자의합산점수가완전히동일하면, CSS 파일에서가장나중에(아래에) 
+작성된규칙이이전규칙을덮어쓴다. (Cascading 원칙)
+• 전체선택자(*)는점수가없다 -모든요소를선택하는 * 기호는명시도점수가 0점이므로,  항상우선순위에서밀린다.
+https://www.w3schools.com/css/css_specificity_hierarchy.asp
+Selector Example Description Weight
+Inline styles <h1 style="color: pink;"> 1순위 1-0-0-0
+Id selectors #navbar 2순위 0-1-0-0
+Classes, attribute selectors and pseudo-classes .test, [type="text"], :hover 3순위 0-0-1-0
+Elements and pseudo-elements h1, ::before, ::after 4순위 0-0-0-1
+Universal selector and :where() *, where() 우선순위없음 0-0-0-0
+Demo
+--- PAGE 115 ---
+115
+CSS Specificity - !Important
+5. CSS기초
+▪ CSS !Important Rule
+• The !important rule is used to give the value of a specific property the highest priority.
+• The !important rule will override ALL previous styling rules for that specific property on that element!
+• The !important keyword is added to the end of a CSS declaration, before the semicolon.
+▪ CSS !Important Rule 유의점 ➔최소사용
+• 디버깅어려움: 여러곳에서사용하면, CSS의우선순위를추적하기어려워져디버깅이복잡해짐.
+• 유지보수어려움: 스타일우선순위를강제로조정하므로, 코드유지보수및확장성측면에서문제가능
+• 가독성감소: !important를남용하면코드의가독성이떨어지고, 규칙간의관계를명확하게파악하기어려움
+https://www.w3schools.com/css/css_important.asp
+Demo
+selector {
+property: value !important;
+}
+--- PAGE 116 ---
+116
+CSS Code Challenge
+5. CSS기초
+▪ 다음실습을진행하시오
+1) CSS How To - https://www.w3schools.com/css/css_challenges_howto.asp
+2) CSS Selectors - https://www.w3schools.com/css/css_challenges_selectors.asp
+3) CSS Pseudo-classes - https://www.w3schools.com/css/css_challenges_pseudo_classes.asp
+--- PAGE 117 ---
+117
+CSS Colors
+5. CSS기초
+https://www.w3schools.com/css/css_colors.asp
+▪ In CSS, colors are specified by using a predefined color name, or with a RGB, HEX, HSL, RGBA, HSLA value.
+• Predefined color names
+• RGB(Red, Green, Blue), HEX(Hexadecimal Color), HSL(Hue, Saturation, Lightness) values
+
+--- PAGE 118 ---
+118
+CSS Units
+5. CSS기초
+▪ CSS units are used to define the length and size of several properties.
+▪ Several CSS properties take "length" values, such as font-size, width, margin, padding, border, etc.
+▪ Absolute Units
+• px (pixels) - The most used absolute unit for screens
+▪ Relative Units
+• em (엠) -부모요소의폰트크기를기준(1em = 부모의 font-size)으로변한다
+• rem (렘 or 알엠) -부모와관계없이오직최상위 Root HTML 요소의폰트크기만기준으로작동 (Root em)
+• % -부모요소의해당속성크기를 $100%로두고상대적인비율을계산
+• vw (Viewport Width) -현재웹브라우저화면전체너비의 1%를나타낸다. (100vw = 화면전체너비)
+• vh (Viewport Height) -현재웹브라우저화면전체높이의 1%를나타낸다. (100vh = 화면전체높이)
+* Viewport = the browser window size. 1vw = 1% of the current width of the browser's viewport. So, if the viewport is 500px wide, 1vw is 5px.
+https://www.w3schools.com/css/tryit.asp?filename=trycss_units_em
+Demo
+body {font-size: 16px; /* Base font size */}
+h1 {font-size: 2.5em; /* 2.5 * 16 = 40px */}
+h2 {font-size: 1.875em; /* 1.875 * 16 = 30px */}
+p {font-size: 1rem; /* 1 * 16 = 16px */}
+--- PAGE 119 ---
+119
+CSS Fonts
+5. CSS기초
+▪ Font Family – font-family
+• If the browser does not support the first font, it tries the next font. The font names should be separated with a comma.
+▪ Font Style – font-style, font-weight, font-variant
+▪ Font Size – font-size
+https://www.w3schools.com/css/css_font.asp https://www.w3schools.com/css/css_font_style.asp https://www.w3schools.com/css/css_font_size.asp
+Demo
+.p1 {font-family: "Times New Roman", Times, serif;}
+p.italic {font-style: italic;}
+p.thick {font-weight: bold;}
+p.small {font-variant: small-caps;}
+body {font-size: 16px; /* Base font size */}
+h1 {font-size: 2.5em; /* 2.5 * 16 = 40px */}
+h2 {font-size: 1.875rem; /* 1.875 * 16 = 30px */}
+p {font-size:5vw;}
+--- PAGE 120 ---
+120
+CSS Fonts - Google Fonts
+5. CSS기초
+▪ Google Fonts are free to use, and have more than 1000 fonts to choose from
+▪ How to use
+▪ Use multiple google fonts
+▪ Enabling font effects – effect=effectname
+https://www.w3schools.com/css/css_font_google.asp
+Demo
+<head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+<style>
+body {
+font-family: "Sofia", sans-serif;
+}
+</style>
+</head>
+<head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+<style>
+h1.a {font-family: "Audiowide", sans-serif;}
+h1.b {font-family: "Sofia", sans-serif;}
+h1.c {font-family: "Trirong", serif;}
+</style>
+</head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+--- PAGE 121 ---
+121
+CSS Fonts - Google 한국어폰트
+5. CSS기초
+▪ Google Fonts 공식사이트에접속 (https://fonts.google.com/)
+▪ Language 필터에서 Korean (한국어)선택후상세페이지로들어간다.
+▪ 상세페이지에서 Get font 이후장바구니에서 Get embed code 를통해확인한다.
+https://fonts.google.com/
+
+--- PAGE 122 ---
+122
+CSS Text Styling
+5. CSS기초
+▪ Text Color – color
+▪ Text Alignment – text-align
+▪ Text Transformation – text-transform
+▪ Text Decoration – text-decoration-line, text-decoration-color, text-decoration-style, text-decoration-thickness
+▪ Text Spacing – text-indent, letter-spacing, line-height, word-spacing, white-space
+▪ Text Shadow – text-shadow
+https://www.w3schools.com/css/css_text.asp https://www.w3schools.com/css/css_text_align.asp https://www.w3schools.com/css/css_text_decoration.asphttps://www.w3schools.com/css/css_text_decoration_styles.asp
+Demo
+body {color: blue;}
+h1 {color: #00ff00;}
+h2 {color: rgb(255,0,0);}
+h1 {text-align: center;}
+h2 {text-align: left;}
+h3 {text-align: right;}
+h1 {text-decoration-line: overline; text-decoration-color: red; text-decoration-style: double; text-decoration-thickness: 15px;}
+h3 {text-decoration-line: underline; text-decoration-color: green; text-decoration-style: dotted; text-decoration-thickness: 25%;}
+p {text-indent: 50px; letter-spacing: 1px; line-height: 1.5; word-spacing: 5px; white-space: nowrap;}
+h1 {text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;}
+p.uppercase {text-transform: uppercase;}
+p.lowercase {text-transform: lowercase;}
+p.capitalize {text-transform: capitalize;}
+--- PAGE 123 ---
+123
+CSS Backgrounds
+5. CSS기초
+▪ Background Color – background-color, opacity
+▪ Background Image – background-image
+▪ Background Image Repeat – background-repeat, background-position
+▪ Background Attachment – background-attatchement
+https://www.w3schools.com/css/css_background.asp https://www.w3schools.com/css/css_background_image.asphttps://www.w3schools.com/css/css_background_repeat.asphttps://www.w3schools.com/css/css_background_attachment.asp
+Demo
+body {background-color: lightblue; opacity: 0.3;}
+body {background-image: url("paper.gif");}
+body {background-image: url("img_tree.png"); background-repeat: no-repeat; background-position: right top;}
+body {background-image: url("img_tree.png"); background-repeat: no-repeat; background-position: right top; 
+background-attachment: scroll;}
+--- PAGE 124 ---
+124
+CSS Box Model
+5. CSS기초
+▪ The CSS box model is essentially a box that wraps around every HTML element.
+• Margin: 요소와다른요소사이의간격을설정
+• Padding: 콘텐츠와경계사이의간격을설정
+• Border: 요소의경계를설정
+• Content: 요소의실제내용이들어가는영역
+▪ 브라우저개발자도구에서확인
+• Elements > Computed
+https://www.w3schools.com/css/css_boxmodel.asp
+Demo
+
+--- PAGE 125 ---
+125
+CSS Box Model - Width / Height
+5. CSS기초
+▪ width/height – width, height
+• The height and width do not include padding, borders, or margins.
+• ‘auto’ is default. The browser calculates the height and width.
+▪ 너비/높이의최소/최대속성 – min-width, max-width, min-height, max-height
+• 브라우저의창의너비가 width보다작으면가로스크롤바가생기지만, max-width를사용하면스크롤바가없이너비가맞춰서줄어
+든다.
+https://www.w3schools.com/css/css_height_width.asp https://www.w3schools.com/css/css_height_width_min_max.asp
+Demo
+div {height: 200px; width: 50%;}
+.div1 {max-width: 500px;}
+.div2 {width: 500px;}
+--- PAGE 126 ---
+126
+CSS Box Model - Borders
+5. CSS기초
+▪ Border Style – border-style
+• 허용값 : dotted, dashed, solid, double, groove, ridge, inset, outset, none, hidden
+▪ Border Width – border-width
+▪ Border Color – border-color
+▪ Shorthand Border Property – border, border-left, border-bottom, border-top, border-right
+• Border-width, border-style, border-color를한번에표시한다.
+▪ Rounded Borders – border-radius
+https://www.w3schools.com/css/css_border.asp https://www.w3schools.com/css/css_border_width.asp https://www.w3schools.com/css/css_border_color.asp https://www.w3schools.com/css/css_border_shorthand.asp
+Demo
+p.dotted {border-style: dotted;}
+p.one {border-style: solid; border-width: 5px;}
+p.two {border-style: solid; border-width: 5px 20px; /* 5px top and bottom, 20px on the sides */}
+p.three {border-style: solid; border-width: 25px 10px 4px 35px; /* 25px top, 10px right, 4px bottom and 35px left */}
+p.one {border-style: solid; border-color: red;}
+p.two {border-style: solid; border-color: red green blue yellow; /* red top, green right, blue bottom and yellow left */}
+p {border: 5px solid red;}
+p {border-left: 6px solid red;}
+p {border: 2px solid red; border-radius: 5px;}
+--- PAGE 127 ---
+127
+CSS Box Model - Margins
+5. CSS기초
+▪ Individual Margin – margin-top, margin-right, margin-bottom, margin-left
+▪ Shorthand Margin Property – margin
+• 순서대로 top, right, bottom, left의값을가진다.
+▪ Margin Collapse (마진병합) 현상
+• 여러개의세로마진이서로만나면각각더해지는것이아니라, 그중가장큰마진값하나로합쳐지는현상
+• 좌우마진은병합되지않는다.
+https://www.w3schools.com/css/css_margin.asp https://www.w3schools.com/css/css_margin_collapse.asp
+Demo
+p {margin-top: 100px; margin-bottom: 100px; margin-right: 150px; margin-left: 80px;}
+p {margin: 25px 50px 75px 100px;}
+h1 {margin-bottom: 50px;}
+h2 {margin-top: 20px;}
+--- PAGE 128 ---
+128
+CSS Box Model - Padding
+5. CSS기초
+▪ Individual Padding – padding-top, padding-right, padding-bottom, padding-left
+▪ Shorthand Padding Property – padding
+• 순서대로 top, right, bottom, left의값을가진다.
+▪ Element의 width와 padding
+• Element의 width 속성은 element의 content 영역의너비를의미하므로, padding과 width가같이추가되어있다면실제 elemen의
+총너비는두값의합과같다.
+• 좌우마진은병합되지않는다.
+https://www.w3schools.com/css/css_padding.asp https://www.w3schools.com/css/css_padding_box-sizing.asp
+Demo
+div {padding-top: 50px; padding-right: 30px; padding-bottom: 50px; padding-left: 80px;}
+div {padding: 25px 50px 75px 100px;}
+div {width: 300px; padding: 25px; /* 총 너비는 300+25x2=350px */}
+--- PAGE 129 ---
+129
+CSS Position
+5. CSS기초
+▪ position 속성은 element의배치유형을지정하며다음값중하나를가질수있다. 
+• static –기본값. element는일반적인문서흐름에따라배치된다. (top, left 등속성값이적용되지않음)
+• relative – element는문서흐름내의일반적인위치에상대적으로배치된다. (원래공간은차지함)
+• fixed – element는뷰포트에상대적으로배치됩니다. (Scroll해도위치가고정된다.)
+• absolute – element는가장가까운조상요소를기준으로배치된다. (문서흐름에서제거되고공간은차지하지않는다.)
+• sticky - element는스크롤위치에따라 relative와 fixed사이를전환한다. (조건부고정으로주로헤더, 메뉴등에서사용된다.)
+https://www.w3schools.com/css/css_position.asp https://www.w3schools.com/css/css_positioning_fixed_absolute.asphttps://www.w3schools.com/css/css_positioning_sticky.asp
+Demo
+div.static {position: static; border: 3px solid #73AD21;}
+div.relative {position: relative; left: 30px; border: 3px solid #73AD21;}
+div.fixed {position: fixed; bottom: 0; right: 0; width: 300px; border: 3px solid #73AD21;}
+div.absolute {position: absolute; top: 80px; right: 0; width: 200px; height: 100px; border: 3px solid red;}
+div.sticky {position: sticky; top: 0; padding: 5px; background-color: #cae8ca; border: 2px solid #4CAF50;}
+--- PAGE 130 ---
+130
+CSS Z-index
+5. CSS기초
+▪ z-index 속성은동일위치에중첩(overlap)되어있는 element의중첩순서를지정한다.
+• An element can have a positive or negative stack order (z-index)
+https://www.w3schools.com/css/css_z-index.asp
+Demo
+<head>
+<style>
+img {
+position: absolute;
+left: 0px;
+top: 0px;
+z-index: -1;
+}
+</style>
+</head>
+<body>
+<h1>This is a heading</h1>
+<img src="img_tree.png">
+<p>Because the image has a z-index of -1, it will be placed behind the text.</p>
+</body>
+</html>
+
+--- PAGE 131 ---
+131
+CSS Inheritance
+5. CSS기초
+▪ 상속(Inheritance): 부모요소에지정된스타일중일부가자식요소에자동으로적용되는것
+• HTML 구조가계층적(트리구조)이기때문에 CSS도이런계층적스타일적용이가능
+▪ 상속되는속성
+▪ 상속되지않는속성
+https://www.w3schools.com/css/css_inheritance.asp
+Demo
+텍스트 color, text-align, text-indent, letter-spacing, word-spacing, line-height, visibility, white-space
+폰트 font, font-family, font-size, font-style, font-variant, font-weight
+리스트 list-style, list-style-type, list-style-position, list-style-image
+테이블 border-collapse, border-spacing, caption-side, empty-cells
+레이아웃 margin, padding, border, width, height, display, position
+배경 background-color, background-image
+박스정렬 flex, grid, justify-content, align-items
+기타 box-shadow, z-index, overflow
+--- PAGE 132 ---
+132
+CSS Inheritance - inherit 키워드
+5. CSS기초
+▪ inherit 키워드를사용하면상속되지않은속성도자식요소로강제로상속이가능하다.
+https://www.w3schools.com/css/css_inheritance.asp
+Demo
+<style>
+p {
+border: 1px solid red;
+}
+strong {
+border: inherit;
+}
+</style>
+<body>
+<p>This is a paragraph with some <strong>strong</strong> text.</p>
+</body>
+--- PAGE 133 ---
+133
+CSS Code Challenge
+5. CSS기초
+▪ 다음실습을진행하시오
+1) CSS Colors - https://www.w3schools.com/css/css_challenges_colors.asp
+2) CSS Fonts - https://www.w3schools.com/css/css_challenges_font.asp
+3) CSS Text - https://www.w3schools.com/css/css_challenges_text.asp
+4) CSS Backgrounds - https://www.w3schools.com/css/css_challenges_background.asp
+5) CSS Position - https://www.w3schools.com/css/css_challenges_position.asp
+6) CSS Inheritance - https://www.w3schools.com/css/css_challenges_inheritance.asp
+--- PAGE 134 ---
+134
+[과제] 미션1 - 전체 테마 및 텍스트 Styling
+5. CSS기초
+▪ 모든 페이지의 기본 바탕과 글꼴을 아름답게 다듬는 미션을 통해 태그 선택자와 클래스 선택자의 활용법을 익힌다.
+1) 별도 CSS 파일생성 /css/style.css
+2) 전체글꼴: 구글폰트에서마음에드는것을선택하고 body 태그선택자를이용해전체폰트를변경한다.
+3) 전체줄간격, Color, 배경색을적용한다.
+4) 제목강조: h1, h2 태그에색, 크기, Padding, Border등을넣어꾸민다.
+5) 링크스타일: 링크컬러나, Decoration을지정한다.
+6) 모든 HTML에서 style.css를적용할수있도록 <link>를추가한다.
+
+--- PAGE 135 ---
+135
+[과제] 미션2 - 박스 모델의 이해
+5. CSS기초
+▪ 가장 중요한 박스 모델(width, padding, margin, border)을 시각적으로 이해한다.
+1) body 태그아래에 <div class="container">를추가하고 container를꾸민다.  (모든컨텐츠를가운데정렬한다.)
+2) myTrip.html: 여행지목록의각단락에클래스를추가하고(<p class="trip-card“>)에배경색, 테두리, 패딩, 마진을조정하여하나
+의＇리뷰카드＇형태로디자인한다.
+3) myClass.html: table, th, td를꾸며테이블을깔끔한테이블을만든다.
+
+--- PAGE 136 ---
+136
+[과제] 미션3 - 가독성 높은 회원가입 폼
+5. CSS기초
+▪ 스타일링하기 까다로운 폼 스타일링
+1) 입력창크기키우기
+2) Fieldset그룹테두리다듬기
+3) 버튼꾸미기
+
+--- PAGE 137 ---
+6. CSS 심화
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 138 ---
+138
+CSS Roadmap
+5. CSS기초
+https://roadmap.sh/css
+
+--- PAGE 139 ---
+139
+CSS Layout
+6. CSS심화
+▪ Layout 구성방식
+• 일반적으로 Flexbox와 Grid를함께사용: 페이지전체는 Grid, 내부요소는 Flexbox로정렬
+방식 설명 장점 단점 사용 시기
+float float: left/right를이용해레
+이아웃구성 간단한구조에적합 요소겹침 구버전브라우저호환목적
+inline-block display: inline-block으로요
+소를나란히배치
+float보다자연스럽고텍스트
+처럼흐름에따라배치 여백(space) 문제있음 간단한레이아웃에사용가
+능
+Flexbox
+1차원(가로또는세로) 정렬
+에특화된현대적레이아웃
+방식
+간단한정렬/중앙정렬/비율
+지정에강력 2차원배치에제한 공간내부 요소정렬
+Grid 2차원(행과열) 레이아웃을
+구성하는최신방식
+복잡한레이아웃도간결하
+게구성 1차원구성이복잡 페이지전체레이아웃구성
+--- PAGE 140 ---
+140
+CSS Layout - Float
+6. CSS심화
+▪ The float property specifies how an element should float within its container. 
+▪ The float property can have one of the following values:
+• left - The element floats to the left of its container
+• right - The element floats to the right of its container
+• none - Default. The element does not float and is displayed just where it occurs in the text
+• inherit - The element inherits the float value of its parent
+https://www.w3schools.com/css/css_float.asp https://www.w3schools.com/css/css_float_examples.asp
+Demo
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div {float: left; padding: 15px;}
+.div1 {background: red;}
+.div2 {background: yellow;}
+.div3 {background: green;}
+</style>
+</head>
+<body>
+<h2>Float Next To Each Other</h2>
+<p>In this example, the three divs will float next to each 
+other.</p>
+<div class="div1">Div 1</div>
+<div class="div2">Div 2</div>
+<div class="div3">Div 3</div>
+</body>
+</html>
+
+--- PAGE 141 ---
+141
+CSS Layout - Inline-block
+6. CSS심화
+▪ 모든 element는종류에따라가지고있는기본 display 값이있는데그것이바로 Block과 Inline이다.
+• Block –혼자서한줄차지. <div>, <p>, <h1>~<h6>, <ul>, <li>
+• Inline –줄바꿈없이 다른요소와같은줄에배치되어 width/height 속성이무시됨. <span>, <a>, <strong>, <em>
+▪ display: inline-block은배치는 Inline처럼나란히, 성격은 Block처럼크기조절가능하게섞어놓은속성이다.
+https://www.w3schools.com/css/css_inline-block.asp
+Demo
+<head>
+<style>
+.nav {background-color: lightgray; list-style-type: none; margin: 0; padding: 0;}
+.nav li {display: inline-block; font-size: 18px; padding: 15px;}
+</style>
+</head>
+<body>
+<h1>Horizontal Navigation Menu</h1>
+<p>List items are displayed vertically by default. Here, we use display: inline-block to display them horizontally (side by 
+side).</p>
+<ul class="nav">
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About Us</a></li>
+<li><a href="#clients">Our Clients</a></li>  
+<li><a href="#contact">Contact Us</a></li>
+</ul>
+</body>
+</html>
+
+--- PAGE 142 ---
+142
+CSS Layout - Flexbox (Flexible Box Layout)
+6. CSS심화
+▪ 기존의 float나 inline-block 가지고전체레이아웃을잡으려면많이복잡함.
+▪ Flexbox는가로또는세로 Layout을효율적으로구성할수있게해준다.
+▪ Flexbox 핵심개념
+https://www.w3schools.com/css/css3_flexbox.asp, https://www.tutorjoes.in/css_tutorial/flex_box_architecture_in_css
+Demo
+용어 설명
+Flex Container display: flex가적용된부모요소
+Flex Item Flex Container의직계자식요소들
+Main Axis (메인축) Flex Item이배치되는중심방향. Row (가로, 기본값) 또는 column (세로)
+Cross Axis (교차축) Main Axis의수직방향
+<style>
+.container {
+display: flex;
+background-color: DodgerBlue;
+}
+</style>
+
+--- PAGE 143 ---
+143
+CSS Layout - Flex Container
+6. CSS심화
+▪ The flex container element can have the following properties
+https://www.w3schools.com/css/css3_flexbox_container.asphttps://www.w3schools.com/css/css3_flexbox_container_justify.asphttps://www.w3schools.com/css/css3_flexbox_container_align.asp, https://www.samanthaming.com/flexbox30/10-flex-wrap/
+Demo
+.container {
+display: flex;
+height: 200px;
+background-color: #f1f1f1;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+}
+속성 값 설명
+flex-direction row(default), column, row-reverse, column-reverse 아이템배치방향지정
+flex-wrap nowrap(default), wrap, wrap-reverse 넘치는아이템을줄바꿈할지여부
+justify-content center, flex-start(default), flex-end, space-around, space-between, space-evenly 메인축정렬방식
+align-items normal(default), stretch, center, flex-start, flex-end, baseline 교차축에서한줄정렬방식
+align-content stretch(default), center, flex-start, flex-end, space-between, space-around 등 여러줄정렬시교차축처리
+
+--- PAGE 144 ---
+144
+CSS Layout - Flex Item
+6. CSS심화
+▪ Flex items can have the following properties
+• order - HTML 코드순서와상관없이시각적인배치순서를지정
+• flex-grow -부모박스안에남는공간이있을때, 자식들이그공간을얼마나나눠가질지(비율) 결정. 기본값은 0
+• flex-shrink -부모박스가자식들보다작아질때, 자식들이얼마나줄어들지결정. 기본값은 1
+• flex-basis -자식요소의기본크기를설정 (width와유사하지만 flex 환경에더최적화됨)
+• flex - flex-grow, flex-shrink, and flex-basis를한번에쓰는속성
+• Align-self - flex container가정해준정렬규칙을무시하고이아이템만다르게정렬하고싶을때사용
+https://www.w3schools.com/css/css3_flexbox_items.asp
+Demo
+.item {
+flex-grow: 1;       /* 남은 공간 비율로 커짐 */
+flex-shrink: 1;     /* 줄어드는 비율 */
+flex-basis: 100px;  /* 기본 크기 */
+flex: 1 1 100px;    /* 위 3개의 축약형 */
+align-self: center; /* 개별 정렬 */
+order: 2;           /* 순서 변경 */
+}
+--- PAGE 145 ---
+145
+CSS Layout - Grid
+6. CSS심화
+▪ Flexbox가 1차원 레이아웃이라면 Grid는 2차원 레이아웃(행과 열)을 다룰 수 있다.
+• 페이지전체구조나격자기반 UI(갤러리, 대시보드등)에적합
+▪ Grid 핵심개념
+https://www.w3schools.com/css/css_grid.asp
+Demo
+용어 설명
+Grid Container display: grid가선언된부모요소
+Grid Item Grid Container의직계자식요소
+Grid Line 행과열을나누는선
+Grid Track 행(row) 또는열(column)
+Grid Cell 하나의셀 (row와 column이만나는공간)
+Grid Area 여러셀을묶은영역
+
+--- PAGE 146 ---
+146
+CSS Layout - Grid Container
+6. CSS심화
+▪ Grid Container의속성
+https://www.w3schools.com/css/css_grid.asp https://www.w3schools.com/css/css_grid_tracks.asp https://www.w3schools.com/css/css_grid_gap.asp https://www.w3schools.com/css/css_grid_align.asp
+Demo
+구분 속성 예시 값 설명
+Grid Tracks
+grid-template-columns 200px 1fr 2fr /* 3개 열: 200px, 남은공간의비율 1, 비율 2로분할 */ 열의수와너비정의
+grid-template-rows 100px auto /* 2개 행각각 100px, 200px 높이 */ 행의수와높이정의
+Grid Gaps gap, row-gap, column-gap 10px 행과열사이간격설정
+Grid Align
+justify-items start, end, center, stretch 각셀내요소의수평정렬
+align-items start, end, center, stretch 각셀내요소의수직정렬
+.container {
+display: grid;
+grid-template-columns: 1fr 2fr;   /* 열 정의 */
+grid-template-rows: auto 100px;   /* 행 정의 */
+gap: 10px;                        /* 셀 사이 간격 */
+justify-items: center;            /* 셀 내부 가로 정렬 */
+align-items: center;              /* 셀 내부 세로 정렬 */
+}
+* fr (Fraction): Grid Container의남은유연한공간을비율로나누어갖는 Grid 전용상태단위
+
+--- PAGE 147 ---
+147
+CSS Layout - Grid Item
+6. CSS심화
+https://www.w3schools.com/css/css_grid_item.asp https://www.w3schools.com/css/css_grid_item_name.asphttps://www.w3schools.com/css/css_grid_item_align.asp https://www.w3schools.com/css/css_grid_item_order.asp
+Demo
+▪ Grid items can have the following properties
+• 그리드라인번호로위치지정하기 : grid-column-start, grid-column-end, grid-column, grid-row-start, grid-row-end, grid-row
+(참고로, 그리드는셀(칸)의개수가아니라, 칸을나누는 선(Grid Line)의 번호를기준으로구역을잡는다.)
+• Grid Container가기정한이름에배치하기 : grid-area
+• Grid Container 정렬규칙을따르지않고개별정렬하기 : justify-self, algin-self
+.item {
+grid-column: 1 / 3;   /* 1번 선부터 3번 선까지 열 병합 */
+grid-row: 2 / 4;      /* 2번 선부터 4번 선까지 행 병합 */
+justify-self: center; /* 개별 요소 수평 정렬 */
+align-self: end;      /* 개별 요소 수직 정렬 */
+}
+--- PAGE 148 ---
+148
+CSS Code Challenge
+6. CSS심화
+▪ 다음실습을진행하시오
+1) CSS Float - https://www.w3schools.com/css/css_challenges_float.asp
+2) CSS Inline-block - https://www.w3schools.com/css/css_challenges_inline-block.asp
+3) Flexbox Intro - https://www.w3schools.com/css/css_challenges_flexbox_intro.asp
+4) Flexbox Container - https://www.w3schools.com/css/css_challenges_flexbox_container.asp
+5) Flexbox Items - https://www.w3schools.com/css/css3_flexbox_items.asp
+6) Grid Intro - https://www.w3schools.com/css/css_challenges_grid_intro.asp
+7) Grid Container - https://www.w3schools.com/css/css_challenges_grid_container.asp
+8) Grid Items - https://www.w3schools.com/css/css_challenges_grid_item.asp
+--- PAGE 149 ---
+149
+CSS 2D Transforms
+6. CSS심화
+https://www.w3schools.com/css/css3_2dtransforms.asp https://www.w3schools.com/css/css3_2dtransforms_scale.asphttps://www.w3schools.com/css/css3_2dtransforms_skew.asp
+Demo
+▪ The CSS transform property applies a 2D or 3D transformation to an element. 
+• transform 속성은 element를회전하거나, 크기조정을하거나, 이동시키거나, 기울이는데사용한다.
+▪ Transform Functions: transform 속성이사용하는함수
+▪ 2D Transform 함수사용예
+transform: rotate(45deg);    /* 45도 회전 */
+transform: scale(1.2);       /* 크기 1.2배 */
+transform: translateX(50px); /* X축으로 50px 이동 */
+--- PAGE 150 ---
+150
+CSS 3D Transforms
+6. CSS심화
+https://www.w3schools.com/css/css3_3dtransforms.asp
+Demo
+▪ The CSS transform property applies a 2D or 3D transformation to an element. 
+• rotateX(), rotateY(), rotateZ() 함수를통해 X축, Y축, Z축을기준으로 element를회전할수있다.
+▪ Transform Functions: transform 속성이사용하는함수
+▪ 3D Transform 속성목록
+Property Description
+transform Applies a 2D or 3D transformation to an element
+transform-origin Allows you to change the position on transformed elements
+transform-style Specifies how nested elements are rendered in 3D space
+perspective Specifies the perspective on how 3D elements are viewed
+perspective-origin Specifies the bottom position of 3D elements
+backface-visibility Defines whether or not an element should be visible when not facing the screen
+--- PAGE 151 ---
+151
+CSS Transition
+6. CSS심화
+https://www.w3schools.com/css/css3_transitions.asp
+Demo
+▪ CSS의속성에대한값이변할때, 변화시의효과를설정한다. 
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+div {
+width: 100px;
+height: 100px;
+background-color: red;
+transition: width 2s, height 4s, background-color 3s;
+/* width 변하는데 2초, height 변하는데 4초, 배경색 변하는데 3초 걸림 %/
+}
+div:hover {
+width: 300px;
+height: 300px;
+background-color: orange;
+}
+</style>
+</head>
+<body>
+<h1>The transition Property</h1>
+<p>Hover over the div element below, to see the transition effect:</p>
+<div></div>
+</body>
+</html>
+--- PAGE 152 ---
+152
+CSS Transition Timing
+6. CSS심화
+https://www.w3schools.com/css/css3_transitions_timing.asp
+Demo
+▪ 전환효과와관련된속성
+• transition-timing-function: transition 효과가진행되는속도의형태지정
+• transition-delay: transition이시작되기전의지연시간지정
+• transition-duration: transition효과가진행되는시간지정
+• transition-property: transition 효과를부여할 css property 지정
+• transition: 위 4개의 transition 속성을한번에작성할수있는속성 (shorthand property)
+div {
+transition-property: width;
+transition-duration: 2s;
+transition-timing-function: linear;
+transition-delay: 1s;
+}
+div {
+transition: width 2s linear 1s;
+}
+--- PAGE 153 ---
+153
+CSS Animations
+6. CSS심화
+https://www.w3schools.com/css/css3_animations.asp
+Demo
+▪ CSS Transition은 element의전후(시작과종료) 상태를부드럽게변화한다.
+▪ CSS Animation은시작과종료뿐만아니라중간상태도고려하여더복잡하고다양한효과를제공한다.
+• @keyframe은애니메이션의각단계를설정한다.
+속성 의미 기본값
+animation-name @keyframes의 이름 none
+animation-duration 지속 시간 0s
+animation-delay 대기시간 0s
+animation-timing-function 타이밍함수 ease
+animation-iteration-count 반복횟수 1
+animation-direction 반복방향 normal
+animation-fill-mode 전후상태 none
+animation-play-state 재생과정지 running
+--- PAGE 154 ---
+154
+Responsive Web Design
+6. CSS심화
+https://www.w3schools.com/css/css_rwd_intro.asp
+▪ 반응형웹디자인(Responsive Web Design)은 하나의 HTML 소스로 PC, 태블릿, 스마트폰 등 다양한 크기의 기기(화면)
+에 맞춰 레이아웃이 자동으로 변형되도록 디자인하는 웹 개발 방식을말한다.
+▪ 반응형 웹의핵심 기술
+• Viewport <meta> tag
+• Mediaqueries
+• Flexible Layout (Grid and Flex)
+▪ 브라우저는 웹 페이지를 렌더링할 때 기기의 화면 정보를 파악
+• width, height: 디바이스또는브라우저의뷰포트크기
+• orientation: 세로(portrait) 또는가로(landscape)
+• resolution: 해상도 (dpi 또는 dppx)
+• color, aspect-ratio 등도감지가능
+
+--- PAGE 155 ---
+155
+Responsive Web Design - Viewport
+6. CSS심화
+https://www.w3schools.com/css/css_rwd_viewport.asp
+▪ 반응형웹이정상적으로작동하려면 <head> 태그안에반드시 Viewport 메타태그를넣어주어야한다.
+• width=device-width: 기기의실제화면너비에맞춰콘텐츠폭을설정
+• initial-scale=1.0:초기확대/축소비율을 1로설정 (100%)
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+--- PAGE 156 ---
+156
+Responsive Web Design - Media Query
+6. CSS심화
+https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+▪ 디바이스의화면크기, 방향, 해상도등미디어특성에따라서로다른스타일을적용할수있게해주는핵심기술
+• 화면레이아웃이바뀌는기준이되는지점을브레이크포인트(Breakpoint)라고부른다.
+▪ Breakpoints 샘플
+/* 1. 모바일 (Mobile) *//* 기본 스타일은 모바일 기준으로 작성 (Mobile First 방식 시) */
+@media (max-width: 767px) {
+/* 스마트폰 가로/세로, 대화면 스마트폰 */
+}
+/* 2. 태블릿 (Tablet) */
+@media (min-width: 768px) and (max-width: 1023px) {
+/* 아이패드 등 일반적인 태블릿 디바이스 */
+}
+/* 3. 소형 노트북 / PC (Laptop) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+/* 13인치, 15인치 노트북 및 작은 모니터 해상도 */
+}
+/* 4. 대화면 데스크톱 (Desktop) */
+@media (min-width: 1440px) {
+/* 일반적인 모니터(1920px 이상) 및 대화면 디스플레이 */
+}
+--- PAGE 157 ---
+157
+Responsive Web Design - Grid View
+6. CSS심화
+https://www.w3schools.com/css/css_rwd_grid.asp
+▪ 많은웹페이지는그리드뷰를기반으로하는데, 반응형그리드뷰는일반적으로 6개또는 12개의열을가진다.
+▪ Grid View샘플 : https://www.w3schools.com/css/css_rwd_grid.asp
+Demo
+--- PAGE 158 ---
+158
+Responsive Web Design - Mobile First
+6. CSS심화
+▪ 반응형을짤때두가지접근방식
+• Mobile First: 모바일화면스타일을먼저만들고, 미디어쿼리(min-width)를사용해화면이커질때마다살을붙여나가는방식
+• Desktop First: PC 화면을먼저만들고, 미디어쿼리(max-width)를사용해화면이작아질때마다요소를떼어내거나줄이는방식
+▪ 사용자들이모바일기기를우선적으로사용하는시대흐름에맞춰 Mobile-First Design이권장됨
+항목 설명
+설계순서 모바일 → 태블릿 → 데스크탑
+장점 핵심기능에집중, 로딩속도최적화, 반응형구현에유리
+기술적구현 CSS min-width기반미디어쿼리사용
+--- PAGE 159 ---
+159
+CSS Variables (= Custom Properties)
+6. CSS심화
+▪ 변수선언하기: --변수명
+• 보통 CSS 변수는사이트전체에서전역적으로쓰기위해가장상위요소인 :root에선언한다.
+• :root는 HTML 문서의가장최상단요소(<html> 태그)를가리키는가상선택자이다.
+▪ 변수사용하기: var(--변수명)
+▪ CSS 변수사용의장점
+• 반복되는값의재사용이가능하다.
+• 특히, JavaScript에서동적으로값을변경하여, 테마(다크/라이트모드)전환기능을구현할때핵심기술로사용된다.
+https://www.w3schools.com/css/css3_variables.asp
+:root {
+/* --변수명: 값; 구조로 선언합니다 */
+--main-color: #007bff;
+--danger-color: #dc3545;
+--default-padding: 16px;
+}
+.button-primary {
+background-color: var(--main-color); /* #007bff가 적용됨 */
+padding: var(--default-padding);     /* 16px이 적용됨 */
+}
+.alert-box {
+border: 2px solid var(--danger-color);
+}
+--- PAGE 160 ---
+160
+CSS Preprocessor
+6. CSS심화
+▪ CSS Vs. SCSS/SASS
+구분 CSS SCSS (Sassy CSS) SASS (Syntactically Awesome Style Sheets)
+정의 웹표준스타일시트언어 SASS의 3세대문법 (CSS 친화적) CSS를확장한전처리기언어
+구문 형태 중괄호({})와세미콜론(;) 중괄호({})와세미콜론(;) 들여쓰기와 줄바꿈
+가독성 구조가커질수록복잡해짐 CSS와유사하여가독성좋음 중괄호가없어깔끔하지만호불호
+호환성 브라우저가직접인식함 CSS와 100% 호환됨 전통적인 SASS 문법 (적응필요)
+사용 빈도 기본필수 현재 업계 표준/가장 많이 씀 점차줄어드는추세
+nav {
+background-color: #333;
+}
+nav ul {
+list-style: none;
+}
+nav ul li {
+display: inline-block;
+}
+nav {
+background-color: #333;
+ul {
+list-style: none;
+li {
+display: inline-block;
+}
+}
+}
+nav
+background-color: #333  
+ul
+list-style: none
+li
+display: inline-block
+--- PAGE 161 ---
+161
+CSS Preprocessor - SCSS
+6. CSS심화
+▪ SCSS/SASS 장점
+• 변수사용 ($variable): 색상, 폰트크기등을변수로지정해두고재사용할수있다. (예: $primary-color: #ff0000;)
+• 중첩 (Nesting): 상위선택자의반복을줄여컴포넌트단위로관리가편해진다.
+• 믹스인 (Mixins): 자주사용하는 CSS 코드블록을정의해두고필요할때마다불러올수있다. (함수와유사)
+• 모듈화 (Import): 스타일시트를여러파일로쪼개어관리하고하나로합칠수있어 대규모 프로젝트에 필수적이다.
+▪ Convert SCSS/SASS code into standard CSS
+• SCSS나 SASS로작성한코드는브라우저가직접읽을수없기때문에, 작성된스타일시트를일반 CSS로바꾸어주는과정이필요
+• 이과정을트랜스파일링(Transpiling)이라한다.
+• Vite, Webpack, Turbopack같은 Frontend Build 도구에서는설정을통해자동으로변환시킨다.
+--- PAGE 162 ---
+162
+CSS Code Challenge
+6. CSS심화
+▪ 다음실습을진행하시오
+1) 2D Transforms - https://www.w3schools.com/css/css_challenges_css3_transforms.asp
+2) 3D Transforms - https://www.w3schools.com/css/css_challenges_css3_3dtransforms.asp
+3) Transition - https://www.w3schools.com/css/css_challenges_css3_transitions.asp
+4) Animations - https://www.w3schools.com/css/css_challenges_css3_animations.asp
+5) RWD Intro - https://www.w3schools.com/css/css_challenges_rwd_intro.asp
+6) RWD Viewport - https://www.w3schools.com/css/css_challenges_rwd_viewport.asp
+7) RWD Grid View - https://www.w3schools.com/css/css_challenges_rwd_grid.asp
+8) RWD Media Queries - https://www.w3schools.com/css/css_challenges_rwd_grid.asp
+9) CSS Variables - https://www.w3schools.com/css/css_challenges_css3_variables.asp
+--- PAGE 163 ---
+163
+[실습] 미션4 - Flex와 Grid로 레이아웃 잡기
+6. CSS심화
+▪ 위에서 아래로 일렬로만 떨어지던 답답한 배치를 현대적인 Multi-column 레이아웃과 바둑판 배열을 적용한다.
+1) Index.html :바로가기에 Flexbox를적용하고, main과 aside를가로배치한다.
+2) myTrip.html :여행지카드를 Grid를사용하여 3열바둑판배치한다.
+
+--- PAGE 164 ---
+164
+[실습] 미션5 - 스마트폰에서 보기 (반응형 웹 디자인)
+6. CSS심화
+▪ 레이아웃이 화면이 작은 모바일 기기에서도 깨지지 않고 유연하게 변하도록 한다.
+1) Index.html :화면폭이 786 px 이하로줄면본문|사이드바구조를세로 1열로변경하고바로가기로 1열로정렬
+2) myTrip.html : 3열배열을 1열로조정
+
+--- PAGE 165 ---
+165
+[실습] 미션6 - 생동감을 불어넣는 애니메이션
+6. CSS심화
+▪ 사용자의 마우스 움직임에 반응하고, 화면이 살아 숨 쉬는 듯한 부드러운 효과를 추가하는 미션
+1) 내비게이션메뉴나회원가입버튼에마우스를올렸을때배경색이나글자색이순식간에바뀌지않고부드럽게변하도록처리
+2) 여행앨범의카드에마우스를올리면박스가살짝위로떠오르고그림자가더진해지는효과를주어 '클릭하고싶게' 만든다.
+3) index.html을처음열었을때, 상단헤더의타이틀이부드럽게페이드인되며나타나는등장애니메이션을구현한다
+
+--- PAGE 166 ---
+7. JavaScript 기초
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 167 ---
+167
+JS Roadmap
+7. JavaScript 기초
+https://roadmap.sh/javascript
+
+--- PAGE 168 ---
+168
+Introduction to JavaScript
+7. JavaScript 기초
+▪ 웹브라우저와서버모두에서작동하는프로그래밍언어
+▪ Interactive한웹페이지와다양한애플리케이션을개발하기위해사용
+▪ HTML과 CSS와함께웹개발의핵심기술중하나 (자바스크립트는 '동적 제어와 논리(Behavior)'를 담당)
+• JavaScript Can Change HTML Content
+• JavaScript Can Change HTML Attribute Values
+• JavaScript Can Change HTML Styles (CSS)
+• JavaScript Can Hide/Show HTML Elements
+▪ JavaScript의주요기술적특정
+특정 설명
+Interpreter Language 별도의컴파일(빌드) 과정없이, 브라우저가코드를한줄씩위에서부터읽으며즉시실행
+Dynamic Typing 변수를만들때데이터타입을미리지정하지않고, 값이할당되는순간자동으로타입이결정
+Single Thread 한번에하나의작업만처리하는 Single Thread를사용하되, 사용자의행동(이벤트)을감지해비동기로처리
+함으로써화면이멈추지않게제어한다. 
+--- PAGE 169 ---
+169
+Introduction to JavaScript - History
+7. JavaScript 기초
+▪ JavaScript의주요역사및발전과정
+시대 (연도) 주요 사건 상세 내용 및 기술적 의미
+1995년 자바스크립트의
+탄생
+• 1995년 Netscape의브렌던아이크(Brendan Eich)가단 10일만에언어를설계
+※ Java와 JavaScript는이름만비슷할뿐, 아무런연관이없는별개의언어
+1996~
+2000년대초
+브라우저전쟁과
+ECMAScript 제정
+• 1996년 MS가 IE에복제판인 JScript를탑재하면서브라우저전쟁시작
+• 1997년국제표준화기구(ECMA)에서공식표준문법인 ECMAScript(ES)를제정
+2005~2006년 AJAX의등장과
+jQuery 혁명
+• 2005년구글맵스등이데이터만바꾸는 AJAX(비동기통신)를선보임. 
+• 2006년브라우저간호환성문제를해결해주는 jQuery 라이브러리가출시
+2009~2015년 Node.js 탄생과
+ES6(ES2015) 대개정
+• 2009년 Node.js의등장으로서버환경에서도자바스크립트를실행할수있게됨. 
+• 2015년 ES6문법대개정으로현대적이고강력한기능이도입되었음
+2016년~현재 모던웹생태계와
+매년정기업데이트
+• React, Vue, Angular중심의컴포넌트기반개발이글로벌표준으로자리잡았습니다. 
+• 매년소규모기능을정기업데이트
+※ 자바스크립트의공식표준명 = ECMAScript(ES)
+※ Modern JavaScript라고부르는기준점은바로 ES6(ES2015)
+--- PAGE 170 ---
+170
+Introduction to JavaScript - How to Run
+7. JavaScript 기초
+https://www.w3schools.com/js/js_whereto.asp
+▪ JavaScript 코드를 HTML 문서에포함하여작성
+• HTML문서에서 JavaScript 코드는 <script> </script> Tag 사이에작성되어야한다.
+• JavaScript는 <body>나 <head> section 내에서작성된다.
+- <head>에스크립트를넣으면스크립트가로드되는동안 HTML 요소가렌더링되지않기때문에페이지가늦게표시된다.
+- <body> 끝에스크립트를넣으면 HTML 문서의모든콘텐츠가먼저렌더링된후실행됨으로사용자에게더빠른경험을제공
+• External JavaScript
+▪ Browser 별 JavaScript Engine
+Demo
+<script src="https://www.w3schools.com/js/myScript.js"></script>
+<script src="/js/myScript.js"></script>
+<script src="myScript.js"></script>
+<script>
+document.getElementById("demo").innerHTML = "My First JavaScript";
+</script>
+Browser JS Engine 핵심 기술적 특징
+Google Chrome V8 전세계에서가장널리쓰이는오픈소스엔진으로속도가매우빠르다.
+Apple Safari JavaScriptCore macOS, iOS 등 Apple 하드웨어생태계에최적화된엔진
+Mozilla Firefox SpiderMonkey 넷스케이프시절처음만든세계최초의자바스크립트엔진
+Microsoft Edge V8 구글크롬과동일한오픈소스엔진인 V8을탑재하여구동
+--- PAGE 171 ---
+171
+Introduction to JavaScript - Output
+7. JavaScript 기초
+https://www.w3schools.com/js/js_output.asp
+▪ JavaScript가데이터를보여주는방법
+• Writing into an HTML element, using innerHTML or innerText.
+• Writing into the HTML output using document.write().
+• Writing into an alert box, using window.alert().
+• Writing into the browser console, using console.log().
+▪ 개발자도구 Console Tab
+• 단축키 : Ctrl + Shift + I
+• Console Tab에서 console.log()를확인할수있다.
+• Console Tab에서자바스크립트에러를확인할수있다.
+Demo
+
+--- PAGE 172 ---
+172
+Introduction to JavaScript - JS Syntax
+7. JavaScript 기초
+https://www.w3schools.com/js/js_syntax.asp
+▪ JavaScript Value는 Literals(Fixed Values)와 Variables(Variable Values) 2종이존재한다. 
+▪ JavaScript Keyword는수행할동작을정의하는데사용된다. 
+▪ JavaScript Variable은데이터를저장하기위해이름을붙인저장공간이다.
+▪ JavaScript Identifier는변수이름이다.
+▪ JavaScript Operator는변수간연산을하는연산자이다.
+▪ JavaScript Expression은 value, variables, operators의조합이다.
+▪ JavaScript는 Case-Sensitive 하다.
+Demo
+--- PAGE 173 ---
+173
+Introduction to JavaScript - Statements & Comments
+7. JavaScript 기초
+https://www.w3schools.com/js/js_statements.asp https://www.w3schools.com/js/js_comments.asp
+▪ JavaScript Programs
+• A computer program is a list of "instructions" to be "executed" by a computer.
+• These programming instructions are called statements.
+• The statements are executed, one by one, in the same order as they are written.
+• In HTML, JavaScript programs are executed by the web browser.
+▪ JavaScript Statements
+• JavaScript statements are composed of Values, Operators, Expressions, Keywords, and Comments.
+• Semicolons separate JavaScript statements.
+• JavaScript ignores multiple spaces. You can add white space to your script to make it more readable.
+• JavaScript statements can be grouped together in code blocks, inside curly brackets {...}.
+• JavaScript keywords are reserved words. Reserved words cannot be used as names for variables.
+▪ JavaScript Comments
+• Single line comments start with //.
+• Multi-line comments start with /* and end with */.
+Demo
+--- PAGE 174 ---
+174
+JavaScript Variables
+7. JavaScript 기초
+https://www.w3schools.com/js/js_variables.asp
+▪ JavaScript variables are containers for data.
+• Variables are identified with unique names called identifiers.
+▪ Declaring JavaScript Variables
+• Declaring a Variable Using let
+• Declaring a Variable Using const
+• Declaring a Variable Automatically (Not Recommended)
+• Declaring a Variable Using var (Not Recommended)
+Demo
+Keyword 범위(Scope) = 변수 접근 가능 범위 재선언 재할당
+var 함수범위(function scope) O O
+let 블록범위(block scope) X O
+const 블록범위(block scope), 상수 X X
+--- PAGE 175 ---
+175
+JavaScript Variables - Scopes
+7. JavaScript 기초
+https://www.w3schools.com/js/js_let.asp https://www.w3schools.com/js/js_scope.asp
+▪ JavaScript variables have 3 types of scope
+• Global Scope: Global variables can be accessed from anywhere in a JavaScript program.
+• Block Scope: Variables declared inside a { } block cannot be accessed from outside the block (let,const선언에해당)
+• Function Scope: Inside a function all variables declared with var, let or const have Function Scope
+Demo
+{
+let x = 2;
+}
+// x can NOT be used here
+function myfunction() {
+var x = 1;
+let y = 2;
+const z = 3;
+}
+//x can NOT be used here
+//y can NOT be used here
+//z can NOT be used here
+let carName = "Volvo";
+// code here can use carName
+function myFunction() {
+// code here can also use carName
+}
+--- PAGE 176 ---
+176
+JavaScript Variables - Variable Declarations (let)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_let.asp
+▪ Declaring a Variable Using let
+• The let keyword was introduced in ES6 (2015)
+• Variables declared with let have Block Scope
+• Variables declared with let must be Declared before use
+• Variables declared with let cannot be Redeclared in the same scope
+Demo
+--- PAGE 177 ---
+177
+JavaScript Variables - Variable Declarations (const)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_const.asp
+▪ Declaring a Variable Using const
+• The const keyword was introduced in ES6 (2015)
+• Variables defined with const cannot be Redeclared
+• Variables defined with const cannot be Reassigned
+• Variables defined with const have Block Scope
+▪ Constant Objects and Arrays
+• It does not define a constant value. It defines a constant reference to a value.
+Demo
+--- PAGE 178 ---
+178
+JavaScript Variables - Hoisting
+7. JavaScript 기초
+https://www.w3schools.com/js/js_hoisting.asp
+▪ Hoisting is JavaScript's default behavior of moving declarations to the top.
+• JavaScript Declarations are Hoisted
+• Variables defined with let and const are hoisted to the top of the block, but not initialized.
+• JavaScript Initializations are Not Hoisted
+▪ Declare Your Variables At the Top !
+• Hoisting is (to many developers) an unknown or overlooked behavior of JavaScript.
+• If a developer doesn't understand hoisting, programs may contain bugs (errors).
+• To avoid bugs, always declare all variables at the beginning of every scope.
+• Since this is how JavaScript interprets the code, it is always a good rule.
+Demo
+[작성된 코드]
+console.log(a);
+var a = 10;
+[코드의 동작]
+var a;           // 선언이 먼저 올라감 (호이스팅)
+console.log(a);  // undefined (값이 아직 할당되지 않음)
+a = 10;
+--- PAGE 179 ---
+179
+Datatypes
+7. JavaScript 기초
+https://www.w3schools.com/jsjs_datatypes.asp
+▪ JavaScript Datatypes: 기본형(Primitive Data Type) + 객체형(Object Data Type, Reference Data Type, Non-Primitive
+Data Type)으로구성
+▪ \
+▪ JavaScript has dynamic types. This means that the same variable can be used to hold different data types:
+Demo
+구분 원시 타입 (Primitive) 객체 타입 (Object)
+값의 형태 단일값 (단순함) 속성(Key)과값(Value)의집합 (복합함)
+메모리 저장 변수공간에 실제 값이직접저장됨 메모리(Heap) 주소를가리키는 참조값이저장
+변경 가능성 불변성 (Immutability): 값수정불가 가변성 (Mutability): 내부속성을변경가능
+속성/메서드 없음 (데이터그자체) 있음
+let x;       // Now x is undefined
+x = 5;       // Now x is a Number
+x = "John";  // Now x is a String
+--- PAGE 180 ---
+180
+Datatypes - String
+7. JavaScript 기초
+https://www.w3schools.com/js/js_strings.asp https://www.w3schools.com/js/js_string_templates.asp
+▪ JavaScript Strings
+• Using Quotes: A JavaScript string is zero or more characters written inside quotes.
+• Template Strings: Templates are strings enclosed in backticks
+• String Length: To find the length of a string, use the built-in length property
+• Escape Characters: The backslash escape character (\) turns special characters into string characters:
+• JavaScript Strings as Objects: Normally, JavaScript strings are primitive values, created from literals, but strings can also be 
+defined as objects with the keyword new
+▪ JavaScript String Templates (=Template Strings, Template Literals)
+• Back-Tics Syntax: Template Strings use back-ticks (``) rather than the quotes ("") to define a string
+• Multiline Strings: Template Strings allow multiline strings
+• Interpolation: Template strings provide an easy way to interpolate variables in strings.
+• Expression Substitution: Template Strings allow interpolation of expressions in strings:
+Demo
+--- PAGE 181 ---
+181
+Datatypes - String Methods
+7. JavaScript 기초
+https://www.w3schools.com/js/js_string_methods.asp https://www.w3schools.com/js/js_string_search.asp
+▪ Basic String Methods
+• Javascript strings are primitive and immutable: All string methods produce a new string without altering the original string.
+• String.concat(), String.substring(), String.substr(), String.toUpperCase(), String.trim(), String.replace(), String.split()…
+▪ String Search Methods
+• String.indexOf(), String.lastIndexOf(), String.search(), String.match(), String.matchAll(), String.includes(), String.startsWith()…
+▪ Wrapper Object
+• JavaScript엔진은원시타입의속성이나메서드에접근하려고할때, 순간적으로그원시타입을연관된객체로임시변환한다.
+• typeOf연산자를통한확인
+• Do not create String objects. The new keyword complicates the code and slows down execution speed.
+Demo
+const name = "gemini"; // 원시 타입인 string
+console.log(name.toUpperCase()); // "GEMINI"가 정상 출력됨! 객체인가..?
+const primitiveStr = "hello";
+const objectStr = new String("hello"); // 명시적으로 객체로 만듦
+console.log(typeof primitiveStr); // "string" (원시 타입)
+console.log(typeof objectStr);    // "object" (객체)
+--- PAGE 182 ---
+182
+Datatypes - Number
+7. JavaScript 기초
+https://www.w3schools.com/js/js_numbers.asp
+▪ JavaScript Numbers
+• Number Types: Unlike many other programming languages, JavaScript does not define different types of numbers, like integers, 
+short, long, floating-point etc
+• Integer Precision : Integers (numbers without a period or exponent notation) are accurate up to 15 digits.
+• Floating Precision : Floating point arithmetic is not always 100% accurate
+• Adding Numbers and Strings : JavaScript uses the + operator for both addition and concatenation. Numbers are added. 
+Strings are concatenated.
+• NaN(Not a Number): NaN is a JavaScript reserved word indicating that a number is not a legal number.
+• Infinity: Infinity (or -Infinity) is the value JavaScript will return if you calculate a number outside the largest possible number. 
+Division by 0 (zero) also generates Infinity
+• Hexadecimal: JavaScript interprets numeric constants as hexadecimal if they are preceded by 0x.
+• JavaScript Numbers as Objects: Normally JavaScript numbers are primitive values created from literals, But numbers can 
+also be defined as objects with the keyword new:
+Demo
+--- PAGE 183 ---
+183
+Datatypes - Number Methods and Properties
+7. JavaScript 기초
+https://www.w3schools.com/js/js_number_methods.asphttps://www.w3schools.com/js/js_number_properties.asp
+▪ Basic Number Methods
+• toString(), toExponential(), toFixed(), toPrecision(), valueOf()
+▪ Converting Variables to Numbers
+• Number(), parseInt(), parseFloat()
+▪ Number Object Methods
+• Number.isInteger(), Number.isNaN(), Number.isFinite(), Number.isSafeInteger(), Number.parseInt(), Number.parseFloat()
+▪ Number Object Properties
+• Number.EPSILON, Number.MAX_VALUE, Number.MIN_VALUE, Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER, 
+Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN
+Demo
+--- PAGE 184 ---
+184
+Datatypes - BigInt
+7. JavaScript 기초
+https://www.w3schools.com/js/js_bigint.asp
+▪ What is JavaScript BigInt?
+• Number의범위를초과하는정수를표현하기위해사용 (Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER).
+▪ How to Create a BigInt
+• Using an integer literal with an n suffix
+• Using the BigInt() constructor with a string
+▪ Arithmetic between a BigInt and a Number is not allowed (will result in a TypeError).
+Demo
+let x = 12345678901234567890n;
+let y = BigInt("12345678901234567890")
+let x = 10n;
+let y = 5;
+let z = x + y; // ❌ TypeError
+--- PAGE 185 ---
+185
+Datatypes - Boolean
+7. JavaScript 기초
+https://www.w3schools.com/js/js_booleans.asp
+▪ Key Boolean Characteristics
+• true and false are the only possible boolean values
+• true and false must be written in lowercase
+• true and false must be written without quotes
+▪ 비교연산의결과는 true/false를 return한다.
+• 조건문과반복문에광범위하게사용된다. 
+▪ Everything With a "Value" is True
+▪ Everything Without a "Value" is False
+Demo
+let boolean1 = 10 < 20;
+let boolean2 = 10 > 20;
+console.log(boolean1); // true
+console.log(boolean2); // false
+--- PAGE 186 ---
+186
+Datatypes - undefined, null
+7. JavaScript 기초
+https://www.w3schools.com/js/js_undefined.asp
+▪ Undefined
+• 변수선언은했지만값이아직할당되지않았을때, undefined 타입
+• Accessing a non-existing object property returns undefined.
+• A function without a return value returns undefined.
+▪ null
+• null 은 “값이없음”이나 “의도적으로비어있음”을표현, null 타입
+Demo
+let something; 
+console.log(something); // undefined
+const person = {firstName:"John", lastName:"Doe"};
+document.getElementById("demo").innerHTML = person.age;
+function myFunction() {
+let x = 5;
+}
+document.getElementById("demo").innerHTML = myFunction();
+let nothing = null; 
+console.log(nothing); // null
+--- PAGE 187 ---
+187
+Datatypes - symbol
+7. JavaScript 기초
+https://www.w3schools.com/js/js_datatypes_symbol.asp
+▪ JavaScript Symbols
+• 고유하고변경불가능한값으로, 주로객체의고유한속성키로사용
+• Symbol() 함수를사용해생성하며, 같은입력값을넣어도결과값은달라짐
+• 문자열로자동변환되지않으며 + 연산도불가능
+Demo
+let sym1 = Symbol("id");
+let sym2 = Symbol("id");
+console.log(sym1 === sym2); // false
+--- PAGE 188 ---
+188
+Datatypes - Reference Data Types
+7. JavaScript 기초
+▪ Reference Data Types (=Object Data Types, Non-Primitive Data Types)
+• JavaScript의참조형(Reference) 데이터타입은데이터의실제값이아닌, 그값이저장된메모리주소(참조값)를변수에저장하는데이
+터타입이다.
+• Heap Memory 저장: 크기가정해지지않은복잡한데이터이기때문에, 실제데이터는메모리의 '힙'이라는공간에저장되고, 변수에는
+그위치를가리키는 '주소'만복사된다.
+• 가변성(Mutable): 기본형과달리, 값이복사되는것이아니라주소가공유되기때문에객체의내부프로퍼티를변경하면해당주소를
+참조하는다른변수의값도같이변경된다
+자료형 설명 예시
+object 키-값쌍으로이루어진데이터구조 const user = { name: “홍길동", age: 25 };
+array 순서가있는값들의집합 let items = [1, 2, 3];
+function 실행가능한코드블록 const greet = function() { … };
+date 날짜와시간객체 let today = new Date();
+Map 키-값쌍을저장하는컬렉션 (key는다양한타입가능) const map = new Map();
+Set 중복되지않는값의집합 const set = new Set([1, 2, 3]);
+Regexp 정규표현식 const regex = /abc/i;
+--- PAGE 189 ---
+189
+Datatypes - Wrapper Object
+7. JavaScript 기초
+▪ Wrapper Objects
+• Auto-Boxing: JavaScript엔진이편의를위해 Primitive Type 데이터를순간적으로동명의빌트인래퍼객체(Wrapper Object)로
+자동변환해주는내부메커니즘
+Primitive Wrapper Auto-Boxing 예시 코드 특징 및 주의사항 (교재 가이드)
+String String "hello".toUpperCase()
+"web".length 가장빈번하게자동변환이일어나는래퍼객체
+Number Number (123.456).toFixed(2)
+(10).toString(2)
+숫자에바로마침표를찍으면소수점으로인식하므로, (10).처럼 괄호로감싸야안전하게래
+퍼객체메서드가호출된다.
+Boolean Boolean true.toString() true 나 false 상태를문자열등으로변환할때자동으로박싱된다.
+Symbol Symbol const s = Symbol('id');
+s.description
+래퍼객체는존재하지만, 개발자가직접 new Symbol() 코드로인스턴스를생성하는것은금
+지
+BigInt BigInt
+const b = 9007199254740991
+n;
+b.toString()
+Symbol과마찬가지로 new BigInt() 형태의직접객체생성은불가능하다.
+null
+없음 (예외) (호출불가) 래퍼 객체가 존재하지 않으므로마침표(.)를찍어접근시무조건 TypeError가발생한다.
+undefined
+--- PAGE 190 ---
+190
+Operators
+7. JavaScript 기초
+▪ JavaScript Operator(연산자)는변수나값을대상으로연산을수행하여새로운값을만들어내는기호들이다.
+• Arithmetic Operators (산술연산자)
+• Assignment Operators (대입연산자)
+• Comparison Operators (비교연산자)
+• Logical Operators (논리연산자)
+• And more ...
+--- PAGE 191 ---
+191
+▪ JavaScript Arithmetic Operators
+▪ Demo : https://www.w3schools.com/js/js_arithmetic.asp
+Operators - Arithmetic
+7. JavaScript 기초
+연산자 설명 예제 결과
++ 덧셈 (Addition) 5 + 3 8
+- 뺄셈 (Subtraction) 5 - 3 2
+* 곱셈 (Multiplication) 5 * 3 15
+/ 나눗셈 (Division) 6 / 2 2
+% 나머지 (Modulus) 5 % 2 1
+** 거듭제곱 (Exponentiation) 2 ** 3 8
+++ 1 증가 (Increment) let a = 1; a++; ++a; a = 2
+-- 1 감소 (Decrement) let a = 1; a--; --a; a = 0
+--- PAGE 192 ---
+192
+▪ JavaScript Assignment Operators
+▪ Demo : https://www.w3schools.com/js/js_assignment.asp
+Operators - Assignment
+7. JavaScript 기초
+연산자 설명 예제 결과
+= 값할당 let a = 5 a = 5
++= 덧셈후할당 a += 2 a = 7
+-= 뺄셈후할당 a -= 2 a = 3
+*= 곱셈후할당 a *= 2 a = 10
+/= 나눗셈후할당 a /= 2 a = 2.5
+%= 나머지후할당 a %= 2 a = 1
+--- PAGE 193 ---
+193
+▪ JavaScript Comparison Operators
+▪ Demo : https://www.w3schools.com/js/js_comparisons.asp
+Operators - Comparisons
+7. JavaScript 기초
+연산자 설명 예제 결과
+== [느슨한비교] 값이같으면 true 5 == '5' TRUE
+=== [엄격한비교] 값과타입이같으면 true 5 === '5' FALSE
+!= [느슨한비교] 값이다르면 true 5 != '5' FALSE
+!== [엄격한비교] 값또는타입이다르면 true 5 !== '5' TRUE
+<, >, <=, >= 크기비교 5 > 3 TRUE
+--- PAGE 194 ---
+194
+▪ JavaScript Logical Operators
+▪ Demo : https://www.w3schools.com/js/js_logical.asp
+Operators - Logical
+7. JavaScript 기초
+연산자 설명 예제 결과
+&& 논리 AND true && false false
+|| 논리 OR true !! false true
+! 논리 NOT !true false
+--- PAGE 195 ---
+195
+▪ JavaScript Bitwise Operators
+▪ Demo : https://www.w3schools.com/js/js_bitwise.asp
+Operators - Bitwise
+7. JavaScript 기초
+연산자 설명 예제 상세 결과
+& 비트 AND 5 & 1 0101 & 0001 0001 → 1
+| 비트 OR 5 | 1 0101 | 0001 0101 → 5
+^ 비트 XOR 5 ^ 1 0101 ^ 0001 0100 → 6
+~ 비트 NOT ~5 ~0101 1010 → 10
+<<, >>, >>> 비트시프트 5 >> 1 0101 >> 1 0010 → 2
+--- PAGE 196 ---
+196
+Operators - Miscellaneous
+7. JavaScript 기초
+▪ JavaScript Other Operators
+▪ Demo 
+• Ternary Operator : https://www.w3schools.com/js/js_if_ternary.asp
+• typeof Operator : https://www.w3schools.com/js/js_typeof.asp
+• in Operator : https://www.w3schools.com/jsref/jsref_oper_relational.asp
+• instanceof Operator : https://www.w3schools.com/jsref/jsref_oper_instanceof.asp
+연산자 설명 예제 결과
+삼항(Ternary)연산자 (? :) 조건부연산자 (삼항연산자) let result = (5 > 3) ? 'Yes' : 'No' Yes
+typeof연산자 데이터타입반환 typeof 42 'number'
+in 연산자 객체속성존재여부확인 ("firstName" in person) true / false
+instanceof연산자 객체의인스턴스여부확인 cars instanceof Array true / false
+--- PAGE 197 ---
+197
+Control Flow - if
+7. JavaScript 기초
+https://www.w3schools.com/js/js_if.asp
+Demo
+▪ The JavaScript if Statement
+• Use the JavaScript if statement to execute a block of code when a condition is true.
+let age = 16;
+let country = "USA";
+let text = "You can Not drive!";
+if (country == "USA" && age >= 16) {
+text = "You can drive!";
+}
+--- PAGE 198 ---
+198
+Control Flow - else
+7. JavaScript 기초
+https://www.w3schools.com/js/js_if_else.asp
+Demo
+▪ The JavaScript else Statement
+• Use the else statement to specify a block of code to be executed if a condition is false.
+▪ The JavaScript else if Statement
+• Use the else if statement to specify a new condition if the first is false.
+if (hour < 18) {
+greeting = "Good day";
+} else {
+greeting = "Good evening";
+}
+if (time < 10) {
+greeting = "Good morning";
+} else if (time < 20) {
+greeting = "Good day";
+} else {
+greeting = "Good evening";
+}
+--- PAGE 199 ---
+199
+Control Flow - switch
+7. JavaScript 기초
+https://www.w3schools.com/js/js_switch.asp
+Demo
+▪ Switch Control Flow
+• The switch expression is evaluated once.
+• The value of the expression is compared with the values of each case.
+• If there is a match, the associated block of code is executed.
+• If there is no match, no code is executed.
+▪ The break / default Keyword
+• break 키워드는현재실행중인 case 블록을종료하고 switch 문을빠져나간다. 만약, break가없으면다음 case 블록이연속적으
+로실행된다.
+• default는주어진값이어떤 case와도일치하지않을때실행되는코드블록을명세한다. default는선택사항이며생략가능하다.
+switch (new Date().getDay()) {
+case 6:
+text = "Today is Saturday";
+break;
+case 0:
+text = "Today is Sunday";
+break;
+default:
+text = "Looking forward to the Weekend";
+}
+--- PAGE 200 ---
+200
+Loops and Iterations
+7. JavaScript 기초
+▪ JavaScript loops repeat executing a block of code a number of times.
+Loop Type Description
+for Iterates over values and expressions
+while Iterates over a condition
+do...while Iterates over a condition
+for...in Iterates over the properties of an Object
+for...of Iterates over array like objects
+forEach() Iterates over each element in an Array
+--- PAGE 201 ---
+201
+Loops and Iterations - for Loop
+7. JavaScript 기초
+https://www.w3schools.com/js/js_loop_for.asp
+Demo
+▪ for statement
+• exp 1 is executed (one time) before the execution of the code block.
+• exp 2 defines the condition for executing the code block.
+• exp 3 is executed (every time) after the code block has been executed.
+for (exp 1; exp 2; exp 3) {
+// code block to be executed
+}
+for (let i = 0; i < 5; i++) {
+console.log(i);
+}
+const arr = [“바나나＂, ＂사과＂, ＂자몽"];
+for(let I = 0; I < arr.length; i++){
+console.log(arr[i]);
+}
+--- PAGE 202 ---
+202
+Loops and Iterations - while Loop
+7. JavaScript 기초
+https://www.w3schools.com/js/js_loop_while.asp
+Demo
+▪ while statement
+• 조건이참(true)인동안반복
+▪ do while statement
+• 조건을검사하기전에코드블록을한번실행한후, 조건이참(true)인동안반복
+while (condition) {
+// code block to be executed
+}
+let count = 0;
+while (count < 3) {
+console.log(count);
+count++;
+}
+do {
+// code block to be executed
+}
+while (condition);
+let num = 0;
+do {
+console.log(num);
+num++;
+} while (num < 3);
+--- PAGE 203 ---
+203
+Loops and Iterations - break and continue
+7. JavaScript 기초
+https://www.w3schools.com/js/js_break.asp https://www.w3schools.com/js/js_continue.asp
+Demo
+▪ break statement
+• 특정조건에서반복을중단해야할때사용
+▪ continue statement
+• 특정조건에서실행코드를건너뛰고싶을때사용
+for (let i = 0; i < 10; i++) {
+if (i === 5) {
+break; // 반복문 종료
+}
+console.log(i);
+}
+for (let i = 0; i < 10; i++) {
+if (i % 2 === 0) {
+continue; // 짝수일 때는 건너뜀
+}
+console.log(i);
+}
+--- PAGE 204 ---
+204
+Loops and Iterations -for…in
+7. JavaScript 기초
+▪ for…in statement
+• 객체의속성(key)을반복할때사용
+for (let key in 객체) {
+// 실행 코드
+}
+let obj = { name: ‘홍길동’,  age: 28, company: ‘활빈당’ };
+for (let key in obj) {
+console.log(key, obj[key]);
+}
+--- PAGE 205 ---
+205
+Loops and Iterations -for…of
+7. JavaScript 기초
+▪ for…of statement
+• 반복가능한객체(배열, 문자열등)의엘리먼트값을반복
+for (let value of 반복가능한객체) {
+// 실행 코드
+}
+let arr = [10, 20, 30];
+for (let value of arr) {
+console.log(value);
+}
+--- PAGE 206 ---
+206
+Loops and Iterations - Nested Loop
+7. JavaScript 기초
+▪ Nested Loop
+• 반복횟수관리: 중첩반복문은실행횟수가기하급수적으로늘어날수있으므로조건과횟수를신중히설정
+• 가독성유지: 중첩깊이가깊어지면가독성이떨어지므로, 가능한깊이를줄이거나함수로분리하여관리
+for (let i = 0; i < 3; i++) {           // 외부 반복문
+for (let j = 0; j < 3; j++) {       // 내부 반복문
+console.log(`i: ${i}, j: ${j}`);
+}
+}
+--- PAGE 207 ---
+207
+Functions
+7. JavaScript 기초
+https://www.w3schools.com/js/js_function_intro.asp
+▪ What is Function and Why use Functions?
+• Functions are reusable code blocks designed to perform a particular task.
+• Functions are executed when they are called or invoked.
+• Functions help you to Reuse code (write once, run many times) and organize code into smaller parts
+• Functions help you to Make code easier to read and maintain
+▪ JavaScript Function Syntax
+• A function can be created with the function keyword, a name, parentheses (), and brackets {}.
+• To run a function, you call it by using its name followed by parentheses.
+• A Function Can Be Used Many Times
+• Variables declared within a JavaScript function, become LOCAL to the function.
+• Functions can be used as variables, in all types of formulas, assignments, and calculations.
+function name( p1, p2, ... ) {
+// code to be executed
+}
+Demo
+--- PAGE 208 ---
+208
+Functions - Invocation
+7. JavaScript 기초
+https://www.w3schools.com/js/js_function_invocation.asp
+▪ Function Invocation
+• The code inside a function will execute when "something" invokes the function
+• When a function returns a value, you can store the value in a variable.
+• You can call the same function whenever you need it.
+• The () operator invokes a function.
+• You can call functions from other functions, from events, or from any code block.
+▪ Calling vs Referencing a Function
+• Referencing a Function: sayHello refers to the function itself. It returns the function.
+• Calling a Function: sayHello() refers to the function result. It returns the result.
+function sayHello() {
+return "Hello World";
+}
+let text = sayHello;
+Demo
+--- PAGE 209 ---
+209
+Functions - Parameters
+7. JavaScript 기초
+https://www.w3schools.com/js/js_function_parameters.asp
+▪ Parameters allow you to pass (send) values to a function.
+• Parameters(매개변수) are the names listed in the function definition.
+• Arguments(인수) are the real values passed to, and received by the function.
+▪ Parameter Rules
+• JavaScript function definitions do not specify data types for parameters.
+• JavaScript functions do not perform type checking on the arguments.
+• JavaScript functions do not check the number of arguments received.
+➔ Accessing a function with an incorrect parameter can return an incorrect answer
+▪ Default Parameter Values
+• The default value is used if no argument is provided.
+Demo
+--- PAGE 210 ---
+210
+Functions - Returns
+7. JavaScript 기초
+https://www.w3schools.com/js/js_function_return.asp
+▪ The return Statement
+• When a function reaches a return statement, the function stops executing.
+• Most functions return the result of a calculation or an operation.
+• The returned value can be used anywhere a value is expected.
+• A function can return any type of value (not only numbers).
+• Code written after a return statement will NOT be executed.
+• If a function does not return a value, the return value will be undefined.
+• You can use return to stop a function early, based on a condition.
+Demo
+--- PAGE 211 ---
+211
+Functions - Arguments
+7. JavaScript 기초
+https://www.w3schools.com/js/js_function_arguments.asp
+▪ Arguments are the real values passed to, and received by the function.
+• Arguments are assigned to parameters in the order they appear.
+• Arguments can be variables
+• If a function is called with fewer arguments than parameters, the missing values become undefined.
+▪ Call by Value vs. Call by Sharing
+Demo
+구분 Call by Value (기본형 전달) Call by Sharing (참조형 전달)
+복사되는대상 실제데이터값 (예: 10, "Hello") 메모리주소값 (예: 0x00412)
+함수내부수정 원본에영향없음 원본객체의프로퍼티수정시영향있음
+function changeProperty(obj) {
+// 주소를 타고 들어가 내부 속성을 수정함
+obj.name = "Lee"; 
+}
+let user = { name: "Kim" };
+changeProperty(user);
+console.log(user.name); // "Lee" (원본 객체가 변
+경됨!)
+function changeValue(x) {
+// 복사본을 수정함
+x = 20;
+}
+let a = 10;
+changeValue(a);
+console.log(a); // 10 (원본은 전혀 변하지 않음)
+--- PAGE 212 ---
+212
+Functions - Function Expressions
+7. JavaScript 기초
+https://www.w3schools.com/js/js_function_expressions.asphttps://www.w3schools.com/js/js_arrow_function.asp
+▪ A function expression is a function stored in a variable
+▪ Arrow Functions allow a shorter syntax for function expressions.
+Demo
+// Function Declaration (함수선언)
+function multiply(a, b) {
+return a * b;
+}
+// Function Expression (함수표현식)
+const multiply = function(a, b) {
+return a * b;
+};
+const multiply = (a, b) => a * b;
+--- PAGE 213 ---
+213
+Functions - Function Expressions
+7. JavaScript 기초
+▪ Why use Function Expression?
+• 함수선언문은 ‘함수 Hoisting’이발생하여코드최상단으로끌어올려져, 선언하기도전에호출할수있다. 이는편해보이지만, 규
+모가큰프로젝트에서는코드의실행흐름을방해하고엉뚱한함수가호출되는버그를유발한다. 
+• 함수선언문은자바스크립트엔진이코드를실행하기전구문분석단계에서미리생성되므로, if문같은블록안에서유연하게
+정의하기까다롭지만함수표현식은코드가실행되는시점(Runtime)에평가되어함수를생성하므로, 상황에따라전혀다른함수
+를변수에할당할수있다.
+• 특히, 화살표함수는극도로간결해지는장점이있다.
+// 1. 함수 선언문: 선언 전 호출 가능 (혼란 유발)
+sayHello(); // "Hello"
+function sayHello() { console.log("Hello"); }
+// 2. 함수 표현식: 선언 전 호출 불가능 (안전함)
+sayHi(); // ReferenceError: Cannot access 'sayHi' before initialization
+const sayHi = function() { console.log("Hi"); };
+let guestWelcome;
+const isVIP = true;
+// 조건에 따라 변수에 할당되는 '함수 값'을 동적으로 결정
+if (isVIP) {
+guestWelcome = function() { console.log("VIP 전용 라운지로 안내합니다."); };
+} else {
+guestWelcome = function() { console.log("일반 대기실로 안내합니다."); };
+}
+guestWelcome(); // 실행 시점에 결정된 함수가 유연하게 호출됨
+--- PAGE 214 ---
+214
+Data Structures - Arrays
+7. JavaScript 기초
+https://www.w3schools.com/js/js_arrays.asp
+▪ An Array is an object type designed for storing data collections.
+▪ Key characteristics of JavaScript arrays are:
+• Elements: An array is a list of values, known as elements.
+• Ordered: Array elements are ordered based on their index.
+• Zero indexed: The first element is at index 0, the second at index 1, and so on.
+• Dynamic size: Arrays can grow or shrink as elements are added or removed.
+• Heterogeneous: Arrays can store elements of different data types (numbers, strings, objects and other arrays).
+const cars = ["Saab", "Volvo", "BMW"];
+--- PAGE 215 ---
+215
+Data Structures - Arrays (Creating and Accessing an Array)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_arrays.asp
+▪ Creating an Array
+• Using an array literal : []
+• Using the JavaScript Keyword new
+▪ Accessing and Changing an Array Element
+• You access an array element by referring to the index number
+• This statement changes the value of the first element in cars:
+▪ The length Property
+• The length property of an array returns the length of an array (the number of array elements).
+const cars = ["Saab", "Volvo", "BMW"];
+const cars = new Array("Saab", "Volvo", "BMW");
+let car = cars[0];
+cars[0] = "Opel";
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+let length = fruits.length;
+--- PAGE 216 ---
+216
+Data Structures - Arrays (Basic and Search Methods)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_array_methods.asp https://www.w3schools.com/js/js_array_search.asp
+▪ Basic Array Methods
+• toString(), at(), join(), pop(), push(), shift(), unshift(), isArray(), delete(), concat(), copyWithin(), flat(), slice(), splice(), 
+toSpliced()
+• toString() - returns the elements of an array as a comma separated string.
+• pop() -배열의 맨 뒤요소를제거하고, 그제거된요소를반환. 예) let last = arr.pop();
+• push() -배열의 맨 뒤에새로운요소를추가. 예) arr.push(4);
+• shift() -배열의 맨 앞요소를제거하고, 그제거된요소를반환. 예) let first = arr.shift();
+• unshift() -배열의 맨 앞에새로운요소를추가. 예) arr.unshift(0);
+• at() -대괄호 arr[arr.length- 1] 대신음수인덱스를써서배열의맨마지막원소를가볍게가져온다. 예) arr.at(-1);
+• join() -배열의모든요소를지정한구분자로연결하여 하나의 문자열로합친다. 예) arr.join("-");
+▪ Array Search Methods
+• indexOf(), lastIndexOf(), includes(), find(), findIndex(), findLast(), findLastIndex()
+• indexOf() -특정값이위치한인덱스번호를알려준다. 없으면 -1 반환. 예) arr.indexOf(5);
+• lastIndexOf() - is the same as Array.indexOf(), but returns the position of the last occurrence of the specified element.
+• includes() -배열에특정값이포함되어있는지확인하여 true/false를반환. 예) arr.includes(5);
+• find() -조건에맞는첫번째요소 '딱하나'만찾아서반환. 없으면 undefined. 예) const user = users.find(u => u.id === 3);
+Demo
+--- PAGE 217 ---
+217
+Data Structures - Arrays (Sorting and Iteration Methods)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_array_sort.asp https://www.w3schools.com/js/js_array_iteration.asp
+▪ Array Sorting Methods
+• sort(), reverse(), toSorted(), toReversed()
+• sort() - sorts an array alphabetically:
+• reverse() - reverses the elements in an array:
+• toSorted() - sort an array without altering the original array.
+• toReversed() - reverse an array without altering the original array.
+▪ Array Iteration Methods
+• forEach(), map(), flatMap(), filter(), reduce(), reduceRight(), every(), some(), from(), keys(), entries(), with() 
+• forEach() -배열의모든요소를순회하며내부함수(callback 함수)를실행. 반환값없음예) arr.forEach(item => console.log(item));
+• map() -모든요소를일정한규칙으로가공하여, 새로운배열로똑같이만들어반환예) const doubled = arr.map(item => item * 2);
+• filter() -조건에맞는요소들만골라내어새로운배열로반환예) const evens = arr.filter(item => item % 2 === 0);
+• reduce() -배열의모든요소를누적계산하여하나의결과값으로만든다. 예) onst total = arr.reduce((sum, item) => sum + item, 0);
+▪ Spread Operator(…)
+• The ... operator expands an array into individual elements
+• Math.min(...numbers) → Math.min(23, 55, 21, 87, 56)으로변환되어처리됨.
+Demo
+const numbers = [23,55,21,87,56];
+let minValue = Math.min(...numbers);
+--- PAGE 218 ---
+218
+Datatypes - Objects (Intro)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_object_intro.asp
+▪ What are JavaScript Objects?
+• Objects are containers for Properties and Methods
+• Properties are named Values stored as key:value pairs
+• Methods are Functions stored as key:function() pairs.
+▪ How to Create a JavaScript Object
+• An object literal {} is the simplest and most common way to define a JavaScript object.
+• Create a new JavaScript object using new Object():
+const person = {
+firstName: "John",
+lastName : "Doe",
+age      : 50,
+fullName : function() {
+return this.firstName + " " + this.lastName;
+}
+};
+const person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+const person = new Object();
+person.firstName = "John";
+person.lastName = "Doe";
+person.age = 50;
+person.eyeColor = "blue";
+--- PAGE 219 ---
+219
+Datatypes - Objects (Properties)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_object_properties.asp
+▪ You can access object properties in these ways
+• Dot notation (preferred)
+• Bracket notation (Bracket notation is necessary in some cases)
+• Expression
+▪ Add, change, and delete properties using assignment and delete
+• You can change the value of a property
+• You can add a new property by simply giving it a value
+• The delete keyword deletes a property from an object
+• Use the in operator to check if a property exists in an object
+▪ Nested Objects
+• Property values in an object can be other objects
+Demo
+--- PAGE 220 ---
+220
+Datatypes - Objects (Methods)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_object_methods.asp
+▪ The this Keyword
+• In an object method, this refers to the object.
+▪ Accessing Object Methods
+• To call an object method, add parentheses ()
+▪ Adding a Method to an Object
+• You can add a method to an object by assigning a function to a property
+Demo
+--- PAGE 221 ---
+221
+Datatypes - Objects (Display Objects)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_object_display.asp
+▪ Displaying a JavaScript object will output [object Object].
+▪ How to Display JavaScript Objects?
+• You can add a method to an object by assigning a function to a property
+• The properties of an object can be collected in a For .. In loop
+• Object.values() creates an array from the property values.
+• Object.entries() makes it simple to use objects in loops.
+• JavaScript objects can be converted to a string with JSON method JSON.stringify().
+Demo
+--- PAGE 222 ---
+222
+Datatypes - Objects (Constructors)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_object_constructors.asp
+▪ Object Constructor Function
+• To create an object type we use an object constructor function.
+▪ Constructor Function prototype
+• To add a new property, you must add it to the constructor function prototype
+• Adding a new method to a constructor must be done to the constructor function prototype
+Demo
+function Person(first, last, age, eye) {
+this.firstName = first;
+this.lastName = last;
+this.age = age;
+this.eyeColor = eye;
+}
+const myFather = new Person("John", "Doe", 50, "blue");
+const myMother = new Person("Sally", "Rally", 48, "green");
+const mySister = new Person("Anna", "Rally", 18, "green");
+--- PAGE 223 ---
+223
+Datatypes - Build-in Objects
+7. JavaScript 기초
+▪ JavaScript Built-in Objects(내장객체)는개발자가직접정의하지않아도 JavaScript 엔진(브라우저나 Node.js 환경)이
+실행단계에서기본적으로미리생성하여제공하는전역객체들이다.
+▪ 핵심 Build-in Objects
+객체명 주요 목적 핵심 메서드/속성 인스턴스 생성 여부 (new)
+Object 모든객체의기본틀데이터생성 Object.keys(), Object.values() 가능 (new Object()), 보통 {} 리터럴사용
+Array 순서가있는리스트데이터제어 .push(), .map(), .filter() 가능 (new Array()), 보통 [] 리터럴사용
+String 문자열데이터조작및가공 .length, .slice(), .substring() 가능 (Auto-boxing), 보통 " " 리터럴사용
+Math 수학적연산및수치처리 Math.random(), Math.floor() 불가능, 정적메서드로바로호출
+Date 날짜및시간데이터제어 .getFullYear(), .getMonth()) 필수, 인스턴스생성후사용 (new Date())
+JSON 데이터교환형식(텍스트) 변환 JSON.stringify(), JSON.parse() 불가능, 정적메서드로바로호출
+RegExp 문자열내특정패턴검색 (정규식) .test(), .exec() 가능 (new RegExp()), 보통 /패턴/ 리터럴사용
+--- PAGE 224 ---
+224
+Datatypes - Build-in Objects (Math)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_math.asp
+▪ The JavaScript Math object allows you to perform mathematical tasks.
+▪ The Math object is static. All methods and properties can be used without creating a Math object first.
+▪ Number to Integer
+▪ https://www.w3schools.com/js/js_math_reference.asp
+Demo
+Math.E // 자연상수 e (오일러 수) 약 2.718
+Math.PI // 원주율 약 3.14159
+Math.SQRT2    // square root of 2 (2의 제곱근) 약 1.414
+Math.SQRT1_2  // square root of ½ (½의 제곱근) 약 0.707
+Math.LN2      // natural logarithm of 2 (2의 자연로그) 약 0.693
+Math.LN10     // natural logarithm of 10 (10의 자연로그) 약 2.302
+Math.LOG2E    // base 2 logarithm of E (밑이 2인 로그에서 e의 값) 약 1.442
+Math.LOG10E   // base 10 logarithm of E (상용로그에서의 e의 값) 약 0.434
+Math.round(4.6);
+메서드 형태 기능 (한글 정의)
+Math.round(x) 반올림
+Math.ceil(x) 올림
+Math.floor(x) 내림
+Math.trunc(x) 소수점버림
+--- PAGE 225 ---
+225
+Datatypes - Build-in Objects (Date)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_dates.asp
+▪ JavaScript Date Objects let us work with dates
+• new Date() creates a date object with the current date and time.
+• new Date(date string) creates a date object from a date string.
+▪ JavaScript Stores Dates as Milliseconds
+• JavaScript stores dates as number of milliseconds since January 01, 1970.
+▪ Displaying Dates
+• toString()
+• toDateString()
+• toUTCString()
+• toISOString()
+Demo
+const d = new Date();
+const d = new Date("2022-03-25");
+--- PAGE 226 ---
+226
+Datatypes - Build-in Objects (JSON)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_json_parse.asp https://www.w3schools.com/js/js_json_stringify.asp
+▪ JSON(JavaScript Object Notation) Built-in Object는 JavaScript 객체형태의데이터를 '텍스트문자열'로상호변환해주
+는전역유틸리티객체이다.
+▪ JSON.stringify(value) : 직렬화 (Serialization)
+• 자바스크립트의객체나배열을하나의긴 JSON 텍스트문자열로변환
+▪ JSON.parse(text) : 역직렬화 (Deserialization)
+• JSON 텍스트문자열을다시자바스크립트실제객체/배열로복원합니다.
+const user = { name: "홍길동", age: 15 };
+const jsonString = JSON.stringify(user);
+console.log(jsonString); // '{"name":"홍길동","age":15}' (순수한 문자열 타입)
+console.log(typeof jsonString); // "string"
+const receivedData = '{"name":"홍길동","age":15}';
+const obj = JSON.parse(receivedData);
+console.log(obj.name); // "홍길동" (실제 객체로 복원되어 접근 가능)
+console.log(typeof obj); // "object"
+--- PAGE 227 ---
+227
+Datatypes - Build-in Objects (RegExp)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_regexp.asp
+▪ Regular Expression (Regex)
+• A Regular Expression(Regex) is a sequence of characters that forms a search pattern.
+• JavaScript RegExp is an Object for handling Regular Expressions.
+• RegExp are be used for Text searching, Text replacing and Text validation
+▪ Regular Expression Syntax
+• Example: /w3schools/i is a regular expression
+• w3schools  is a pattern (to be used in a search).
+• i is a modifier (modifies the search to be case-insensitive).
+▪ Phone Number Validation
+Demo
+const regex = /[0-9]{3}-[0-9]{4}-[0-9]{4}/;
+const phone = "010-1234-5678";
+console.log(regex.test(phone));  // true
+/pattern/modifier flags
+let n = text.search(/w3schools/i);
+--- PAGE 228 ---
+228
+Datatypes - Build-in Objects (Set)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_sets.asp
+▪ JavaScript Set
+• A JavaScript Set is a collection of unique values.
+• Each value can only occur once in a Set.
+▪ How to Create a Set
+• Passing an array to new Set()
+• Create an empty set and use add() to add values
+Demo
+--- PAGE 229 ---
+229
+Datatypes - Build-in Objects (Map)
+7. JavaScript 기초
+https://www.w3schools.com/js/js_maps.asp
+▪ JavaScript Map
+• A JavaScript Map is an object that can store collections of key-value pairs
+▪ How to Create a Map
+• Create a new Map and add elements with Map.set()
+• Passing an existing Array to the new Map() constructor
+Demo
+--- PAGE 230 ---
+230
+[과제] Up-Down 숫자 맞추기 게임
+7. JavaScript 기초
+▪ 컴퓨터가 생각한 비밀 숫자를 사용자가 맞추는 게임을 만든다. (/script/upDown.js)
+• 컴퓨터가 1부터 50 사이의무작위숫자하나를생성하게한다. (var computerNum = Math.floor(Math.random() * 50) + 1;)
+• prompt() 창을띄워사용자에게숫자를입력받는다.
+• 사용자가맞출때까지반복해서기회를준다. (while 또는 for 반복문실습)
+• 사용자가정답보다큰값을입력하면 alert("Down!"), 작은값을입력하면 alert("Up!")을띄워준다.
+• 정답을맞추면 alert("축하합니다! X번만에맞추셨습니다.")를띄우고게임을종료한다.
+▪ index.html 파일의 원하는 위치(예: <aside> 영역 안의새로운 <section>)에 게임시작 버튼태그를 추가하여 실행시
+킨다.
+
+--- PAGE 231 ---
+231
+[과제] 성적 계산기
+7. JavaScript 기초
+▪ 강의 3과목의 점수를 연속으로 입력받아 평균을 내고 합격 여부와 등급을 정한다. (/script/grade.js)
+• 과목이름이담긴배열을미리만들어둡니다. var subjects = [“HTML", “CSS", “JavaScript"];
+• 총점을저장할변수(var total = 0;)를만듭니다.
+• for문을배열의길이만큼돌리면서, 각과목의점수를 prompt()로연속해서입력받아 total에더합니다.
+• 예: prompt(subjects[i] + " 점수를입력하세요.");
+• 반복문이끝난후평균점수를구합니다. (평균점수가 60점이상이면합격, 60점미만이면불합격)
+• 결과를브라우저 alert창으로보여줍니다. (alert("총점: 240점, 평균: 80,결과: 합격입니다!")
+
+--- PAGE 232 ---
+232
+[과제] 내 가방 보기
+7. JavaScript 기초
+▪ 가방속물품을 JavaScript Object로만들고그내용을보여준다.
+• /script/bag.js를만들고그안에 showMyBag()함수를생성한다.
+• myBag이라는배열에는소지품객체 (소지품명과, 소지품수)의임의데이터를만든다. 
+• 반복문을통해소지품객체를출력한다.
+
+--- PAGE 233 ---
+8. JavaScript 심화
+Full-Stack Engineering - HTML, CSS, JavaScript
+--- PAGE 234 ---
+234
+JS Roadmap
+8. JavaScript 심화
+https://roadmap.sh/javascript
+
+--- PAGE 235 ---
+235
+DOM APIs - HTML DOM (Document Object Model)
+8. JavaScript 심화
+https://www.w3schools.com/js/js_htmldom.asp
+▪ HTML Document Object Model
+• 웹문서(HTML, XML)를구조화하여브라우저나프로그래밍언어에서쉽게접근하고조작할수있도록하는표준화된인터페이스
+• DOM은웹문서를트리구조로표현하며, 문서의각요소를객체로간주
+• W3C(World Wide Web Consortium)와 WHATWG(Web Hypertext Application Technology Working Group)에의해정의된표준
+• 자바스크립트를통해 DOM 요소를실시간으로변경가능
+• 클릭, 입력, 스크롤과같은사용자이벤트처리가능
+▪ DOM Tree
+• When a web page loads, the browser creates a tree-like representation of the HTML document.
+Node Description
+Document Owner of all nodes in the document
+<html> Element Node
+<head> Element Node
+<body> Element Node
+<a> Element Node
+href Attribute Node
+<h1> Element Node
+My Header Text Node
+--- PAGE 236 ---
+236
+DOM APIs - HTML DOM API
+8. JavaScript 심화
+https://www.w3schools.com/js/js_htmldom_methods.asp
+▪ HTML DOM API (Application Programming Interface)
+• The DOM API is a set of Methods and Properties that allow JavaScript to change the content, structure, and style of any HTML 
+elements.
+▪ Example
+• document is the HTML document.
+• getElementById() is a document method.
+• myPara = getElementById("demo") retrieves the "demo" element.
+• innerHTML is an element property.
+• myPara.innerHTML = "Hello World!" changes the property.
+<html>
+<body>
+<p id="demo"></p>
+<script>
+const myPara = document.getElementById("demo");
+myPara.innerHTML = "Hello World!";
+</script>
+</body>
+</html>
+--- PAGE 237 ---
+237
+DOM APIs - Selecting Elements
+8. JavaScript 심화
+https://www.w3schools.com/js/js_htmldom_elements.asp
+▪ Finding HTML Elements
+• Finding HTML elements by id
+• Finding HTML elements by tag name
+• Finding HTML elements by class name
+• Finding HTML elements by CSS selectors
+• Finding HTML elements by HTML object collections
+▪ Finding HTML Elements by HTML Object Collections
+Demo
+--- PAGE 238 ---
+238
+DOM APIs - Changing HTML
+8. JavaScript 심화
+https://www.w3schools.com/js/js_htmldom_elements.asp, https://www.w3schools.com/js/js_htmldom_css.asp
+▪ The HTML DOM allows JavaScript to change both the text and the content of HTML elements.
+• innerHTML : getting or replacing the content of HTML elements
+• attribute : change the value of an HTML attribute
+• style.property :  change the style of an HTML element
+▪ document.write()
+• document.write() can be used to write directly to the HTML output stream:
+Demo
+--- PAGE 239 ---
+239
+DOM APIs - Events 
+8. JavaScript 심화
+https://www.w3schools.com/js/js_htmldom.asp
+▪ HTML Events
+• HTML events are things that happen to HTML elements.
+• Ex) An HTML button is clicked, A web page has finished loading, The mouse moves over an element, A keyboard key is pressed, 
+An HTML input field is changed
+▪ JavaScript Events
+• JavaScript lets you execute code when events are detected.
+• Ex)
+• It is more common to use the event attribute to call a function:
+<element event="some JavaScript">
+<button onclick="document.getElementById('demo').innerHTML = Date()">The time is?</button>
+<button onclick="displayDate()">The time is?</button>
+<script>
+function displayDate() {
+document.getElementById("demo").innerHTML = Date();
+}
+</script>
+--- PAGE 240 ---
+240
+DOM APIs - Event Types
+8. JavaScript 심화
+▪ 주요이벤트목록
+이벤트 설명 예시
+click 사용자가요소를클릭할때발생 <button onclick="alert('Button clicked!')">Click Me</button>
+dblclick 사용자가요소를두번클릭할때발생 <div ondblclick="alert('Double clicked!')">Double Click Me</div>
+mouseover 마우스포인터가요소위에올려졌을때발생 <div onmouseover="alert('Mouse over!')">Hover me</div>
+mouseout 마우스포인터가요소에서벗어났을때발생 <div onmouseout="alert('Mouse out!')">Mouse Out Me</div>
+keydown 키보드의키가눌릴때발생 <input type="text" onkeydown="alert('Key down!')">
+keyup 키보드에서키가떼어질때발생 <input type="text" onkeyup="alert('Key up!')">
+change 입력값이나선택값이변경될때발생 <input type="text" onchange="alert('Value changed!')">
+focus 요소가포커스를받았을때발생 <input type="text" onfocus="alert('Focused!')">
+blur 요소의포커스가벗어났을때발생 <input type="text" onblur="alert('Blurred!')">
+load 페이지나이미지가완전히로드된후발생 <img src="image.jpg" onload="alert('Image loaded!')">
+unload 페이지가언로드될때발생 <body onunload="alert('Page unloaded!')">
+--- PAGE 241 ---
+241
+DOM APIs - Event Handler 
+8. JavaScript 심화
+▪ 자바스크립트에서 이벤트를 다루는 방식(등록하는 방법)은 크게 3가지 방법이 있다
+방식 설명 비고
+Inline Event Handler 
+(Not Recommended)
+HTML 태그내부에직접이벤트속성(onclick, 
+onmouseover등)을사용하여 JS 함수를연결처리
+- JS와 HTML의역할분리원칙위배
+- 복잡한로직작성에부적합
+DOM Property
+(Not Recommended)
+JavaScript에서 DOM 요소의이벤트속성(예: 
+onclick)에함수를할당하여이벤트를처리
+- 이벤트핸들러 1개만등록가능
+- 다른코드에서덮어쓸수있어충돌위험
+Event Listener
+(Highly Recommended)
+addEventListener() 메서드를사용하여이벤트핸들
+러를등록
+- 복수핸들러등록가능
+- 버블링/캡처제어가능
+- 유지보수및확장성우수
+<button onclick="displayDate()">Time is?</button>
+<p id="demo"></p>
+<script>
+// Function to display date
+function displayDate() {
+document.getElementById("demo").innerHTML = Date();
+}
+</script>
+<button id="myBtn">Click me</button>
+<p id="demo"></p>
+<script>
+const btn = document.getElementById("myBtn");
+// Add EventListener to btn
+btn.addEventListener("click", function () {
+document.getElementById("demo").innerHTML = Date();
+});
+</script>
+[Inline Event Handler - 쉽지만 비권장] [Event Listner - 어렵지만 권장]
+--- PAGE 242 ---
+242
+DOM APIs - Event Example
+8. JavaScript 심화
+▪ Mouse Events : https://www.w3schools.com/js/js_events_mouse.asp
+▪ Keyboard Events : https://www.w3schools.com/js/js_events_keyboard.asp
+▪ Load Events : https://www.w3schools.com/js/js_events_load.asp
+▪ Timing Events : https://www.w3schools.com/js/js_events_timing.asp
+▪ 기타 Events : https://www.w3schools.com/js/js_htmldom_events.asp
+Demo
+--- PAGE 243 ---
+243
+DOM APIs - Event Listener
+8. JavaScript 심화
+https://www.w3schools.com/js/js_htmldom_eventlistener.asp
+▪ addEventListener()
+• 특정 HTML 요소에특정 event가발생했을때실행할함수(handler)를연결(등록)한다.
+• Syntax:
+- event : type of the event (like "click" or "mousedown" or any other HTML DOM Event.)
+- function : we want to call when the event occurs.
+- useCapture : boolean value specifying whether to use event bubbling (false) or event capturing (true). false가 default
+▪ 한요소에동일한이벤트타입으로여러개의 Handler함수를중복등록할수있다.
+▪ 한요소에다양한이벤트타입으로여러개의 Handler함수를중복등록할수있다.
+Demo
+element.addEventListener(event, function, useCapture);
+--- PAGE 244 ---
+244
+DOM APIs - Event Propagation
+8. JavaScript 심화
+▪ Event Propagation (이벤트전파)
+• Event Propagation은이벤트가발생했을때요소의처리순서를정의하는방식이다. 
+• 만약, <div>안에 <p>가있고, 사용자가 <p> element를클릭했을때, 어느 element의 “click” 이벤트가먼저처리되어야하는가? 
+• Event Bubbling -가장안쪽요소의이벤트가먼저처리되고그다음바깥쪽요소의이벤트가처리된다. 즉 <p>가먼저처리
+• Event Capturing -가장바깥쪽요소의이벤트가먼저처리되고그다음안쪽요소의이벤트가처리된다.즉, <div>가먼저처리
+▪ Example: https://www.w3schools.com/js/tryit.asp?filename=tryjs_addeventlistener_usecapture
+▪ Summary
+구분 이벤트 버블링 (Bubbling) 이벤트 캡처링 (Capturing)
+전파 방향 하위 → 상위 (자식에서 부모로) 상위 → 하위 (부모에서 자식으로)
+API 구현 방법 element.addEventListener('click', fn)
+(3번째매개변수생략또는 false)
+element.addEventListener('click', fn, true)
+(3번째매개변수에 true또는 { capture: true } 전달)
+실무 활용도 매우 높음 (이벤트위임패턴의핵심) 낮음 (특수한로그수집, 이벤트가로채기등에만사용)
+--- PAGE 245 ---
+245
+DOM APIs - Event Management
+8. JavaScript 심화
+▪ JavaScript Event Listener를등록, 제거, 차단/제어하는함수
+▪ Code Example
+• event.preventDefault() : https://www.w3schools.com/js/tryit.asp?filename=tryjs_events_block
+Demo
+분류 메서드 핵심 역할 주의사항
+Add addEventListener(type, handler) 특정 HTML 요소에특정이벤트(type)가발생했
+을때실행할함수(handler)를연결(등록)한다.
+한요소에동일한이벤트타입으로여러개의핸들러함수를중복
+등록할수있다.
+Remove removeEventListener(type, handler) 이전에등록했던특정이벤트리스너를요소를
+대상으로제거(삭제)한다.
+등록할때사용한함수와정확히동일한참조를가진함수(이름이
+있는함수)를인수로전달해야만제거된다.
+Block event.stopPropagation() 이벤트가발생했을때부모요소로타고올라가
+는이벤트버블링(전파)을즉시중단시킨다
+내요소의이벤트는정상실행되지만, 부모요소에걸려있는동일
+이벤트는실행되지않도록신호를끊어버린다.
+Block event.stopImmediatePropagation() 현재요소에걸려있는다른이벤트리스너들의
+실행까지완전히막고, 전파도즉시차단한다
+하나의버튼에 3개의클릭이벤트를등록했을때, 첫번째이벤트에
+서이메서드를쓰면뒤에올 2, 3번째이벤트는실행되지않는다.
+Block event.preventDefault() HTML 태그가기본적으로가지고있는고유의
+기본동작을취소(차단)한다.
+<a> 태그를클릭할때이동하거나, <form> 태그의 Submit 버튼을눌
+렀을때페이지가새로고침되는기본브라우저행동을막아준다.
+--- PAGE 246 ---
+246
+Asynchronous JavaScript
+8. JavaScript 심화
+▪ Asynchronous(비동기) Code
+• JavaScript Asynchronous Code는특정작업(예: 서버에서데이터가져오기, 타이머기다리기)이끝날때까지프로그램이멈춰서
+기다리지않고, 다음코드를먼저실행하는핵심효율화메커니즘이다.
+• JavaScript는 Single Thread언어이므로만약비동기가없다면서버에서이미지를다운로드받는동안전체웹페이지가멈추게되
+는데비동기는이러한문제를해결할수있다.
+▪ JavaScript Asynchronous비동기처리의발전
+발전단계 제어 방식 코드 구조 특징 장점/단점
+1세대 Callback 함수안에함수를계속넣음 단점:코드가오른쪽으로엄청나게깊어지는 '콜백지옥(Callback Hell)'이발생하여가독성
+이최악이되고에러처리가매우힘들다.
+2세대
+(ES6) Promise .then()과 .catch()로연결 장점:비동기작업의상태를객체로구조화하여콜백지옥을해결
+단점:코드가길어지면 .then() 체인이복잡해지는단점이여전히존재
+3세대
+(ES8) async / await await 키워드로동기식처럼작성 현대 표준: Promise기반위에얹은문법적설탕(Syntactic Sugar)입니다.
+장점:비동기코드를 마치 일반 동기식 코드처럼직관적으로읽히게만들어준다.
+--- PAGE 247 ---
+247
+Asynchronous JavaScript - Promise
+8. JavaScript 심화
+https://www.w3schools.com/js/js_promise.asp
+▪ JavaScript Promise Object
+• JavaScript엔진에서비동기연산의최종완료또는실패와그결과가치를나타내는표준객체(Object)이다.
+• Promise는비동기작업이성공하거나실패할때그결과를알려주겠다고 “약속”하는객체
+▪ Promise의 3가지상태(State)
+Demo
+Pending (대기) The initial state; the operation has started but is neither fulfilled nor rejected.
+Rejected (거부/실패) The operation failed, and a reason (error) is available
+Fulfilled (이행/성공) The operation completed successfully, and a value is available.
+--- PAGE 248 ---
+248
+Asynchronous JavaScript - Creating a Promise
+8. JavaScript 심화
+https://www.w3schools.com/js/js_promise.asp
+▪ Creating a Promise
+• Promise를만들때 (resolve, reject) => { ... } 라는함수를인자로넣는다. 여기서 resolve와 reject는자바스크립트엔진이제공하
+는비동기상태변경용함수이다.
+• resolve와 reject는비동기결과값만저장해둘뿐, 함수의실행흐름을끊지않는다.
+Demo
+let myPromise = new Promise(function(resolve, reject) {
+// Code that may take some time
+resolve(value); // when successful
+reject(value);  // when error
+});
+resolve "이비동기작업성공했어! 이 value 가지고 .then()으로가!“ 
+reject "이작업실패했어! 이 error 가지고 .catch()로가!"
+const myPromise = new Promise((resolve, reject) => {  
+resolve("성공");   
+console.log("과연 이 코드가 실행될까요?"); 
+});
+myPromise.then(res => console.log(res));
+const myPromise = new Promise((resolve, reject) => {  
+return resolve("성공");   
+console.log("과연 이 코드가 실행될까요?"); 
+});
+myPromise.then(res => console.log(res));
+
+--- PAGE 249 ---
+249
+Asynchronous JavaScript - Promise Consuming Code
+8. JavaScript 심화
+https://www.w3schools.com/js/js_promise.asp
+▪ A Promise contains both the producing code and calls to the consuming code
+• Promise의초기문법에서는 .then()의첫번째인자는성공했을때, 두번째인자는실패했을때실행할콜백함수를받도록설계
+되어있지만, 현재는위코드처럼 .then().catch() 체이닝방식의코드를권장한다.
+let myPromise = new Promise(function(resolve, reject) {
+// "Producing Code" (May take some time)
+resolve(value); // when successful
+reject(value);  // when error
+});
+// Consuming Code
+myPromise
+.then(function(value) {
+console.log(value);
+})
+.catch(function(value) {
+console.log(value);
+});
+--- PAGE 250 ---
+250
+Asynchronous JavaScript - Promise Chains
+8. JavaScript 심화
+https://www.w3schools.com/js/js_promise.asp
+▪ 만약 3개의비동기함수가순서대로호출되어야하면, .then()안에 return을넣고 chain을만든다.
+• 만약, “return”이빠지면실행순서가보장되지않는다.
+• return대신 .then()안에또.then()을넣는식으로코드를짜면가독성이떨어지고, 에러처리가까다롭다. 
+// Three functions to run in steps
+function step1() {
+return Promise.resolve("A");
+}
+function step2(value) {
+return Promise.resolve(value + "B");
+}
+function step3(value) {
+return Promise.resolve(value + "C");
+}
+// Run the three functions in steps
+step1()
+.then(function(value) {
+return step2(value);
+})
+.then(function(value) {
+return step3(value);
+})
+.then(function(value) {
+myDisplayer(value);
+});
+--- PAGE 251 ---
+251
+Asynchronous JavaScript - async and await
+8. JavaScript 심화
+https://www.w3schools.com/js/js_async_await.asp
+▪ Promise chains can become long. async and await were created to reduce nesting and improve readability.
+<script>
+function myDisplayer(some) {
+document.getElementById("demo").innerHTML = some;
+}
+// 3개 비동기 함수는 순서대로 실행되어야 함. 
+function step1() {
+return Promise.resolve("A");
+}
+function step2(value) {
+return Promise.resolve(value + "B");
+}
+function step3(value) {
+return Promise.resolve(value + "C");
+}
+// 체이닝으로 순서대로 실행
+step1()
+.then(function(value) {
+return step2(value);
+})
+.then(function(value) {
+return step3(value);
+})
+.then(function(value) {
+myDisplayer(value);
+});
+</script>
+<script>
+function myDisplayer(some) {
+document.getElementById("demo").innerHTML = some;
+}
+// 3개 비동기 함수는 순서대로 실행되어야 함. 
+function step1() {
+return Promise.resolve("A");
+}
+function step2(value) {
+return Promise.resolve(value + "B");
+}
+function step3(value) {
+return Promise.resolve(value + "C");
+}
+// async와 await를 이용해 구현
+async function run() {
+let v1 = await step1();
+let v2 = await step2(v1);
+let v3 = await step3(v2);
+myDisplayer(v3);
+}
+</script>
+--- PAGE 252 ---
+252
+Asynchronous JavaScript - async and await (syntax)
+8. JavaScript 심화
+▪ Async
+• 이함수안에서비동기처리를할거야!"라고선언하는키워드
+• async 함수는항상 Promise를반환한다.
+• 만약일반값을리턴하면자바스크립트가자동으로 Promise.resolve(값)으로감싸서내보낸다.
+▪ Await
+• "비동기작업이끝날때까지다음줄로넘어가지말고기다려!"라고명령하는키워드
+• await는반드시 async 함수안에서만사용가능하다.
+async function hello() {
+return "안녕하세요!"; 
+}
+console.log(hello()); 
+hello().then(res => console.log(res));
+async function handleData() {
+try {
+const result = await fetchData();       // 첫 번째 비동기 기다림
+const saveResult = await saveToDatabase(result); // 두 번째 비동기 기다림
+console.log("저장 성공!", saveResult);
+} catch (error) {
+console.log("에러 발생!", error);
+}
+}
+--- PAGE 253 ---
+253
+Asynchronous JavaScript - async and await (Flow Control)
+8. JavaScript 심화
+▪ 비동기호출시 JavaScript 엔진내부의흐름제어는 Event Loop와 Microtask Queue를기반으로제어된다.
+▪ Step 1: await를만나함수가일시정지된순간
+• await 라인을만나는순간 await 뒤비동기함수는즉시실행시키고, 해당 async 함수의실행을일시정지(Pause) 시킨다.
+• 그리고이함수내부의나머지코드와함수의현재상태(컨텍스트)를통째로뜯어내어메모리의별도대기구역에보관한다.
+• 제어권은이 async 함수를호출했던원래의메인실행흐름(Call Stack)으로반환되어그아래에남아있던동기식코드들을실행한다.
+▪ Step 2: 메인흐름이실행되는동안비동기(await) 작업이완료된순간 (★핵심)
+• 메인흐름의남은동기식코드가열심히실행되는도중에, await하고있던비동기작업(예: 서버통신완료)이먼저끝날수있다.
+• 이때완료되었다고해서실행중이던메인흐름을강제로찢고중간에끼어들지못한다. 자바스크립트는 Single Thread 언어이기때
+문에한번에하나의코드만실행할수있기때문이다.
+• 비동기작업이완료되면, 대기실에있던 async 함수의나머지실행후속조치들이자바스크립트엔진내부의최우선대기레일인
+Microtask Queue라는대기줄에등록되어순서를기다린다.
+▪ Step 3: 메인흐름이완전히종료된직후 (흐름의복귀)
+• 메인실행흐름에있던마지막동기식코드까지한줄도남김없이전부실행되어호출스택(Call Stack)이완전히텅비게되는순간, 
+자바스크립트의감시자인 Event Loop가가동한다.
+• Event Loop는 Microtask Queue에서대기중이던 async 함수의나머지코드를끄집어내어다시메인호출스택에올려놓는다.
+• 흐름은다시 async 함수내부의 await 바로다음줄로복귀하여, 서버에서받아온알맹이데이터를가지고남은하부로직을순차적으
+로끝까지실행한다.
+--- PAGE 254 ---
+254
+Working with APIs - Browser API
+8. JavaScript 심화
+▪ Web API vs Browser API
+• Web API : A Web API is an application programming interface for the Web. 브라우저환경뿐만아니라, 서버나스마트폰앱등 '
+웹기술'을쓰는모든곳에서공통으로지원하는확장성을담은단어이다.
+• Web API는실행되는환경과주체에따라 Browser API와 Server API로나뉜다. 
+• Browser API : 크롬, 사파리, 엣지같은웹브라우저가구동되면서자바스크립트엔진에게상속해주는내장도구들을집중해서
+부를때쓰는표현.
+▪ Browser API의종류
+카테고리 대표적인 함수 / 객체 (Web API) 하는 일
+DOM API document.querySelector()
+element.addEventListener() 앞서배운 HTML 태그조작및클릭이벤트제어
+Timer API setTimeout(함수, 시간)
+setInterval(함수, 시간) 특정시간뒤에코드를실행하거나, 일정시간마다반복실행 (비동기)
+Storage API localStorage.setItem()
+sessionStorage.getItem() 사용자의브라우저하드디스크에로그인토큰이나설정데이터를영구저장
+Network API fetch() 브라우저새로고침없이서버와데이터를주고받는통신기능 (비동기)
+--- PAGE 255 ---
+255
+Working with APIs - Timer API
+8. JavaScript 심화
+▪ Timer API
+• Timer API는특정시간이지난후에코드를실행하거나일정시간마다코드를반복해서실행하도록예약하는기능이다.
+• JavaScript엔진자체는타이머기능이없다. JavaScript가 Browser에게부탁하면, 브라우저가백그라운드에서시간을재고있다
+가정해진시간에함수를실행해주는원리이다.
+• 타이머함수를실행하면브라우저는해당타이머의고유번호(Timer ID)를반환한다. 이번호를잘보관하고있다가, 더이상타
+이머가필요없을때취소하는메서드에넘겨주어야메모리낭비나버그를막을수있다.
+▪ Timer API 핵심함수
+▪ Timer API Example
+const bombId = setTimeout(function() {
+console.log("💥 폭탄이 터졌습니다!");
+}, 5000);                                      // 5초 뒤에 폭탄이 터지는 타이머 예약 (ID를 변수에 저장)
+button.addEventListener("click", function() {
+clearTimeout(bombId);                      // ✋ 5초가 지나기 전에 실행하면 폭탄은 영원히 터지지 않음
+console.log("안전하게 해제되었습니다.");
+});
+함수 이름 핵심 역할 코드 작동 방식 실무 활용 사례
+setTimeout() 지정한시간이지난후,
+딱 1번만함수를실행
+setTimeout(콜백함수, 밀리초);
+(1초 = 1000밀리초)
+• 3초뒤에자동으로닫히는안내배너
+• 사용자가입력을멈추고 0.5초뒤에검색 API 호출
+setInterval() 지정한시간간격마다,
+무한 반복하여함수를실행 setInterval(콜백함수, 밀리초); • 화면에매초업데이트되는디지털시계
+• 5초마다자동으로넘어가는이미지슬라이드
+--- PAGE 256 ---
+256
+Working with APIs - Storage API
+8. JavaScript 심화
+▪ Web Storage
+• Web Storage는사용자의브라우저에데이터를키-값(Key-Value) 쌍으로저장할수있는공간이다.
+• 과거에는웹브라우저에데이터를저장할때 'Cookie'라는기술을주로썼으나, 용량이너무작고서버와통신할때마다불필요하
+게계속전송되는단점이있다.
+▪ LocalStorage Example
+구분 LocalStorage SessionStorage
+데이터 유지 영구적 (브라우저를닫거나컴퓨터를꺼도유지) 임시적 (탭이나브라우저창을닫으면즉시삭제)
+만료 조건 개발자가코드로지우거나, 사용자가브라우저캐시를날리면삭제 현재열려있는탭(세션)이종료되는순간자동으로삭제됨
+데이터 공유 같은도메인이라면여러창/탭에서서로데이터공유가능 데이터를저장한 현재 그 탭 내부에서만접근가능
+실무 활용처
+• 자동로그인용토큰보관
+• "오늘하루이창을열지않음" 상태저장
+• 다크모드/라이트모드설정테마유지
+• 사이트의일시적인로그인정보
+• 일회성입력폼(예: 여러페이지에걸친설문조사입력데이터)
+localStorage.setItem("username", "홍길동");    // 1. 데이터 저장하기: setItem(Key, Value)
+localStorage.setItem("userAge", "25");         // ※ 주의: 숫자를 넣어도 문자열 "25"로 저장됨
+const name = localStorage.getItem("username"); // 2. 데이터 가져오기: getItem(Key)
+console.log(name);                             // 출력: 홍길동
+localStorage.removeItem("userAge");            // userAge 데이터만 삭제됨
+localStorage.clear();                          // 로컬스토리지 안의 모든 데이터가 소멸함
+--- PAGE 257 ---
+257
+Working with APIs - Network API
+8. JavaScript 심화
+https://www.w3schools.com/js/js_async_fetch.asp https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+▪ fetch()
+• fetch() is the modern way to request data from a server
+• fetch() is asynchronous and returns a promise.
+▪ Fetch with async and await
+• Await는단순히기다리는것을넘어, Promise 객체의내부메커니즘과상호작용하며결과물을처리해주는특별한기능들을가지
+고있다.
+• await fetch()를하면, await는 fetch를통해서버와통신한결과를가져와 response로만들어준다.
+fetch("data.json")
+.then(function(response) {
+console.log(response); 
+});  
+async function loadData() {
+let response = await fetch("data.json");
+let data = await response.json();
+console.log(data);
+}
+loadData();
+--- PAGE 258 ---
+258
+Modules in JavaScript
+8. JavaScript 심화
+https://www.w3schools.com/js/js_modules.asp
+▪ What are Modules?
+• ES6부터도입(modern JavaScript)된모듈은다른파일에서함수, 객체, 변수등을가져오거나내보낼수있게함
+• 코드의재사용과관리를쉽게하기위한방식으로각파일이나코드덩어리를독립적인유닛으로분리
+▪ Modules Export
+• 모듈외부에서사용할변수, 함수, 클래스, 객체를정의할때사용
+▪ Modules Import
+• 다른모듈에서내보낸요소를가져와서사용할때사용
+// Export an "add" function
+export function add(a, b) {
+return a + b;
+}
+<script type="module">
+// Import the add function
+import { add } from './math.js';
+let result = add(2, 3);
+</script>
+--- PAGE 259 ---
+259
+Modules in JavaScript - Export & Import
+8. JavaScript 심화
+https://www.w3schools.com/js/js_modules_export.asp
+▪ Export 방식
+방식 내보내는 방법 장점 단점
+Named Exports
+export const foo = ...;
+export function bar() {}
+import { foo, bar } from './module.js';
+-여러개내보내기가능
+-이름기준명확한가져오기
+-이름을정확히기억해야함
+-이름변경시수정필요
+Default Exports
+export default function() {...}
+export default class {...}
+const value = ...;
+export default value;
+import anyName from './module.js';
+-이름을자유롭게지정가능
+-간결한단일내보내기
+-한모듈에하나만가능
+-실제이름알기어려움
+Combining 
+Default + 
+Named
+export const foo = ...;
+export default bar;
+import bar, { foo } from './module.js';
+-주요기능은 default로, 
+보조기능은 named로구성
+-가독성이떨어질수있음
+-일관성관리어려움
+--- PAGE 260 ---
+260
+Modules in JavaScript - Module vs. External JS
+8. JavaScript 심화
+▪ Module 과 External JS의비교
+• External JavaScript는코드를단순히분리한것에불과하다면, JavaScript Module은각파일의경계를안전하게격리하고필요한
+기능만통로(import/export)로주고받는현대적설계체계이다.
+구분 External JS (일반 외부 파일) JavaScript Module (모듈 파일)
+HTML 로드형태 <script src="file.js"></script> <script type="module" src="file.js"></script>
+Scope 전역스코프공유 (모든파일이소통함) 모듈스코프격리 (독립된공간)
+변수충돌위험 매우높음 (이름이같으면버그발생) 없음 (완벽한은닉화)
+소통방식 전역변수나전역함수를통해간접소통 import와 export를통해명확히소통
+실행시점 태그를만나는순간즉시실행 (HTML 중단) HTML을끝까지다읽은후지연실행 (defer)
+// external-a.js
+const count = 10;
+// external-b.js
+const count = 20; // ❌ 에러 발생! 
+// module-a.js
+const count = 10; // 이 파일 안에서만 살아있음
+// module-b.js
+const count = 20; // 아무 문제 없음! 
+[ 변수 충돌 위험 - 예 ]
+--- PAGE 261 ---
+261
+[과제] 실시간 날씨 - DOM/이벤트
+8. JavaScript 심화
+▪ 가방속물품을 JavaScript Object로만들고그내용을보여준다.
+• index.html:  사이드바에도시를고를수있는 <select> 태그와결과
+를보여줄 <div id="weather-box">를만드시오
+• weather.js: 사용자가도시를바꿀때마다(change 이벤트), 선택된
+도시의이름과위도/경도좌표를 DOM 조작(innerHTML)을통해화
+면에실시간으로표시하시요. (아직날씨는안나옵니다!)
+
+--- PAGE 262 ---
+262
+[과제] 실시간 날씨 - 비동기 호출
+8. JavaScript 심화
+▪ 실시간날씨 API를통해날씨데이터를비동기로가져온다.
+• weather.js: 도시가변경되었을때, 단순좌표출력에그치지않고
+fetch()와 async/await 문법을사용해 Open-Meteo서버에날씨데이
+터를요청한다.
+• 데이터를받아오는동안화면에＂로딩중… ⏳＂메시지를띄우고, 
+다운로드가완료되면진짜실시간온도와습도를화면에그린다.
+▪ Open-Metro 무료 API
+• https://open-meteo.com/en/docs
+• https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m 
+
+--- PAGE 263 ---
+263
+[과제] 실시간 날씨 - 모듈분리
+8. JavaScript 심화
+▪ weather.js를데이터를책임지는 weatherAPI.js와화면을책임지
+는 realtimeInfo.js로 분리한다.
+• index.html: <script type="module" src="realtimeInfo.js"></script>
+• weatherAPI.js: export async function 분리
+• realtimeInfo.js: weatherAPI로부터함수를 import 하여처리
+
+--- PAGE 264 ---
+수고 하셨습니다!
