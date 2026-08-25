@@ -1,0 +1,150 @@
+:root {
+  --primary: #2563eb;
+  --border: #e2e8f0;
+  --muted: #64748b;
+}
+
+.app-container {
+  width: min(100% - 32px, 760px);
+  margin: 32px auto;
+  padding: 28px;
+  color: #1e293b;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 8%);
+}
+
+.app-container h1 {
+  margin: 0 0 12px;
+  font-size: 1.5rem;
+}
+
+.app-container hr {
+  margin: 0 0 24px;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.dashboard-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.navigation-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.nav-item {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.nav-item:hover,
+.router-link-exact-active {
+  color: var(--primary);
+}
+
+.divider {
+  color: var(--border);
+}
+
+.search-box,
+.list-box {
+  margin-bottom: 16px;
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.app-container input {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.app-container input:focus {
+  border-color: var(--primary);
+  outline: 3px solid rgb(37 99 235 / 15%);
+}
+
+.weather-card {
+  position: relative;
+  margin-top: 10px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.weather-card:hover {
+  border-color: #93c5fd;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 999px;
+}
+
+.hot {
+  background: #ef4444;
+}
+
+.cool {
+  background: #3b82f6;
+}
+
+.btn-detail,
+.toggle-btn {
+  padding: 7px 10px;
+  color: #fff;
+  font: inherit;
+  background: var(--primary);
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.btn-detail {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.status-bar {
+  padding: 12px;
+  color: #166534;
+  text-align: center;
+  background: #dcfce7;
+  border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    width: min(100% - 20px, 760px);
+    margin: 16px auto;
+    padding: 18px;
+  }
+
+  .navigation-bar {
+    flex-wrap: wrap;
+  }
+}
+
+.warm {
+  background: #f59e0b;
+}

@@ -13,7 +13,7 @@
 <style scoped>
 /* 내 방 전용 타이틀 디자인 */
 .title {
-  color: #ff7675;
+  color: #ff3c3c;
   font-weight: bold;
   font-size: 18px;
 }

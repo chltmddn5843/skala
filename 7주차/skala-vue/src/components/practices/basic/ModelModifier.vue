@@ -1,59 +1,126 @@
 <script setup>
 import { ref } from 'vue'
 
-// v-model Modifiers 실습용 reactive 변수 선언
+const normalText = ref('')
 const lazyText = ref('')
-const age = ref('')
-const userEmail = ref('')
-const price = ref('')
+
+const ageText = ref('')
+const ageNumber = ref('')
+
+const rawEmail = ref('')
+const trimmedEmail = ref('')
+
+const nickname = ref('')
 </script>
 
 <template>
   <div class="practice-section">
-    <h2>v-model 수식어 (Modifiers) 활용</h2>
-    <!-- 1) .lazy 수식어 실습 -->
-    <section style="margin-bottom: 20px">
-      <h3>1) .lazy 수식어 (change 이벤트 시점 반영)</h3>
-      <input type="text" v-model.lazy="lazyText" placeholder="입력 후 Enter 또는 외부 클릭" />
-      <p>
-        실시간이 아닌 확정된 값: <strong>{{ lazyText }}</strong>
-      </p>
-    </section>
+    <h2>v-model 수식어 실습</h2>
 
-    <!-- 2) .number 수식어 실습 -->
-    <section style="margin-bottom: 20px">
-      <h3>2) .number 수식어 (Number 타입 자동 형변환)</h3>
-      <input type="text" v-model="age" placeholder="나이를 입력하세요" />
-      <p>
-        입력된 값: <strong>{{ age }}</strong>
-      </p>
-      <p>
-        데이터 타입: <strong>{{ typeof age }}</strong>
-      </p>
-    </section>
-
-    <!-- 3) .trim 수식어 실습 -->
     <section>
-      <h3>3) .trim 수식어 (양끝 공백 자동 제거)</h3>
-      <input type="text" v-model="userEmail" placeholder="앞뒤 공백을 포함해 입력해 보세요" />
+      <h3>1. 기본 v-model과 .lazy 비교</h3>
+
+      <label>
+        기본 입력
+        <input v-model="normalText" placeholder="입력 즉시 반영" />
+      </label>
+
+      <p>기본 입력 결과: "{{ normalText }}"</p>
+
+      <label>
+        .lazy 입력
+        <input v-model.lazy="lazyText" placeholder="입력 후 Enter 또는 외부 클릭" />
+      </label>
+
+      <p>.lazy 결과: "{{ lazyText }}"</p>
+    </section>
+
+    <section>
+      <h3>2. 기본 입력과 .number 비교</h3>
+
+      <label>
+        기본 숫자 입력
+        <input v-model="ageText" type="number" placeholder="나이 입력" />
+      </label>
+
       <p>
-        공백 제거된 값: <strong>"{{ userEmail }}"</strong>
+        값: {{ ageText }} /
+        타입: {{ typeof ageText }}
       </p>
+
+      <label>
+        .number 숫자 입력
+        <input v-model.number="ageNumber" type="number" placeholder="나이 입력" />
+      </label>
+
       <p>
-        문자열 길이: <strong>{{ userEmail.length }}</strong>
+        값: {{ ageNumber }} /
+        타입: {{ typeof ageNumber }}
       </p>
     </section>
 
-    <!-- 4) 수식어 체이닝 (Chaining) 실습 -->
     <section>
-      <h3>4) Chaining (수식어 체이닝: .trim.number)</h3>
-      <input type="text" v-model.trim.number="price" placeholder="공백과 숫자를 섞어 입력해 보세요" />
+      <h3>3. 기본 입력과 .trim 비교</h3>
+
+      <label>
+        기본 이메일 입력
+        <input v-model="rawEmail" type="email" placeholder="앞뒤에 공백을 넣어보세요" />
+      </label>
+
       <p>
-        처리된 값: <strong>"{{ price }}"</strong>
+        값: "{{ rawEmail }}" /
+        길이: {{ rawEmail.length }}
       </p>
+
+      <label>
+        .trim 이메일 입력
+        <input
+          v-model.trim="trimmedEmail"
+          type="email"
+          placeholder="앞뒤에 공백을 넣어보세요"
+        />
+      </label>
+
       <p>
-        데이터 타입: <strong>{{ typeof price }}</strong>
+        값: "{{ trimmedEmail }}" /
+        길이: {{ trimmedEmail.length }}
+      </p>
+    </section>
+
+    <section>
+      <h3>4. .lazy.trim 수식자 조합</h3>
+
+      <label>
+        닉네임
+        <input
+          v-model.lazy.trim="nickname"
+          placeholder="앞뒤 공백 입력 후 Enter 또는 외부 클릭"
+        />
+      </label>
+
+      <p>
+        처리된 값: "{{ nickname }}" /
+        길이: {{ nickname.length }}
       </p>
     </section>
   </div>
 </template>
+
+<style scoped>
+section {
+  margin-bottom: 24px;
+}
+
+label {
+  display: block;
+  margin: 8px 0;
+}
+
+input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 4px;
+  padding: 8px;
+}
+</style>

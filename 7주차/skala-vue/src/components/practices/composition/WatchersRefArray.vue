@@ -9,9 +9,13 @@ const logMember = ref('대기 중...')
 const cityWeather = ref([
   { name: '서울', temp: 25 },
   { name: '수원', temp: 22 },
-  { name: '수원', temp: 25 },
+  { name: '대전', temp: 27 },
 ])
 const logWeather = ref('대기 중...')
+
+
+const randomcity = ref(['서울', '수원', '대전', '부산', '광주', '대구'])
+
 
 // 🟢 1) 기본형 배열의 0번째 요소(글자) 감시하기
 watch(
@@ -40,8 +44,16 @@ watch(
     <p class="log text">로그: {{ logMember }}</p>
     <h3>⛅ 2) 객체형 배열: 현재 {{ cityWeather[0].name }} 기온 [ {{ cityWeather[0].temp }}°C ]</h3>
     <button @click="cityWeather[0].temp++">서울 기온 1도 올리기 (temp++)</button>
+    <button @click="cityWeather[0].temp--">서울 기온 1도 내리기 (temp--)</button>
+    <p class="log text">로그: {{ logWeather }}</p>
+    <h3>🧩 3) 객체형 배열: 배열 자체를 조작 (shift(), push())</h3>
+    <p>현재 배열: {{ cityWeather.map((city) => city.name).join(', ') }}</p>
+    <p>현재 배열 길이: {{ cityWeather.length }}개</p>
+    <p>현재 배열 0번 요소: {{ cityWeather[0].name }} / {{ cityWeather[0].temp }}°C</p>
+    <p>> 현재 배열 마지막 요소: {{ cityWeather[cityWeather.length - 1].name }} / {{ cityWeather[cityWeather.length - 1].temp }}°C</p>
     <p class="log object">로그: {{ logWeather }}</p>
     <button @click="cityWeather.shift()">첫번째배열제거</button>
+    <button @click="cityWeather.push({ name: randomcity[Math.floor(Math.random() * randomcity.length)], temp: Math.floor(Math.random() * 10) + 20 })">랜덤도시추가</button>
   </div>
 </template>
 

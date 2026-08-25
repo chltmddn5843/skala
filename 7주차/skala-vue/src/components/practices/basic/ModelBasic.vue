@@ -1,21 +1,40 @@
+# 4. Vue Form Handling (v-model)
+# 기존 내용
+# 1. v-model 축약 문법 (양방향)
+# 2. v-model의 내부 작동 원리 (단방향 + 이벤트)
+#
+
 <script setup>
 import { ref } from 'vue'
-const text1 = ref('') // v-model용 변수
-const text2 = ref('') // 원리 이해용 변수
+
+const name = ref('')
+const agreed = ref(false)
+const gender = ref('')
+const hobbies = ref([])
+const city = ref('')
 </script>
 
 <template>
-  <div class="practice-section">
-    <h2>v-model 양방향 데이터 바인딩</h2>
-    <h3>1) v-model 축약 문법 (양방향)</h3>
-    <input type="text" v-model="text1" placeholder="여기에 입력하세요" />
-    <p>
-      입력된 값: <strong>{{ text1 }}</strong>
-    </p>
-    <h3>2) v-model의 내부 작동 원리 (단방향 + 이벤트)</h3>
-    <input type="text" :value="text2" @input="(e) => (text2 = e.target.value)" placeholder="원리 파악용 입력창" />
-    <p>
-      입력된 값: <strong>{{ text2 }}</strong>
-    </p>
-  </div>
+  <input v-model="name" />
+
+  <input v-model="agreed" type="checkbox" />
+  약관 동의
+
+  <input v-model="gender" type="radio" value="male" />
+  남성
+  <input v-model="gender" type="radio" value="female" />
+  여성
+
+  <input v-model="hobbies" type="checkbox" value="운동" />
+  운동
+  <input v-model="hobbies" type="checkbox" value="독서" />
+  독서
+
+  <select v-model="city">
+    <option value="">도시 선택</option>
+    <option value="서울">서울</option>
+    <option value="부산">부산</option>
+  </select>
+
+  <pre>{{ { name, agreed, gender, hobbies, city } }}</pre>
 </template>

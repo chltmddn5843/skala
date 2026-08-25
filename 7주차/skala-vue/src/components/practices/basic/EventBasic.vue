@@ -1,3 +1,6 @@
+# 3. Vue Event Handling (v-on)
+# 수정 사항 :
+
 <script setup>
 import { ref } from 'vue'
 const count = ref(0)
@@ -13,7 +16,7 @@ const showAlert = () => {
     <h2>v-on 이벤트 핸들링 기초</h2>
     <h3>1) 인라인 연산 처리</h3>
     <p>현재 카운트: {{ count }}</p>
-    <button @click="count++">1씩 증가</button>
+    <button @click="count--">1씩 감소</button>
     <br />
     <h3>2) 스크립트 함수 호출</h3>
     <button @click="showAlert">알림창 띄우기</button>
