@@ -2,7 +2,6 @@
 # 기존 내용
 # 1. v-model 축약 문법 (양방향)
 # 2. v-model의 내부 작동 원리 (단방향 + 이벤트)
-#
 
 <script setup>
 import { ref } from 'vue'

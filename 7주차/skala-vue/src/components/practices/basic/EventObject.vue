@@ -24,6 +24,9 @@ const
     <p>태그: {{ tagName }}</p>
     <button @click="getOnlyEvent">클릭 좌표 알아내기</button>
     <button @click="getWithParam('회원A', $event)">회원 정보와 태그 확인</button>
+    <!--target와 currentTarget 비교-->
+    <!--target: 이벤트가 발생한 실제 요소-->
+    <!--currentTarget: 이벤트가 바인딩된 요소-->
     <button @click="compareTarget"><strong>target과 currentTarget 비교</strong></button>
   </div>
 </template>

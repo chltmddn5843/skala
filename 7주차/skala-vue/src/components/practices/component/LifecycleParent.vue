@@ -14,6 +14,18 @@ const isShow = ref(true)
     <hr />
 
     <LifecycleChild v-if="isShow" />
+
+    <div class="practice-section">
+      <h2>Keep-Alive 상태에서의 Lifecycle Hook</h2>
+      <button @click="isShow = !isShow" class="toggle-btn">
+        {{ isShow ? '🛑 실습 컴포넌트 숨기기 (keep-alive)' : '🟢 실습 컴포넌트 다시 나타내기' }}
+      </button>
+      <hr />
+
+      <keep-alive>
+        <LifecycleChild v-if="isShow" />
+      </keep-alive>
+    </div>
   </div>
 </template>
 

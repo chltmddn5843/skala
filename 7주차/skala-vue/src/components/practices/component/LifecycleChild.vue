@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUpdated, onUnmounted } from 'vue'
+import { ref, onMounted, onUpdated, onUnmounted, onActivated, onDeactivated } from 'vue'
 
 const count = ref(0)
 let timerId = null // 실시간 타이머 메모리 주소를 담을 변수
@@ -13,7 +13,7 @@ onMounted(() => {
   // 🔥 실무 활용 시뮬레이션: 3초마다 숫자가 자동으로 올라가는 타이머 가동
   timerId = setInterval(() => {
     count.value++
-  }, 3000)
+  }, 1000)
 })
 
 // 갱신 (Updating) 단계 - count 변수가 바뀌어서 화면이 리렌더링(새로고침)될 때마다 매번 실행된다.
@@ -27,6 +27,19 @@ onUnmounted(() => {
   clearInterval(timerId)
   console.log('4. [onUnmounted] 컴포넌트가 소멸했습니다. 타이머 청소 완료!')
 })
+
+// keep-alive 상태에서 화면이 사라졌다가 다시 나타날 때는 onMounted, onUnmounted 훅이 실행되지 않는다.
+// 대신 아래 훅이 실행된다.
+// onActivated 훅은 화면이 다시 나타날 때마다 실행된다.
+// onDeactivated 훅은 화면이 사라질 때마다 실행된다.
+onActivated(() => {
+  console.log('5. [onActivated] keep-alive 상태에서 화면이 다시 나타났습니다.')
+})
+onDeactivated(() => {
+  console.log('6. [onDeactivated] keep-alive 상태에서 화면이 사라졌습니다.')
+})
+
+
 </script>
 
 <template>
@@ -35,6 +48,13 @@ onUnmounted(() => {
     <p>실시간 타이머 카운트: {{ count }}</p>
     <button @click="count++">수동으로 숫자 올리기</button>
   </div>
+
+  <data class="lifecycle-log">
+    <p>💡 콘솔창을 열어보세요! (F12)</p>
+    <p>💡 v-if="false"로 컴포넌트를 파괴하면 onUnmounted 훅이 실행됩니다.</p>
+    <p>💡 keep-alive 상태에서 화면이 사라졌다가 다시 나타나면 onActivated 훅이 실행됩니다.</p>
+    <p>💡 keep-alive 상태에서 화면이 사라지면 onDeactivated 훅이 실행됩니다.</p>
+  </data>
 </template>
 
 <style scoped>
