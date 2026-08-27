@@ -17,6 +17,7 @@ const weatherList = ref([
 
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
+const favoriteCity = ref(null)
 
 // 초기 마운트 시 주소창의 쿼리(?search=) 스트링 읽어서 상태 복원 (KeepAlive를 적용해야만 동작함)
 onMounted(() => {
@@ -43,6 +44,10 @@ const filteredWeatherList = computed(() => {
 const handleDetailJump = (id) => {
   router.push(`/weather/${id}`)
 }
+
+const handleFavorite = (city) => {
+  favoriteCity.value = city
+}
 </script>
 
 <template>
@@ -53,9 +58,19 @@ const handleDetailJump = (id) => {
 
     <BaseDashboardCard>
       <h3>🏙️ 지역별 날씨 현황</h3>
-      <WeatherCard v-for="item in filteredWeatherList" :key="item.id" :city-item="item" @select-card="(msg) => (selectedCityInfo = msg)" @click-detail="handleDetailJump(item.id)" />
+      <WeatherCard
+        v-for="item in filteredWeatherList"
+        :key="item.id"
+        :city-item="item"
+        @select-card="(msg) => (selectedCityInfo = msg)"
+        @click-detail="handleDetailJump(item.id)"
+        @favorite="handleFavorite"
+      />
     </BaseDashboardCard>
     <div class="status-bar">{{ selectedCityInfo }}</div>
+    <div v-if="favoriteCity" class="status-bar">
+      ⭐ 즐겨찾기: {{ favoriteCity.name }} ({{ favoriteCity.status }})
+    </div>
   </div>
 </template>
 

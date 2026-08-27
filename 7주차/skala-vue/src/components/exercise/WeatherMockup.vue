@@ -11,9 +11,8 @@ const weatherList = ref([
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
 
-// 알림 대행 함수 (window 객체 격리 우회)
 const showDetail = (cityName, status, moisture) => {
-  window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다.습도는 ${moisture}%입니다.`)
+  window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다. 습도는 ${moisture}%입니다.`)
 }
 </script>
 
@@ -25,9 +24,7 @@ const showDetail = (cityName, status, moisture) => {
     <section class="search-box">
       <h3>🔍 도시 검색</h3>
       <input type="text" :value="searchQuery" @input="(e) => (searchQuery = e.target.value)" placeholder="도시 이름 입력" />
-      <p>
-        검색 중인 도시: <strong>{{ searchQuery }}</strong>
-      </p>
+    <p>검색 중인 도시: <strong>{{ searchQuery }}</strong></p>
     </section>
 
     <section class="list-box">

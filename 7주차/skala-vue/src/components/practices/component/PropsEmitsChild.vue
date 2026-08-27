@@ -15,6 +15,11 @@ const sendNotification = () => {
   const payload = 'Child에서 가공한 새로운 데이터'
   emit('update-request', payload)
 }
+
+const sendResetRequest = () => {
+  const payload = 'Parent 초기화 됐습니다'
+  emit('update-request', payload)
+}
 </script>
 
 <template>
@@ -25,6 +30,7 @@ const sendNotification = () => {
     </p>
     <br />
     <button @click="sendNotification">상위 컴포넌트로 갱신 요청 (Emit)</button>
+    <button @click="sendResetRequest">상위 컴포넌트로 초기화 요청 (Emit)</button>
   </div>
 </template>
 

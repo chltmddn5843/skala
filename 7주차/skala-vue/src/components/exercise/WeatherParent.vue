@@ -13,10 +13,16 @@ const weatherList = ref([
   { id: 'city_05', name: '대구', temp: 23, status: '흐림' , moisture: 70},
 ])
 
+const favoriteCity = ref(null) // 즐겨찾기 도시 목록
+const handleFavorite = (city) => {
+  favoriteCity.value = city
+}
+
+
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
 
-// 기존 핵심 비즈니스 로직(computed, watch)의 소유권은 안전하게 부모 콘텍스트가 격리 유지
+
 const filteredWeatherList = computed(() => {
   const query = searchQuery.value.trim()
   if (!query) return weatherList.value
@@ -45,13 +51,27 @@ const showDetail = (cityName, status) => {
     <BaseDashboardCard>
       <h3>🏙️ 지역별 날씨 현황</h3>
 
-      <WeatherCard v-for="item in filteredWeatherList" :key="item.id" :city-item="item" @select-card="(msg) => (selectedCityInfo = msg)" @click-detail="showDetail" />
+      <WeatherCard
+        v-for="item in filteredWeatherList"
+        :key="item.id"
+        :city-item="item"
+        @select-card="(msg) => (selectedCityInfo = msg)"
+        @click-detail="showDetail"
+        @favorite="handleFavorite"
+      />
 
       <p v-if="filteredWeatherList.length === 0" style="text-align: center; color: #e74c3c; padding: 10px 0">😭 검색 결과와 일치하는 도시가 없습니다.</p>
     </BaseDashboardCard>
 
     <div class="status-bar">
       {{ selectedCityInfo }}
+    </div>
+
+    <div v-if="favoriteCity" class="favorite-info">
+      <h4>⭐ 즐겨찾기 도시</h4>
+      <p>{{ favoriteCity.name }} ({{ favoriteCity.status }})</p>
+      <p>현재 기온: {{ favoriteCity.temp }}°C</p>
+      <p>현재 습도: {{ favoriteCity.moisture }}%</p>
     </div>
   </div>
 </template>
