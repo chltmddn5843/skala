@@ -20,3 +20,11 @@ defineProps({
     </p>
   </div>
 </template>
+
+<style scoped>
+input {
+  width: 90%;
+  padding: 8px;
+  font-size: 14px;
+}
+</style>

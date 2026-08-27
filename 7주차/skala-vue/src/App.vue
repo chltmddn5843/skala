@@ -1,27 +1,24 @@
-<script setup>
-import UnitToggler from './components/exercise/UnitToggler.vue'
-</script>
-
-
 <template>
-    <div class="app-container">
-    <h1>⛅ 과제 4: 라우터적용</h1>
-    <hr />
-    <div class="dashboard-wrapper">
-      <nav class="navigation-bar">
-        <RouterLink to="/" class="nav-item">🌦️ 날씨 대시보드</RouterLink>
-        <span class="divider">|</span>
-        <RouterLink to="/about" class="nav-item">ℹ️ 서비스 소개</RouterLink>
-      </nav>
-      <main>
-        <RouterView />
-      </main>
-    </div>
+  <div class="practice-container">
+    <nav class="navigation-bar">
+      <RouterLink to="/">실습 홈</RouterLink>
+      <RouterLink to="/crud">CRUD</RouterLink>
+    </nav>
+    <RouterView />
   </div>
 </template>
 
-
-
 <style>
-@import '@/assets/exercise.css';
+/* ⚠️ 외부 스타일 파일(예: 버튼 디자인 뭉치)을 이 방 안으로 쏙 가리켜 가져옵니다 */
+@import '@/assets/practice.css';
+
+.navigation-bar {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.navigation-bar .router-link-exact-active {
+  font-weight: bold;
+}
 </style>

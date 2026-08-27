@@ -51,13 +51,6 @@ const displayTemp = computed(() =>
   width: 100%;
 }
 
-/* 2. 텍스트 영역을 감싸는 블록 (필요시 추가) */
-.weather-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .badge {
   display: inline-block;
   padding: 4px 8px;

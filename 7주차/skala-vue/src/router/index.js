@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import WeatherHomeView from '../views/WeatherHomeView.vue'
+import PracticeHomeView from '../views/PracticeHomeView.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'WeatherHome',
-    component: WeatherHomeView,
-  }, //
+    name: 'PracticeHome',
+    component: PracticeHomeView,
+  },
+  {
+    path: '/crud',
+    name: 'Crud',
+    component: () => import('../components/practices/library/AxiosJson.vue'),
+  },
   {
     path: '/about',
     name: 'WeatherAbout',
@@ -21,7 +26,7 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('../views/NotFoundView.vue'),
-  },// lazy-loading : 동적 import
+  }, // lazy-loading : 동적 import
 ]
 
 // 라우트(routes) 객체를 생성하고, createRouter 함수를 사용하여 라우터 인스턴스를 생성

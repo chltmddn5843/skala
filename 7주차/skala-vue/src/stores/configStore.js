@@ -5,9 +5,14 @@ export const useConfigStore = defineStore('config', () => {
   const unit = ref('celsius')
   const toggleCount = ref(0)
 
-  const unitSymbol = computed(() =>
-    unit.value === 'celsius' ? '℃' : '℉',
-  )
+  // 삼항 연산자 버전: computed(() => unit.value === 'celsius' ? '℃' : '℉')
+  const unitSymbol = computed(() => {
+    if (unit.value === 'celsius') {
+      return '℃'
+    }
+
+    return '℉'
+  })
 
   const unitLabel = computed(() =>
     unit.value === 'celsius' ? '섭씨' : '화씨',
