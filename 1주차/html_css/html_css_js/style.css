@@ -1,0 +1,82 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: #222;
+  background: #f6f7f8;
+  font-family: Arial, "맑은 고딕", sans-serif;
+}
+
+header {
+  padding: 28px 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
+h1, h2, p { margin-top: 0; }
+header h1 { margin-bottom: 6px; font-size: 26px; }
+header p { margin-bottom: 0; color: #666; }
+
+main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+  width: min(1000px, 92%);
+  margin: 28px auto;
+}
+
+section {
+  padding: 22px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+h2 { margin-bottom: 18px; font-size: 19px; }
+form, label { display: grid; gap: 6px; }
+form { gap: 13px; }
+label { font-size: 14px; font-weight: bold; }
+
+input, select, button {
+  min-height: 40px;
+  padding: 9px 11px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  font: inherit;
+}
+
+input:focus, select:focus { outline: 2px solid #b8d4ff; border-color: #3578d4; }
+button { cursor: pointer; color: #fff; border-color: #3578d4; background: #3578d4; }
+button:hover { filter: brightness(.95); }
+.secondary, .edit-button { color: #333; border-color: #ccc; background: #eee; }
+.delete-button { border-color: #d9534f; background: #d9534f; }
+
+.form-actions, .card-actions, .list-heading { display: flex; gap: 8px; }
+.list-heading { align-items: center; justify-content: space-between; }
+.list-heading span { color: #777; font-size: 14px; }
+
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.car-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.car-card { padding: 16px; border: 1px solid #ddd; border-radius: 6px; }
+.car-card h3 { margin: 0 0 9px; }
+.car-card p { margin-bottom: 7px; color: #555; font-size: 14px; }
+.car-card .price { color: #222; font-size: 18px; font-weight: bold; }
+.status { display: inline-block; padding: 3px 7px; border-radius: 4px; background: #eee; font-size: 13px; }
+.status.selling { color: #176b46; background: #e2f3ea; }
+.status.reserved { color: #8a5b00; background: #fff1ce; }
+.status.sold { color: #9a3333; background: #f8dfdf; }
+.card-actions { margin-top: 13px; }
+.card-actions button { flex: 1; }
+.empty { padding: 30px; text-align: center; color: #777; background: #f6f7f8; }
+
+@media (max-width: 760px) {
+  main, .car-list, .filters { grid-template-columns: 1fr; }
+}
