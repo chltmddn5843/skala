@@ -1,0 +1,1 @@
+import{r as e}from"./auth-CqKWUyhq.js";var t={getCourses(t){return e.get(`/api/courses`,{params:t})},getAll(t){return e.get(`/api/courses`,{params:t})},getById(t){return e.get(`/api/courses/${t}`)},create(t){return e.post(`/api/courses`,t)},update(t,n){return e.put(`/api/courses/${t}`,n)}};export{t};

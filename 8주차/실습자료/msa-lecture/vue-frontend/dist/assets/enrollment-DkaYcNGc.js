@@ -1,0 +1,1 @@
+import{r as e}from"./auth-CqKWUyhq.js";var t={getMyEnrollments(){return e.get(`/api/enrollments/my`)},enroll(t){return e.post(`/api/enrollments`,{courseId:t})},cancel(t){return e.delete(`/api/enrollments/${t}`)},getRecommendations(t){return e.get(`/api/recommend/${t}`)}};export{t};

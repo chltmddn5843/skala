@@ -1,0 +1,1 @@
+var e=`/assets/main_logo-Chn4qee7.png`;export{e as t};
