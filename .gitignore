@@ -36,3 +36,10 @@
 **/.idea/
 **/.vscode/
 **/*.
+# Large local lecture archives (excluded from GitHub)
+/8주차/실습자료/msa-lecture.zip
+/8주차/실습자료/msa-lecture/infra-images.tar
+/8주차/실습자료/msa-lecture/msa-lecture-images.part.aa
+/8주차/실습자료/msa-lecture/msa-lecture-images.part.ab
+/8주차/실습자료/msa-lecture/msa-lecture-images.part.ac
+/8주차/실습자료/msa-lecture/msa-lecture-images.tar.gz

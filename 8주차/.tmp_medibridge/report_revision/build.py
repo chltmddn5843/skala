@@ -13,13 +13,25 @@ s=d.sections[0]; s.page_width=Cm(21); s.page_height=Cm(29.7)
 s.top_margin=Cm(1.9); s.bottom_margin=Cm(1.8); s.left_margin=Cm(2); s.right_margin=Cm(2)
 s.header_distance=Cm(.8); s.footer_distance=Cm(.8)
 for name in ['Normal','Body Text','Title','Subtitle','Heading 1','Heading 2','Heading 3','Caption']:
- st=d.styles[name]; st.font.name='Apple SD Gothic Neo'; st.font.color.rgb=RGBColor(0,0,0)
- st.element.get_or_add_rPr().rFonts.set(qn('w:eastAsia'),'Apple SD Gothic Neo')
- st.font.size=Pt(10.5); st.paragraph_format.line_spacing=1.3; st.paragraph_format.space_after=Pt(7)
+ st=d.styles[name]; st.font.name='Noto Sans CJK KR'; st.font.color.rgb=RGBColor(0,0,0)
+ st.element.get_or_add_rPr().rFonts.set(qn('w:eastAsia'),'Noto Sans CJK KR')
+ st.font.size=Pt(10.5); st.paragraph_format.line_spacing=Pt(15); st.paragraph_format.space_after=Pt(7)
 for name,size in [('Title',23),('Heading 1',17),('Heading 2',12.5),('Heading 3',11)]:
  st=d.styles[name]; st.font.size=Pt(size); st.font.bold=True; st.paragraph_format.keep_with_next=True
  st.paragraph_format.space_before=Pt(10); st.paragraph_format.space_after=Pt(8)
 d.styles['Caption'].font.size=Pt(9)
+for st in d.styles:
+ for el in list(st.element.iter(qn('w:pBdr'))): el.getparent().remove(el)
+ for el in st.element.iter(qn('w:rFonts')):
+  for k in list(el.attrib):
+   if 'Theme' in k or 'theme' in k: del el.attrib[k]
+  for attr in ['ascii','hAnsi','eastAsia','cs']:el.set(qn('w:'+attr),'Noto Sans CJK KR')
+d.styles['Subtitle'].font.italic=False
+d.styles['Title'].paragraph_format.line_spacing=Pt(33)
+for hn in ['Heading 1','Heading 2','Heading 3']:
+ d.styles[hn].paragraph_format.line_spacing=Pt(22 if hn=='Heading 1' else 18)
+
+
 p=s.header.paragraphs[0]; p.text='MediBridge  |  Agile과 MSA 개인 보고서'; p.alignment=WD_ALIGN_PARAGRAPH.RIGHT
 for r in p.runs:r.font.size=Pt(8);r.font.color.rgb=RGBColor(0,0,0)
 p=s.footer.paragraphs[0];p.alignment=WD_ALIGN_PARAGRAPH.CENTER
@@ -30,7 +42,7 @@ def para(t='',style=None):
  return p
 def h(t,level=2):return d.add_heading(t,level)
 def page(t):
- d.add_page_break(); h(t,1)
+ h(t,1).paragraph_format.page_break_before=True
 def table(headers,rows,widths,center=()):
  t=d.add_table(rows=1,cols=len(headers));t.alignment=WD_TABLE_ALIGNMENT.CENTER;t.autofit=False
  for c,w in zip(t.columns,widths):c.width=Cm(w)
@@ -54,12 +66,12 @@ def table(headers,rows,widths,center=()):
     z=OxmlElement('w:shd');z.set(qn('w:fill'),'E7EDF3');cp.append(z)
    for p in c.paragraphs:
     p.alignment=WD_ALIGN_PARAGRAPH.CENTER if ri==0 or ci in center else WD_ALIGN_PARAGRAPH.LEFT
-    p.paragraph_format.space_after=Pt(2);p.paragraph_format.space_before=Pt(2);p.paragraph_format.line_spacing=1.18
+    p.paragraph_format.space_after=Pt(2);p.paragraph_format.space_before=Pt(2);p.paragraph_format.line_spacing=Pt(13)
     for r in p.runs:r.font.size=Pt(9.5);r.font.bold=(ri==0)
  para('').paragraph_format.space_after=Pt(0)
  return t
 def pic(i,width,caption,crop=None):
- p=para();p.alignment=WD_ALIGN_PARAGRAPH.CENTER;p.paragraph_format.keep_with_next=True
+ p=para();p.alignment=WD_ALIGN_PARAGRAPH.CENTER;p.paragraph_format.keep_with_next=True;p.paragraph_format.line_spacing=1.0
  shape=p.add_run().add_picture(str(BASE/f'image{i}.png'),width=Cm(width))
  if crop:
   top,bottom=crop;src=OxmlElement('a:srcRect');src.set('t',str(top));src.set('b',str(bottom));shape._inline.graphic.graphicData.pic.blipFill.insert(1,src)
@@ -182,12 +194,12 @@ para('원문 자료에서 스프린트 1은 완료, 결제·Kafka·추천 중심
 
 page('5 화면 구성과 업무 적용')
 h('5.1 제품 탐색과 발주 화면')
-pic(2,15.8,'그림 3 조별 과제의 메인 화면과 제품 주문 화면')
+pic(2,14.6,'그림 3 조별 과제의 메인 화면과 제품 주문 화면')
 para('메인 화면에서 후보 품목을 살펴보고 제품 상세 화면에서 발주를 진행하는 구성이다. 검토 시에는 가격과 제품 정보가 잘 보이는지, 발주 후 상태를 바로 확인할 수 있는지를 중심으로 살펴본다.')
 
 page('5 화면 구성과 추천 표현')
 h('5.2 제품 등록과 추천 화면')
-pic(3,15.8,'그림 4 조별 과제의 제품 등록과 추천 화면')
+pic(3,14.6,'그림 4 조별 과제의 제품 등록과 추천 화면')
 para('제품 등록 항목은 제약사별 자료를 같은 기준으로 받는 출발점이다. 추천 화면의 점수와 성과 수치는 제시된 화면의 표현이며, 검증된 정확도로 해석하지 않는다. 초기 버전에서는 구매 약효군이나 인기 품목 등 실제 사용한 규칙을 추천 이유로 보여 주는 것이 적절하다.')
 
 page('6 사용 사례와 기대 효과')
