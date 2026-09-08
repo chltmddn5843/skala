@@ -43,3 +43,9 @@
 /8주차/실습자료/msa-lecture/msa-lecture-images.part.ab
 /8주차/실습자료/msa-lecture/msa-lecture-images.part.ac
 /8주차/실습자료/msa-lecture/msa-lecture-images.tar.gz
+
+# 별도 Git 저장소: 상위 저장소 및 워크트리 복사 대상에서 제외
+/4주차/nyc-taxi-earnings-optimizer/
+/4주차/실습자료/판교_4반_최승우_practice/
+/4주차/실습자료4/
+/7주차/Day5/spring-ai/
