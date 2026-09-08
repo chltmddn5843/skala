@@ -1,0 +1,105 @@
+Enum user_role {
+  MANAGER
+  OPERATOR
+  QUALITY
+}
+
+Enum work_order_status {
+  PLANNED
+  IN_PROGRESS
+  CLOSED
+}
+
+Enum measurement_result {
+  PASS
+  FAIL
+}
+
+Table users {
+  id bigint [pk, increment]
+  username varchar(50) [not null, unique]
+  password_hash varchar(255) [not null]
+  name varchar(50) [not null]
+  role user_role [not null]
+}
+
+Table products {
+  id bigint [pk, increment]
+  code varchar(30) [not null, unique]
+  name varchar(100) [not null]
+}
+
+Table equipment {
+  id bigint [pk, increment]
+  code varchar(30) [not null, unique]
+  name varchar(100) [not null]
+}
+
+Table inspection_specs {
+  id bigint [pk, increment]
+  product_id bigint [not null, ref: > products.id]
+  feature_name varchar(100) [not null]
+  target_value decimal(10,3) [not null]
+  lower_limit decimal(10,3) [not null]
+  upper_limit decimal(10,3) [not null]
+  unit varchar(10) [not null]
+  version varchar(20) [not null]
+
+  indexes { (product_id, version) [unique] }
+}
+
+Table work_orders {
+  id bigint [pk, increment]
+  order_no varchar(30) [not null, unique]
+  product_id bigint [not null, ref: > products.id]
+  target_qty int [not null, note: '양의 정수']
+  due_date date [not null]
+  status work_order_status [not null, default: 'PLANNED']
+  created_by bigint [not null, ref: > users.id]
+  created_at timestamp [not null]
+  started_by bigint [ref: > users.id]
+  started_at timestamp
+  closed_by bigint [ref: > users.id]
+  closed_at timestamp
+  close_reason varchar(500)
+}
+
+Table production_lots {
+  id bigint [pk, increment]
+  lot_no varchar(30) [not null, unique]
+  work_order_id bigint [not null, ref: > work_orders.id]
+  equipment_id bigint [not null, ref: > equipment.id]
+  spec_id bigint [not null, ref: > inspection_specs.id]
+  produced_qty int [not null, note: '양의 정수, 같은 작업지시의 누적 수량은 목표 이하']
+  started_at timestamp [not null]
+  ended_at timestamp [not null, note: 'started_at보다 늦어야 함']
+  operator_id bigint [not null, ref: > users.id]
+  production_note text
+  created_at timestamp [not null]
+}
+
+Table inspections {
+  id bigint [pk, increment]
+  lot_id bigint [not null, unique, ref: > production_lots.id]
+  inspector_id bigint [not null, ref: > users.id]
+  inspected_at timestamp [not null]
+  inspection_note text
+}
+
+Table measurements {
+  id bigint [pk, increment]
+  inspection_id bigint [not null, ref: > inspections.id]
+  item_no int [not null]
+  measured_value decimal(10,3) [not null]
+  result measurement_result [not null, note: '서버가 규격으로 판정']
+
+  indexes { (inspection_id, item_no) [unique] }
+}
+
+Table ai_summaries {
+  id bigint [pk, increment]
+  lot_id bigint [not null, ref: > production_lots.id]
+  summary_text text [not null]
+  created_by bigint [not null, ref: > users.id]
+  created_at timestamp [not null]
+}
