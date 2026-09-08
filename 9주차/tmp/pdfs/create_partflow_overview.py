@@ -171,12 +171,15 @@ wire_2_pdf = TMP / "partflow_wire_2.pdf"
 flow = TMP / "partflow_flow.png"
 wire_1 = TMP / "partflow_wire_1.png"
 wire_2 = TMP / "partflow_wire_2.png"
+actor_flow_pdf = ROOT / "src/PartFlow MES 와이어프레임.pdf"
+actor_flow = TMP / "actor_flow.png"
 make_flow(flow_pdf)
 make_wireframes(wire_1_pdf, 1)
 make_wireframes(wire_2_pdf, 2)
 pdf_to_png(flow_pdf, flow)
 pdf_to_png(wire_1_pdf, wire_1)
 pdf_to_png(wire_2_pdf, wire_2)
+pdf_to_png(actor_flow_pdf, actor_flow)
 
 styles = getSampleStyleSheet()
 styles.add(ParagraphStyle(name="TitleKo", fontName="AppleGothic", fontSize=23, leading=31, textColor=NAVY, alignment=TA_CENTER, spaceAfter=10))
@@ -232,7 +235,11 @@ story += [actor_table, Spacer(1, 10 * mm), paragraph("<b>핵심 검증 규칙</b
 
 story += [paragraph("3. 서비스 UI 흐름", styles["H1Ko"]), paragraph("Vue.js 화면 단위 구성: LoginView(S01), DashboardView(S02), WorkOrderListView(S03), WorkOrderDetailView(S04), LotDetailView(S05), InspectionFormView(S06). AI 요약은 LOT 상세 내부의 보조 기능으로 구성한다.", styles["BodyKo"]), Image(str(flow), width=174 * mm, height=64 * mm), paragraph("그림 1. 로그인에서 생산·품질 현황을 거쳐 작업지시, LOT, 검사 입력으로 진행하는 전체 흐름이다. 검사 확정 후에는 LOT 상세로 돌아가 결과와 관련 LOT 후보를 확인한다.", styles["CaptionKo"]), paragraph("<b>화면 이동 규칙</b> - 로그인 성공 시 S02로 이동한다. S02의 LOT 선택은 S05로, 지시 관리 메뉴는 S03으로 이동한다. S03에서 지시 행을 선택하면 S04로, S04에서 LOT을 선택하면 S05로 이동한다. S05의 검사 입력은 S06으로, S06의 확정은 S05의 최신 이력으로 돌아간다.", styles["BodyKo"]), PageBreak()]
 
-story += [paragraph("4. 전체 화면 와이어프레임", styles["H1Ko"]), Image(str(wire_1), width=174 * mm, height=128 * mm), paragraph("그림 2. S01~S03 화면. 로그인, 현황, 작업지시 목록·등록 화면에서 각 사용자가 다음 업무로 이동하는 흐름을 표현한다.", styles["CaptionKo"]), Image(str(wire_2), width=174 * mm, height=128 * mm), paragraph("그림 3. S04~S06 화면. 작업지시의 LOT 생산실적을 기록하고, LOT 상세에서 관련 LOT과 기록을 조회하며, 검사 입력 후 결과로 복귀하는 흐름을 표현한다.", styles["CaptionKo"]), Spacer(1, 4 * mm), paragraph("<b>제출 전 확인</b> - 이 PDF에는 전체 화면 와이어프레임 이미지와 각 화면의 이동 설명을 포함했다. 실제 구현에서는 입력 오류 위치 표시, 처리 중 버튼 잠금, 인증 만료와 통신 오류 안내를 공통 상태로 제공한다.", styles["BodyKo"])]
+story += [paragraph("4. Actor별 화면 이용 흐름", styles["H1Ko"]), paragraph("아래 이미지는 Figma에서 제작·내보낸 액터별 흐름도다. 각 역할은 같은 로그인 화면(S01)에서 시작하지만, 역할 권한에 따라 사용할 화면과 버튼이 달라진다.", styles["BodyKo"]), Image(str(actor_flow), width=174 * mm, height=130 * mm), paragraph("그림 2. 생산관리자·작업자·품질 담당자의 화면 이동 흐름. 생산관리자는 작업지시 생성·종료, 작업자는 지시 시작·LOT 실적 등록, 품질 담당자는 검사·관련 LOT 조회·AI 요약 검토를 수행한다.", styles["CaptionKo"]), paragraph("<b>AI 화면 상태</b> - 품질 담당자는 S05에서 생산·검사 메모를 선택하고 [AI 요약 생성]을 누른다(입력). 같은 S05에 사실·미확인 사항·확인 질문 초안이 표시된다(결과). 검토문을 수정하고 [검토본 저장]을 누르면 S05의 검토 이력 목록에 새 기록이 표시된다(저장 목록). 이 세 상태는 LotDetailView 안에서 데이터만 갱신하는 구조다.", styles["BodyKo"]), PageBreak()]
+
+story += [paragraph("5. 전체 화면 와이어프레임", styles["H1Ko"]), Image(str(wire_1), width=174 * mm, height=128 * mm), paragraph("그림 3. S01~S03 화면 이미지. 로그인, 현황, 작업지시 목록·등록 화면에서 각 사용자가 다음 업무로 이동하는 흐름을 표현한다.", styles["CaptionKo"]), paragraph("<b>S01 로그인 화면</b> - 계정과 비밀번호를 입력하고 [로그인]을 누르면 역할에 맞는 S02 현황으로 이동한다. 인증이 실패하면 오류 안내를 표시하고 현재 화면에 머문다.", styles["SmallKo"]), paragraph("<b>S02 생산·품질 현황 화면</b> - 기간·품목 조건으로 현황과 검사대기 LOT을 조회한다. LOT을 선택하면 S05로, [지시 관리]를 누르면 S03으로 이동한다.", styles["SmallKo"]), paragraph("<b>S03 작업지시 목록·등록 화면</b> - 생산관리자가 품목·목표수량·예정일을 입력해 저장하면 목록을 갱신하고, 행을 선택하면 S04 상세로 이동한다.", styles["SmallKo"]), PageBreak()]
+
+story += [Image(str(wire_2), width=174 * mm, height=128 * mm), paragraph("그림 4. S04~S06 화면 이미지. 작업지시의 LOT 생산실적을 기록하고, LOT 상세에서 관련 LOT과 기록을 조회하며, 검사 입력 후 결과로 복귀하는 흐름을 표현한다.", styles["CaptionKo"]), paragraph("<b>S04 작업지시 상세 화면</b> - 작업자가 [시작]으로 지시를 진행 상태로 바꾸고 LOT번호·수량·메모를 저장한다. LOT 행을 선택하면 S05로, 생산관리자의 [종료]는 지시를 종료한다.", styles["SmallKo"]), paragraph("<b>S05 LOT 상세 화면</b> - 생산정보·규격·검사 결과·관련 LOT 후보를 확인한다. [검사 입력]을 누르면 S06으로 이동하며, 검사 완료 후 [AI 요약 생성]과 [검토본 저장]을 실행하면 결과와 저장 이력이 같은 화면에 갱신된다.", styles["SmallKo"]), paragraph("<b>S06 치수 검사 입력 화면</b> - 품질 담당자가 생산수량만큼 대상별 측정값을 입력하고 [확정]을 누른다. 서버 판정이 완료되면 S05로 돌아가 검사 결과와 AI 기능을 사용한다.", styles["SmallKo"]), Spacer(1, 4 * mm), paragraph("<b>제출 전 확인</b> - 이 PDF에는 전체 화면 와이어프레임 이미지와 각 화면의 이동 설명을 포함했다. 실제 구현에서는 입력 오류 위치 표시, 처리 중 버튼 잠금, 인증 만료와 통신 오류 안내를 공통 상태로 제공한다.", styles["BodyKo"])]
 
 doc.build(story, onFirstPage=page_number, onLaterPages=page_number)
 print(OUT)
