@@ -1,0 +1,299 @@
+openapi: 3.0.3
+info:
+  title: PartFlow API
+  version: 0.1.0
+  description: 교육용 부품 생산·품질관리 MES API 초안
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/auth/login:
+    post:
+      summary: 로그인
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: 로그인 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LoginResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /api/dashboard:
+    get:
+      summary: 생산·검사 현황 조회
+      responses:
+        '200':
+          description: 현황
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Dashboard' }
+  /api/work-orders:
+    get:
+      summary: 작업지시 목록 조회
+      parameters:
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/WorkOrderStatus' } }
+      responses:
+        '200':
+          description: 목록
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: '#/components/schemas/WorkOrder' } }
+    post:
+      summary: 작업지시 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateWorkOrderRequest' }
+      responses:
+        '201':
+          description: 생성됨
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WorkOrder' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/work-orders/{workOrderId}:
+    get:
+      summary: 작업지시 상세 조회
+      parameters:
+        - $ref: '#/components/parameters/WorkOrderId'
+      responses:
+        '200':
+          description: 상세
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WorkOrderDetail' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/work-orders/{workOrderId}/start:
+    post:
+      summary: 작업지시 시작
+      parameters:
+        - $ref: '#/components/parameters/WorkOrderId'
+      responses:
+        '200': { description: 시작됨 }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/work-orders/{workOrderId}/close:
+    post:
+      summary: 작업지시 종료
+      parameters:
+        - $ref: '#/components/parameters/WorkOrderId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason: { type: string, maxLength: 500 }
+      responses:
+        '200': { description: 종료됨 }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/work-orders/{workOrderId}/lots:
+    post:
+      summary: LOT 생산실적 등록
+      parameters:
+        - $ref: '#/components/parameters/WorkOrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateLotRequest' }
+      responses:
+        '201':
+          description: 등록됨
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Lot' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/lots:
+    get:
+      summary: LOT 목록 조회
+      parameters:
+        - { name: inspectionStatus, in: query, schema: { type: string, enum: [PENDING, PASS, FAIL] } }
+      responses:
+        '200':
+          description: 목록
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: '#/components/schemas/Lot' } }
+  /api/lots/{lotId}:
+    get:
+      summary: LOT 생산·검사 통합 조회
+      parameters:
+        - $ref: '#/components/parameters/LotId'
+      responses:
+        '200':
+          description: 상세
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LotDetail' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/lots/{lotId}/inspection:
+    post:
+      summary: LOT 치수검사 확정
+      parameters:
+        - $ref: '#/components/parameters/LotId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateInspectionRequest' }
+      responses:
+        '201':
+          description: 서버 판정 결과
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Inspection' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/lots/{lotId}/related:
+    get:
+      summary: 관련 LOT 후보 조회
+      parameters:
+        - $ref: '#/components/parameters/LotId'
+        - { name: from, in: query, required: true, schema: { type: string, format: date-time } }
+        - { name: to, in: query, required: true, schema: { type: string, format: date-time } }
+      responses:
+        '200':
+          description: 같은 품목·설비이며 시간 구간이 겹치는 후보
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: '#/components/schemas/RelatedLot' } }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /api/lots/{lotId}/ai-summaries:
+    post:
+      summary: LOT 메모 요약 생성
+      parameters:
+        - $ref: '#/components/parameters/LotId'
+      responses:
+        '201':
+          description: 생성된 보조 요약
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AiSummary' }
+        '502': { description: AI 공급자 호출 실패 }
+components:
+  parameters:
+    WorkOrderId: { name: workOrderId, in: path, required: true, schema: { type: integer, format: int64 } }
+    LotId: { name: lotId, in: path, required: true, schema: { type: integer, format: int64 } }
+  responses:
+    BadRequest: { description: 입력값 오류 }
+    Unauthorized: { description: 인증 실패 }
+    NotFound: { description: 대상을 찾을 수 없음 }
+    Conflict: { description: 상태·중복·수량 충돌 }
+  schemas:
+    WorkOrderStatus: { type: string, enum: [PLANNED, IN_PROGRESS, CLOSED] }
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username: { type: string }
+        password: { type: string, format: password }
+    LoginResponse:
+      type: object
+      required: [token, role, name]
+      properties:
+        token: { type: string }
+        role: { type: string, enum: [MANAGER, OPERATOR, QUALITY] }
+        name: { type: string }
+    Dashboard:
+      type: object
+      properties:
+        inProgressWorkOrders: { type: integer }
+        pendingInspectionLots: { type: integer }
+        failedMeasurements: { type: integer }
+    CreateWorkOrderRequest:
+      type: object
+      required: [orderNo, productId, targetQty, dueDate]
+      properties:
+        orderNo: { type: string }
+        productId: { type: integer, format: int64 }
+        targetQty: { type: integer, minimum: 1 }
+        dueDate: { type: string, format: date }
+    WorkOrder:
+      allOf:
+        - $ref: '#/components/schemas/CreateWorkOrderRequest'
+        - type: object
+          required: [id, status, producedQty]
+          properties:
+            id: { type: integer, format: int64 }
+            status: { $ref: '#/components/schemas/WorkOrderStatus' }
+            producedQty: { type: integer }
+    WorkOrderDetail:
+      allOf:
+        - $ref: '#/components/schemas/WorkOrder'
+        - type: object
+          properties:
+            lots: { type: array, items: { $ref: '#/components/schemas/Lot' } }
+    CreateLotRequest:
+      type: object
+      required: [lotNo, equipmentId, specId, producedQty, startedAt, endedAt]
+      properties:
+        lotNo: { type: string }
+        equipmentId: { type: integer, format: int64 }
+        specId: { type: integer, format: int64 }
+        producedQty: { type: integer, minimum: 1 }
+        startedAt: { type: string, format: date-time }
+        endedAt: { type: string, format: date-time }
+        productionNote: { type: string, maxLength: 1000 }
+    Lot:
+      allOf:
+        - $ref: '#/components/schemas/CreateLotRequest'
+        - type: object
+          required: [id, workOrderId, inspectionStatus]
+          properties:
+            id: { type: integer, format: int64 }
+            workOrderId: { type: integer, format: int64 }
+            inspectionStatus: { type: string, enum: [PENDING, PASS, FAIL] }
+    LotDetail:
+      allOf:
+        - $ref: '#/components/schemas/Lot'
+        - type: object
+          properties:
+            inspection: { $ref: '#/components/schemas/Inspection' }
+            summaries: { type: array, items: { $ref: '#/components/schemas/AiSummary' } }
+    CreateInspectionRequest:
+      type: object
+      required: [measurements]
+      properties:
+        measurements:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [itemNo, measuredValue]
+            properties:
+              itemNo: { type: integer, minimum: 1 }
+              measuredValue: { type: number, format: double }
+        inspectionNote: { type: string, maxLength: 1000 }
+    Inspection:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        passedCount: { type: integer }
+        failedCount: { type: integer }
+        measurements:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNo: { type: integer }
+              measuredValue: { type: number }
+              result: { type: string, enum: [PASS, FAIL] }
+    RelatedLot:
+      allOf:
+        - $ref: '#/components/schemas/Lot'
+        - type: object
+          properties:
+            reason: { type: string, example: '같은 품목 BR-A / 같은 설비 M1 / 조사 시간 중첩' }
+    AiSummary:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        summaryText: { type: string }
+        createdAt: { type: string, format: date-time }
