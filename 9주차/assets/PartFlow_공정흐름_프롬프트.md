@@ -1,0 +1,10 @@
+생성 방식: 내장 image_gen 도구. 교육용 개념 일러스트이며 부가 날짜·소품은 실제 데이터가 아님.
+
+Create a polished wide 16:9 isometric industrial process illustration infographic for the Korean educational MES project PartFlow. White and very light blue-gray background, restrained orange accents, dark charcoal Korean labels, soft 3D miniature factory equipment and people, clean professional enterprise web dashboard aesthetic, spacious and highly readable. Not a screenshot or wireframe. Title at top left "PartFlow 생산·품질 흐름". Subtitle "아날로그 설비의 기록을 LOT 단위로 연결".
+Show five visually connected stages left to right, with clear orange directional arrows and matching numbered captions:
+1 "작업지시" — production manager at PC with a production order card labelled "BR-A · 목표 10개".
+2 "LOT 생산" — one conventional standalone drilling machine marked "M1", worker holding a tablet manually entering records; two trays of metal L-shaped brackets each having a round hole. Clear labels "LOT-A · 5개" and "LOT-B · 5개". Small caption "작업자가 실적·이상 기록".
+3 "치수검사" — quality inspector using a bore measurement instrument on a bracket at inspection bench, LOT-A tray, caption "규격 9.90–10.10 mm"; result badges "적합 3개" in teal and "부적합 2개" in orange-red.
+4 "관련 LOT 확인" — quality analyst monitor showing LOT-A and LOT-B connected by a dotted informational line, caption "같은 품목·설비·조사시간", LOT-B badge "검사 대기". Do not imply LOT-B defective. This is data investigation, not another physical manufacturing operation.
+5 "메모 요약" — document with three concise lines "관찰 사실", "미확인 사항", "확인할 항목", human reviewer icon and caption "AI 초안 → 담당자 검토". Do not show AI diagnosing cause.
+Unify the five stages on one cohesive miniature factory floor with data investigation and summary stations to the right. Make clear through subtle stage grouping that stages 1-3 are production/inspection and stages 4-5 are information review. No automated robot arms, no automatic telemetry, no conveyor implying automatic collection, no shipping or rework stage. Footer small "교육용 가상 공정 · 실제 설비 자동연동 아님". All Korean text accurate and concise. High quality presentation-ready artwork, no other logos, no watermark.
