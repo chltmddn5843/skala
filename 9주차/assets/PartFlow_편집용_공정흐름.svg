@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#f5f6f8"/>
+<text x="50" y="58" font-family="Arial, Noto Sans KR, sans-serif" font-size="32" fill="#283444">PartFlow | 생산·품질 공정흐름</text>
+<text x="50" y="92" font-family="Arial, Noto Sans KR, sans-serif" font-size="18" fill="#657183">BR-A 브래킷 · M1 단일 설비 · 작업자 수기 입력 기반</text>
+<text x="50" y="143" font-family="Arial, Noto Sans KR, sans-serif" font-size="21" fill="#283444">01  현장 생산·검사 흐름</text>
+<g id="step-A"><rect x="50" y="165" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(70 187)" stroke="#d95720" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4v52M55 4v52M5 26h50M5 51h50"/><rect x="12" y="9" width="14" height="16"/><rect x="33" y="32" width="15" height="18"/></g>
+<text x="142" y="213" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#d95720">A</text>
+<text x="70" y="273" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">소재 준비</text>
+<text x="70" y="308" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">준비된 브래킷 소재</text>
+<text x="70" y="335" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">가공 전 대기 · 배경 설명</text>
+</g>
+<g id="step-B"><rect x="355" y="165" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(375 187)" stroke="#d95720" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 54h45M43 54V8H17M25 20v15M20 35h10M12 44h27"/><rect x="12" y="4" width="24" height="16" rx="3"/></g>
+<text x="447" y="213" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#d95720">B</text>
+<text x="375" y="273" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">M1 구멍 가공</text>
+<text x="375" y="308" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">작업지시 시작 후 생산</text>
+<text x="375" y="335" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">생산시간·수량 기록</text>
+</g>
+<g id="step-C"><rect x="660" y="165" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(680 187)" stroke="#d95720" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="16" width="50" height="37" rx="4"/><path d="M5 28h50M20 16v12M40 16v12M16 40h12M36 40h10"/></g>
+<text x="752" y="213" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#d95720">C</text>
+<text x="680" y="273" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">LOT 실적 등록</text>
+<text x="680" y="308" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">LOT-A 5개 / LOT-B 5개</text>
+<text x="680" y="335" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">관찰한 이상징후 기록</text>
+</g>
+<g id="step-D"><rect x="965" y="165" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(985 187)" stroke="#d95720" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="25" cy="25" r="18"/><path d="m39 39 16 16M15 25l7 7 14-16"/></g>
+<text x="1057" y="213" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#d95720">D</text>
+<text x="985" y="273" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">치수검사</text>
+<text x="985" y="308" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">LOT별 5개 전수검사</text>
+<text x="985" y="335" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">규격 9.90–10.10 mm</text>
+</g>
+<g stroke="#e76932" stroke-width="3" fill="none"><path d="M303 267h46m-10 -7 10 7 -10 7"/></g>
+<g stroke="#e76932" stroke-width="3" fill="none"><path d="M608 267h46m-10 -7 10 7 -10 7"/></g>
+<g stroke="#e76932" stroke-width="3" fill="none"><path d="M913 267h46m-10 -7 10 7 -10 7"/></g>
+<rect x="1270" y="165" width="280" height="215" rx="14" fill="#eaf6f2" stroke="#b8dcd0"/>
+<text x="1290" y="205" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">검사 결과 기록</text>
+<text x="1290" y="247" font-family="Arial, Noto Sans KR, sans-serif" font-size="17" fill="#283444">LOT-A · 적합 3 / 부적합 2</text>
+<text x="1290" y="282" font-family="Arial, Noto Sans KR, sans-serif" font-size="17" fill="#283444">LOT-B · 검사 대기</text>
+<text x="1290" y="329" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#526e65">검사완료 ≠ 출하 승인</text>
+<g stroke="#e76932" stroke-width="3" fill="none"><path d="M1218 267h46m-10 -7 10 7 -10 7"/></g>
+<text x="50" y="440" font-family="Arial, Noto Sans KR, sans-serif" font-size="21" fill="#283444">02  MES 정보 흐름</text>
+<g id="step-1"><rect x="50" y="465" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(70 487)" stroke="#4873ad" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="4" width="44" height="52" rx="4"/><path d="M18 18h24M18 29h24M18 40h16"/></g>
+<text x="142" y="513" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#4873ad">1</text>
+<text x="70" y="573" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">작업지시</text>
+<text x="70" y="608" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">WO-0908-01 · 목표 10개</text>
+<text x="70" y="635" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">생산관리자가 생성</text>
+</g>
+<g id="step-2"><rect x="355" y="465" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(375 487)" stroke="#4873ad" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="43" height="53" rx="4"/><path d="M17 16h25M17 26h25M17 36h14M32 46l5 5 10-12"/></g>
+<text x="447" y="513" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#4873ad">2</text>
+<text x="375" y="573" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">생산·이상 기록</text>
+<text x="375" y="608" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">LOT · 설비 · 생산시간</text>
+<text x="375" y="635" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">작업자가 수기 입력</text>
+</g>
+<g id="step-3"><rect x="660" y="465" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(680 487)" stroke="#4873ad" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="25" cy="25" r="18"/><path d="m39 39 16 16M15 25l7 7 14-16"/></g>
+<text x="752" y="513" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#4873ad">3</text>
+<text x="680" y="573" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">검사 결과 확인</text>
+<text x="680" y="608" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">측정값 저장 · 서버 판정</text>
+<text x="680" y="635" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">품질담당자가 확인</text>
+</g>
+<g id="step-4"><rect x="965" y="465" width="250" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(985 487)" stroke="#4873ad" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="24" rx="3"/><rect x="38" y="28" width="20" height="24" rx="3"/><path d="M22 20h26v8M30 15l6 5-6 5"/></g>
+<text x="1057" y="513" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#4873ad">4</text>
+<text x="985" y="573" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">관련 LOT 조회</text>
+<text x="985" y="608" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">동일 품목·설비·시간 중첩</text>
+<text x="985" y="635" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">LOT-B의 검사 여부 확인</text>
+</g>
+<g id="step-5"><rect x="1270" y="465" width="280" height="215" rx="14" fill="white" stroke="#dce1e7"/><g transform="translate(1290 487)" stroke="#4873ad" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="43" height="53" rx="4"/><path d="M17 16h25M17 26h25M17 36h14M32 46l5 5 10-12"/></g>
+<text x="1362" y="513" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#4873ad">5</text>
+<text x="1290" y="573" font-family="Arial, Noto Sans KR, sans-serif" font-size="23" fill="#283444">AI 메모 요약</text>
+<text x="1290" y="608" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">사실·미확인 사항 정리</text>
+<text x="1290" y="635" font-family="Arial, Noto Sans KR, sans-serif" font-size="16" fill="#596779">담당자가 초안 검토</text>
+</g>
+<g stroke="#4873ad" stroke-width="3" fill="none"><path d="M303 567h46m-10 -7 10 7 -10 7"/></g>
+<g stroke="#4873ad" stroke-width="3" fill="none"><path d="M608 567h46m-10 -7 10 7 -10 7"/></g>
+<g stroke="#4873ad" stroke-width="3" fill="none"><path d="M913 567h46m-10 -7 10 7 -10 7"/></g>
+<g stroke="#4873ad" stroke-width="3" fill="none"><path d="M1218 567h46m-10 -7 10 7 -10 7"/></g>
+<rect x="50" y="735" width="1500" height="112" rx="12" fill="#e9edf2"/>
+<text x="74" y="771" font-family="Arial, Noto Sans KR, sans-serif" font-size="18" fill="#283444">구현 범위</text>
+<text x="74" y="803" font-family="Arial, Noto Sans KR, sans-serif" font-size="20" fill="#283444">작업지시 → LOT 생산실적 → 치수검사 → 관련 LOT 조회 → 메모 요약</text>
+<text x="74" y="829" font-family="Arial, Noto Sans KR, sans-serif" font-size="15" fill="#657183">소재·보관은 현장 맥락 설명용입니다. 재고관리·설비 자동연동·재작업·출하 기능은 이번 범위에 포함하지 않습니다.</text>
+</svg>
