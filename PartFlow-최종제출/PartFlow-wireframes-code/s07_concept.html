@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="concept-body">
+    <div class="k">PartFlow</div>
+    <h1>생산·품질 공정흐름</h1>
+    <div class="s">BR-A 브래킷 · M1 단일 설비 · 작업자 수기 입력 기반</div>
+  </div>
+
+  <div class="concept-section">
+    <div class="label">01 현장 생산·검사 흐름</div>
+    <div class="concept-row">
+      <div class="concept-box">
+        <div class="letter">A</div>
+        <div class="t">소재 준비</div>
+        <div class="d">준비된 브래킷 소재<br>가공 전 대기 · 배경 설명</div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-box">
+        <div class="letter">B</div>
+        <div class="t">M1 구멍 가공</div>
+        <div class="d">작업지시 시작 후 생산<br>생산시간·수량 기록</div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-box">
+        <div class="letter">C</div>
+        <div class="t">LOT 실적 등록</div>
+        <div class="d">LOT-A 5개 / LOT-B 5개<br>관찰한 이상징후 기록</div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-box">
+        <div class="letter">D</div>
+        <div class="t">치수검사</div>
+        <div class="d">LOT별 5개 전수검사<br>규격 9.90–10.10 mm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="concept-section" style="margin-top:28px;">
+    <div class="label">02 MES 정보 흐름</div>
+    <div class="concept-row">
+      <div class="concept-box mes">
+        <div class="letter">1</div>
+        <div class="t">작업지시</div>
+        <div class="d">WO-0908-01 · 목표 10개<br>생산관리자가 생성</div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-box mes">
+        <div class="letter">2</div>
+        <div class="t">생산·이상 기록</div>
+        <div class="d">LOT · 설비 · 생산시간<br>작업자가 수기 입력</div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-box mes">
+        <div class="letter">3</div>
+        <div class="t">검사 결과 확인</div>
+        <div class="d">측정값 저장 · 서버 판정<br>품질담당자가 확인</div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-box mes">
+        <div class="letter">4</div>
+        <div class="t">관련 LOT 조회</div>
+        <div class="d">동일 품목·설비·같은 생산일<br>LOT-B의 검사 여부 확인</div>
+      </div>
+      <div class="concept-arrow">→</div>
+      <div class="concept-box mes">
+        <div class="letter">5</div>
+        <div class="t">AI 메모 요약</div>
+        <div class="d">사실·미확인 사항 정리<br>담당자가 초안 검토</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="concept-note">
+    <b>검사 결과 기록</b> — LOT-A · 적합 3 / 부적합 2, LOT-B · 검사 대기. 검사완료 ≠ 출하 승인.
+  </div>
+
+  <div class="concept-note">
+    <b>구현 범위</b> — 작업지시 → LOT 생산실적 → 치수검사 → 관련 LOT 조회 → 메모 요약.
+    소재·보관은 현장 맥락 설명용입니다. 재고관리·설비 자동연동·재작업·출하 기능은 이번 범위에 포함하지 않습니다.
+  </div>
+  </div>
+</body>
+</html>

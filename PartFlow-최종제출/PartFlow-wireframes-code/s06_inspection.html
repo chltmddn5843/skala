@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+<style>
+  tr.pass-row { background: rgba(52,211,153,0.04); }
+  tr.fail-row { background: rgba(248,113,113,0.07); }
+</style>
+</head>
+<body>
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-left">
+      <a class="logo" href="s00_landing.html">PartFlow</a>
+      <nav class="topnav-menu">
+        <a href="s02_dashboard.html">현황</a>
+      <a href="s03_workorders.html">작업지시</a>
+      <a href="s04_workorder_detail.html">지시 상세</a>
+      <a href="s05_lot_detail.html">LOT 상세</a>
+      <a class="active" href="s06_inspection.html">검사 등록</a>
+      </nav>
+    </div>
+    <div class="topnav-right"><strong>김품질</strong>품질담당자 · A공장</div>
+  </div>
+</div>
+<div class="page">
+    <div class="topbar">
+      <div>
+        <h1>검사 등록 · <span class="mono" style="font-weight:400;">LOT-A</span></h1>
+        <div class="sub">생산수량 5개(읽기전용) · 허용 규격 9.90–10.10 mm</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="card-head">측정값 입력</div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:100px;">제품 순번</th>
+              <th class="num">측정값 (mm)</th>
+              <th style="width:140px;">예상 판정</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="pass-row"><td class="mono">1</td><td class="num mono">9.90</td><td><span class="badge green"><span class="dot"></span>PASS</span></td></tr>
+            <tr class="pass-row"><td class="mono">2</td><td class="num mono">10.00</td><td><span class="badge green"><span class="dot"></span>PASS</span></td></tr>
+            <tr class="pass-row"><td class="mono">3</td><td class="num mono">10.10</td><td><span class="badge green"><span class="dot"></span>PASS</span></td></tr>
+            <tr class="fail-row"><td class="mono">4</td><td class="num mono">9.89</td><td><span class="badge red"><span class="dot"></span>FAIL</span></td></tr>
+            <tr class="fail-row"><td class="mono">5</td><td class="num mono">10.11</td><td><span class="badge red"><span class="dot"></span>FAIL</span></td></tr>
+          </tbody>
+        </table>
+        <div class="card-body">
+          <div class="field" style="margin-bottom:18px;">
+            <label>검사 메모</label>
+            <input value="하한/상한 이탈 각 1개, 원인은 미확인">
+          </div>
+          <a class="btn btn-primary" href="s05_lot_detail.html">검사 확정</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

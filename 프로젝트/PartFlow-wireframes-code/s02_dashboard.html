@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-left">
+      <a class="logo" href="s00_landing.html">PartFlow</a>
+      <nav class="topnav-menu">
+        <a class="active" href="s02_dashboard.html">현황</a>
+      <a href="s03_workorders.html">작업지시</a>
+      <a href="s04_workorder_detail.html">지시 상세</a>
+      <a href="s05_lot_detail.html">LOT 상세</a>
+      <a href="s06_inspection.html">검사 등록</a>
+      </nav>
+    </div>
+    <div class="topnav-right"><strong>박관리</strong>생산관리자 · A공장</div>
+  </div>
+</div>
+<div class="page">
+    <div class="topbar">
+      <div>
+        <h1>생산 운영 모니터링</h1>
+        <div class="sub">A공장 · 주간조 · 2026-09-08 · 마지막 입력 10:20</div>
+      </div>
+      <div class="meta">
+        <span class="badge green"><span class="dot"></span>가동중</span>
+      </div>
+    </div>
+    <div class="content">
+
+      <div class="grid grid-3">
+        <div class="kpi">
+          <div class="label">진행 중 작업지시</div>
+          <div class="value">2<small>건</small></div>
+        </div>
+        <div class="kpi">
+          <div class="label">오늘 생산 실적</div>
+          <div class="value">5<small>/ 10개</small></div>
+        </div>
+        <div class="kpi">
+          <div class="label">품질 확인대기</div>
+          <div class="value amber">1<small>건</small></div>
+        </div>
+      </div>
+
+      <div class="section-label">설비별 작업 상태</div>
+      <div class="grid grid-2">
+        <div class="equip-card">
+          <div class="head">
+            <span class="name">M1</span>
+            <span class="badge green"><span class="dot"></span>가동</span>
+          </div>
+          <div class="detail">지시 <span class="mono">WO-0908-01</span> · 실적 <span class="mono">5 / 10</span></div>
+          <div class="progress"><div style="width:50%"></div></div>
+        </div>
+        <div class="equip-card">
+          <div class="head">
+            <span class="name">M2</span>
+            <span class="badge gray"><span class="dot"></span>대기</span>
+          </div>
+          <div class="detail">지시 <span class="mono">WO-0908-02</span> · 실적 <span class="mono">0 / 20</span></div>
+          <div class="detail" style="margin-top:4px;">연결: 태블릿 수기 입력</div>
+          <div class="progress"><div style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="section-label">시간대별 생산실적</div>
+      <div class="card">
+        <div class="card-body">
+          <div class="hbar-row">
+            <span class="hbar-label">09:00–09:40</span>
+            <div class="hbar-track"><div class="hbar-fill" style="width:50%"></div></div>
+            <span class="hbar-value">5개 · M1</span>
+          </div>
+          <div class="hbar-row">
+            <span class="hbar-label">09:40–10:20</span>
+            <div class="hbar-track"><div class="hbar-fill dim" style="width:8%"></div></div>
+            <span class="hbar-value">0개 · M2</span>
+          </div>
+        </div>
+      </div>
+      <div class="helper-text" style="margin-top:8px;">작업자가 확정한 LOT 수량 기준</div>
+
+      <div class="section-label">LOT 진행 흐름 · WO-0908-01</div>
+      <div class="flow-strip">
+        <div class="flow-step"><div class="n">01</div><div class="t">작업지시</div><div class="d">BR-A · 10개</div></div>
+        <div class="flow-step"><div class="n">02</div><div class="t">M1 생산</div><div class="d">09:00–09:40 수기입력</div></div>
+        <div class="flow-step"><div class="n">03</div><div class="t">LOT-A</div><div class="d">소음 이상 관찰</div></div>
+        <div class="flow-step"><div class="n">04</div><div class="t">치수검사</div><div class="d">PASS 3 · FAIL 2</div></div>
+        <div class="flow-step"><div class="n">05</div><div class="t">관련 LOT</div><div class="d">LOT-B 확인 필요</div></div>
+      </div>
+
+      <div class="section-label">품질 확인대기</div>
+      <div class="alert amber">
+        <div>
+          <div class="title">LOT-A · 소음</div>
+          <div class="desc">가공 중 평소와 다른 소음 관찰 · 등록자 이현장 · 09:25</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

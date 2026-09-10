@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-left">
+      <a class="logo" href="s00_landing.html">PartFlow</a>
+      <nav class="topnav-menu">
+        <a href="s02_dashboard.html">현황</a>
+      <a class="active" href="s03_workorders.html">작업지시</a>
+      <a href="s04_workorder_detail.html">지시 상세</a>
+      <a href="s05_lot_detail.html">LOT 상세</a>
+      <a href="s06_inspection.html">검사 등록</a>
+      </nav>
+    </div>
+    <div class="topnav-right"><strong>박관리</strong>생산관리자 · A공장</div>
+  </div>
+</div>
+<div class="page">
+    <div class="topbar">
+      <div>
+        <h1>작업지시</h1>
+        <div class="sub">아날로그 설비의 수기 기록을 LOT 이력으로 연결</div>
+      </div>
+      <button class="btn btn-primary">+ 작업지시 생성</button>
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="card-head">작업지시 목록 · 총 2건</div>
+        <table>
+          <thead>
+            <tr>
+              <th class="mono">지시번호</th>
+              <th>품목</th>
+              <th style="width:220px;">생산 / 목표</th>
+              <th>납기</th>
+              <th>상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono"><a class="row-link" href="s04_workorder_detail.html">WO-0908-01</a></td>
+              <td>BR-A</td>
+              <td>
+                <span class="mono">5 / 10</span>
+                <div class="progress"><div style="width:50%"></div></div>
+              </td>
+              <td class="mono">09-09</td>
+              <td><span class="badge green"><span class="dot"></span>진행</span></td>
+            </tr>
+            <tr>
+              <td class="mono">WO-0908-02</td>
+              <td>BR-B</td>
+              <td>
+                <span class="mono">0 / 20</span>
+                <div class="progress"><div style="width:0%"></div></div>
+              </td>
+              <td class="mono">09-10</td>
+              <td><span class="badge gray"><span class="dot"></span>대기</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+{"kind":"deck","id":"pr/jb2lqk","name":"Deck"}
+{"kind":"layout","layoutId":"46f109e8-43a8-4a8c-a3cb-584555bb296c","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"b0321a23-b2da-4886-b63d-332dfdd65863","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/8ibhqi","slide":1,"title":"UI 기능과 API 매핑 | 01 로그인","textShapes":8}
+{"kind":"shape","id":"sh/byd0vmhs","slide":1,"bbox":[0,0,18,720]}
+{"kind":"textbox","id":"sh/czmhorid","slide":1,"text":"UI 기능과 API 매핑 | 01 로그인","textPreview":"UI 기능과 API 매핑 | 01 로그인","textChars":22,"textLines":1,"bbox":[48,28,920,48]}
+{"kind":"textbox","id":"sh/d0fixwzy","slide":1,"text":"01 / 06","textPreview":"01 / 06","textChars":7,"textLines":1,"bbox":[1130,34,100,34]}
+{"kind":"shape","id":"sh/2t4zih0b","slide":1,"bbox":[156.07,95,423.86,576]}
+{"kind":"shape","id":"sh/ovmhkrih","slide":1,"bbox":[354.08,376.09,30,30]}
+{"kind":"textbox","id":"sh/pwvytwj2","slide":1,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[354.08,377.09,30,28]}
+{"kind":"shape","id":"sh/mpozul0f","slide":1,"bbox":[720,112,510,148]}
+{"kind":"shape","id":"sh/nqx036h0","slide":1,"bbox":[734,126,30,30]}
+{"kind":"textbox","id":"sh/7q5wb2xk","slide":1,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[734,126,30,29]}
+{"kind":"shape","id":"sh/mpwfixgz","slide":1,"bbox":[774,125,56,27]}
+{"kind":"textbox","id":"sh/9snedcfa","slide":1,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[774,125,56,26]}
+{"kind":"textbox","id":"sh/8rexk7yp","slide":1,"text":"/api/auth/login","textPreview":"/api/auth/login","textChars":15,"textLines":1,"bbox":[838,122,378,34]}
+{"kind":"textbox","id":"sh/vu5wf2xg","slide":1,"text":"아이디·비밀번호를 확인하고 세션과 사용자 역할을 반환한다. 성공 후 MANAGER·OPERATOR·QUALITY에 맞는 첫 화면으로 이동한다.","textPreview":"아이디·비밀번호를 확인하고 세션과 사용자 역할을 반환한다. 성공 후 MANAGER·OPERATOR·QUALITY에 맞는 첫 화면으로 이동한다.","textChars":79,"textLines":1,"bbox":[736,160,478,92]}
+{"kind":"shape","id":"sh/utwfmhgv","slide":1,"bbox":[720,280,510,70]}
+{"kind":"textbox","id":"sh/hw7ehcfm","slide":1,"text":"역할별 데모 로그인 버튼도 동일한 로그인 API를 사용하고 계정만 다르다.","textPreview":"역할별 데모 로그인 버튼도 동일한 로그인 API를 사용하고 계정만 다르다.","textChars":41,"textLines":1,"bbox":[736,288,478,54]}
+{"kind":"image","id":"im/edkv61s3","slide":1,"name":"","alt":"UI 기능과 API 매핑 | 01 로그인 UI","bbox":[164.07,103,407.86,560]}
+{"kind":"notes","id":"nt/8ibhqi","slide":1,"text":"근거: /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow-API.yml; /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow_API_설계.md. 화면 원본: /Users/chltmddn5843/Downloads/skala/wireframe/01.로그인.jpeg"}
+{"kind":"slide","id":"sl/hfndwq","slide":2,"title":"UI 기능과 API 매핑 | 02 메인페이지","textShapes":13}
+{"kind":"shape","id":"sh/6d8je94f","slide":2,"bbox":[0,0,18,720]}
+{"kind":"textbox","id":"sh/tgji9436","slide":2,"text":"UI 기능과 API 매핑 | 02 메인페이지","textPreview":"UI 기능과 API 매핑 | 02 메인페이지","textChars":24,"textLines":1,"bbox":[48,28,920,48]}
+{"kind":"textbox","id":"sh/sfa1gzml","slide":2,"text":"02 / 06","textPreview":"02 / 06","textChars":7,"textLines":1,"bbox":[1130,34,100,34]}
+{"kind":"shape","id":"sh/jah03ul4","slide":2,"bbox":[30,171.54,836,416.93]}
+{"kind":"shape","id":"sh/5czi543u","slide":2,"bbox":[765.45,184.34,30,30]}
+{"kind":"textbox","id":"sh/4bq1czmp","slide":2,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[765.45,185.34,30,28]}
+{"kind":"shape","id":"sh/36l0fyl8","slide":2,"bbox":[435.47,486.27,30,30]}
+{"kind":"textbox","id":"sh/25sjmt4n","slide":2,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[435.47,487.27,30,28]}
+{"kind":"shape","id":"sh/kfepcnmh","slide":2,"bbox":[892,112,350,148]}
+{"kind":"shape","id":"sh/lg7q5s3m","slide":2,"bbox":[906,126,30,30]}
+{"kind":"textbox","id":"sh/ydw7ad4b","slide":2,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[906,126,30,29]}
+{"kind":"shape","id":"sh/ze583ilw","slide":2,"bbox":[946,125,56,27]}
+{"kind":"textbox","id":"sh/cbep83m5","slide":2,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,125,56,26]}
+{"kind":"textbox","id":"sh/xcnq183q","slide":2,"text":"/api/auth/me","textPreview":"/api/auth/me","textChars":12,"textLines":1,"bbox":[1010,122,218,34]}
+{"kind":"textbox","id":"sh/apw76d4z","slide":2,"text":"현재 로그인한 사용자의 이름과 역할을 조회해 상단에 표시한다.","textPreview":"현재 로그인한 사용자의 이름과 역할을 조회해 상단에 표시한다.","textChars":34,"textLines":1,"bbox":[908,160,318,92]}
+{"kind":"shape","id":"sh/ba58zilk","slide":2,"bbox":[892,272,350,148]}
+{"kind":"shape","id":"sh/onup43m9","slide":2,"bbox":[906,286,30,30]}
+{"kind":"textbox","id":"sh/po3qx83u","slide":2,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[906,286,30,29]}
+{"kind":"shape","id":"sh/p4v614vi","slide":2,"bbox":[946,285,56,27]}
+{"kind":"textbox","id":"sh/43m58zex","slide":2,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,285,56,26]}
+{"kind":"textbox","id":"sh/3idozuxc","slide":2,"text":"/api/dashboard","textPreview":"/api/dashboard","textChars":14,"textLines":1,"bbox":[1010,282,218,34]}
+{"kind":"textbox","id":"sh/2h4n6pwr","slide":2,"text":"오늘의 작업지시 실적과 품질 확인대기 LOT를 조회해 '오늘의 확인 항목'에 표시한다.","textPreview":"오늘의 작업지시 실적과 품질 확인대기 LOT를 조회해 '오늘의 확인 항목'에 표시한다.","textChars":48,"textLines":1,"bbox":[908,320,318,92]}
+{"kind":"shape","id":"sh/hgv6xkf6","slide":2,"bbox":[892,440,350,70]}
+{"kind":"textbox","id":"sh/gfm54fe1","slide":2,"text":"작업지시·생산 기록·품질관리 카드는 화면 이동 기능이며 API를 직접 호출하지 않는다.","textPreview":"작업지시·생산 기록·품질관리 카드는 화면 이동 기능이며 API를 직접 호출하지 않는다.","textChars":48,"textLines":1,"bbox":[908,448,318,54]}
+{"kind":"image","id":"im/32lgnidg","slide":2,"name":"","alt":"UI 기능과 API 매핑 | 02 메인페이지 UI","bbox":[38,179.54,820,400.93]}
+{"kind":"notes","id":"nt/hfndwq","slide":2,"text":"근거: /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow-API.yml; /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow_API_설계.md. 화면 원본: /Users/chltmddn5843/Downloads/skala/wireframe/02.메인페이지.jpeg"}
+{"kind":"slide","id":"sl/vou4ov","slide":3,"title":"UI 기능과 API 매핑 | 03 작업지시","textShapes":17}
+{"kind":"shape","id":"sh/zq10rqd8","slide":3,"bbox":[0,0,18,720]}
+{"kind":"textbox","id":"sh/0rahkbut","slide":3,"text":"UI 기능과 API 매핑 | 03 작업지시","textPreview":"UI 기능과 API 매핑 | 03 작업지시","textChars":23,"textLines":1,"bbox":[48,28,920,48]}
+{"kind":"textbox","id":"sh/lsjitgve","slide":3,"text":"03 / 06","textPreview":"03 / 06","textChars":7,"textLines":1,"bbox":[1130,34,100,34]}
+{"kind":"shape","id":"sh/mtczmlcz","slide":3,"bbox":[30,233.34,836,293.33]}
+{"kind":"shape","id":"sh/8fuhovup","slide":3,"bbox":[382.65,342.22,30,30]}
+{"kind":"textbox","id":"sh/9g3ix0va","slide":3,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[382.65,343.22,30,28]}
+{"kind":"shape","id":"sh/2x8za1cf","slide":3,"bbox":[762.28,286.28,30,30]}
+{"kind":"textbox","id":"sh/3yhgjmd0","slide":3,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[762.28,287.28,30,28]}
+{"kind":"shape","id":"sh/zelcvy58","slide":3,"bbox":[114.91,392.57,30,30]}
+{"kind":"textbox","id":"sh/edcbmton","slide":3,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[114.91,393.57,30,28]}
+{"kind":"shape","id":"sh/1g3ux8ne","slide":3,"bbox":[892,112,350,148]}
+{"kind":"shape","id":"sh/0futo36t","slide":3,"bbox":[906,126,30,30]}
+{"kind":"textbox","id":"sh/rqlsre5c","slide":3,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[906,126,30,29]}
+{"kind":"shape","id":"sh/qpcbi9or","slide":3,"bbox":[946,125,56,27]}
+{"kind":"textbox","id":"sh/ds3uton2","slide":3,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,125,56,26]}
+{"kind":"textbox","id":"sh/crutkj6h","slide":3,"text":"/api/work-orders","textPreview":"/api/work-orders","textChars":16,"textLines":1,"bbox":[1010,122,218,34]}
+{"kind":"textbox","id":"sh/3m1sne50","slide":3,"text":"작업지시 목록과 품목·진행률·납기·상태를 조회한다.","textPreview":"작업지시 목록과 품목·진행률·납기·상태를 조회한다.","textChars":28,"textLines":1,"bbox":[908,160,318,92]}
+{"kind":"shape","id":"sh/2lsbe9of","slide":3,"bbox":[892,272,350,148]}
+{"kind":"shape","id":"sh/6h8b6987","slide":3,"bbox":[906,286,30,30]}
+{"kind":"textbox","id":"sh/7i1cze9s","slide":3,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[906,286,30,29]}
+{"kind":"shape","id":"sh/sjad8jqd","slide":3,"bbox":[946,285,56,27]}
+{"kind":"textbox","id":"sh/tkju14ry","slide":3,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[946,285,56,26]}
+{"kind":"textbox","id":"sh/ulsva98j","slide":3,"text":"/api/work-orders","textPreview":"/api/work-orders","textChars":16,"textLines":1,"bbox":[1010,282,218,34]}
+{"kind":"textbox","id":"sh/fm1c3e94","slide":3,"text":"품목, 목표수량, 예정일을 받아 PLANNED 상태의 작업지시를 생성한다.","textPreview":"품목, 목표수량, 예정일을 받아 PLANNED 상태의 작업지시를 생성한다.","textChars":41,"textLines":1,"bbox":[908,320,318,92]}
+{"kind":"shape","id":"sh/gnadcjqp","slide":3,"bbox":[892,432,350,148]}
+{"kind":"shape","id":"sh/hoju5oru","slide":3,"bbox":[906,446,30,30]}
+{"kind":"textbox","id":"sh/2pcvet8f","slide":3,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[906,446,30,29]}
+{"kind":"shape","id":"sh/3qlc7yp0","slide":3,"bbox":[946,445,56,27]}
+{"kind":"textbox","id":"sh/dknexsb2","slide":3,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,445,56,26]}
+{"kind":"textbox","id":"sh/cjex4nax","slide":3,"text":"/api/work-orders/{id}","textPreview":"/api/work-orders/{id}","textChars":21,"textLines":1,"bbox":[1010,442,218,34]}
+{"kind":"textbox","id":"sh/ri5wvitc","slide":3,"text":"지시번호를 클릭하면 누적 생산량과 연결 LOT를 포함한 상세를 조회한다.","textPreview":"지시번호를 클릭하면 누적 생산량과 연결 LOT를 포함한 상세를 조회한다.","textChars":40,"textLines":1,"bbox":[908,480,318,92]}
+{"kind":"image","id":"im/2pkzu50b","slide":3,"name":"","alt":"UI 기능과 API 매핑 | 03 작업지시 UI","bbox":[38,241.34,820,277.33]}
+{"kind":"notes","id":"nt/vou4ov","slide":3,"text":"근거: /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow-API.yml; /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow_API_설계.md. 화면 원본: /Users/chltmddn5843/Downloads/skala/wireframe/03.작업지시.jpeg"}
+{"kind":"slide","id":"sl/2lf87p","slide":4,"title":"UI 기능과 API 매핑 | 04 지시 상세","textShapes":22}
+{"kind":"shape","id":"sh/nah4fmdk","slide":4,"bbox":[0,0,18,720]}
+{"kind":"textbox","id":"sh/ovq58ru5","slide":4,"text":"UI 기능과 API 매핑 | 04 지시 상세","textPreview":"UI 기능과 API 매핑 | 04 지시 상세","textChars":24,"textLines":1,"bbox":[48,28,920,48]}
+{"kind":"textbox","id":"sh/9wzmhwvq","slide":4,"text":"04 / 06","textPreview":"04 / 06","textChars":7,"textLines":1,"bbox":[1130,34,100,34]}
+{"kind":"shape","id":"sh/axsna1cb","slide":4,"bbox":[52.57,98,790.87,564]}
+{"kind":"shape","id":"sh/wza5cru1","slide":4,"bbox":[165.39,143.72,30,30]}
+{"kind":"textbox","id":"sh/x0jmlwvm","slide":4,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[165.39,144.72,30,28]}
+{"kind":"shape","id":"sh/q1o3yxcr","slide":4,"bbox":[758.13,146.92,30,30]}
+{"kind":"textbox","id":"sh/r2x472dc","slide":4,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[758.13,147.92,30,28]}
+{"kind":"shape","id":"sh/bilgbytw","slide":4,"bbox":[121.45,398.55,30,30]}
+{"kind":"textbox","id":"sh/qhczitsb","slide":4,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[121.45,399.55,30,28]}
+{"kind":"shape","id":"sh/dk3ydob2","slide":4,"bbox":[111.07,579.89,30,30]}
+{"kind":"textbox","id":"sh/cjuhk3ah","slide":4,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[111.07,580.89,30,28]}
+{"kind":"shape","id":"sh/3e1g7et0","slide":4,"bbox":[892,112,350,126]}
+{"kind":"shape","id":"sh/2dsze9sf","slide":4,"bbox":[906,126,30,30]}
+{"kind":"textbox","id":"sh/pgjy9obq","slide":4,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[906,126,30,29]}
+{"kind":"shape","id":"sh/4fahgjal","slide":4,"bbox":[946,125,56,27]}
+{"kind":"textbox","id":"sh/fq1g3eto","slide":4,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,125,56,26]}
+{"kind":"textbox","id":"sh/upsza9s3","slide":4,"text":"/api/work-orders/{id}","textPreview":"/api/work-orders/{id}","textChars":21,"textLines":1,"bbox":[1010,122,218,34]}
+{"kind":"textbox","id":"sh/il8zm9wb","slide":4,"text":"목표수량, 누적 실적, 진행률과 연결 LOT 목록을 조회한다.","textPreview":"목표수량, 누적 실적, 진행률과 연결 LOT 목록을 조회한다.","textChars":34,"textLines":1,"bbox":[908,160,318,70]}
+{"kind":"shape","id":"sh/jmh0vudg","slide":4,"bbox":[892,250,350,126]}
+{"kind":"shape","id":"sh/knqhoze1","slide":4,"bbox":[906,264,30,30]}
+{"kind":"textbox","id":"sh/5ozix4vm","slide":4,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[906,264,30,29]}
+{"kind":"shape","id":"sh/69szq9w7","slide":4,"bbox":[946,263,56,27]}
+{"kind":"textbox","id":"sh/7a10zeds","slide":4,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[946,263,56,26]}
+{"kind":"textbox","id":"sh/sbahsjed","slide":4,"text":"/api/work-orders/{id}/close","textPreview":"/api/work-orders/{id}/close","textChars":27,"textLines":1,"bbox":[1010,260,218,34]}
+{"kind":"textbox","id":"sh/tcji1ovy","slide":4,"text":"진행 중인 작업지시를 종료한다. 목표 미달이면 종료 사유를 함께 저장한다.","textPreview":"진행 중인 작업지시를 종료한다. 목표 미달이면 종료 사유를 함께 저장한다.","textChars":41,"textLines":1,"bbox":[908,298,318,70]}
+{"kind":"shape","id":"sh/udsjutw3","slide":4,"bbox":[892,388,350,126]}
+{"kind":"shape","id":"sh/fe103ydo","slide":4,"bbox":[906,402,30,30]}
+{"kind":"textbox","id":"sh/p832tsf6","slide":4,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[906,402,30,29]}
+{"kind":"shape","id":"sh/o7ulknyl","slide":4,"bbox":[946,401,56,27]}
+{"kind":"textbox","id":"sh/36lkrix0","slide":4,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[946,401,56,26]}
+{"kind":"textbox","id":"sh/25c3idgf","slide":4,"text":"/api/work-orders/{id}/lots","textPreview":"/api/work-orders/{id}/lots","textChars":26,"textLines":1,"bbox":[1010,398,218,34]}
+{"kind":"textbox","id":"sh/dcn2xsf2","slide":4,"text":"LOT 번호·설비·수량·생산시간을 저장하고 지시의 누적 실적을 갱신한다.","textPreview":"LOT 번호·설비·수량·생산시간을 저장하고 지시의 누적 실적을 갱신한다.","textChars":40,"textLines":1,"bbox":[908,436,318,70]}
+{"kind":"shape","id":"sh/cbelonyh","slide":4,"bbox":[892,526,350,126]}
+{"kind":"shape","id":"sh/ba5kvixw","slide":4,"bbox":[906,540,30,30]}
+{"kind":"textbox","id":"sh/q9w3mxgb","slide":4,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[906,540,30,29]}
+{"kind":"shape","id":"sh/l07m1cfy","slide":4,"bbox":[946,539,56,27]}
+{"kind":"textbox","id":"sh/0zels7yt","slide":4,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[946,539,56,26]}
+{"kind":"textbox","id":"sh/wvi5kbi1","slide":4,"text":"/api/work-orders/{id}/lots/{lotId}/anomalies","textPreview":"/api/work-orders/{id}/lots/{lotId}/anomalies","textChars":44,"textLines":1,"bbox":[908,568,318,22]}
+{"kind":"textbox","id":"sh/xwr6tgz6","slide":4,"text":"이상 유형·발생시각·관찰 메모를 저장해 LOT를 품질 확인대기 대상으로 표시한다.","textPreview":"이상 유형·발생시각·관찰 메모를 저장해 LOT를 품질 확인대기 대상으로 표시한다.","textChars":45,"textLines":1,"bbox":[908,592,318,54]}
+{"kind":"image","id":"im/mhon2tof","slide":4,"name":"","alt":"UI 기능과 API 매핑 | 04 지시 상세 UI","bbox":[60.57,106,774.87,548]}
+{"kind":"notes","id":"nt/2lf87p","slide":4,"text":"근거: /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow-API.yml; /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow_API_설계.md. 화면 원본: /Users/chltmddn5843/Downloads/skala/wireframe/04.지시상세.jpeg"}
+{"kind":"slide","id":"sl/wdcaiy","slide":5,"title":"UI 기능과 API 매핑 | 05 LOT 상세","textShapes":18}
+{"kind":"shape","id":"sh/p43adc7q","slide":5,"bbox":[0,0,18,720]}
+{"kind":"textbox","id":"sh/21cbix8f","slide":5,"text":"UI 기능과 API 매핑 | 05 LOT 상세","textPreview":"UI 기능과 API 매핑 | 05 LOT 상세","textChars":25,"textLines":1,"bbox":[48,28,920,48]}
+{"kind":"textbox","id":"sh/32lsb2pk","slide":5,"text":"05 / 06","textPreview":"05 / 06","textChars":7,"textLines":1,"bbox":[1130,34,100,34]}
+{"kind":"shape","id":"sh/cretorqh","slide":5,"bbox":[30,113.57,836,532.86]}
+{"kind":"shape","id":"sh/q5cbmh8b","slide":5,"bbox":[142.21,161.06,30,30]}
+{"kind":"textbox","id":"sh/b65sfmpw","slide":5,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[142.21,162.06,30,28]}
+{"kind":"shape","id":"sh/kvetsrqd","slide":5,"bbox":[184.79,464.2,30,30]}
+{"kind":"textbox","id":"sh/lwnulw7y","slide":5,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[184.79,465.2,30,28]}
+{"kind":"shape","id":"sh/x0nup8ne","slide":5,"bbox":[112.41,505.07,30,30]}
+{"kind":"textbox","id":"sh/czetw3m9","slide":5,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[112.41,506.07,30,28]}
+{"kind":"shape","id":"sh/by5cny5o","slide":5,"bbox":[892,112,350,148]}
+{"kind":"shape","id":"sh/adwbut43","slide":5,"bbox":[906,126,30,30]}
+{"kind":"textbox","id":"sh/l47ut8nq","slide":5,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[906,126,30,29]}
+{"kind":"shape","id":"sh/k3et03m5","slide":5,"bbox":[946,125,56,27]}
+{"kind":"textbox","id":"sh/j25cry5k","slide":5,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,125,56,26]}
+{"kind":"textbox","id":"sh/y1wbyt4z","slide":5,"text":"/api/lots/{id}","textPreview":"/api/lots/{id}","textChars":14,"textLines":1,"bbox":[1010,122,218,34]}
+{"kind":"textbox","id":"sh/183uhonm","slide":5,"text":"LOT의 생산·규격·검사결과·AI 요약 이력을 한 번에 조회한다.","textPreview":"LOT의 생산·규격·검사결과·AI 요약 이력을 한 번에 조회한다.","textChars":36,"textLines":1,"bbox":[908,160,318,92]}
+{"kind":"shape","id":"sh/07utojm1","slide":5,"bbox":[892,272,350,148]}
+{"kind":"shape","id":"sh/sryt4jux","slide":5,"bbox":[906,286,30,30]}
+{"kind":"textbox","id":"sh/ts7uxov2","slide":5,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[906,286,30,29]}
+{"kind":"shape","id":"sh/6pwb29cr","slide":5,"bbox":[946,285,56,27]}
+{"kind":"textbox","id":"sh/rq5cvedc","slide":5,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,285,56,26]}
+{"kind":"textbox","id":"sh/gfyt8jut","slide":5,"text":"/api/lots/{id}/related","textPreview":"/api/lots/{id}/related","textChars":22,"textLines":1,"bbox":[1010,282,218,34]}
+{"kind":"textbox","id":"sh/1g7u1ove","slide":5,"text":"같은 품목·설비·생산일을 기준으로 관련 LOT 후보를 조회한다.","textPreview":"같은 품목·설비·생산일을 기준으로 관련 LOT 후보를 조회한다.","textChars":35,"textLines":1,"bbox":[908,320,318,92]}
+{"kind":"shape","id":"sh/edgb6tcn","slide":5,"bbox":[892,432,350,148]}
+{"kind":"shape","id":"sh/fepczed8","slide":5,"bbox":[906,446,30,30]}
+{"kind":"textbox","id":"sh/ojidc3up","slide":5,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[906,446,30,29]}
+{"kind":"shape","id":"sh/pkru58va","slide":5,"bbox":[946,445,56,27]}
+{"kind":"textbox","id":"sh/zetwb2xs","slide":5,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[946,445,56,26]}
+{"kind":"textbox","id":"sh/ydkf2xw7","slide":5,"text":"/api/lots/{id}/ai-summaries","textPreview":"/api/lots/{id}/ai-summaries","textChars":27,"textLines":1,"bbox":[1010,442,218,34]}
+{"kind":"textbox","id":"sh/lgbedcfi","slide":5,"text":"선택한 relatedLotIds와 기준 LOT를 함께 분석해 AI 요약을 생성하고 근거 LOT 스냅샷을 저장한다.","textPreview":"선택한 relatedLotIds와 기준 LOT를 함께 분석해 AI 요약을 생성하고 근거 LOT 스냅샷을 저장한다.","textChars":63,"textLines":1,"bbox":[908,480,318,92]}
+{"kind":"shape","id":"sh/kf2x47ex","slide":5,"bbox":[892,600,350,70]}
+{"kind":"textbox","id":"sh/batw7ixg","slide":5,"text":"AI 요약은 검사가 확정된 LOT에서만 생성할 수 있다.","textPreview":"AI 요약은 검사가 확정된 LOT에서만 생성할 수 있다.","textChars":31,"textLines":1,"bbox":[908,608,318,54]}
+{"kind":"image","id":"im/ob2d4bel","slide":5,"name":"","alt":"UI 기능과 API 매핑 | 05 LOT 상세 UI","bbox":[38,121.57,820,516.86]}
+{"kind":"notes","id":"nt/wdcaiy","slide":5,"text":"근거: /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow-API.yml; /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow_API_설계.md. 화면 원본: /Users/chltmddn5843/Downloads/skala/wireframe/05.LOT상세.jpeg"}
+{"kind":"slide","id":"sl/wehrze","slide":6,"title":"UI 기능과 API 매핑 | 06 검사 등록","textShapes":13}
+{"kind":"shape","id":"sh/rehw7i1g","slide":6,"bbox":[0,0,18,720]}
+{"kind":"textbox","id":"sh/sfqd0n21","slide":6,"text":"UI 기능과 API 매핑 | 06 검사 등록","textPreview":"UI 기능과 API 매핑 | 06 검사 등록","textChars":24,"textLines":1,"bbox":[48,28,920,48]}
+{"kind":"textbox","id":"sh/t0ze9sjm","slide":6,"text":"06 / 06","textPreview":"06 / 06","textChars":7,"textLines":1,"bbox":[1130,34,100,34]}
+{"kind":"shape","id":"sh/i98vudkz","slide":6,"bbox":[30,149.39,836,461.21]}
+{"kind":"shape","id":"sh/4bqdw325","slide":6,"bbox":[217.27,200.68,30,30]}
+{"kind":"textbox","id":"sh/5cze58jq","slide":6,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[217.27,201.68,30,28]}
+{"kind":"shape","id":"sh/u5ovqtk3","slide":6,"bbox":[99.9,533.37,30,30]}
+{"kind":"textbox","id":"sh/v6xczy18","slide":6,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[99.9,534.37,30,28]}
+{"kind":"shape","id":"sh/7adcvadc","slide":6,"bbox":[892,112,350,148]}
+{"kind":"shape","id":"sh/694vm5cr","slide":6,"bbox":[906,126,30,30]}
+{"kind":"textbox","id":"sh/tcfexkv2","slide":6,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[906,126,30,29]}
+{"kind":"shape","id":"sh/8bmdofux","slide":6,"bbox":[946,125,56,27]}
+{"kind":"textbox","id":"sh/vexwzat8","slide":6,"text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[946,125,56,26]}
+{"kind":"textbox","id":"sh/udovqpcn","slide":6,"text":"/api/lots/{id}","textPreview":"/api/lots/{id}","textChars":14,"textLines":1,"bbox":[1010,122,218,34]}
+{"kind":"textbox","id":"sh/h0fe1kbe","slide":6,"text":"LOT 수량과 생산 시점의 규격을 조회해 측정값 입력 화면을 구성한다.","textPreview":"LOT 수량과 생산 시점의 규격을 조회해 측정값 입력 화면을 구성한다.","textChars":39,"textLines":1,"bbox":[908,160,318,92]}
+{"kind":"shape","id":"sh/gf6dsfut","slide":6,"bbox":[892,272,350,148]}
+{"kind":"shape","id":"sh/bitcnqd4","slide":6,"bbox":[906,286,30,30]}
+{"kind":"textbox","id":"sh/ahkvelcj","slide":6,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[906,286,30,29]}
+{"kind":"shape","id":"sh/exsf2tw7","slide":6,"bbox":[946,285,56,27]}
+{"kind":"textbox","id":"sh/zy1gvyds","slide":6,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[946,285,56,26]}
+{"kind":"textbox","id":"sh/0zah43ex","slide":6,"text":"/api/lots/{id}/inspection","textPreview":"/api/lots/{id}/inspection","textChars":25,"textLines":1,"bbox":[1010,282,218,34]}
+{"kind":"textbox","id":"sh/10jyx8vi","slide":6,"text":"제품 순번별 측정값과 검사 메모를 저장한다. 서버가 9.90~10.10 mm 규격과 비교해 PASS/FAIL을 계산한다.","textPreview":"제품 순번별 측정값과 검사 메모를 저장한다. 서버가 9.90~10.10 mm 규격과 비교해 PASS/FAIL을 계산한다.","textChars":67,"textLines":1,"bbox":[908,320,318,92]}
+{"kind":"shape","id":"sh/q98fy9wv","slide":6,"bbox":[892,440,350,70]}
+{"kind":"textbox","id":"sh/ruhgrexg","slide":6,"text":"측정값 개수가 LOT 생산수량과 다르면 확정을 거절하며, LOT당 검사는 1회만 확정한다.","textPreview":"측정값 개수가 LOT 생산수량과 다르면 확정을 거절하며, LOT당 검사는 1회만 확정한다.","textChars":50,"textLines":1,"bbox":[908,448,318,54]}
+{"kind":"image","id":"im/mh8zyh47","slide":6,"name":"","alt":"UI 기능과 API 매핑 | 06 검사 등록 UI","bbox":[38,157.39,820,445.21]}
+{"kind":"notes","id":"nt/wehrze","slide":6,"text":"근거: /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow-API.yml; /Users/chltmddn5843/Downloads/skala/PartFlow-최종제출/PartFlow_API_설계.md. 화면 원본: /Users/chltmddn5843/Downloads/skala/wireframe/06.검사등록.jpeg"}

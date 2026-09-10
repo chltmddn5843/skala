@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+<style>
+  .measure-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:6px; background:var(--surface-raised); border:1px solid var(--border); font-family:var(--mono); font-size:13px; margin-right:8px; margin-bottom:8px; }
+  .measure-chip.fail { border-color:#5A2323; background:var(--red-bg); color:var(--red); }
+  .measure-chip.pass { color: var(--text); }
+  .ai-box { background: var(--blue-bg); border: 1px solid #1E3A5F; border-radius: 8px; padding: 14px 16px; font-size: 13px; color: var(--text-dim); line-height:1.6; }
+  .ai-box b { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-left">
+      <a class="logo" href="s00_landing.html">PartFlow</a>
+      <nav class="topnav-menu">
+        <a href="s02_dashboard.html">현황</a>
+      <a href="s03_workorders.html">작업지시</a>
+      <a href="s04_workorder_detail.html">지시 상세</a>
+      <a class="active" href="s05_lot_detail.html">LOT 상세</a>
+      <a href="s06_inspection.html">검사 등록</a>
+      </nav>
+    </div>
+    <div class="topnav-right"><strong>김품질</strong>품질담당자 · A공장</div>
+  </div>
+</div>
+<div class="page">
+    <div class="topbar">
+      <div>
+        <h1>LOT 상세 · <span class="mono" style="font-weight:400;">LOT-A</span></h1>
+        <div class="sub">WO-0908-01 · BR-A</div>
+      </div>
+      <span class="badge red"><span class="dot"></span>검사완료 · FAIL 2</span>
+    </div>
+    <div class="content">
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-head">생산 · 규격</div>
+          <div class="card-body">
+            <table style="margin:-4px 0 0;">
+              <tr><td style="padding-left:0;color:var(--text-dim);">설비</td><td class="mono" style="text-align:right;padding-right:0;">M1</td></tr>
+              <tr><td style="padding-left:0;color:var(--text-dim);">생산시간</td><td class="mono" style="text-align:right;padding-right:0;">09:00–09:40</td></tr>
+              <tr><td style="padding-left:0;color:var(--text-dim);">규격 목표값</td><td class="mono" style="text-align:right;padding-right:0;">10.00 mm</td></tr>
+              <tr><td style="padding-left:0;color:var(--text-dim);border-bottom:none;">허용 범위 (구멍 지름)</td><td class="mono" style="text-align:right;padding-right:0;border-bottom:none;">9.90–10.10 mm</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">검사 결과 <span class="mono" style="color:var(--text);">PASS 3 · FAIL 2</span></div>
+          <div class="card-body">
+            <span class="measure-chip pass">#1 9.90</span>
+            <span class="measure-chip pass">#2 10.00</span>
+            <span class="measure-chip pass">#3 10.10</span>
+            <span class="measure-chip fail">#4 9.89</span>
+            <span class="measure-chip fail">#5 10.11</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">관련 LOT 후보</div>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:36px;"></th>
+              <th class="mono">LOT</th>
+              <th>생산시간</th>
+              <th>검사</th>
+              <th>선정 근거</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" checked></td>
+              <td class="mono">LOT-B</td>
+              <td class="mono">09:40–10:20</td>
+              <td><span class="badge gray"><span class="dot"></span>대기</span></td>
+              <td style="color:var(--text-dim);">같은 BR-A · M1 · 같은 생산일</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-body" style="padding-top:14px;">
+          <button class="btn btn-primary">선택 메모 AI 요약 생성</button>
+        </div>
+      </div>
+
+      <div class="section-label">AI 요약 초안</div>
+      <div class="ai-box">
+        <b>AI 초안</b> · LOT-A 규격 이탈 2건(#4, #5). 원인은 기록상 확인되지 않음. 같은 시간대 M1에서 생산된 LOT-B는 아직 검사되지 않음 — 검사 진행 여부를 확인해 주세요.
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-left">
+      <a class="logo" href="s00_landing.html">PartFlow</a>
+      <nav class="topnav-menu">
+        <a href="s02_dashboard.html">현황</a>
+      <a href="s03_workorders.html">작업지시</a>
+      <a class="active" href="s04_workorder_detail.html">지시 상세</a>
+      <a href="s05_lot_detail.html">LOT 상세</a>
+      <a href="s06_inspection.html">검사 등록</a>
+      </nav>
+    </div>
+    <div class="topnav-right"><strong>이현장</strong>작업자 · A공장</div>
+  </div>
+</div>
+<div class="page">
+    <div class="topbar">
+      <div>
+        <h1>지시 상세 · <span class="mono" style="font-weight:400;">WO-0908-01</span></h1>
+        <div class="sub">BR-A · M1 · 아날로그 설비 수기 기록을 LOT 이력으로 연결</div>
+      </div>
+      <button class="btn btn-ghost">작업지시 종료</button>
+    </div>
+    <div class="content">
+
+      <div class="grid grid-3">
+        <div class="kpi"><div class="label">목표수량</div><div class="value">10</div></div>
+        <div class="kpi"><div class="label">생산수량</div><div class="value">5</div></div>
+        <div class="kpi"><div class="label">진행률</div><div class="value">50<small>%</small></div></div>
+      </div>
+
+      <div class="section-label">아날로그 설비 생산 기록</div>
+      <div class="helper-text">M1은 자동수집 장치가 없어 작업자가 태블릿으로 기록합니다.</div>
+      <div class="card">
+        <div class="card-body" style="padding-bottom:0;">
+          <table>
+            <thead>
+              <tr>
+                <th class="mono">LOT</th>
+                <th>설비</th>
+                <th class="num">수량</th>
+                <th>생산시간</th>
+                <th>품질상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono"><a class="row-link" href="s05_lot_detail.html">LOT-A</a></td>
+                <td class="mono">M1</td>
+                <td class="num mono">5</td>
+                <td class="mono">09:00–09:40</td>
+                <td><span class="badge amber"><span class="dot"></span>확인대기</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-body" style="padding-top:14px;">
+          <button class="btn btn-ghost">+ LOT 실적 등록</button>
+        </div>
+      </div>
+
+      <div class="section-label">이상징후 등록</div>
+      <div class="card">
+        <div class="card-body">
+          <div class="field-row">
+            <div class="field"><label>대상 LOT</label><input value="LOT-A" readonly></div>
+            <div class="field"><label>유형</label><input value="소음"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>발생 시각</label><input value="2026-09-08 09:25"></div>
+            <div class="field"><label>관찰 내용</label><input value="가공 중 평소와 다른 소음"></div>
+          </div>
+          <a class="btn btn-primary" href="s05_lot_detail.html">품질 확인 요청</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

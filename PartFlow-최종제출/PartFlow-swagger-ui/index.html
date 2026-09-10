@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>PartFlow MES API 문서</title>
+<link rel="icon" href="favicon-32x32.png" sizes="32x32" />
+<link rel="stylesheet" href="swagger-ui.css">
+<style>
+  body { margin: 0; background: #fafafa; }
+  .topbar { display: none !important; } /* 기본 초록 상단바 대신 우리 헤더 사용 */
+  .partflow-header {
+    background: #1A2233; color: #fff; padding: 16px 32px;
+    display: flex; align-items: baseline; gap: 12px; font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  .partflow-header b { color: #F97316; font-size: 20px; }
+  .partflow-header span { color: #94A3B8; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="partflow-header"><b>PartFlow</b><span>MES API 문서 · OpenAPI 3.0.3 · 오프라인 로컬 파일 (인터넷 연결 불필요)</span></div>
+  <div id="swagger-ui"></div>
+
+  <script src="swagger-ui-bundle.js"></script>
+  <script src="swagger-ui-standalone-preset.js"></script>
+  <script src="spec.js"></script>
+  <script>
+    window.onload = function() {
+      window.ui = SwaggerUIBundle({
+        spec: window.partflowSpec,
+        dom_id: '#swagger-ui',
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        layout: "StandaloneLayout",
+        docExpansion: "list",
+        defaultModelsExpandDepth: 1,
+        tryItOutEnabled: false
+      });
+    };
+  </script>
+</body>
+</html>
