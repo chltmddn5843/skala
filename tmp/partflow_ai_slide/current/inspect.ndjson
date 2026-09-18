@@ -1,0 +1,479 @@
+{"kind":"deck","id":"pr/qqyjfq","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"DEFAULT"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"AI 웹 서비스 설계 Mini-project","textShapes":6}
+{"kind":"shape","id":"sh/547294r6","slide":1,"name":"Shape 0","bbox":[0,0,1279.97,720]}
+{"kind":"shape","id":"sh/k3yl0zql","slide":1,"name":"Shape 1","bbox":[921.6,-211.2,576,576]}
+{"kind":"shape","id":"sh/7qp4be9c","slide":1,"name":"Shape 2","bbox":[1075.2,441.6,403.2,403.2]}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"name":"Text 3","text":"AI 웹 서비스 설계 Mini-project","textPreview":"AI 웹 서비스 설계 Mini-project","textChars":24,"textLines":1,"bbox":[52.8,86.4,768,38.4]}
+{"kind":"textbox","id":"sh/ts7md4r2","slide":1,"name":"Text 4","text":"PartFlow","textPreview":"PartFlow","textChars":8,"textLines":1,"bbox":[52.8,240,960,124.8]}
+{"kind":"textbox","id":"sh/sryl4zqx","slide":1,"name":"Text 5","text":"생산·품질관리 MES 웹 서비스 설계 문서","textPreview":"생산·품질관리 MES 웹 서비스 설계 문서","textChars":23,"textLines":1,"bbox":[52.8,360,864,57.6]}
+{"kind":"textbox","id":"sh/fu94fe98","slide":1,"name":"Text 6","text":"LOT 단위로 생산·검사 기록을 연결하고, AI가 인수인계 초안을 보조하는 교육용 MES","textPreview":"LOT 단위로 생산·검사 기록을 연결하고, AI가 인수인계 초안을 보조하는 교육용 MES","textChars":49,"textLines":1,"bbox":[52.8,417.6,912,48]}
+{"kind":"textbox","id":"sh/utg3698n","slide":1,"name":"Text 7","text":"{반} · {이름}","textPreview":"{반} · {이름}","textChars":10,"textLines":1,"bbox":[52.8,624,480,33.6]}
+{"kind":"textbox","id":"sh/wn6dc7eh","slide":1,"name":"Text 8","text":"2026.09","textPreview":"2026.09","textChars":7,"textLines":1,"bbox":[52.8,657.6,480,28.8]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":""}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"CONTENTS","textShapes":32}
+{"kind":"textbox","id":"sh/9072xkry","slide":2,"name":"Text 0","text":"CONTENTS","textPreview":"CONTENTS","textChars":8,"textLines":1,"bbox":[52.8,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/ozy1ofad","slide":2,"name":"Text 1","text":"PartFlow 설계 문서 목차","textPreview":"PartFlow 설계 문서 목차","textChars":17,"textLines":1,"bbox":[52.8,110.4,576,33.6]}
+{"kind":"shape","id":"sh/b29kza94","slide":2,"name":"Shape 2","bbox":[52.8,168,48,48]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"name":"Text 3","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[52.8,168,48,48]}
+{"kind":"textbox","id":"sh/x4r21kru","slide":2,"name":"Text 4","text":"MES 소개","textPreview":"MES 소개","textChars":6,"textLines":1,"bbox":[118.08,165.12,499.2,38.4]}
+{"kind":"textbox","id":"sh/w3i1sfa9","slide":2,"name":"Text 5","text":"Manufacturing Execution System이란","textPreview":"Manufacturing Execution System이란","textChars":32,"textLines":1,"bbox":[118.08,198.72,499.2,38.4]}
+{"kind":"shape","id":"sh/r65knqtk","slide":2,"name":"Shape 6","bbox":[52.8,252.48,48,48]}
+{"kind":"textbox","id":"sh/q5wjelsz","slide":2,"name":"Text 7","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[52.8,252.48,48,48]}
+{"kind":"textbox","id":"sh/ove9o7yd","slide":2,"name":"Text 8","text":"기획 배경","textPreview":"기획 배경","textChars":5,"textLines":1,"bbox":[118.08,249.6,499.2,38.4]}
+{"kind":"textbox","id":"sh/9wnqhczy","slide":2,"name":"Text 9","text":"Pain Point · 이해관계자 흐름","textPreview":"Pain Point · 이해관계자 흐름","textChars":21,"textLines":1,"bbox":[118.08,283.2,499.2,38.4]}
+{"kind":"shape","id":"sh/mtwrmxg7","slide":2,"name":"Shape 10","bbox":[52.8,336.96,48,48]}
+{"kind":"textbox","id":"sh/nu58f2hs","slide":2,"name":"Text 11","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[52.8,336.96,48,48]}
+{"kind":"textbox","id":"sh/wjy9sry9","slide":2,"name":"Text 12","text":"시스템 액터 정의","textPreview":"시스템 액터 정의","textChars":9,"textLines":1,"bbox":[118.08,334.08,499.2,38.4]}
+{"kind":"textbox","id":"sh/xk7qlczu","slide":2,"name":"Text 13","text":"생산관리자 · 작업자 · 품질담당자 · 외부 AI","textPreview":"생산관리자 · 작업자 · 품질담당자 · 외부 AI","textChars":27,"textLines":1,"bbox":[118.08,367.68,499.2,38.4]}
+{"kind":"shape","id":"sh/ahwrqhgj","slide":2,"name":"Shape 14","bbox":[52.8,421.44,48,48]}
+{"kind":"textbox","id":"sh/bip8jmho","slide":2,"name":"Text 15","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[52.8,421.44,48,48]}
+{"kind":"textbox","id":"sh/cnupgny5","slide":2,"name":"Text 16","text":"전체 UI 흐름도","textPreview":"전체 UI 흐름도","textChars":9,"textLines":1,"bbox":[118.08,418.56,499.2,38.4]}
+{"kind":"textbox","id":"sh/do3q9szq","slide":2,"name":"Text 17","text":"화면 이동 흐름 · 액터별 흐름","textPreview":"화면 이동 흐름 · 액터별 흐름","textChars":17,"textLines":1,"bbox":[118.08,452.16,499.2,38.4]}
+{"kind":"shape","id":"sh/t8byxkn2","slide":2,"name":"Shape 18","bbox":[52.8,505.92,48,48]}
+{"kind":"textbox","id":"sh/s72xofmh","slide":2,"name":"Text 19","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[52.8,505.92,48,48]}
+{"kind":"textbox","id":"sh/76twva5c","slide":2,"name":"Text 20","text":"화면별 상세 설계","textPreview":"화면별 상세 설계","textChars":9,"textLines":1,"bbox":[118.08,503.04,499.2,38.4]}
+{"kind":"textbox","id":"sh/65kfmpor","slide":2,"name":"Text 21","text":"로그인부터 검사 등록까지 8개 화면","textPreview":"로그인부터 검사 등록까지 8개 화면","textChars":19,"textLines":1,"bbox":[118.08,536.64,499.2,38.4]}
+{"kind":"shape","id":"sh/hcvy14ne","slide":2,"name":"Shape 22","bbox":[667.2,168,48,48]}
+{"kind":"textbox","id":"sh/gbmxszmt","slide":2,"name":"Text 23","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[667.2,168,48,48]}
+{"kind":"textbox","id":"sh/fadgzu58","slide":2,"name":"Text 24","text":"AI 기반 인수인계 요약","textPreview":"AI 기반 인수인계 요약","textChars":13,"textLines":1,"bbox":[732.48,165.12,499.2,38.4]}
+{"kind":"textbox","id":"sh/u94fqp4n","slide":2,"name":"Text 25","text":"처리 흐름 · 역할 경계 · 안전장치","textPreview":"처리 흐름 · 역할 경계 · 안전장치","textChars":20,"textLines":1,"bbox":[732.48,198.72,499.2,38.4]}
+{"kind":"shape","id":"sh/p0vy54na","slide":2,"name":"Shape 26","bbox":[667.2,252.48,48,48]}
+{"kind":"textbox","id":"sh/4zmxwzmp","slide":2,"name":"Text 27","text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[667.2,252.48,48,48]}
+{"kind":"textbox","id":"sh/mlgvq147","slide":2,"name":"Text 28","text":"데이터 모델 설계","textPreview":"데이터 모델 설계","textChars":9,"textLines":1,"bbox":[732.48,249.6,499.2,38.4]}
+{"kind":"textbox","id":"sh/nmpcj6ls","slide":2,"name":"Text 29","text":"ERD · ENUM 정의","textPreview":"ERD · ENUM 정의","textChars":13,"textLines":1,"bbox":[732.48,283.2,499.2,38.4]}
+{"kind":"shape","id":"sh/onydsbmd","slide":2,"name":"Shape 30","bbox":[667.2,336.96,48,48]}
+{"kind":"textbox","id":"sh/9o7ulg3y","slide":2,"name":"Text 31","text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[667.2,336.96,48,48]}
+{"kind":"textbox","id":"sh/a9gvulkj","slide":2,"name":"Text 32","text":"API 명세 정의","textPreview":"API 명세 정의","textChars":9,"textLines":1,"bbox":[732.48,334.08,499.2,38.4]}
+{"kind":"textbox","id":"sh/ba9cn6l4","slide":2,"name":"Text 33","text":"OpenAPI 구조 · 핵심 엔드포인트","textPreview":"OpenAPI 구조 · 핵심 엔드포인트","textChars":21,"textLines":1,"bbox":[732.48,367.68,499.2,38.4]}
+{"kind":"shape","id":"sh/wbidwb29","slide":2,"name":"Shape 34","bbox":[667.2,421.44,48,48]}
+{"kind":"textbox","id":"sh/xcrupg3u","slide":2,"name":"Text 35","text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[667.2,421.44,48,48]}
+{"kind":"textbox","id":"sh/id0vylkf","slide":2,"name":"Text 36","text":"예외 및 에러 처리","textPreview":"예외 및 에러 처리","textChars":10,"textLines":1,"bbox":[732.48,418.56,499.2,38.4]}
+{"kind":"textbox","id":"sh/je9crql0","slide":2,"name":"Text 37","text":"공통 에러 코드 · 화면 상태 처리","textPreview":"공통 에러 코드 · 화면 상태 처리","textChars":19,"textLines":1,"bbox":[732.48,452.16,499.2,38.4]}
+{"kind":"shape","id":"sh/ru5cbqd4","slide":2,"name":"Shape 38","bbox":[667.2,505.92,48,48]}
+{"kind":"textbox","id":"sh/69wbilcj","slide":2,"name":"Text 39","text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[667.2,505.92,48,48]}
+{"kind":"textbox","id":"sh/tw7ud0va","slide":2,"name":"Text 40","text":"Appendix","textPreview":"Appendix","textChars":8,"textLines":1,"bbox":[732.48,503.04,499.2,38.4]}
+{"kind":"textbox","id":"sh/svedkvup","slide":2,"name":"Text 41","text":"제출 파일 안내","textPreview":"제출 파일 안내","textChars":8,"textLines":1,"bbox":[732.48,536.64,499.2,38.4]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":""}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"01","textShapes":27}
+{"kind":"shape","id":"sh/cza94vmx","slide":3,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/d0jax03i","slide":3,"name":"Text 1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/298ryl4v","slide":3,"name":"Text 2","text":"MES 소개","textPreview":"MES 소개","textChars":6,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/3ah8rqlg","slide":3,"name":"Text 3","text":"Manufacturing Execution System — 생산 현장 실시간 모니터링·제어 시스템","textPreview":"Manufacturing Execution System — 생산 현장 실시간 모니터링·제어 시스템","textChars":54,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/obq90bml","slide":3,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"textbox","id":"sh/pcjqtg36","slide":3,"name":"Text 5","text":"MES란?","textPreview":"MES란?","textChars":5,"textLines":1,"bbox":[52.8,163.2,441.6,33.6]}
+{"kind":"textbox","id":"sh/m5cra54z","slide":3,"name":"Text 6","text":"주문부터 완제품 출하까지의 전 과정을 실시간으로 모니터링하고 제어하는 시스템. 제조 현장에서 널리 쓰이지만, 구축 요소가 많은 만큼 AI 도입 여지도 큰 영역이다.","textPreview":"주문부터 완제품 출하까지의 전 과정을 실시간으로 모니터링하고 제어하는 시스템. 제조 현장에서 널리 쓰이지만, 구축 요소가 많은 만큼 AI 도입 여지도 큰 영역이다.","textChars":91,"textLines":1,"bbox":[52.8,206.4,441.6,124.8]}
+{"kind":"shape","id":"sh/n6ls3alk","slide":3,"name":"Shape 7","bbox":[52.8,355.2,441.6,144]}
+{"kind":"textbox","id":"sh/n2l4fq98","slide":3,"name":"Text 8","text":"PartFlow의 접근","textPreview":"PartFlow의 접근","textChars":12,"textLines":1,"bbox":[73.92,369.6,399.36,28.8]}
+{"kind":"textbox","id":"sh/m1c3mlsn","slide":3,"name":"Text 9","text":"MES 전체를 구현하는 대신 핵심 기능 하나(LOT 생산·검사·AI 인수인계)를 정해, 그 안의 페인포인트를 해결하는 방향으로 설계 범위를 좁혔다.","textPreview":"MES 전체를 구현하는 대신 핵심 기능 하나(LOT 생산·검사·AI 인수인계)를 정해, 그 안의 페인포인트를 해결하는 방향으로 설계 범위를 좁혔다.","textChars":82,"textLines":1,"bbox":[73.92,401.28,399.36,91.2]}
+{"kind":"textbox","id":"sh/943mhgre","slide":3,"name":"Text 10","text":"MES가 다루는 전형적인 범위","textPreview":"MES가 다루는 전형적인 범위","textChars":16,"textLines":1,"bbox":[547.2,163.2,679.97,28.8]}
+{"kind":"shape","id":"sh/83ulovat","slide":3,"name":"Shape 11","bbox":[547.2,211.2,124.8,139.2]}
+{"kind":"textbox","id":"sh/v6l4jq94","slide":3,"name":"Text 12","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[556.8,222.72,105.6,24]}
+{"kind":"textbox","id":"sh/a5c3ql8z","slide":3,"name":"Text 13","text":"주문 · 계획","textPreview":"주문 · 계획","textChars":7,"textLines":1,"bbox":[556.8,249.6,105.6,38.4]}
+{"kind":"textbox","id":"sh/x8nml0ra","slide":3,"name":"Text 14","text":"생산 계획 수립","textPreview":"생산 계획 수립","textChars":8,"textLines":1,"bbox":[556.8,288,105.6,57.6]}
+{"kind":"shape","id":"sh/w7ulsvqp","slide":3,"name":"Shape 15","bbox":[672.19,273.6,10.56,14.4]}
+{"kind":"shape","id":"sh/ja54na9g","slide":3,"name":"Shape 16","bbox":[679.68,211.2,124.8,139.2]}
+{"kind":"textbox","id":"sh/i9w3u58v","slide":3,"name":"Text 17","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[689.28,222.72,105.6,24]}
+{"kind":"textbox","id":"sh/e10f2twf","slide":3,"name":"Text 18","text":"생산","textPreview":"생산","textChars":2,"textLines":1,"bbox":[689.28,249.6,105.6,38.4]}
+{"kind":"textbox","id":"sh/f29gbyx0","slide":3,"name":"Text 19","text":"설비 가공·실적 기록","textPreview":"설비 가공·실적 기록","textChars":11,"textLines":1,"bbox":[689.28,288,105.6,57.6]}
+{"kind":"shape","id":"sh/03ix43e5","slide":3,"name":"Shape 20","bbox":[804.67,273.6,10.56,14.4]}
+{"kind":"shape","id":"sh/14ryd8fq","slide":3,"name":"Shape 21","bbox":[812.16,211.2,124.8,139.2]}
+{"kind":"textbox","id":"sh/6d0fytg3","slide":3,"name":"Text 22","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[821.76,222.72,105.6,24]}
+{"kind":"textbox","id":"sh/re9g7yxo","slide":3,"name":"Text 23","text":"측정 · 검사","textPreview":"측정 · 검사","textChars":7,"textLines":1,"bbox":[821.76,249.6,105.6,38.4]}
+{"kind":"textbox","id":"sh/sfix03y9","slide":3,"name":"Text 24","text":"품질 측정값 확보","textPreview":"품질 측정값 확보","textChars":9,"textLines":1,"bbox":[821.76,288,105.6,57.6]}
+{"kind":"shape","id":"sh/tgry9ofu","slide":3,"name":"Shape 25","bbox":[937.15,273.6,10.56,14.4]}
+{"kind":"shape","id":"sh/a9kfadwn","slide":3,"name":"Shape 26","bbox":[944.64,211.2,124.8,139.2]}
+{"kind":"textbox","id":"sh/batgjixs","slide":3,"name":"Text 27","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[954.24,222.72,105.6,24]}
+{"kind":"textbox","id":"sh/l4fi9cza","slide":3,"name":"Text 28","text":"판정","textPreview":"판정","textChars":2,"textLines":1,"bbox":[954.24,249.6,105.6,38.4]}
+{"kind":"textbox","id":"sh/k3m1g7yp","slide":3,"name":"Text 29","text":"PASS/FAIL 자동 판정","textPreview":"PASS/FAIL 자동 판정","textChars":15,"textLines":1,"bbox":[954.24,288,105.6,57.6]}
+{"kind":"shape","id":"sh/z2d07mh4","slide":3,"name":"Shape 30","bbox":[1069.63,273.6,10.56,14.4]}
+{"kind":"shape","id":"sh/y14jehgj","slide":3,"name":"Shape 31","bbox":[1077.12,211.2,124.8,139.2]}
+{"kind":"textbox","id":"sh/x0vi5czy","slide":3,"name":"Text 32","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1086.72,222.72,105.6,24]}
+{"kind":"textbox","id":"sh/czmhc7id","slide":3,"name":"Text 33","text":"출하","textPreview":"출하","textChars":2,"textLines":1,"bbox":[1086.72,249.6,105.6,38.4]}
+{"kind":"textbox","id":"sh/byd032h8","slide":3,"name":"Text 34","text":"적합품 출하 처리","textPreview":"적합품 출하 처리","textChars":9,"textLines":1,"bbox":[1086.72,288,105.6,57.6]}
+{"kind":"textbox","id":"sh/ax4zax0n","slide":3,"name":"Text 35","text":"PartFlow는 01~04(주문·계획은 작업지시로 대체)까지를 구현 범위로 하며, 05 출하 연동은 범위 밖이다.","textPreview":"PartFlow는 01~04(주문·계획은 작업지시로 대체)까지를 구현 범위로 하며, 05 출하 연동은 범위 밖이다.","textChars":64,"textLines":1,"bbox":[547.2,369.6,679.97,38.4]}
+{"kind":"shape","id":"sh/hwzihwzi","slide":3,"name":"Shape 36","bbox":[547.2,432,679.97,182.4]}
+{"kind":"textbox","id":"sh/wv61obyx","slide":3,"name":"Text 37","text":"왜 AI인가","textPreview":"왜 AI인가","textChars":6,"textLines":1,"bbox":[571.2,449.28,631.97,28.8]}
+{"kind":"textbox","id":"sh/4nuhs7uh","slide":3,"name":"Text 38","text":"MES는 설비·품질·인력 데이터가 한 곳에 모이는 시스템이라, 자유문장 기록을 정리하고 인수인계를 돕는 AI를 접목하기에 특히 유리한 영역이다.","textPreview":"MES는 설비·품질·인력 데이터가 한 곳에 모이는 시스템이라, 자유문장 기록을 정리하고 인수인계를 돕는 AI를 접목하기에 특히 유리한 영역이다.","textChars":80,"textLines":1,"bbox":[571.2,480,631.97,124.8]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":""}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"02","textShapes":22}
+{"kind":"shape","id":"sh/1cj2d8b6","slide":4,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/0ba143al","slide":4,"name":"Text 1","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/rm1k7yt4","slide":4,"name":"Text 2","text":"기획 배경","textPreview":"기획 배경","textChars":5,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/ql8jytsj","slide":4,"name":"Text 3","text":"구형 설비의 아날로그 기록이 LOT 이력으로 곧바로 연결되지 못하는 문제","textPreview":"구형 설비의 아날로그 기록이 LOT 이력으로 곧바로 연결되지 못하는 문제","textChars":40,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/doj29oba","slide":4,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/sna103ap","slide":4,"name":"Shape 5","bbox":[52.8,144,432,110.4]}
+{"kind":"textbox","id":"sh/3ihk3et8","slide":4,"name":"Text 6","text":"Pain Point 1 · 아날로그 설비와 정보 단절","textPreview":"Pain Point 1 · 아날로그 설비와 정보 단절","textChars":29,"textLines":1,"bbox":[73.92,153.6,389.76,28.8]}
+{"kind":"textbox","id":"sh/ih8ju9sn","slide":4,"name":"Text 7","text":"자동 수집 장치가 없는 구형 설비(M1 등)는 작업자가 태블릿으로 수기 입력해야 하며, 이 기록이 LOT 이력으로 곧바로 연결되지 않는다.","textPreview":"자동 수집 장치가 없는 구형 설비(M1 등)는 작업자가 태블릿으로 수기 입력해야 하며, 이 기록이 LOT 이력으로 곧바로 연결되지 않는다.","textChars":77,"textLines":1,"bbox":[73.92,182.4,389.76,67.2]}
+{"kind":"shape","id":"sh/kbm987y5","slide":4,"name":"Shape 8","bbox":[499.2,192,48,1.92]}
+{"kind":"shape","id":"sh/5cva1cfq","slide":4,"name":"Shape 9","bbox":[540.48,182.4,17.28,21.12]}
+{"kind":"shape","id":"sh/i94r6xgz","slide":4,"name":"Shape 10","bbox":[576,144,609.6,110.4]}
+{"kind":"textbox","id":"sh/jadsz2xk","slide":4,"name":"Text 11","text":"Solution 1","textPreview":"Solution 1","textChars":10,"textLines":1,"bbox":[598.08,153.6,566.4,28.8]}
+{"kind":"textbox","id":"sh/w72947yt","slide":4,"name":"Text 12","text":"LOT 등록 시 설비 정보를 함께 고정해 생산·검사·이상징후를 LOT 상세에서 한 번에 조회","textPreview":"LOT 등록 시 설비 정보를 함께 고정해 생산·검사·이상징후를 LOT 상세에서 한 번에 조회","textChars":51,"textLines":1,"bbox":[598.08,182.4,566.4,67.2]}
+{"kind":"shape","id":"sh/x8vaxsfe","slide":4,"name":"Shape 13","bbox":[52.8,273.6,432,110.4]}
+{"kind":"textbox","id":"sh/a5kr2xg3","slide":4,"name":"Text 14","text":"Pain Point 2 · 수기 입력·인수인계의 비효율성","textPreview":"Pain Point 2 · 수기 입력·인수인계의 비효율성","textChars":31,"textLines":1,"bbox":[73.92,283.2,389.76,28.8]}
+{"kind":"textbox","id":"sh/v6tsv2xo","slide":4,"name":"Text 15","text":"작업자가 남긴 여러 메모를 담당자가 직접 취합해 인수인계 문서를 매번 다시 작성해야 한다.","textPreview":"작업자가 남긴 여러 메모를 담당자가 직접 취합해 인수인계 문서를 매번 다시 작성해야 한다.","textChars":50,"textLines":1,"bbox":[73.92,312,389.76,67.2]}
+{"kind":"shape","id":"sh/g36tgryd","slide":4,"name":"Shape 16","bbox":[499.2,321.6,48,1.92]}
+{"kind":"shape","id":"sh/h4fa9wfy","slide":4,"name":"Shape 17","bbox":[540.48,312,17.28,21.12]}
+{"kind":"shape","id":"sh/p0batw72","slide":4,"name":"Shape 18","bbox":[576,273.6,609.6,110.4]}
+{"kind":"textbox","id":"sh/oz29krqh","slide":4,"name":"Text 19","text":"Solution 2","textPreview":"Solution 2","textChars":10,"textLines":1,"bbox":[598.08,283.2,566.4,28.8]}
+{"kind":"textbox","id":"sh/3ytsrmpw","slide":4,"name":"Text 20","text":"AI가 관찰 사실 · 미확인 사항 · 다음 확인 질문 구조로 인수인계 초안을 자동 생성","textPreview":"AI가 관찰 사실 · 미확인 사항 · 다음 확인 질문 구조로 인수인계 초안을 자동 생성","textChars":48,"textLines":1,"bbox":[598.08,312,566.4,67.2]}
+{"kind":"textbox","id":"sh/2xkrih8b","slide":4,"name":"Text 21","text":"이해관계자 흐름 — 문제가 실제로 이어지는 지점","textPreview":"이해관계자 흐름 — 문제가 실제로 이어지는 지점","textChars":26,"textLines":1,"bbox":[52.8,417.6,960,28.8]}
+{"kind":"shape","id":"sh/1wbapc7q","slide":4,"name":"Shape 22","bbox":[52.8,456,374.4,168]}
+{"kind":"textbox","id":"sh/gv29g7q5","slide":4,"name":"Text 23","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[70.08,467.52,38.4,38.4]}
+{"kind":"textbox","id":"sh/fu9sn2p0","slide":4,"name":"Text 24","text":"생산관리자 → 작업자","textPreview":"생산관리자 → 작업자","textChars":11,"textLines":1,"bbox":[110.4,469.44,299.52,48]}
+{"kind":"textbox","id":"sh/et0reh8f","slide":4,"name":"Text 25","text":"작업지시 생성(PLANNED) → 작업자가 확인 후 시작(IN_PROGRESS), LOT 생산실적 수기 입력","textPreview":"작업지시 생성(PLANNED) → 작업자가 확인 후 시작(IN_PROGRESS), LOT 생산실적 수기 입력","textChars":60,"textLines":1,"bbox":[73.92,525.12,332.16,91.2]}
+{"kind":"shape","id":"sh/tsrqlc7u","slide":4,"name":"Shape 26","bbox":[430.08,530.88,17.28,21.12]}
+{"kind":"shape","id":"sh/sri9s7q9","slide":4,"name":"Shape 27","bbox":[448.32,456,374.4,168]}
+{"kind":"textbox","id":"sh/ilwf69kv","slide":4,"name":"Text 28","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[465.6,467.52,38.4,38.4]}
+{"kind":"textbox","id":"sh/jm5gze1g","slide":4,"name":"Text 29","text":"작업자 → 품질담당자 (핵심 연결점)","textPreview":"작업자 → 품질담당자 (핵심 연결점)","textChars":20,"textLines":1,"bbox":[505.92,469.44,299.52,48]}
+{"kind":"textbox","id":"sh/knex8j21","slide":4,"name":"Text 30","text":"이상징후를 텍스트로 입력하면 해당 LOT이 품질담당자 대시보드에서 '확인대기'로 자동 전환되고 AI가 내용을 정규화","textPreview":"이상징후를 텍스트로 입력하면 해당 LOT이 품질담당자 대시보드에서 '확인대기'로 자동 전환되고 AI가 내용을 정규화","textChars":64,"textLines":1,"bbox":[469.44,525.12,332.16,91.2]}
+{"kind":"shape","id":"sh/5ony1oj6","slide":4,"name":"Shape 31","bbox":[825.6,530.88,17.28,21.12]}
+{"kind":"shape","id":"sh/axcf29kj","slide":4,"name":"Shape 32","bbox":[843.84,456,374.4,168]}
+{"kind":"textbox","id":"sh/vy5gbe14","slide":4,"name":"Text 33","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[861.12,467.52,38.4,38.4]}
+{"kind":"textbox","id":"sh/wzex4z2p","slide":4,"name":"Text 34","text":"품질담당자","textPreview":"품질담당자","textChars":5,"textLines":1,"bbox":[901.44,469.44,299.52,48]}
+{"kind":"textbox","id":"sh/xknyx4ja","slide":4,"name":"Text 35","text":"측정값 입력 → 서버 자동판정(PASS/FAIL) → 관련 LOT 탐색 → AI 요약 초안으로 인수인계 정리·저장","textPreview":"측정값 입력 → 서버 자동판정(PASS/FAIL) → 관련 LOT 탐색 → AI 요약 초안으로 인수인계 정리·저장","textChars":63,"textLines":1,"bbox":[864.96,525.12,332.16,91.2]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":""}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"03","textShapes":22}
+{"kind":"shape","id":"sh/dgbulwnm","slide":5,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":5,"name":"Text 1","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/z2tcnm5s","slide":5,"name":"Text 2","text":"시스템 액터 정의","textPreview":"시스템 액터 정의","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/yhkbe1o7","slide":5,"name":"Text 3","text":"생산관리자 · 작업자 · 품질담당자 3개 역할 + 외부 AI 서비스로 구성","textPreview":"생산관리자 · 작업자 · 품질담당자 3개 역할 + 외부 AI 서비스로 구성","textChars":41,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/l4bupwny","slide":5,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/032tgr6d","slide":5,"name":"Shape 5","bbox":[52.8,168,273.6,345.6]}
+{"kind":"shape","id":"sh/n6dcr65o","slide":5,"name":"Shape 6","bbox":[156,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/m5kbi1oj","slide":5,"name":"Text 7","text":"생","textPreview":"생","textChars":1,"textLines":1,"bbox":[156,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/w32dkbuh","slide":5,"name":"Text 8","text":"생산관리자","textPreview":"생산관리자","textChars":5,"textLines":1,"bbox":[67.2,278.4,244.8,38.4]}
+{"kind":"textbox","id":"sh/x4vedgvm","slide":5,"name":"Text 9","text":"박관리","textPreview":"박관리","textChars":3,"textLines":1,"bbox":[67.2,316.8,244.8,28.8]}
+{"kind":"shape","id":"sh/ahkvi1cb","slide":5,"name":"Shape 10","bbox":[100.8,355.2,177.6,1.15]}
+{"kind":"textbox","id":"sh/v2twb6dw","slide":5,"name":"Text 11","text":"작업지시 생성·종료, 전체 현황 조회","textPreview":"작업지시 생성·종료, 전체 현황 조회","textChars":20,"textLines":1,"bbox":[73.92,374.4,231.36,124.8]}
+{"kind":"shape","id":"sh/k7mxovud","slide":5,"name":"Shape 12","bbox":[353.28,168,273.6,345.6]}
+{"kind":"shape","id":"sh/58vehgvy","slide":5,"name":"Shape 13","bbox":[456.48,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/i54fmlc7","slide":5,"name":"Text 14","text":"작","textPreview":"작","textChars":1,"textLines":1,"bbox":[456.48,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/j6dwfqds","slide":5,"name":"Text 15","text":"작업자","textPreview":"작업자","textChars":3,"textLines":1,"bbox":[367.68,278.4,244.8,38.4]}
+{"kind":"textbox","id":"sh/sb6xsvu9","slide":5,"name":"Text 16","text":"이현장","textPreview":"이현장","textChars":3,"textLines":1,"bbox":[367.68,316.8,244.8,28.8]}
+{"kind":"shape","id":"sh/tcfel0vu","slide":5,"name":"Shape 17","bbox":[401.28,355.2,177.6,1.15]}
+{"kind":"textbox","id":"sh/hgrmpwj2","slide":5,"name":"Text 18","text":"작업 시작, LOT 생산실적·이상징후 등록","textPreview":"작업 시작, LOT 생산실적·이상징후 등록","textChars":23,"textLines":1,"bbox":[374.4,374.4,231.36,124.8]}
+{"kind":"shape","id":"sh/gfi5grih","slide":5,"name":"Shape 19","bbox":[653.76,168,273.6,345.6]}
+{"kind":"shape","id":"sh/fe94nm1w","slide":5,"name":"Shape 20","bbox":[756.96,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/ud0ne10b","slide":5,"name":"Text 21","text":"품","textPreview":"품","textChars":1,"textLines":1,"bbox":[756.96,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/pkr6tgjy","slide":5,"name":"Text 22","text":"품질담당자","textPreview":"품질담당자","textChars":5,"textLines":1,"bbox":[668.16,278.4,244.8,38.4]}
+{"kind":"textbox","id":"sh/4ji5kbid","slide":5,"name":"Text 23","text":"김품질","textPreview":"김품질","textChars":3,"textLines":1,"bbox":[668.16,316.8,244.8,28.8]}
+{"kind":"shape","id":"sh/3i94r61s","slide":5,"name":"Shape 24","bbox":[701.76,355.2,177.6,1.15]}
+{"kind":"textbox","id":"sh/2h0ni107","slide":5,"name":"Text 25","text":"검사 등록, 관련 LOT 확인, AI 요약 생성·검토","textPreview":"검사 등록, 관련 LOT 확인, AI 요약 생성·검토","textChars":29,"textLines":1,"bbox":[674.88,374.4,231.36,124.8]}
+{"kind":"shape","id":"sh/5o7mhcju","slide":5,"name":"Shape 26","bbox":[954.24,168,273.6,345.6]}
+{"kind":"shape","id":"sh/kny587i9","slide":5,"name":"Shape 27","bbox":[1057.44,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/atcjidg7","slide":5,"name":"Text 28","text":"외","textPreview":"외","textChars":1,"textLines":1,"bbox":[1057.44,196.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/vu5kbihc","slide":5,"name":"Text 29","text":"외부 AI 서비스","textPreview":"외부 AI 서비스","textChars":9,"textLines":1,"bbox":[968.64,278.4,244.8,38.4]}
+{"kind":"textbox","id":"sh/wve1knyx","slide":5,"name":"Text 30","text":"Spring AI","textPreview":"Spring AI","textChars":9,"textLines":1,"bbox":[968.64,316.8,244.8,28.8]}
+{"kind":"shape","id":"sh/xwn2dszi","slide":5,"name":"Shape 31","bbox":[1002.24,355.2,177.6,1.15]}
+{"kind":"textbox","id":"sh/ihw3mxg3","slide":5,"name":"Text 32","text":"서버가 전달한 기록을 요약 (합/불 판정은 하지 않음)","textPreview":"서버가 전달한 기록을 요약 (합/불 판정은 하지 않음)","textChars":30,"textLines":1,"bbox":[975.36,374.4,231.36,124.8]}
+{"kind":"textbox","id":"sh/ji5kf2ho","slide":5,"name":"Text 33","text":"F03(작업 시작·종료)는 작업자(시작)와 생산관리자(종료)로 책임을 분리해 정의했다.","textPreview":"F03(작업 시작·종료)는 작업자(시작)와 생산관리자(종료)로 책임을 분리해 정의했다.","textChars":48,"textLines":1,"bbox":[52.8,532.8,1171.2,33.6]}
+{"kind":"shape","id":"sh/kjelony9","slide":5,"name":"Shape 34","bbox":[52.8,576,1171.2,57.6]}
+{"kind":"textbox","id":"sh/5kn2hszu","slide":5,"name":"Text 35","text":"권한 검증 —  401 인증 실패   /   403 권한 없음   /   409 상태 충돌","textPreview":"권한 검증 —  401 인증 실패   /   403 권한 없음   /   409 상태 충돌","textChars":50,"textLines":1,"bbox":[52.8,576,1171.2,57.6]}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":""}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"04","textShapes":25}
+{"kind":"shape","id":"sh/yhg7epsj","slide":6,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/zi98nu94","slide":6,"name":"Text 1","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/87ipkzal","slide":6,"name":"Text 2","text":"전체 UI 흐름도","textPreview":"전체 UI 흐름도","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/98rqt4r6","slide":6,"name":"Text 3","text":"로그인 → 현황 → 작업지시 → LOT 상세 → 검사 등록으로 이어지는 기본 흐름","textPreview":"로그인 → 현황 → 작업지시 → LOT 상세 → 검사 등록으로 이어지는 기본 흐름","textChars":45,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/ml07i9sv","slide":6,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/oryp8fah","slide":6,"name":"Shape 5","bbox":[52.8,340.8,165.12,100.8]}
+{"kind":"textbox","id":"sh/pc76hkr2","slide":6,"name":"Text 6","text":"S01","textPreview":"S01","textChars":3,"textLines":1,"bbox":[52.8,350.4,165.12,28.8]}
+{"kind":"textbox","id":"sh/h4bupgn6","slide":6,"name":"Text 7","text":"로그인","textPreview":"로그인","textChars":3,"textLines":1,"bbox":[60.48,381.12,149.76,52.8]}
+{"kind":"shape","id":"sh/w32twb6l","slide":6,"name":"Shape 8","bbox":[226.56,340.8,165.12,100.8]}
+{"kind":"textbox","id":"sh/v2tcn650","slide":6,"name":"Text 9","text":"S02","textPreview":"S02","textChars":3,"textLines":1,"bbox":[226.56,350.4,165.12,28.8]}
+{"kind":"textbox","id":"sh/u1kbu1ov","slide":6,"name":"Text 10","text":"현황 대시보드","textPreview":"현황 대시보드","textChars":7,"textLines":1,"bbox":[234.24,381.12,149.76,52.8]}
+{"kind":"shape","id":"sh/5svutgni","slide":6,"name":"Shape 11","bbox":[400.32,340.8,165.12,100.8]}
+{"kind":"textbox","id":"sh/47mt0b6x","slide":6,"name":"Text 12","text":"S03","textPreview":"S03","textChars":3,"textLines":1,"bbox":[400.32,350.4,165.12,28.8]}
+{"kind":"textbox","id":"sh/j6dcr65c","slide":6,"name":"Text 13","text":"작업지시 목록·등록","textPreview":"작업지시 목록·등록","textChars":10,"textLines":1,"bbox":[408,381.12,149.76,52.8]}
+{"kind":"shape","id":"sh/i54bylor","slide":6,"name":"Shape 14","bbox":[574.08,340.8,165.12,100.8]}
+{"kind":"textbox","id":"sh/twfux0ne","slide":6,"name":"Text 15","text":"S04","textPreview":"S04","textChars":3,"textLines":1,"bbox":[574.08,350.4,165.12,28.8]}
+{"kind":"textbox","id":"sh/svmt4v6t","slide":6,"name":"Text 16","text":"지시 상세","textPreview":"지시 상세","textChars":5,"textLines":1,"bbox":[581.76,381.12,149.76,52.8]}
+{"kind":"shape","id":"sh/cbe5g3ih","slide":6,"name":"Shape 17","bbox":[747.84,340.8,165.12,100.8]}
+{"kind":"textbox","id":"sh/dcnm98zm","slide":6,"name":"Text 18","text":"S05","textPreview":"S05","textChars":3,"textLines":1,"bbox":[747.84,350.4,165.12,28.8]}
+{"kind":"textbox","id":"sh/qpwnet0b","slide":6,"name":"Text 19","text":"LOT 상세","textPreview":"LOT 상세","textChars":6,"textLines":1,"bbox":[755.52,381.12,149.76,52.8]}
+{"kind":"shape","id":"sh/bq547yhw","slide":6,"name":"Shape 20","bbox":[921.6,340.8,165.12,100.8]}
+{"kind":"textbox","id":"sh/0fy5k3id","slide":6,"name":"Text 21","text":"S06","textPreview":"S06","textChars":3,"textLines":1,"bbox":[921.6,350.4,165.12,28.8]}
+{"kind":"textbox","id":"sh/lg76d8zy","slide":6,"name":"Text 22","text":"검사 등록","textPreview":"검사 등록","textChars":5,"textLines":1,"bbox":[929.28,381.12,149.76,52.8]}
+{"kind":"shape","id":"sh/ydgnit07","slide":6,"name":"Shape 23","bbox":[1095.36,340.8,165.12,100.8]}
+{"kind":"textbox","id":"sh/zep4byhs","slide":6,"name":"Text 24","text":"+","textPreview":"+","textChars":1,"textLines":1,"bbox":[1095.36,350.4,165.12,28.8]}
+{"kind":"textbox","id":"sh/gju58ji9","slide":6,"name":"Text 25","text":"랜딩 · 공정흐름 개념도","textPreview":"랜딩 · 공정흐름 개념도","textChars":13,"textLines":1,"bbox":[1103.04,381.12,149.76,52.8]}
+{"kind":"textbox","id":"sh/1k3mhozu","slide":6,"name":"Text 26","text":"현황(S02)은 전체 내부 역할이 공통으로 조회 가능하며, 나머지 화면은 역할별 권한에 따라 접근한다.","textPreview":"현황(S02)은 전체 내부 역할이 공통으로 조회 가능하며, 나머지 화면은 역할별 권한에 따라 접근한다.","textChars":57,"textLines":1,"bbox":[52.8,480,1171.2,38.4]}
+{"kind":"textbox","id":"sh/jet8nm1c","slide":6,"name":"Text 27","text":"주요 요구사항 대응","textPreview":"주요 요구사항 대응","textChars":10,"textLines":1,"bbox":[52.8,532.8,384,28.8]}
+{"kind":"shape","id":"sh/idk7ehkr","slide":6,"name":"Shape 28","bbox":[52.8,571.2,220.8,43.2]}
+{"kind":"textbox","id":"sh/50bqpcj2","slide":6,"name":"Text 29","text":"F02 작업지시 등록","textPreview":"F02 작업지시 등록","textChars":11,"textLines":1,"bbox":[52.8,571.2,220.8,43.2]}
+{"kind":"shape","id":"sh/4f2pgr2h","slide":6,"name":"Shape 30","bbox":[287.04,571.2,220.8,43.2]}
+{"kind":"textbox","id":"sh/va98j210","slide":6,"name":"Text 31","text":"F04 LOT 생산실적 등록","textPreview":"F04 LOT 생산실적 등록","textChars":15,"textLines":1,"bbox":[287.04,571.2,220.8,43.2]}
+{"kind":"shape","id":"sh/u907axkf","slide":6,"name":"Shape 32","bbox":[521.28,571.2,220.8,43.2]}
+{"kind":"textbox","id":"sh/hcrqlcj6","slide":6,"name":"Text 33","text":"F05 측정값 기반 검사 확정","textPreview":"F05 측정값 기반 검사 확정","textChars":16,"textLines":1,"bbox":[521.28,571.2,220.8,43.2]}
+{"kind":"shape","id":"sh/wbipc72l","slide":6,"name":"Shape 34","bbox":[755.52,571.2,220.8,43.2]}
+{"kind":"textbox","id":"sh/7698f214","slide":6,"name":"Text 35","text":"F09 관련 LOT 조회","textPreview":"F09 관련 LOT 조회","textChars":13,"textLines":1,"bbox":[755.52,571.2,220.8,43.2]}
+{"kind":"shape","id":"sh/m5076xkj","slide":6,"name":"Shape 36","bbox":[989.76,571.2,220.8,43.2]}
+{"kind":"textbox","id":"sh/2dkbalg3","slide":6,"name":"Text 37","text":"F07/F08 AI 요약·검토","textPreview":"F07/F08 AI 요약·검토","textChars":16,"textLines":1,"bbox":[989.76,571.2,220.8,43.2]}
+{"kind":"image","id":"im/0zelcj6t","slide":6,"name":"Image 0","bbox":[73.58,182.4,1132.8,101.03]}
+{"kind":"notes","id":"nt/x8f69ofe","slide":6,"text":""}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":7,"title":"04","textShapes":22}
+{"kind":"shape","id":"sh/cb2tkvap","slide":7,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/dcbud0ra","slide":7,"name":"Text 1","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/ydkbm5sv","slide":7,"name":"Text 2","text":"전체 UI 흐름도","textPreview":"전체 UI 흐름도","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/zedcfa9g","slide":7,"name":"Text 3","text":"액터별 흐름 — 생산관리자 · 작업자 · 품질담당자 (PPT 도형으로 직접 수정 가능)","textPreview":"액터별 흐름 — 생산관리자 · 작업자 · 품질담당자 (PPT 도형으로 직접 수정 가능)","textChars":48,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/kzmdova1","slide":7,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/l0vuh0rm","slide":7,"name":"Shape 5","bbox":[554.4,144,172.8,40.32]}
+{"kind":"textbox","id":"sh/eh0ba1sr","slide":7,"name":"Text 6","text":"로그인","textPreview":"로그인","textChars":3,"textLines":1,"bbox":[554.4,144,172.8,40.32]}
+{"kind":"shape","id":"sh/fi9c369c","slide":7,"name":"Shape 7","bbox":[52.8,216,369.6,249.6]}
+{"kind":"textbox","id":"sh/baxkjqlk","slide":7,"name":"Text 8","text":"생산관리자","textPreview":"생산관리자","textChars":5,"textLines":1,"bbox":[72,223.68,331.2,26.88]}
+{"kind":"shape","id":"sh/a9ojq5kz","slide":7,"name":"Shape 9","bbox":[73.92,256.32,327.36,46.08]}
+{"kind":"textbox","id":"sh/xcz2l03q","slide":7,"name":"Text 10","text":"현황 대시보드","textPreview":"현황 대시보드","textChars":7,"textLines":1,"bbox":[83.52,256.32,308.16,46.08]}
+{"kind":"shape","id":"sh/cbq1sv25","slide":7,"name":"Shape 11","bbox":[73.92,329.28,327.36,46.08]}
+{"kind":"textbox","id":"sh/n6x0fqlo","slide":7,"name":"Text 12","text":"작업지시 목록·등록","textPreview":"작업지시 목록·등록","textChars":10,"textLines":1,"bbox":[83.52,329.28,308.16,46.08]}
+{"kind":"shape","id":"sh/25ojml43","slide":7,"name":"Shape 13","bbox":[237.6,302.4,0.96,26.88]}
+{"kind":"shape","id":"sh/p8fih03e","slide":7,"name":"Shape 14","bbox":[73.92,402.24,327.36,46.08]}
+{"kind":"textbox","id":"sh/o761ov2t","slide":7,"name":"Text 15","text":"지시 상세 (작업지시 종료)","textPreview":"지시 상세 (작업지시 종료)","textChars":15,"textLines":1,"bbox":[83.52,402.24,308.16,46.08]}
+{"kind":"shape","id":"sh/f2d0b6lc","slide":7,"name":"Shape 16","bbox":[237.6,375.36,0.96,26.88]}
+{"kind":"shape","id":"sh/eh4jil4r","slide":7,"name":"Shape 17","bbox":[456,216,369.6,322.56]}
+{"kind":"textbox","id":"sh/id4ju1oz","slide":7,"name":"Text 18","text":"작업자","textPreview":"작업자","textChars":3,"textLines":1,"bbox":[475.2,223.68,331.2,26.88]}
+{"kind":"shape","id":"sh/jedkn654","slide":7,"name":"Shape 19","bbox":[477.12,256.32,327.36,46.08]}
+{"kind":"textbox","id":"sh/4fm1wb6p","slide":7,"name":"Text 20","text":"현황 대시보드","textPreview":"현황 대시보드","textChars":7,"textLines":1,"bbox":[486.72,256.32,308.16,46.08]}
+{"kind":"shape","id":"sh/50v2pgna","slide":7,"name":"Shape 21","bbox":[477.12,329.28,327.36,46.08]}
+{"kind":"textbox","id":"sh/q143ylov","slide":7,"name":"Text 22","text":"지시 상세 (작업 시작)","textPreview":"지시 상세 (작업 시작)","textChars":13,"textLines":1,"bbox":[486.72,329.28,308.16,46.08]}
+{"kind":"shape","id":"sh/r2dkrq5g","slide":7,"name":"Shape 23","bbox":[640.8,302.4,0.96,26.88]}
+{"kind":"shape","id":"sh/s3ml0v61","slide":7,"name":"Shape 24","bbox":[477.12,402.24,327.36,46.08]}
+{"kind":"textbox","id":"sh/d4f2t0nm","slide":7,"name":"Text 25","text":"LOT 생산실적 등록","textPreview":"LOT 생산실적 등록","textChars":11,"textLines":1,"bbox":[486.72,402.24,308.16,46.08]}
+{"kind":"shape","id":"sh/e5o32lor","slide":7,"name":"Shape 26","bbox":[640.8,375.36,0.96,26.88]}
+{"kind":"shape","id":"sh/f6xkvq5c","slide":7,"name":"Shape 27","bbox":[477.12,475.2,327.36,46.08]}
+{"kind":"textbox","id":"sh/p0zmlk7u","slide":7,"name":"Text 28","text":"이상징후 등록","textPreview":"이상징후 등록","textChars":7,"textLines":1,"bbox":[486.72,475.2,308.16,46.08]}
+{"kind":"shape","id":"sh/ozq5szq9","slide":7,"name":"Shape 29","bbox":[640.8,448.32,0.96,26.88]}
+{"kind":"shape","id":"sh/nyh4jupo","slide":7,"name":"Shape 30","bbox":[859.2,216,369.6,395.52]}
+{"kind":"textbox","id":"sh/2x8nqp83","slide":7,"name":"Text 31","text":"품질담당자","textPreview":"품질담당자","textChars":5,"textLines":1,"bbox":[878.4,223.68,331.2,26.88]}
+{"kind":"shape","id":"sh/x4j6p47q","slide":7,"name":"Shape 32","bbox":[880.32,256.32,327.36,46.08]}
+{"kind":"textbox","id":"sh/c3a5wzq5","slide":7,"name":"Text 33","text":"현황 대시보드","textPreview":"현황 대시보드","textChars":7,"textLines":1,"bbox":[889.92,256.32,308.16,46.08]}
+{"kind":"shape","id":"sh/b2h4nupk","slide":7,"name":"Shape 34","bbox":[880.32,329.28,327.36,46.08]}
+{"kind":"textbox","id":"sh/a18nup8z","slide":7,"name":"Text 35","text":"LOT 상세 (검사대기 확인)","textPreview":"LOT 상세 (검사대기 확인)","textChars":16,"textLines":1,"bbox":[889.92,329.28,308.16,46.08]}
+{"kind":"shape","id":"sh/lsj6t47m","slide":7,"name":"Shape 36","bbox":[1044,302.4,0.96,26.88]}
+{"kind":"shape","id":"sh/kra50jqh","slide":7,"name":"Shape 37","bbox":[880.32,402.24,327.36,46.08]}
+{"kind":"textbox","id":"sh/wneps3ap","slide":7,"name":"Text 38","text":"검사 등록 (측정값→PASS/FAIL)","textPreview":"검사 등록 (측정값→PASS/FAIL)","textChars":21,"textLines":1,"bbox":[889.92,402.24,308.16,46.08]}
+{"kind":"shape","id":"sh/honq18ru","slide":7,"name":"Shape 39","bbox":[1044,375.36,0.96,26.88]}
+{"kind":"shape","id":"sh/ulc7qdsj","slide":7,"name":"Shape 40","bbox":[880.32,475.2,327.36,46.08]}
+{"kind":"textbox","id":"sh/vm58zi94","slide":7,"name":"Text 41","text":"LOT 상세 (관련 LOT 확인)","textPreview":"LOT 상세 (관련 LOT 확인)","textChars":18,"textLines":1,"bbox":[889.92,475.2,308.16,46.08]}
+{"kind":"shape","id":"sh/8jupo3ad","slide":7,"name":"Shape 42","bbox":[1044,448.32,0.96,26.88]}
+{"kind":"shape","id":"sh/9k3qx8ry","slide":7,"name":"Shape 43","bbox":[880.32,548.16,327.36,46.08]}
+{"kind":"textbox","id":"sh/mxc7mts7","slide":7,"name":"Text 44","text":"AI 요약 생성·검토","textPreview":"AI 요약 생성·검토","textChars":11,"textLines":1,"bbox":[889.92,548.16,308.16,46.08]}
+{"kind":"shape","id":"sh/7yl8vy9s","slide":7,"name":"Shape 45","bbox":[1044,521.28,0.96,26.88]}
+{"kind":"shape","id":"sh/sfy907ah","slide":7,"name":"Shape 46","bbox":[237.6,184.32,403.2,31.68]}
+{"kind":"shape","id":"sh/tg7q9sr2","slide":7,"name":"Shape 47","bbox":[640.8,184.32,0.96,31.68]}
+{"kind":"shape","id":"sh/na9sz6tk","slide":7,"name":"Shape 48","bbox":[640.8,184.32,403.2,31.68]}
+{"kind":"shape","id":"sh/290bq1cz","slide":7,"name":"Shape 49","bbox":[804.48,352.32,75.84,145.92]}
+{"kind":"textbox","id":"sh/pcra1wba","slide":7,"name":"Text 50","text":"품질 확인 요청","textPreview":"품질 확인 요청","textChars":8,"textLines":1,"bbox":[794.88,372.48,124.8,24]}
+{"kind":"shape","id":"sh/obitsrup","slide":7,"name":"Shape 51","bbox":[52.8,635.52,1171.2,52.8]}
+{"kind":"textbox","id":"sh/betc36tg","slide":7,"name":"Text 52","text":"점선 화살표: 작업자가 이상징후를 등록하면 품질담당자 쪽 LOT이 '확인대기' 상태로 전환되며 두 역할이 실제로 연결된다.","textPreview":"점선 화살표: 작업자가 이상징후를 등록하면 품질담당자 쪽 LOT이 '확인대기' 상태로 전환되며 두 역할이 실제로 연결된다.","textChars":68,"textLines":1,"bbox":[72,635.52,1132.8,52.8]}
+{"kind":"notes","id":"nt/gnmp4jqx","slide":7,"text":""}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":8,"title":"05","textShapes":10}
+{"kind":"shape","id":"sh/18byd4zy","slide":8,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/g72x4zyd","slide":8,"name":"Text 1","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/ri9g7uhw","slide":8,"name":"Text 2","text":"화면별 상세 설계","textPreview":"화면별 상세 설계","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/6h0fypgb","slide":8,"name":"Text 3","text":"S01 로그인 · S02 현황 대시보드","textPreview":"S01 로그인 · S02 현황 대시보드","textChars":21,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/tkby9kzm","slide":8,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/sjix0zy1","slide":8,"name":"Shape 5","bbox":[47.04,147.84,573.12,275.94]}
+{"kind":"shape","id":"sh/id0fu50z","slide":8,"name":"Shape 6","bbox":[647.04,147.84,473.84,304.32]}
+{"kind":"textbox","id":"sh/98rehwve","slide":8,"name":"Text 7","text":"S01 로그인","textPreview":"S01 로그인","textChars":7,"textLines":1,"bbox":[52.8,480,561.6,28.8]}
+{"kind":"textbox","id":"sh/m5gvmhwn","slide":8,"name":"Text 8","text":"•  역할별 바로 로그인(데모) 3종","textPreview":"•  역할별 바로 로그인(데모) 3종","textChars":20,"textLines":1,"bbox":[52.8,510.72,561.6,28.8]}
+{"kind":"textbox","id":"sh/n6pwfmd8","slide":8,"name":"Text 9","text":"•  POST /auth/login","textPreview":"•  POST /auth/login","textChars":19,"textLines":1,"bbox":[52.8,539.52,561.6,28.8]}
+{"kind":"textbox","id":"sh/0jydkreh","slide":8,"name":"Text 10","text":"S02 현황 대시보드","textPreview":"S02 현황 대시보드","textChars":11,"textLines":1,"bbox":[662.4,480,561.6,28.8]}
+{"kind":"textbox","id":"sh/1k7edwv2","slide":8,"name":"Text 11","text":"•  설비별 작업 상태, 시간대별 생산실적","textPreview":"•  설비별 작업 상태, 시간대별 생산실적","textChars":23,"textLines":1,"bbox":[662.4,510.72,561.6,28.8]}
+{"kind":"textbox","id":"sh/ehgvihwr","slide":8,"name":"Text 12","text":"•  GET /dashboard","textPreview":"•  GET /dashboard","textChars":17,"textLines":1,"bbox":[662.4,539.52,561.6,28.8]}
+{"kind":"image","id":"im/0rmpoj2t","slide":8,"name":"Image 0","bbox":[52.8,153.6,561.6,264.42]}
+{"kind":"image","id":"im/nud8jy1k","slide":8,"name":"Image 1","bbox":[652.8,153.6,462.32,292.8]}
+{"kind":"notes","id":"nt/fu1gfa1s","slide":8,"text":""}
+{"kind":"slide","id":"sl/udsvah03","slide":9,"title":"05","textShapes":10}
+{"kind":"shape","id":"sh/1cfmhgne","slide":9,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/0b65obm9","slide":9,"name":"Text 1","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/nex4jq5k","slide":9,"name":"Text 2","text":"화면별 상세 설계","textPreview":"화면별 상세 설계","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/mdonql4z","slide":9,"name":"Text 3","text":"S03 작업지시 목록·등록 · S04 지시 상세","textPreview":"S03 작업지시 목록·등록 · S04 지시 상세","textChars":26,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/9gzml0nq","slide":9,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/ofq5svm5","slide":9,"name":"Shape 5","bbox":[47.04,147.84,573.12,160.89]}
+{"kind":"shape","id":"sh/ah8nu54b","slide":9,"name":"Shape 6","bbox":[647.04,147.84,514.66,304.32]}
+{"kind":"textbox","id":"sh/p0ji9kf2","slide":9,"name":"Text 7","text":"S03 작업지시 목록·등록","textPreview":"S03 작업지시 목록·등록","textChars":14,"textLines":1,"bbox":[52.8,480,561.6,28.8]}
+{"kind":"textbox","id":"sh/2xsjepgb","slide":9,"name":"Text 8","text":"•  생산/목표 진행률, 상태 뱃지","textPreview":"•  생산/목표 진행률, 상태 뱃지","textChars":19,"textLines":1,"bbox":[52.8,510.72,561.6,28.8]}
+{"kind":"textbox","id":"sh/3y107axw","slide":9,"name":"Text 9","text":"•  GET·POST /work-orders","textPreview":"•  GET·POST /work-orders","textChars":24,"textLines":1,"bbox":[52.8,539.52,561.6,28.8]}
+{"kind":"textbox","id":"sh/cnu1kzyd","slide":9,"name":"Text 10","text":"S04 지시 상세","textPreview":"S04 지시 상세","textChars":9,"textLines":1,"bbox":[662.4,480,561.6,28.8]}
+{"kind":"textbox","id":"sh/do3id4fy","slide":9,"name":"Text 11","text":"•  작업 시작·LOT 실적·이상징후 등록","textPreview":"•  작업 시작·LOT 실적·이상징후 등록","textChars":23,"textLines":1,"bbox":[662.4,510.72,561.6,28.8]}
+{"kind":"textbox","id":"sh/qlcjipgn","slide":9,"name":"Text 12","text":"•  POST /work-orders/{id}/lots","textPreview":"•  POST /work-orders/{id}/lots","textChars":30,"textLines":1,"bbox":[662.4,539.52,561.6,28.8]}
+{"kind":"image","id":"im/s76psvu9","slide":9,"name":"Image 0","bbox":[52.8,153.6,561.6,149.37]}
+{"kind":"image","id":"im/jixovqds","slide":9,"name":"Image 1","bbox":[652.8,153.6,503.14,292.8]}
+{"kind":"notes","id":"nt/udsvah03","slide":9,"text":""}
+{"kind":"slide","id":"sl/m90b6t0r","slide":10,"title":"05","textShapes":10}
+{"kind":"shape","id":"sh/xc3mho32","slide":10,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/cbu58j2h","slide":10,"name":"Text 1","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/zelojyl8","slide":10,"name":"Text 2","text":"화면별 상세 설계","textPreview":"화면별 상세 설계","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/ydcnatkn","slide":10,"name":"Text 3","text":"S05 LOT 상세 · S06 검사 등록 (핵심 기능)","textPreview":"S05 LOT 상세 · S06 검사 등록 (핵심 기능)","textChars":30,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/l036l83y","slide":10,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/kzu5c32t","slide":10,"name":"Shape 5","bbox":[47.04,147.84,564.84,304.32]}
+{"kind":"shape","id":"sh/m1cnetkj","slide":10,"name":"Shape 6","bbox":[647.04,147.84,573.12,272.43]}
+{"kind":"textbox","id":"sh/d87uxg3m","slide":10,"name":"Text 7","text":"S05 LOT 상세","textPreview":"S05 LOT 상세","textChars":10,"textLines":1,"bbox":[52.8,480,561.6,28.8]}
+{"kind":"textbox","id":"sh/q5gb21kb","slide":10,"name":"Text 8","text":"•  관련 LOT 후보 + AI 요약 초안","textPreview":"•  관련 LOT 후보 + AI 요약 초안","textChars":23,"textLines":1,"bbox":[52.8,510.72,561.6,28.8]}
+{"kind":"textbox","id":"sh/r6pcv6lw","slide":10,"name":"Text 9","text":"•  GET /lots/{id}, /lots/{id}/related","textPreview":"•  GET /lots/{id}, /lots/{id}/related","textChars":37,"textLines":1,"bbox":[52.8,539.52,561.6,28.8]}
+{"kind":"textbox","id":"sh/0bit8b2d","slide":10,"name":"Text 10","text":"S06 검사 등록","textPreview":"S06 검사 등록","textChars":9,"textLines":1,"bbox":[662.4,480,561.6,28.8]}
+{"kind":"textbox","id":"sh/1cru1g3y","slide":10,"name":"Text 11","text":"•  측정값 입력 → 서버가 PASS/FAIL 자동판정","textPreview":"•  측정값 입력 → 서버가 PASS/FAIL 자동판정","textChars":30,"textLines":1,"bbox":[662.4,510.72,561.6,28.8]}
+{"kind":"textbox","id":"sh/e9gb61k7","slide":10,"name":"Text 12","text":"•  POST /lots/{id}/inspection","textPreview":"•  POST /lots/{id}/inspection","textChars":29,"textLines":1,"bbox":[662.4,539.52,561.6,28.8]}
+{"kind":"image","id":"im/sfeh4j2l","slide":10,"name":"Image 0","bbox":[52.8,153.6,553.32,292.8]}
+{"kind":"image","id":"im/ra907i14","slide":10,"name":"Image 1","bbox":[652.8,153.6,561.6,260.91]}
+{"kind":"notes","id":"nt/m90b6t0r","slide":10,"text":""}
+{"kind":"slide","id":"sl/jetc3ut0","slide":11,"title":"06","textShapes":23}
+{"kind":"shape","id":"sh/xcryxg7y","slide":11,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/wbih4b6d","slide":11,"name":"Text 1","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/n69grmpw","slide":11,"name":"Text 2","text":"AI 기반 인수인계 요약","textPreview":"AI 기반 인수인계 요약","textChars":13,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/250zy18b","slide":11,"name":"Text 3","text":"LOT 상세 화면에서 검사 완료 후 생성 — 판정이 아닌 '정리'가 목적","textPreview":"LOT 상세 화면에서 검사 완료 후 생성 — 판정이 아닌 '정리'가 목적","textChars":40,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/98rytw72","slide":11,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/o7ih0r6h","slide":11,"name":"Shape 5","bbox":[52.8,148.8,340.8,148.8]}
+{"kind":"shape","id":"sh/72t03qp0","slide":11,"name":"Shape 6","bbox":[73.92,168,40.32,40.32]}
+{"kind":"textbox","id":"sh/61kzalof","slide":11,"name":"Text 7","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[73.92,168,40.32,40.32]}
+{"kind":"textbox","id":"sh/ofqtgnyt","slide":11,"name":"Text 8","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[124.8,168,254.4,40.32]}
+{"kind":"textbox","id":"sh/9gza9sze","slide":11,"name":"Text 9","text":"변경 불가한 검사·생산 기록 +\n서버가 계산한 수량·비율","textPreview":"변경 불가한 검사·생산 기록 + | 서버가 계산한 수량·비율","textChars":31,"textLines":2,"bbox":[73.92,220.8,298.56,67.2]}
+{"kind":"shape","id":"sh/mdobedg3","slide":11,"name":"Shape 10","bbox":[407.04,208.32,23.04,28.8]}
+{"kind":"shape","id":"sh/nehs7iho","slide":11,"name":"Shape 11","bbox":[446.4,148.8,340.8,148.8]}
+{"kind":"shape","id":"sh/0b6tc3yx","slide":11,"name":"Shape 12","bbox":[467.52,168,40.32,40.32]}
+{"kind":"textbox","id":"sh/1cfa58zi","slide":11,"name":"Text 13","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[467.52,168,40.32,40.32]}
+{"kind":"textbox","id":"sh/epobatgr","slide":11,"name":"Text 14","text":"AI 처리","textPreview":"AI 처리","textChars":5,"textLines":1,"bbox":[518.4,168,254.4,40.32]}
+{"kind":"textbox","id":"sh/zaxs3yhc","slide":11,"name":"Text 15","text":"Spring AI가 관찰 사실 · 미확인 사항\n· 다음 확인 질문 구조로 정리","textPreview":"Spring AI가 관찰 사실 · 미확인 사항 | · 다음 확인 질문 구조로 정리","textChars":43,"textLines":2,"bbox":[467.52,220.8,298.56,67.2]}
+{"kind":"shape","id":"sh/cn6t83y1","slide":11,"name":"Shape 16","bbox":[800.64,208.32,23.04,28.8]}
+{"kind":"shape","id":"sh/dofa18z6","slide":11,"name":"Shape 17","bbox":[840,148.8,340.8,148.8]}
+{"kind":"shape","id":"sh/tsnip0ny","slide":11,"name":"Shape 18","bbox":[861.12,168,40.32,40.32]}
+{"kind":"textbox","id":"sh/87ehgv6d","slide":11,"name":"Text 19","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[861.12,168,40.32,40.32]}
+{"kind":"textbox","id":"sh/7650nq5s","slide":11,"name":"Text 20","text":"출력·검토","textPreview":"출력·검토","textChars":5,"textLines":1,"bbox":[912,168,254.4,40.32]}
+{"kind":"textbox","id":"sh/65wzelo7","slide":11,"name":"Text 21","text":"LOT 상세 화면에 초안 표시 →\n품질담당자가 검토 후 저장","textPreview":"LOT 상세 화면에 초안 표시 → | 품질담당자가 검토 후 저장","textChars":33,"textLines":2,"bbox":[861.12,220.8,298.56,67.2]}
+{"kind":"textbox","id":"sh/l43ilgn2","slide":11,"name":"Text 22","text":"AI가 하지 않는 일","textPreview":"AI가 하지 않는 일","textChars":11,"textLines":1,"bbox":[52.8,336,576,33.6]}
+{"kind":"shape","id":"sh/k3uhcb6h","slide":11,"name":"Shape 23","bbox":[52.8,376.32,182.4,43.2]}
+{"kind":"textbox","id":"sh/j2lgjq5w","slide":11,"name":"Text 24","text":"✕  불량 원인 판단","textPreview":"✕  불량 원인 판단","textChars":11,"textLines":1,"bbox":[52.8,376.32,182.4,43.2]}
+{"kind":"shape","id":"sh/y1czalob","slide":11,"name":"Shape 25","bbox":[249.6,376.32,182.4,43.2]}
+{"kind":"textbox","id":"sh/p07ixkn6","slide":11,"name":"Text 26","text":"✕  합격/불합격 판정","textPreview":"✕  합격/불합격 판정","textChars":12,"textLines":1,"bbox":[249.6,376.32,182.4,43.2]}
+{"kind":"shape","id":"sh/4zyhofml","slide":11,"name":"Shape 27","bbox":[446.4,376.32,182.4,43.2]}
+{"kind":"textbox","id":"sh/m58fih43","slide":11,"name":"Text 28","text":"✕  출하 가능 여부 결정","textPreview":"✕  출하 가능 여부 결정","textChars":14,"textLines":1,"bbox":[446.4,376.32,182.4,43.2]}
+{"kind":"textbox","id":"sh/n61wbmlo","slide":11,"name":"Text 29","text":"모든 최종 판단은 품질담당자가 한다 — AI는 근거 기록을 구조화해 검토를 돕는다.","textPreview":"모든 최종 판단은 품질담당자가 한다 — AI는 근거 기록을 구조화해 검토를 돕는다.","textChars":46,"textLines":1,"bbox":[52.8,432,604.8,48]}
+{"kind":"textbox","id":"sh/o7axk7m9","slide":11,"name":"Text 30","text":"안전장치","textPreview":"안전장치","textChars":4,"textLines":1,"bbox":[696,336,531.17,33.6]}
+{"kind":"shape","id":"sh/98jedc3u","slide":11,"name":"Shape 31","bbox":[696,382.08,8.64,8.64]}
+{"kind":"textbox","id":"sh/eh8fex47","slide":11,"name":"Text 32","text":"원기록(검사·생산 기록)은 절대 수정되지 않음","textPreview":"원기록(검사·생산 기록)은 절대 수정되지 않음","textChars":25,"textLines":1,"bbox":[717.12,372.48,510.05,42.24]}
+{"kind":"shape","id":"sh/z2hw72lc","slide":11,"name":"Shape 33","bbox":[696,426.24,8.64,8.64]}
+{"kind":"textbox","id":"sh/03qxg7mx","slide":11,"name":"Text 34","text":"실패해도 이력 저장(status: FAILED) 후 재시도 가능","textPreview":"실패해도 이력 저장(status: FAILED) 후 재시도 가능","textChars":35,"textLines":1,"bbox":[717.12,416.64,510.05,42.24]}
+{"kind":"shape","id":"sh/14ze9c3i","slide":11,"name":"Shape 35","bbox":[696,470.4,8.64,8.64]}
+{"kind":"textbox","id":"sh/ydcfq1kb","slide":11,"name":"Text 36","text":"AI 초안과 사람 검토본을 분리 저장 (summary_reviews)","textPreview":"AI 초안과 사람 검토본을 분리 저장 (summary_reviews)","textChars":38,"textLines":1,"bbox":[717.12,460.8,510.05,42.24]}
+{"kind":"shape","id":"sh/jylwj6lw","slide":11,"name":"Shape 37","bbox":[52.8,571.2,1171.2,81.6]}
+{"kind":"textbox","id":"sh/3qhsfypc","slide":11,"name":"Text 38","text":"예시 초안  “LOT-A 규격 이탈 2건(#4, #5). 원인은 기록상 확인되지 않음. 같은 시간대 M1에서 생산된 LOT-B는 아직 검사되지 않음 — 검사 진행 여부를 확인해 주세요.”","textPreview":"예시 초안  “LOT-A 규격 이탈 2건(#4, #5). 원인은 기록상 확인되지 않음. 같은 시간대 M1에서 생산된 LOT-B는 아직 검사되지 않음 — 검사 진행 여부를 확인해 주세요.”","textChars":104,"textLines":1,"bbox":[76.8,571.2,1123.2,81.6]}
+{"kind":"notes","id":"nt/jetc3ut0","slide":11,"text":""}
+{"kind":"slide","id":"sl/8f2psfyx","slide":12,"title":"07","textShapes":11}
+{"kind":"shape","id":"sh/1gbm9s3a","slide":12,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/0f2lgnmp","slide":12,"name":"Text 1","text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/ra943il8","slide":12,"name":"Text 2","text":"데이터 모델 설계","textPreview":"데이터 모델 설계","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/q903ad4n","slide":12,"name":"Text 3","text":"ERD · 개별 측정값 기반 규격 자동판정 구조","textPreview":"ERD · 개별 측정값 기반 규격 자동판정 구조","textChars":26,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/dcbm583y","slide":12,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"textbox","id":"sh/b6d4f2lc","slide":12,"name":"Text 5","text":"핵심 설계 포인트","textPreview":"핵심 설계 포인트","textChars":9,"textLines":1,"bbox":[589.92,153.6,637.24,28.8]}
+{"kind":"shape","id":"sh/a543mx4r","slide":12,"name":"Shape 6","bbox":[589.92,190.08,8.64,8.64]}
+{"kind":"textbox","id":"sh/wvupgz6t","slide":12,"name":"Text 7","text":"개별 측정값(measurements) 저장 → 서버가 규격과 비교해 PASS/FAIL 자동 판정","textPreview":"개별 측정값(measurements) 저장 → 서버가 규격과 비교해 PASS/FAIL 자동 판정","textChars":53,"textLines":1,"bbox":[611.04,180.48,616.12,46.08]}
+{"kind":"shape","id":"sh/xw3q94ne","slide":12,"name":"Shape 8","bbox":[589.92,238.08,8.64,8.64]}
+{"kind":"textbox","id":"sh/atc7epon","slide":12,"name":"Text 9","text":"관련 LOT 조회는 저장 컬럼 없이 품목·설비·생산일 조인으로 계산","textPreview":"관련 LOT 조회는 저장 컬럼 없이 품목·설비·생산일 조인으로 계산","textChars":37,"textLines":1,"bbox":[611.04,228.48,616.12,46.08]}
+{"kind":"shape","id":"sh/bulo7u58","slide":12,"name":"Shape 10","bbox":[589.92,286.08,8.64,8.64]}
+{"kind":"textbox","id":"sh/orapcf6h","slide":12,"name":"Text 11","text":"AI 요약은 실패 이력도 저장(status: SUCCESS/FAILED)","textPreview":"AI 요약은 실패 이력도 저장(status: SUCCESS/FAILED)","textChars":40,"textLines":1,"bbox":[611.04,276.48,616.12,46.08]}
+{"kind":"shape","id":"sh/9sj65kn2","slide":12,"name":"Shape 12","bbox":[589.92,334.08,8.64,8.64]}
+{"kind":"textbox","id":"sh/mps7a5or","slide":12,"name":"Text 13","text":"이상징후(anomaly) 필드로 확인대기 상태를 계산","textPreview":"이상징후(anomaly) 필드로 확인대기 상태를 계산","textChars":29,"textLines":1,"bbox":[611.04,324.48,616.12,46.08]}
+{"kind":"shape","id":"sh/nq1o3a5w","slide":12,"name":"Shape 14","bbox":[589.92,382.08,8.64,8.64]}
+{"kind":"textbox","id":"sh/0nap8f6l","slide":12,"name":"Text 15","text":"AI가 실제로 분석한 관련 LOT은 ai_summary_related_lots에 스냅샷 저장","textPreview":"AI가 실제로 분석한 관련 LOT은 ai_summary_related_lots에 스냅샷 저장","textChars":51,"textLines":1,"bbox":[611.04,372.48,616.12,46.08]}
+{"kind":"textbox","id":"sh/1oj61kn6","slide":12,"name":"Text 16","text":"ENUM 목록","textPreview":"ENUM 목록","textChars":7,"textLines":1,"bbox":[52.8,465.6,384,28.8]}
+{"kind":"table","id":"tb/v69kz2x8","slide":12,"name":"Table 0","rows":5,"cols":2,"preview":"Enum | 값","bbox":[52.8,499.2,1171.2,96]}
+{"kind":"image","id":"im/yt8ry9on","slide":12,"name":"Image 0","bbox":[52.8,153.6,498.72,288]}
+{"kind":"notes","id":"nt/8f2psfyx","slide":12,"text":""}
+{"kind":"slide","id":"sl/hgzapcr6","slide":13,"title":"08","textShapes":21}
+{"kind":"shape","id":"sh/q50nydsj","slide":13,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/bq9orito","slide":13,"name":"Text 1","text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/o3i5w3ad","slide":13,"name":"Text 2","text":"API 명세 정의","textPreview":"API 명세 정의","textChars":9,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/p4r6p8by","slide":13,"name":"Text 3","text":"OpenAPI 3.0.3 · 18 paths · 22 schemas · Security Schemes는 평가범위 제외","textPreview":"OpenAPI 3.0.3 · 18 paths · 22 schemas · Security Schemes는 평가범위 제외","textChars":65,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/21gnuts7","slide":13,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"textbox","id":"sh/gzy5s3a1","slide":13,"name":"Text 5","text":"핵심 엔드포인트","textPreview":"핵심 엔드포인트","textChars":8,"textLines":1,"bbox":[364.75,148.8,862.42,28.8]}
+{"kind":"shape","id":"sh/1076lobm","slide":13,"name":"Shape 6","bbox":[364.75,187.2,69.12,30.72]}
+{"kind":"textbox","id":"sh/hcfy9k3u","slide":13,"name":"Text 7","text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[364.75,187.2,69.12,30.72]}
+{"kind":"textbox","id":"sh/gb6x0zm9","slide":13,"name":"Text 8","text":"/work-orders/{id}/lots","textPreview":"/work-orders/{id}/lots","textChars":22,"textLines":1,"bbox":[446.35,185.28,780.82,28.8]}
+{"kind":"textbox","id":"sh/vaxg7ulo","slide":13,"name":"Text 9","text":"LOT 생산실적 등록","textPreview":"LOT 생산실적 등록","textChars":11,"textLines":1,"bbox":[446.35,210.24,780.82,28.8]}
+{"kind":"shape","id":"sh/u9ofyp43","slide":13,"name":"Shape 10","bbox":[364.75,246.72,69.12,30.72]}
+{"kind":"textbox","id":"sh/t8fy5k3i","slide":13,"name":"Text 11","text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[364.75,246.72,69.12,30.72]}
+{"kind":"textbox","id":"sh/876xwfmx","slide":13,"name":"Text 12","text":"/lots/{id}/inspection","textPreview":"/lots/{id}/inspection","textChars":21,"textLines":1,"bbox":[446.35,244.8,780.82,28.8]}
+{"kind":"textbox","id":"sh/7mdg3als","slide":13,"name":"Text 13","text":"측정값 → PASS/FAIL 자동판정","textPreview":"측정값 → PASS/FAIL 자동판정","textChars":20,"textLines":1,"bbox":[446.35,269.76,780.82,28.8]}
+{"kind":"shape","id":"sh/6l4fu547","slide":13,"name":"Shape 14","bbox":[364.75,306.24,69.12,30.72]}
+{"kind":"textbox","id":"sh/lkvy103m","slide":13,"name":"Text 15","text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[364.75,306.24,69.12,30.72]}
+{"kind":"textbox","id":"sh/kjmxsfm1","slide":13,"name":"Text 16","text":"/lots/{id}/related","textPreview":"/lots/{id}/related","textChars":18,"textLines":1,"bbox":[446.35,304.32,780.82,28.8]}
+{"kind":"textbox","id":"sh/cnqh8fux","slide":13,"name":"Text 17","text":"관련 LOT 후보 조회","textPreview":"관련 LOT 후보 조회","textChars":12,"textLines":1,"bbox":[446.35,329.28,780.82,28.8]}
+{"kind":"shape","id":"sh/xozyhkbi","slide":13,"name":"Shape 18","bbox":[364.75,365.76,69.12,30.72]}
+{"kind":"textbox","id":"sh/q18f65cr","slide":13,"name":"Text 19","text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[364.75,365.76,69.12,30.72]}
+{"kind":"textbox","id":"sh/bmhgfatc","slide":13,"name":"Text 20","text":"/lots/{id}/ai-summaries","textPreview":"/lots/{id}/ai-summaries","textChars":23,"textLines":1,"bbox":[446.35,363.84,780.82,28.8]}
+{"kind":"textbox","id":"sh/oz6x4vul","slide":13,"name":"Text 21","text":"관련 LOT 선택(relatedLotIds) 포함 AI 요약, 실패도 이력 저장","textPreview":"관련 LOT 선택(relatedLotIds) 포함 AI 요약, 실패도 이력 저장","textChars":44,"textLines":1,"bbox":[446.35,388.8,780.82,28.8]}
+{"kind":"shape","id":"sh/p0zyd0b6","slide":13,"name":"Shape 22","bbox":[364.75,425.28,69.12,30.72]}
+{"kind":"textbox","id":"sh/2xof2lcv","slide":13,"name":"Text 23","text":"GET","textPreview":"GET","textChars":3,"textLines":1,"bbox":[364.75,425.28,69.12,30.72]}
+{"kind":"textbox","id":"sh/3yxgbqdg","slide":13,"name":"Text 24","text":"/dashboard","textPreview":"/dashboard","textChars":10,"textLines":1,"bbox":[446.35,423.36,780.82,28.8]}
+{"kind":"textbox","id":"sh/8vahgzu5","slide":13,"name":"Text 25","text":"생산·검사·부적합률 현황","textPreview":"생산·검사·부적합률 현황","textChars":13,"textLines":1,"bbox":[446.35,448.32,780.82,28.8]}
+{"kind":"shape","id":"sh/9wjyp4bq","slide":13,"name":"Shape 26","bbox":[364.75,528,862.42,81.6]}
+{"kind":"textbox","id":"sh/jqlkfyds","slide":13,"name":"Text 27","text":"공통 규칙: POST /auth/login을 제외한 모든 엔드포인트는 로그인 세션이 필요하며, 에러는 Error 스키마($ref)로 재사용된다.","textPreview":"공통 규칙: POST /auth/login을 제외한 모든 엔드포인트는 로그인 세션이 필요하며, 에러는 Error 스키마($ref)로 재사용된다.","textChars":80,"textLines":1,"bbox":[383.95,528,824.02,81.6]}
+{"kind":"image","id":"im/xc7m543a","slide":13,"name":"Image 0","bbox":[52.8,148.8,268.75,508.8]}
+{"kind":"notes","id":"nt/hgzapcr6","slide":13,"text":""}
+{"kind":"slide","id":"sl/6lsnupw7","slide":14,"title":"09","textShapes":7}
+{"kind":"shape","id":"sh/xc7eds76","slide":14,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/wbydknq1","slide":14,"name":"Text 1","text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/jepwf2pc","slide":14,"name":"Text 2","text":"예외 및 에러 처리","textPreview":"예외 및 에러 처리","textChars":10,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/idgvmx8r","slide":14,"name":"Text 3","text":"공통 에러 응답 형식 + HTTP 상태 코드 + 화면 공통 상태","textPreview":"공통 에러 응답 형식 + HTTP 상태 코드 + 화면 공통 상태","textChars":35,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/5grehs7i","slide":14,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"textbox","id":"sh/kfidonqx","slide":14,"name":"Text 5","text":"HTTP 상태 코드","textPreview":"HTTP 상태 코드","textChars":10,"textLines":1,"bbox":[52.8,148.8,576,28.8]}
+{"kind":"textbox","id":"sh/ehwvat8n","slide":14,"name":"Text 6","text":"화면 공통 상태 처리","textPreview":"화면 공통 상태 처리","textChars":11,"textLines":1,"bbox":[676.8,148.8,550.37,28.8]}
+{"kind":"shape","id":"sh/x4ni9ofy","slide":14,"name":"Shape 7","bbox":[52.8,532.8,1171.2,72]}
+{"kind":"textbox","id":"sh/a1wze9g7","slide":14,"name":"Text 8","text":"공통 에러 응답 형식  { \"code\", \"message\", \"fieldErrors\": [{ \"field\", \"reason\" }] } — 전 엔드포인트가 Error 스키마를 $ref로 재사용","textPreview":"공통 에러 응답 형식  { \"code\", \"message\", \"fieldErrors\": [{ \"field\", \"reason\" }] } — 전 엔드포인트가 Error 스키마를 $ref로 재사용","textChars":106,"textLines":1,"bbox":[76.8,532.8,1123.2,72]}
+{"kind":"table","id":"tb/8ne9sned","slide":14,"name":"Table 0","rows":7,"cols":3,"preview":"코드 | 의미 | 발생 상황","bbox":[52.8,182.4,585.6,96]}
+{"kind":"table","id":"tb/zilsfixg","slide":14,"name":"Table 1","rows":6,"cols":2,"preview":"상태 | 설명","bbox":[676.8,182.4,550.37,96]}
+{"kind":"notes","id":"nt/6lsnupw7","slide":14,"text":""}
+{"kind":"slide","id":"sl/vaxsvy10","slide":15,"title":"10","textShapes":19}
+{"kind":"shape","id":"sh/547mhg3m","slide":15,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/k3y5ov21","slide":15,"name":"Text 1","text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/76p4jqls","slide":15,"name":"Text 2","text":"Appendix","textPreview":"Appendix","textChars":8,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/65gnqlk7","slide":15,"name":"Text 3","text":"관련 제출 파일 및 참고 산출물","textPreview":"관련 제출 파일 및 참고 산출물","textChars":17,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/t87ml0ji","slide":15,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/s7y5sv2x","slide":15,"name":"Shape 5","bbox":[52.8,168,369.6,201.6]}
+{"kind":"shape","id":"sh/na5476l8","slide":15,"name":"Shape 6","bbox":[76.8,192,48,48]}
+{"kind":"textbox","id":"sh/m9c3e1kn","slide":15,"name":"Text 7","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[76.8,192,48,48]}
+{"kind":"textbox","id":"sh/wrm9kvep","slide":15,"name":"Text 8","text":"프로젝트 기술서","textPreview":"프로젝트 기술서","textChars":8,"textLines":1,"bbox":[76.8,254.4,321.6,33.6]}
+{"kind":"textbox","id":"sh/hsvat0fa","slide":15,"name":"Text 9","text":"{반_이름_PartFlow}-개요.pdf","textPreview":"{반_이름_PartFlow}-개요.pdf","textChars":22,"textLines":1,"bbox":[76.8,288,321.6,28.8]}
+{"kind":"textbox","id":"sh/upkrilwj","slide":15,"name":"Text 10","text":"개요·배경·액터·UI흐름도·화면 캡처 8종","textPreview":"개요·배경·액터·UI흐름도·화면 캡처 8종","textChars":23,"textLines":1,"bbox":[76.8,316.8,321.6,48]}
+{"kind":"shape","id":"sh/vqdsrqx4","slide":15,"name":"Shape 11","bbox":[453.12,168,369.6,201.6]}
+{"kind":"shape","id":"sh/4vm9ovel","slide":15,"name":"Shape 12","bbox":[477.12,192,48,48]}
+{"kind":"textbox","id":"sh/5wvax0f6","slide":15,"name":"Text 13","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[477.12,192,48,48]}
+{"kind":"textbox","id":"sh/it4rm5wv","slide":15,"name":"Text 14","text":"API 명세서","textPreview":"API 명세서","textChars":7,"textLines":1,"bbox":[477.12,254.4,321.6,33.6]}
+{"kind":"textbox","id":"sh/judsvqxg","slide":15,"name":"Text 15","text":"{반_이름_PartFlow}-API.yml","textPreview":"{반_이름_PartFlow}-API.yml","textChars":23,"textLines":1,"bbox":[477.12,288,321.6,28.8]}
+{"kind":"textbox","id":"sh/0z29cbyh","slide":15,"name":"Text 16","text":"OpenAPI 3.0 · 18 paths · 22 schemas","textPreview":"OpenAPI 3.0 · 18 paths · 22 schemas","textChars":35,"textLines":1,"bbox":[477.12,316.8,321.6,48]}
+{"kind":"shape","id":"sh/l0bqlgf2","slide":15,"name":"Shape 17","bbox":[853.44,168,369.6,201.6]}
+{"kind":"shape","id":"sh/1kjyt83e","slide":15,"name":"Shape 18","bbox":[877.44,192,48,48]}
+{"kind":"textbox","id":"sh/gjax03m9","slide":15,"name":"Text 19","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[877.44,192,48,48]}
+{"kind":"textbox","id":"sh/fi1grylo","slide":15,"name":"Text 20","text":"DB 다이어그램","textPreview":"DB 다이어그램","textChars":8,"textLines":1,"bbox":[877.44,254.4,321.6,33.6]}
+{"kind":"textbox","id":"sh/ehsfyt43","slide":15,"name":"Text 21","text":"{반_이름_PartFlow}-DB.dbml","textPreview":"{반_이름_PartFlow}-DB.dbml","textChars":23,"textLines":1,"bbox":[877.44,288,321.6,28.8]}
+{"kind":"textbox","id":"sh/p8jyx83q","slide":15,"name":"Text 22","text":"dbdiagram.io 호환","textPreview":"dbdiagram.io 호환","textChars":15,"textLines":1,"bbox":[877.44,316.8,321.6,48]}
+{"kind":"textbox","id":"sh/o7ah4nm5","slide":15,"name":"Text 23","text":"Swagger UI로 API 명세서 확인 가능 (로컬 오프라인 패키지 별도 제공)","textPreview":"Swagger UI로 API 명세서 확인 가능 (로컬 오프라인 패키지 별도 제공)","textChars":45,"textLines":1,"bbox":[52.8,393.6,1171.2,33.6]}
+{"kind":"shape","id":"sh/361gvilk","slide":15,"name":"Shape 24","bbox":[52.8,441.6,1171.2,182.4]}
+{"kind":"textbox","id":"sh/25sf2d4z","slide":15,"name":"Text 25","text":"학습용 가정 및 스코프","textPreview":"학습용 가정 및 스코프","textChars":12,"textLines":1,"bbox":[81.6,460.8,768,28.8]}
+{"kind":"textbox","id":"sh/dc3y1s3m","slide":15,"name":"Text 26","text":"한 공장·한 생산라인, 금속 브래킷 품목군(BR-A/BR-B). 치수검사만 구현하며 외관·기타 부적합 분류는 후속 범위. 재고관리·설비 자동연동·재작업·출하 연동은 이번 범위에 포함하지 않는다.","textPreview":"한 공장·한 생산라인, 금속 브래킷 품목군(BR-A/BR-B). 치수검사만 구현하며 외관·기타 부적합 분류는 후속 범위. 재고관리·설비 자동연동·재작업·출하 연동은 이번 범위에 포함하지 않는다.","textChars":108,"textLines":1,"bbox":[81.6,494.4,1113.6,115.2]}
+{"kind":"notes","id":"nt/vaxsvy10","slide":15,"text":""}
+{"kind":"slide","id":"sl/gny5sjyp","slide":16,"title":"11","textShapes":10}
+{"kind":"shape","id":"sh/8z2h8bq1","slide":16,"name":"Shape 0","bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/9kby1g7m","slide":16,"name":"Text 1","text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[52.8,40.32,42.24,42.24]}
+{"kind":"textbox","id":"sh/ytkf2h8j","slide":16,"name":"Text 2","text":"느낀점","textPreview":"느낀점","textChars":3,"textLines":1,"bbox":[112.32,36.48,912,48]}
+{"kind":"textbox","id":"sh/zutgvm94","slide":16,"name":"Text 3","text":"새로운 기능 추가보다, 큰 틀을 설계하고 구조 이해도를 높이는 것이 목표였다","textPreview":"새로운 기능 추가보다, 큰 틀을 설계하고 구조 이해도를 높이는 것이 목표였다","textChars":42,"textLines":1,"bbox":[112.32,78.72,912,28.8]}
+{"kind":"textbox","id":"sh/kv2h4rqp","slide":16,"name":"Text 4","text":"PartFlow · AI 웹 서비스 설계 Mini-project","textPreview":"PartFlow · AI 웹 서비스 설계 Mini-project","textChars":35,"textLines":1,"bbox":[876.77,40.32,350.4,28.8]}
+{"kind":"shape","id":"sh/lwbyxwra","slide":16,"name":"Shape 5","bbox":[52.8,182.4,561.6,345.6]}
+{"kind":"shape","id":"sh/ip4zel83","slide":16,"name":"Shape 6","bbox":[81.6,211.2,48,48]}
+{"kind":"textbox","id":"sh/3qdg7qpo","slide":16,"name":"Text 7","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[81.6,211.2,48,48]}
+{"kind":"textbox","id":"sh/fm1gzq5o","slide":16,"name":"Text 8","text":"구조 설계 경험","textPreview":"구조 설계 경험","textChars":8,"textLines":1,"bbox":[81.6,278.4,504,43.2]}
+{"kind":"textbox","id":"sh/e1sf65o3","slide":16,"name":"Text 9","text":"새 기능을 계속 붙이기보다 액터·데이터·API·화면이 하나로 이어지는 전체 구조를 먼저 설계하고, 그 구조를 끝까지 일관되게 유지하는 것을 목표로 잡았다. 이번 프로젝트로 그 목표를 달성해볼 수 있었다.","textPreview":"새 기능을 계속 붙이기보다 액터·데이터·API·화면이 하나로 이어지는 전체 구조를 먼저 설계하고, 그 구조를 끝까지 일관되게 유지하는 것을 목표로 잡았다. 이번 프로젝트로 그 목표를 달성해볼 수 있었다.","textChars":113,"textLines":1,"bbox":[81.6,326.4,504,182.4]}
+{"kind":"shape","id":"sh/1ojy10ne","slide":16,"name":"Shape 10","bbox":[662.4,182.4,561.6,345.6]}
+{"kind":"shape","id":"sh/gnax8v6t","slide":16,"name":"Shape 11","bbox":[691.2,211.2,48,48]}
+{"kind":"textbox","id":"sh/nqlg3a5k","slide":16,"name":"Text 12","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[691.2,211.2,48,48]}
+{"kind":"textbox","id":"sh/2pcfa5oz","slide":16,"name":"Text 13","text":"향후 발전 방향 고민","textPreview":"향후 발전 방향 고민","textChars":11,"textLines":1,"bbox":[691.2,278.4,504,43.2]}
+{"kind":"textbox","id":"sh/ps3y5knq","slide":16,"name":"Text 14","text":"실제로 구현한다면 무엇을 어떻게 확장할지(예: 관련 LOT 근거 저장, 재검사 이력 관리)를 미리 그려볼 수 있었고, 사내 MES 시스템에 AI 솔루션을 접목하는 방법을 고민해볼 수 있는 경험치를 쌓았다.","textPreview":"실제로 구현한다면 무엇을 어떻게 확장할지(예: 관련 LOT 근거 저장, 재검사 이력 관리)를 미리 그려볼 수 있었고, 사내 MES 시스템에 AI 솔루션을 접목하는 방법을 고민해볼 수 있는 경험치를 쌓았다.","textChars":114,"textLines":1,"bbox":[691.2,326.4,504,182.4]}
+{"kind":"notes","id":"nt/gny5sjyp","slide":16,"text":""}
+{"kind":"slide","id":"sl/14bup87q","slide":17,"title":"감사합니다.","textShapes":2}
+{"kind":"shape","id":"sh/1c7e50ni","slide":17,"name":"Shape 0","bbox":[-192,-240,576,576]}
+{"kind":"textbox","id":"sh/gbedwfmx","slide":17,"name":"Text 1","text":"감사합니다.","textPreview":"감사합니다.","textChars":6,"textLines":1,"bbox":[52.8,288,768,96]}
+{"kind":"textbox","id":"sh/rm5czq50","slide":17,"name":"Text 2","text":"PartFlow · 생산·품질관리 MES","textPreview":"PartFlow · 생산·품질관리 MES","textChars":22,"textLines":1,"bbox":[52.8,379.2,768,38.4]}
+{"kind":"notes","id":"nt/14bup87q","slide":17,"text":""}
