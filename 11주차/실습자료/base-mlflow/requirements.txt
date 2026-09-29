@@ -1,0 +1,6 @@
+mlflow==2.22.0
+SQLAlchemy>=2.0,<2.1  # MLflow 2.22 imports FallbackAsyncAdaptedQueuePool
+scikit-learn==1.9.0
+pandas==2.3.3
+numpy==1.26.4
+matplotlib==3.9.4
