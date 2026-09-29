@@ -1,3 +1,11 @@
+# Airflow 바깥에서(사람이 직접) 감시 폴더에 새 csv를 떨군다
+
+printf "id,value\n1,hello\n2,world\n" > watched_uploads/new_upload.csv
+
+# Triggerer 안의 커스텀 트리거가 이 파일을 감지 → process_raw_uploads 자동 실행
+
+docker compose exec airflow airflow dags list-runs process_raw_uploads -o plain
+
 # followup.md — Docker Airflow로 핵심 개념 한 판 따라하기
 
 Apache Airflow 3.3.1을 Docker 컨테이너 하나(standalone: SQLite + LocalExecutor)로
@@ -11,16 +19,16 @@ Apache Airflow 3.3.1을 Docker 컨테이너 하나(standalone: SQLite + LocalExe
 
 ## 필요한 파일
 
-| 파일 | 역할 | 사용 단계 |
-|---|---|---|
-| `Dockerfile` | `apache/airflow:3.3.1` + `scikit-learn` | 1단계(빌드) |
-| `docker-compose.yml` | standalone 컨테이너 1개 (포트 8280, dags/plugins/data/watched_uploads 마운트) | 1~2단계 |
-| `dags/dag_ml_serving_pipeline.py` | 6단계 파이프라인 (Bash/PythonOperator, 팬아웃/팬인) | 4·9단계 |
-| `dags/dag_invalid_cycle_demo.py` | 순환 반례 — 파싱에서 거부됨 | 3단계 |
-| `dags/dag_asset_pair.py` | Asset producer/consumer | 6단계 |
-| `dags/dag_asset_watcher.py` | AssetWatcher (폴더 pull 감시) | 8단계 |
-| `dags/dag_file_sensor.py` | Sensor (FileSensor 폴링) | 7단계 |
-| `plugins/directory_watcher_trigger.py` | AssetWatcher용 커스텀 트리거 | 8단계 |
+| 파일                                     | 역할                                                                          | 사용 단계   |
+| ---------------------------------------- | ----------------------------------------------------------------------------- | ----------- |
+| `Dockerfile`                           | `apache/airflow:3.3.1` + `scikit-learn`                                   | 1단계(빌드) |
+| `docker-compose.yml`                   | standalone 컨테이너 1개 (포트 8280, dags/plugins/data/watched_uploads 마운트) | 1~2단계     |
+| `dags/dag_ml_serving_pipeline.py`      | 6단계 파이프라인 (Bash/PythonOperator, 팬아웃/팬인)                           | 4·9단계    |
+| `dags/dag_invalid_cycle_demo.py`       | 순환 반례 — 파싱에서 거부됨                                                  | 3단계       |
+| `dags/dag_asset_pair.py`               | Asset producer/consumer                                                       | 6단계       |
+| `dags/dag_asset_watcher.py`            | AssetWatcher (폴더 pull 감시)                                                 | 8단계       |
+| `dags/dag_file_sensor.py`              | Sensor (FileSensor 폴링)                                                      | 7단계       |
+| `plugins/directory_watcher_trigger.py` | AssetWatcher용 커스텀 트리거                                                  | 8단계       |
 
 추가로 필요한 것: **Docker Desktop**(`docker`, `docker compose`)만 있으면 된다 —
 Python·Airflow·라이브러리는 전부 컨테이너 안에 들어있다.
@@ -30,11 +38,11 @@ Python·Airflow·라이브러리는 전부 컨테이너 안에 들어있다.
 이 실습의 판정 기준은 **`run_id`의 접두사**와 **DagRun 상태**다. run_id 접두사가
 "누가/무엇이 이 실행을 트리거했는지"를 그대로 말해준다.
 
-| run_id 접두사 | 의미 | 어느 단계에서 |
-|---|---|---|
-| `manual__` | 사람이 `dags trigger`로 실행 | 4·6·7단계 |
-| `scheduled__` | **Scheduler**가 `@daily`로 자동 생성 | 5단계 |
-| `asset_triggered__` | **Asset 이벤트**로 자동 트리거 | 6·8단계 |
+| run_id 접두사         | 의미                                         | 어느 단계에서 |
+| --------------------- | -------------------------------------------- | ------------- |
+| `manual__`          | 사람이`dags trigger`로 실행                | 4·6·7단계   |
+| `scheduled__`       | **Scheduler**가 `@daily`로 자동 생성 | 5단계         |
+| `asset_triggered__` | **Asset 이벤트**로 자동 트리거         | 6·8단계      |
 
 > ⚠️ **실행마다 달라지는 값**: run_id 뒤에 붙는 타임스탬프(`__2026-09-05T...`),
 > asset_triggered의 랜덤 접미사(`_GsatwWn6`), `start_date`의 시:분:초, poke 횟수,
@@ -42,7 +50,20 @@ Python·Airflow·라이브러리는 전부 컨테이너 안에 들어있다.
 > "접두사 패턴"과 "state=success"** 만 맞으면 정상이다. 단, ml_serving_pipeline의
 > `t3`(logreg=0.9667) > `t4`(rf=0.9333) 대소 관계는 시드가 고정돼 항상 같다.
 
-## 0단계 — 이동
+docker compose exec airflow python - <<'PYEOF'
+import sqlite3
+conn = sqlite3.connect("/opt/airflow/airflow.db")
+print("--- dag_run: run_id 접두사 = 트리거 주체 ---")
+for r in conn.execute("SELECT dag_id, substr(run_id,1,18), run_type, state FROM dag_run ORDER BY dag_id"):
+    print(f"  {r[0]:<20} {r[1]:<20} {r[2]:<16} {r[3]}")
+print("\n--- task_instance: t1>>t2>>[t3,t4]>>t5>>t6 실행 순서 ---")
+for r in conn.execute("""SELECT strftime('%H:%M:%S',start_date), task_id, state FROM task_instance
+    WHERE dag_id='ml_serving_pipeline' AND run_id LIKE 'manual__%' ORDER BY start_date"""):
+    print(f"  {r[0]}  {r[1]:<22} {r[2]}")
+print("\n--- xcom: 학습 태스크 반환 정확도 ---")
+for r in conn.execute("SELECT task_id, value FROM xcom WHERE dag_id='ml_serving_pipeline' AND task_id LIKE 't%train%'"):
+    print(f"  {r[0]:<22} {r[1]}")
+PYEOF
 
 ```bash
 cd base-airflow
@@ -311,16 +332,16 @@ PYEOF
 
 ## 최종 비교표
 
-| 확인 항목 | 이 문서의 값 | 직접 실행한 값 |
-|---|---|---|
-| 순환 반례 invalid_cycle_demo | import error(Cycle detected) ✅ | |
-| core.executor | LocalExecutor | |
-| ml_serving_pipeline (manual) | success | |
-| ml_serving_pipeline (scheduled) | scheduled__ 런 존재 ✅ | |
-| asset_consumer run 유형 | asset_triggered ✅ | |
-| sensor_wait_for_file | success (poke 6~8회) | |
-| process_raw_uploads run 유형 | asset_triggered ✅ | |
-| t3(logreg) vs t4(rf) 정확도 | 0.9667 > 0.9333 | |
+| 확인 항목                       | 이 문서의 값                    | 직접 실행한 값 |
+| ------------------------------- | ------------------------------- | -------------- |
+| 순환 반례 invalid_cycle_demo    | import error(Cycle detected) ✅ | Cycle detected (t_b) ✅ |
+| core.executor                   | LocalExecutor                   | LocalExecutor ✅ |
+| ml_serving_pipeline (manual)    | success                         | success ✅ |
+| ml_serving_pipeline (scheduled) | scheduled__ 런 존재 ✅          | scheduled__ / success ✅ |
+| asset_consumer run 유형         | asset_triggered ✅              | asset_triggered / success ✅ |
+| sensor_wait_for_file            | success (poke 6~8회)            | success (poke 6~8회) ✅ |
+| process_raw_uploads run 유형    | asset_triggered ✅              | asset_triggered / success ✅ |
+| t3(logreg) vs t4(rf) 정확도     | 0.9667 > 0.9333                 | 0.9666666666666667 > 0.9333333333333333 ✅ |
 
 run_id 접두사(manual/scheduled/asset_triggered) 패턴이 직접 실행에서도 위와 같이
 나왔다면 — Scheduler·Asset·AssetWatcher가 각각 다른 방식으로 DAG를 트리거하고,
