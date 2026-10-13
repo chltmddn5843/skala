@@ -1,0 +1,20 @@
+# 실습 13: 통신을 제한한다
+# 내 backend 에는 내 frontend 만 들어오게 한다.
+#
+# 주의: podSelector 를 비워 두면({}) 반 Namespace 의 모든 Pod 가 대상이 된다.
+#       반드시 app: __ID__-back 으로 좁힌다.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: __ID__-back-from-front
+  labels: {owner: __ID__}
+spec:
+  podSelector:
+    matchLabels: {app: __ID__-back}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: {app: __ID__-front}
+      ports:
+        - {protocol: TCP, port: 8080}

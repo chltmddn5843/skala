@@ -1,0 +1,68 @@
+# 실습 15 · 16: DB 를 추가한다
+# Pod 는 __ID__-db-0 으로 기동하고 PVC 는 data-__ID__-db-0 이 된다.
+# Pod 를 지워도 같은 이름으로 다시 기동하고 같은 PVC 를 다시 연결한다.
+#
+# 복제본은 1개이다. 1인당 Pod 3개 · PVC 1개 예산에 맞춘 값이다.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: __ID__-db-init
+  labels: {owner: __ID__}
+data:
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS t (id serial PRIMARY KEY, note text);
+    INSERT INTO t (note) SELECT 'row-' || g FROM generate_series(1, 100) g;
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __ID__-db
+  labels: {owner: __ID__}
+spec:
+  clusterIP: None              # headless: Pod 별 DNS 이름을 만든다
+  selector: {app: __ID__-db}
+  ports:
+    - {port: 5432, targetPort: 5432}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: __ID__-db
+  labels: {owner: __ID__}
+spec:
+  serviceName: __ID__-db
+  replicas: 1
+  selector:
+    matchLabels: {app: __ID__-db}
+  template:
+    metadata:
+      labels: {app: __ID__-db, owner: __ID__}
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          env:
+            - {name: POSTGRES_USER, value: app}
+            - {name: POSTGRES_PASSWORD, value: labpass}
+            - {name: POSTGRES_DB, value: app}
+            - {name: PGDATA, value: /var/lib/postgresql/data/pgdata}
+          ports:
+            - {containerPort: 5432}
+          resources:
+            requests: {cpu: 50m, memory: 128Mi}
+            limits: {cpu: 300m, memory: 256Mi}
+          volumeMounts:
+            - {name: data, mountPath: /var/lib/postgresql/data}
+            - {name: init, mountPath: /docker-entrypoint-initdb.d}
+      volumes:
+        - name: init
+          configMap: {name: __ID__-db-init}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels: {owner: __ID__}      # 실습 뒤 일괄 정리를 위해 반드시 붙인다
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests: {storage: 1Gi}

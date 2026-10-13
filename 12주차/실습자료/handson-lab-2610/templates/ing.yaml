@@ -1,0 +1,23 @@
+# 실습 6: Ingress 로 밖에 연다
+# Ingress Controller 를 전원이 함께 사용하므로 경로를 /__ID__ 로 나눈다.
+# rewrite-target 이 /__ID__/api/... 를 / 로 바꿔 Service 에 넘긴다.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: __ID__-app
+  labels: {owner: __ID__}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: public-nginx
+  rules:
+    - http:
+        paths:
+          - path: /__ID__/api
+            pathType: Prefix
+            backend:
+              service: {name: __ID__-back, port: {number: 80}}
+          - path: /__ID__
+            pathType: Prefix
+            backend:
+              service: {name: __ID__-front, port: {number: 80}}

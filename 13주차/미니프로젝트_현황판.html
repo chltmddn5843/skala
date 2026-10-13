@@ -1,0 +1,704 @@
+<title>미니프로젝트 현황판</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 레이아웃: 위에서 아래로 "지금 어디 → 점수 → 다음 행동 → 근거" 순서의 한 줄 흐름, 넓은 화면에서만 2열 */
+:root {
+  --bg: #f4f6f8; --panel: #ffffff; --fg: #1b2530; --muted: #5d6b7a; --line: #d5dce3;
+  --accent: #0f6e78; --t1: #c2551c; --t2: #2b62b8;
+  --ok: #1f7a46; --warn: #a86a00; --now: #0f6e78; --todo: #8794a1;
+  --ok-bg: #e3f2e8; --warn-bg: #fbf0dc; --now-bg: #dff0f1; --todo-bg: #eceff2;
+  --sans: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12171c; --panel: #1a2128; --fg: #e3e9ef; --muted: #96a3b0; --line: #2d3741;
+  --accent: #4fb8c2; --t1: #f08a4b; --t2: #6d9cf0;
+  --ok: #5cc98a; --warn: #e2a63c; --now: #4fb8c2; --todo: #7c8894;
+  --ok-bg: #18301f; --warn-bg: #33280f; --now-bg: #143034; --todo-bg: #222a32; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12171c; --panel: #1a2128; --fg: #e3e9ef; --muted: #96a3b0; --line: #2d3741;
+  --accent: #4fb8c2; --t1: #f08a4b; --t2: #6d9cf0;
+  --ok: #5cc98a; --warn: #e2a63c; --now: #4fb8c2; --todo: #7c8894;
+  --ok-bg: #18301f; --warn-bg: #33280f; --now-bg: #143034; --todo-bg: #222a32; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.6; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 28px; }
+h1 { font-size: 1.6rem; margin: 0; text-wrap: balance; }
+h2 { font-size: 1.1rem; margin: 0 0 12px; text-wrap: balance; }
+h3 { font-size: .95rem; margin: 0 0 6px; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.eyebrow { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+section { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; min-width: 0; }
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: end; }
+.thesis { font-size: 1.05rem; max-width: 70ch; }
+.thesis b { color: var(--accent); }
+
+/* 단계 지도 */
+.stages { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.stage { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 4px; align-content: start; background: var(--bg); }
+.stage .n { font-family: var(--mono); font-size: .75rem; color: var(--muted); }
+.stage p { font-size: .82rem; color: var(--muted); }
+.stage.now { border: 2px solid var(--now); background: var(--now-bg); }
+.pill { display: inline-block; font-size: .72rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; width: fit-content; }
+.pill.ok { color: var(--ok); background: var(--ok-bg); }
+.pill.now { color: var(--now); background: var(--now-bg); border: 1px solid var(--now); }
+.pill.warn { color: var(--warn); background: var(--warn-bg); }
+.pill.todo { color: var(--todo); background: var(--todo-bg); }
+.subs { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .85rem; }
+
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.who { display: grid; gap: 10px; }
+.who div { border-left: 3px solid var(--line); padding-left: 10px; }
+.who .me { border-color: var(--accent); }
+
+/* 점수 차트 */
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .8rem; color: var(--muted); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+.chart { overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.chart text { fill: var(--muted); font-family: var(--mono); font-size: 11px; }
+.chart .lbl { fill: var(--fg); font-family: var(--sans); font-size: 12px; }
+.chart .sel { fill: var(--accent); font-weight: 700; }
+.read { margin-top: 10px; font-size: .88rem; display: grid; gap: 4px; }
+
+/* 루프 */
+.loop { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; align-items: stretch; }
+.box { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: .86rem; background: var(--bg); position: relative; }
+.box + .box::before { content: "→"; position: absolute; left: -12px; top: 50%; transform: translate(-50%, -50%); color: var(--muted); }
+.verdicts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; font-size: .84rem; }
+.verdicts div { border-radius: 8px; padding: 8px 10px; }
+.v-ok { background: var(--ok-bg); } .v-warn { background: var(--warn-bg); } .v-no { background: var(--todo-bg); }
+
+/* 표 */
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .86rem; min-width: 560px; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .75rem; color: var(--muted); font-weight: 500; letter-spacing: .04em; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+ol.next { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+ol.next li::marker { font-family: var(--mono); color: var(--accent); font-weight: 700; }
+.fig { display: grid; gap: 10px; }
+.fig details { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.fig summary { cursor: pointer; font-weight: 500; }
+.fig summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fig ul { margin: 8px 0 0; padding-left: 1.2em; font-size: .88rem; display: grid; gap: 4px; }
+.log { font-size: .84rem; display: grid; gap: 4px; }
+
+/* 쉬운 설명 · 변수 사전 · 그림 카드 */
+.plain { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.plain > div { background: var(--bg); border-radius: 8px; padding: 12px 14px; font-size: .9rem; display: grid; gap: 6px; align-content: start; }
+.plain .q { font-weight: 700; }
+.analogy { border-left: 3px solid var(--accent); padding: 4px 12px; font-size: .92rem; margin-top: 12px; }
+.fix { background: var(--warn-bg); border-radius: 8px; padding: 12px 14px; font-size: .9rem; display: grid; gap: 4px; }
+.card { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; padding-block: 18px; border-top: 1px solid var(--line); }
+.card:first-of-type { border-top: 0; padding-top: 0; }
+.card img { width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--line); background: #fff; }
+.card .one { font-weight: 700; color: var(--accent); }
+.card dl { margin: 0; display: grid; gap: 6px; font-size: .88rem; }
+.card dt { font-size: .72rem; letter-spacing: .06em; color: var(--muted); font-weight: 500; }
+.card dd { margin: 0; }
+.cardnum { font-family: var(--mono); color: var(--muted); font-size: .8rem; }
+
+@media (max-width: 860px) {
+  .plain, .card { grid-template-columns: minmax(0, 1fr); }
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid2, .loop, .verdicts { grid-template-columns: minmax(0, 1fr); }
+  .box + .box::before { content: "↓"; left: 50%; top: -11px; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="head">
+  <div>
+    <div class="eyebrow">13주차 데이터분석 미니프로젝트 · 4반 최승우</div>
+    <h1>미니프로젝트 현황판</h1>
+  </div>
+  <p class="muted mono" id="stamp">기준 2026-10-13 10:53 · 근거 experiments.csv(10:46) · train.ipynb(10:47) · 01_EDA(10:51)</p>
+</header>
+
+<p class="thesis">
+  Target_2는 <b>요일 주기</b> 문제라 0.967로 거의 천장이다. Target_1은 <b>신호가 약하고 국면이 바뀌는</b> 문제라,
+  미국 증시 전일 변화를 주말까지 살린 단순한 모델(E8, 0.603)로 정리했다. 최종 제출은 <b>T1 = E8, T2 = E5, CV 평균 0.785</b>다.
+</p>
+
+<section aria-labelledby="s-journey">
+  <h2 id="s-journey">고도화 과정 한눈에: 무엇을 생각했고 어떻게 판단했나</h2>
+  <div class="chart" id="jr"></div>
+  <p class="read muted" style="margin-bottom:12px">점선 = 두 Target 평균 CV AUC. 0.734(원본 Baseline)에서 0.785(최종)까지 오는 동안 가장 크게 오른 곳은 모델 교체가 아니라 <b>③ 피처 설계</b>였다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>단계</th><th>그때 든 생각 (질문)</th><th>한 일</th><th>결과</th><th>판단</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">0 문제 정의</td><td>무엇으로 채점되나?</td><td>D+3 상승 확률, AUC, Private 200일 = 60점 확인</td><td>–</td><td>Public이 아니라 <b>처음 보는 미래 200일</b>에서 버티는 모델이 목표</td></tr>
+      <tr><td class="mono">1 Baseline</td><td>원본은 얼마나 하나?</td><td>E0: 변수 565개 + RF 그대로</td><td class="num">T1 0.522 (Train 1.00)<br>T2 0.945</td><td>T1은 거의 다 외우고 찍는 수준. 출발점 확보</td></tr>
+      <tr><td class="mono">2 검증 설계</td><td>무엇을 믿고 고를까?</td><td>시계열 5-fold CV, gap=3, 선택 기준 = 평균−std</td><td>–</td><td>시장 국면이 바뀌므로 과거로 배우고 미래로 채점한다. D+3이 겹치지 않게 3일을 비운다. <b>운 좋은 모델 대신 꾸준한 모델</b>을 고른다</td></tr>
+      <tr><td class="mono">3 EDA</td><td>두 Target은 같은 문제인가?</td><td>Target 구조, 변수군×변환 AUC, 앞/뒤 절반 안정성</td><td class="num">T2 요일만 0.926<br>T1 앞뒤 상관 0.39</td><td><b>T2 = 요일 리듬 문제, T1 = 잡음 + 국면 변화 문제.</b> 따라서 Target별로 따로 설계한다</td></tr>
+      <tr><td class="mono">4 E1 정규화</td><td>모델만 둔하게 하면 될까?</td><td>같은 565개 변수, 얕은 트리</td><td class="num">T1 0.540 (+0.018)</td><td>조금 낫지만 부족하다. 문제는 모델이 아니라 <b>입력</b>에 있다</td></tr>
+      <tr><td class="mono">5 E2 피처 설계</td><td>EDA 결론을 피처로 만들면?</td><td>T1: 금융 변화율 + 소비 분위기 3개 + 요일 (82개)<br>T2: 요일 + d3ratio + 키워드 z20 (69개)</td><td class="num">T1 0.597 (+0.057)<br>T2 0.957</td><td><b>가장 큰 도약.</b> 변수를 줄이고 의미 있는 형태로 바꾸는 게 핵심이었다</td></tr>
+      <tr><td class="mono">6 E3 자동 선택</td><td>사람 대신 알고리즘이 고르면?</td><td>fold 안에서 상위 30개 선택</td><td class="num">T1 0.585 · T2 0.930</td><td>둘 다 하락. 잡음 속에서 자동 선택은 우연을 고른다 → <b>사람 설계 유지</b></td></tr>
+      <tr><td class="mono">7 E4·E5 모델 비교</td><td>어떤 모델이 맞나?</td><td>로지스틱, XGB, 3종 앙상블</td><td class="num">T2 앙상블 0.967<br>T1은 모두 0.56~0.58</td><td>T2는 앙상블이 가장 안정적이다. T1은 복잡한 모델일수록 흔들린다</td></tr>
+      <tr><td class="mono">8 E6 그리드</td><td>T1 설정을 더 조이면?</td><td>RF 깊이·잎 크기, LR 강도, 금융 축소</td><td class="num">T1 0.599, 격차 0.30→0.23</td><td>점수는 그대로다 → <b>하이퍼파라미터는 병목이 아니다.</b> 같은 점수라면 더 단순한 모델(깊이 2)을 고른다</td></tr>
+      <tr><td class="mono">9 블록 제거</td><td>넣은 블록이 정말 일하나?</td><td>하나씩 빼고 fold별 비교 (4/5 fold 하락 + 하락폭 ≥ std/2)</td><td class="num">samewd·d3ratio 유지<br>z20 경계</td><td>근거가 있는 블록만 남았는지 확인했다</td></tr>
+      <tr><td class="mono">10 요일의 정체</td><td>Weekday 1~7은 무슨 요일?</td><td>요일별 "금융 값이 전일과 같은 비율"</td><td class="num">1=일, 7=토</td><td>새 문제 발견: <b>주말엔 미국 지수 변화율이 항상 0</b>이라 T1 핵심 신호가 7일 중 2일 꺼져 있었다</td></tr>
+      <tr><td class="mono">11 E8 / E7</td><td>그 구멍을 메우면? 중복을 줄이면?</td><td>E8: 마지막 실제 변동일의 변화율로 채움<br>E7: 금융 중복 변수 정리</td><td class="num">E8 0.603 ± 0.018<br>E7 0.597 ± 0.048</td><td>E8은 평균·흔들림·격차 모두 개선되고 이유도 분명 → 채택. E7은 흔들림 2배 → 기각</td></tr>
+      <tr><td class="mono">12 Prophet</td><td>시계열 전용 모델은?</td><td>날짜만 보는 Prophet, 같은 CV</td><td class="num">T1 0.565 (1년 주기 끄면 0.49)<br>T2 0.947</td><td>예측은 현재 모델보다 못하다. 그 대신 변수군 성분 분해로 <b>설명 근거</b>를 얻었다</td></tr>
+      <tr style="background:var(--now-bg)"><td class="mono"><b>최종</b></td><td>무엇을 낼까?</td><td>T1 = E8, T2 = E5</td><td class="num"><b>평균 0.785</b><br>Private 기대 ≈0.77</td><td>"점수가 같으면 단순하고 이유가 있는 쪽"</td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:16px">전 과정을 관통한 판단 원칙 4가지</h3>
+  <div class="plain">
+    <div><span class="q">1. 평균보다 흔들림</span><p>Private은 처음 보는 기간이다. fold마다 들쭉날쭉한 모델은 운에 맡기는 셈이라, 평균−std로 골랐다.</p></div>
+    <div><span class="q">2. 이유가 있는 개선만</span><p>+0.004 같은 작은 차이는 잡음과 구별되지 않는다. "왜 좋아졌는지" 말할 수 있을 때만 채택했다(E8 채택, E7 기각).</p></div>
+    <div><span class="q">3. 같으면 단순한 쪽</span><p>깊이 2 RF, 블록 단위 피처처럼 덜 외우는 쪽을 골랐다. 단순한 모델이 새로운 기간에서 덜 무너진다.</p></div>
+  </div>
+  <div class="plain" style="margin-top:12px">
+    <div><span class="q">4. 미래 정보 금지</span><p>Target lag 1·2(창 겹침), 미래 값 shift, Test로 학습하기를 모두 막았다. CV 점수가 진짜 실력이 되게 하는 전제다.</p></div>
+    <div><span class="q">T2 요약</span><p>요일 리듬(평일에 쇼핑이 많음)을 d3ratio로 직접 계산 → 0.945에서 0.967.</p></div>
+    <div><span class="q">T1 요약</span><p>미국 증시 전일 변화 + 소비 분위기만 남기고 둔한 모델로 → 0.522에서 0.603. 남은 건 운의 영역이다.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="s-talk">
+  <h2 id="s-talk">발표용: 변수 관계 → 피처 → 모델 설정</h2>
+  <p class="muted" style="margin-bottom:10px">관계를 밝힌 방법은 모든 변수에 똑같이 적용했다. ① 변수 하나로 AUC 측정 ② 6가지 형태로 바꿔 다시 측정 ③ Train 앞·뒤 절반에서 같은 방향인지 확인 ④ 같은 요일끼리만 다시 측정(요일 효과 제거) ⑤ 최종적으로 시계열 CV에서 블록을 빼 보고 점수가 떨어지는지 확인.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>변수</th><th>밝힌 관계 (근거 수치)</th><th>피처로 만든 방법</th><th>쓰는 곳</th></tr></thead>
+    <tbody>
+      <tr><td><b>미국 지수</b><br><span class="mono">FI_Sp500·Dow·Nasdaq</span></td><td>전일 변화율이 오르면 3일 뒤 KOSPI도 오른다. AUC 0.598, 같은 요일끼리 보면 0.62로 더 강하다. 하루만 밀어도 신호가 사라진다(그림 8)</td><td><span class="mono">fi_chg</span> 1·3·5일 변화율 + <span class="mono">us_last</span>(주말 0을 직전 거래일 변화율로 채움 → 일·토 AUC 0.50 → 0.57·0.60)</td><td>T1</td></tr>
+      <tr><td><b>그 외 금융</b><br>유가·금리·환율·원자재</td><td>원값은 추세가 커서(자기상관 0.99) 시기를 외우게 한다. 변화율로 바꾸면 약한 신호가 남는다</td><td><span class="mono">fi_chg</span>: 18개 × (1·3·5일 변화율 + 20일 변동성) = 72개</td><td>T1</td></tr>
+      <tr><td><b>쇼핑·키워드</b> (T1 쪽)</td><td>요일 효과를 뺀 "평소 같은 요일보다 많은가"가 KOSPI와 약하게 같은 방향이다(+0.08~0.10). 서로 비슷하게 움직인다(그림 9)</td><td><span class="mono">samewd_grp</span>: 군별(쇼핑L1·L2·키워드) 같은 요일 대비 비율의 중앙값 3개로 압축. 빼면 0.599 → 0.584</td><td>T1</td></tr>
+      <tr><td><b>쇼핑L1 식품·생활건강</b></td><td>건강식품과 같은 주간 리듬이다. 월 1.21 ↔ 토 0.69. 7개 요일 모두 "3일 뒤 요일이 더 많은가"와 Target_2가 일치한다(그림 6)</td><td><span class="mono">d3ratio</span>: 지난 4주 'D+3과 같은 요일' 평균 ÷ 오늘 (12개). 단독 AUC 0.954, 빼면 0.967 → 0.959</td><td>T2 핵심</td></tr>
+      <tr><td><b>포털 키워드</b> (T2 쪽)</td><td>요일로 결론이 안 나는 월·목에서, 보험 키워드가 평소보다 튀면 덜 오른다(−0.27)</td><td><span class="mono">z20_kw</span>: 20일 평균 대비 위치 (50개). 기여 +0.002로 보조 역할</td><td>T2 보조</td></tr>
+      <tr><td><b>요일</b> <span class="mono">Weekday</span></td><td>T2 상승비율: 일·금·토 0.92~0.98, 화·수 0.02~0.05. T1과는 무관(0.484). 1=일·7=토는 금융 휴장 패턴으로 확인</td><td><span class="mono">wd_onehot</span> 7칸 (숫자 1~7로 넣으면 엉뚱한 순서가 생김)</td><td>T1·T2</td></tr>
+      <tr><td><b>날씨</b></td><td>안정 신호 비율 9~10%로 우연 수준(4%)과 큰 차이가 없다. Prophet 분해에서 잔차가 88%다</td><td>사용 안 함</td><td>–</td></tr>
+      <tr><td class="muted">사용 금지</td><td>Target의 어제·그제 값(자기상관 0.47)은 3일 창이 겹쳐 생긴 착시이고, 예측 시점엔 알 수 없다</td><td>Leakage라 제외</td><td>–</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="margin-top:16px">최종 모델 설정</h3>
+  <div class="grid2">
+    <div class="box" style="background:var(--panel)">
+      <h3 style="color:var(--t1)">T1 · E8_t1_us_last</h3>
+      <p class="mono" style="font-size:.82rem">결측 중앙값 대체 → RandomForest<br>n_estimators=300, <b>max_depth=2</b>, <b>min_samples_leaf=20</b>, max_features='sqrt'</p>
+      <p style="font-size:.88rem">피처 85개 = fi_chg 72 + samewd_grp 3 + wd 7 + us_last 3</p>
+      <p class="muted" style="font-size:.86rem">왜: 신호가 약해 깊은 트리는 잡음을 외운다. 깊이 2는 "질문 두 번만 하는 나무" 300그루의 투표다. 잎마다 최소 20일이 있어야 규칙을 만들 수 있다. 결과: Train 0.815, Valid 0.603, 격차 0.21(Baseline은 0.48).</p>
+    </div>
+    <div class="box" style="background:var(--panel)">
+      <h3 style="color:var(--t2)">T2 · E5_ensemble (soft voting)</h3>
+      <p class="mono" style="font-size:.82rem">① 로지스틱: 표준화 → L2, C=0.1<br>② RF: 300그루, max_depth=4, leaf=20, sqrt<br>③ XGB: 300회, max_depth=2, learning_rate=0.03, subsample=0.8, colsample=0.5, min_child_weight=10, reg_lambda=5<br>→ 세 확률의 평균</p>
+      <p style="font-size:.88rem">피처 69개 = wd 7 + d3ratio 12 + z20_kw 50</p>
+      <p class="muted" style="font-size:.86rem">왜: 신호가 뚜렷해 어떤 모델도 0.95 이상이다. 성격이 다른 세 모델을 평균하면 fold 간 흔들림이 줄어든다. 결과: Valid 0.967 ± 0.010, 격차 0.02.</p>
+    </div>
+  </div>
+  <p class="read muted">공통: 모든 피처는 과거 값만 사용한다. 결측 대체·표준화는 Pipeline 안에서 각 fold의 Train으로만 학습한다. 최종 제출 모델은 Train 924일 전체로 다시 학습한다.</p>
+</section>
+
+<section aria-labelledby="s-plain">
+  <h2 id="s-plain">쉬운 말로: 지금 무엇을 하고 있나</h2>
+  <div class="plain">
+    <div><span class="q">1. 무엇을 맞히나</span>
+      <p>매일 "3일 뒤 KOSPI가 오를까?(Target_1)", "3일 뒤 건강식품 쇼핑 클릭 지수가 오를까?(Target_2)"를 0~1 확률로 낸다. 채점은 AUC로 한다. 0.5는 동전 던지기, 1.0은 완벽하다.</p></div>
+    <div><span class="q">2. 관계를 어떻게 보나</span>
+      <p>변수 하나를 "점수"로 보고 오른 날과 안 오른 날을 얼마나 잘 가르는지 AUC로 잰다. 0.5에서 멀수록 쓸모 있다. 0.5보다 작아도 반대 방향으로 쓸모 있다. 그리고 <b>앞 절반 기간과 뒤 절반 기간에서 같은 방향인지</b> 확인한다. 한 시기에만 맞는 관계는 우연일 가능성이 크다.</p></div>
+    <div><span class="q">3. 모델은 무엇을 하나</span>
+      <p>쓸모 있어 보이는 변수 수십 개를 모아 확률을 내는 규칙을 만든다(랜덤포레스트·로지스틱·XGBoost). 과거로 배우고 미래로 시험하는 <b>시계열 CV</b>로 채점해서, 실제 제출(미래 기간)과 같은 조건을 흉내 낸다.</p></div>
+  </div>
+  <div class="plain" style="margin-top:12px">
+    <div><span class="q">정규화 (regularization, 과적합 억제)</span>
+      <p>모델이 학습 데이터의 우연한 무늬까지 외우지 못하게 <b>일부러 둔하게 만드는 장치</b>다. 트리 깊이 제한(max_depth), 잎당 최소 20일(min_samples_leaf), 로지스틱의 C를 작게, XGBoost의 reg_lambda가 모두 이 역할을 한다.</p></div>
+    <div><span class="q">표준화·스케일링 (standardization)</span>
+      <p>이름은 비슷하지만 다른 것이다. 변수들의 <b>단위를 맞추는 전처리</b>다. 이 데이터는 설명서상 이미 처리된 값이고, 실제로 열마다 최소 0·최대 약 1인 0~1 범위다. 로지스틱 앞의 StandardScaler는 단위를 맞출 뿐이고 과적합과는 관계없다.</p></div>
+    <div><span class="q">Train−Valid 격차</span>
+      <p>학습 때 점수와 처음 보는 기간의 점수 차이다. 격차가 클수록 "외운 것"이 많다. T1은 Baseline이 1.00 대 0.52였고, 정규화 후 0.83 대 0.60이다.</p></div>
+  </div>
+  <p class="analogy"><b>비유</b>: 기출문제 924개로 공부하는 학생이다. T2는 "요일만 보면 답이 보이는" 문제라 쉽다. T1은 정답에 운이 많이 섞인 문제라, 기출 답을 통째로 외우면(과적합) 실전에서 망한다. 정규화는 <b>"외우지 말고 큰 원리만 잡아라"</b>라는 규칙이고, 시계열 CV는 <b>"지난 시험으로 공부하고 다음 시험으로 채점하는 모의고사"</b>다.</p>
+</section>
+
+<section aria-labelledby="s-fix">
+  <h2 id="s-fix">정정: 이전 설명에서 틀린 부분</h2>
+  <div class="fix">
+    <p>이전 답변에서 "Target_2는 원변수(건강식품 지수)로 계산되니 3일 이상 지난 과거 Target을 피처로 쓸 수 있다"고 했는데, <b>틀렸다</b>.</p>
+    <p>설명서는 원변수를 FI_KOSPI, SH2_쇼핑2_식품_건강식품으로 적고 있지만, 이 두 열은 <span class="mono">train.csv</span>에 <b>없다</b>(287열 확인). Test에도 Target이 없으므로 과거 Target은 피처로 만들 수 없다.</p>
+    <p>그래서 실제로는 같은 요일 패턴을 가진 <b>대리 변수</b>(쇼핑L1 식품·생활건강)로 <span class="mono">d3ratio</span>를 만들었다. 이것이 현재 방식이고, 올바른 방식이다.</p>
+  </div>
+</section>
+
+<section aria-labelledby="s-stage">
+  <h2 id="s-stage">지금 어디쯤인가</h2>
+  <div class="stages">
+    <div class="stage"><span class="n">① 1일차</span><h3>검증 설계</h3><span class="pill ok">완료</span><p>시계열 5-fold CV, gap=3</p></div>
+    <div class="stage"><span class="n">② 1일차</span><h3>EDA 피처인사이트</h3><span class="pill ok">완료</span><p>VSCode에서 다시 실행 중 (§3 계산까지)</p></div>
+    <div class="stage"><span class="n">③ 1일차</span><h3>피처·모델 실험</h3><span class="pill ok">E0~E5</span><p>T1 0.597 · T2 0.967</p></div>
+    <div class="stage"><span class="n">④ 1일차</span><h3>T1 안정화</h3><span class="pill ok">E6 완료</span><p>격차 0.30→0.23, 평균 +0.002. 병목 아님</p></div>
+    <div class="stage now"><span class="n">⑤ 1일차 오후</span><h3>지키며 제출</h3><span class="pill now">지금 여기</span><p>Public 2차, 분산 줄이기, T2 요일 2·5</p></div>
+    <div class="stage"><span class="n">⑥ 2일차</span><h3>Private·보고서</h3><span class="pill todo">대기</span><p>14:00 Private 1회, 14:50 보고서·코드</p></div>
+  </div>
+  <div class="subs">
+    <span>Public 제출: <span class="pill warn">1차 파일 있음 (점수 미확인)</span></span>
+    <span><span class="pill warn">2차 파일 생성 11:08 (제출·점수 미확인)</span></span>
+    <span><span class="pill todo">3차 ~17:30</span></span>
+    <span><span class="pill todo">4차 2일차 ~10:00</span></span>
+  </div>
+</section>
+
+<div class="grid2">
+  <section aria-labelledby="s-who">
+    <h2 id="s-who">누가 무엇을 하고 있나</h2>
+    <div class="who">
+      <div class="me"><h3>터미널 (Claude, 이 현황판)</h3><p class="muted">그림 해석, 단계 판단, 현황판 갱신. 코드 파일은 건드리지 않는다.</p></div>
+      <div><h3>VSCode 세션</h3><p class="muted"><span class="mono">train.ipynb</span> 수정·실행, <span class="mono">01_EDA</span> 재실행. 실험 결과는 <span class="mono">experiments.csv</span>에 쌓인다.</p></div>
+      <div><h3>판단 기준</h3><p class="muted">수치는 <span class="mono">experiments.csv</span>만 믿는다. 노트북 화면 출력과 다르면 csv가 기준이다.</p></div>
+    </div>
+  </section>
+  <section aria-labelledby="s-pick">
+    <h2 id="s-pick">현재 자동 선택 (평균 − 표준편차 최대)</h2>
+    <div class="tbl"><table style="min-width:0">
+      <thead><tr><th>Target</th><th>선택</th><th>Valid 평균</th><th>std</th><th>평균−std</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--t1)">Target_1</td><td class="mono">E8_t1_us_last</td><td class="num">0.6033</td><td class="num">0.0180</td><td class="num">0.5853</td></tr>
+        <tr><td style="color:var(--t2)">Target_2</td><td class="mono">E5_ensemble</td><td class="num">0.9665</td><td class="num">0.0105</td><td class="num">0.9560</td></tr>
+      </tbody>
+    </table></div>
+    <p class="read">예상 평균 AUC ≈ <b class="mono">0.785</b>. 평균−std 기준 2위와의 차이: T1은 E6 대비 +0.007, T2는 E4_lr 대비 +0.005로 둘 다 잡음 수준이다.</p>
+  </section>
+</div>
+
+<section aria-labelledby="s-final">
+  <h2 id="s-final">최종 제출 추천 (experiments.csv 11:29 기준)</h2>
+  <div class="grid2">
+    <div class="who">
+      <div class="me"><h3 style="color:var(--t1)">Target_1 → <span class="mono">E8_t1_us_last</span></h3>
+        <p>E6 + 미국 지수 주말 보정. <span class="mono">0.6033 ± 0.0180</span>, 평균−std 0.5853, 격차 0.212</p>
+        <p class="muted">E6보다 평균·흔들림·격차 <b>세 가지가 모두 낫다</b>. 차이(+0.004)는 잡음 수준이지만 "주말에 꺼져 있던 미국 증시 신호를 살렸다"는 이유가 분명하다. 성능이 같다면 이유가 있는 쪽을 고른다.</p></div>
+      <div class="me"><h3 style="color:var(--t2)">Target_2 → <span class="mono">E5_ensemble</span></h3>
+        <p>LR+RF+XGB 소프트보팅. <span class="mono">0.9665 ± 0.0105</span>, 평균−std 0.956, 격차 0.020</p>
+        <p class="muted">모든 후보 중 평균−std가 1위다. z20_kw를 빼도 0.964로 거의 같아 더 단순한 대안이 되지만, 4/5 fold에서 하락하니 유지한다.</p></div>
+    </div>
+    <div class="tbl"><table style="min-width:0">
+      <thead><tr><th>예상</th><th>T1</th><th>T2</th><th>평균</th></tr></thead>
+      <tbody>
+        <tr><td>CV fold 평균</td><td class="num">0.603</td><td class="num">0.967</td><td class="num"><b>0.785</b></td></tr>
+        <tr><td>Baseline 대비</td><td class="num">+0.081</td><td class="num">+0.021</td><td class="num">+0.051</td></tr>
+        <tr><td>Private 현실 기대치</td><td class="num">≈0.57~0.58</td><td class="num">≈0.96</td><td class="num">≈0.77</td></tr>
+        <tr><td>Public 100일 정상 범위</td><td class="num">0.50~0.70</td><td class="num">0.93~0.99</td><td class="num"></td></tr>
+      </tbody>
+    </table>
+    <p class="read muted">Private 기대치는 fold 예측을 이어 붙여 한 번에 계산한 AUC(T1 0.579) 기준이다. T1은 운의 폭이 커서 ±0.06 정도는 정상이다.</p></div>
+  </div>
+  <h3 style="margin-top:14px">fold별로 보면 (왼쪽 = 과거 → 오른쪽 = 최근)</h3>
+  <div class="grid2">
+    <div><div class="chart" id="f1"></div><p class="read"><b>T1</b>: E8(주황)은 fold 5개 모두 0.57 이상이다. E7(금융 중복 정리)은 fold1에서 0.52로 떨어져 흔들림이 2배다 → 미채택. Baseline(회색)은 처음 fold에서 0.5 아래다.</p></div>
+    <div><div class="chart" id="f2"></div><p class="read"><b>T2</b>: E5(파랑)와 z20을 뺀 버전(주황)은 거의 겹친다. LR 단독(노랑)은 fold 1·2·5에서 조금 앞서지만 fold3에서 0.947로 떨어져 흔들림이 크다. 세 후보 모두 0.95 이상이라 어느 것을 골라도 큰 차이는 없다.</p></div>
+  </div>
+  <div class="fix" style="margin-top:14px">
+    <p><b>제출 전 확인 3가지</b></p>
+    <p>1. <span class="mono">train.ipynb</span> §5 자동 선택이 T1=E8, T2=E5인지 확인한다. <span class="mono">FINAL_OVERRIDE = {}</span>는 그대로 둔다.</p>
+    <p>2. 커널(<span class="mono">Python (llm)</span>)에 xgboost 3.2.0이 이제 설치돼 있다. 다만 노트북에 저장된 출력은 xgboost가 없던 때의 것("미설치 → 건너뜀")이다. <b>Restart → Run All</b>로 다시 실행해 출력과 csv를 맞춘 뒤 zip을 만든다.</p>
+    <p>3. Private은 <span class="mono">MODE='private'</span>로 바꿔 <b>1회만</b> 제출한다. 행 수 200, 컬럼은 sample과 같게, 확률은 0~1인지 셀 검증 결과를 확인한다.</p>
+  </div>
+</section>
+
+<section aria-labelledby="s-score">
+  <h2 id="s-score">실험별 점수와 과적합 격차</h2>
+  <div class="legend">
+    <span><i style="background:var(--t1)"></i>Valid 평균 (가로선 = ±std)</span>
+    <span><i style="border:2px solid var(--muted);background:transparent"></i>Train 평균</span>
+    <span>점선 길이 = Train−Valid 격차 (길수록 과적합)</span>
+    <span style="color:var(--accent);font-weight:700">굵은 글씨 = 현재 선택</span>
+  </div>
+  <div class="grid2">
+    <div><h3 style="color:var(--t1)">Target_1 · KOSPI</h3><div class="chart" id="c1"></div></div>
+    <div><h3 style="color:var(--t2)">Target_2 · 건강식품</h3><div class="chart" id="c2"></div></div>
+  </div>
+  <div class="read">
+    <p><b>T1 읽는 법</b>: 원본 Baseline(E0)은 Train 1.00, Valid 0.52로 거의 외우기만 했다. 피처를 82개로 줄인 E2에서 0.597로 올랐고, 이후 E3~E6는 모두 0.56~0.60에 머문다. 모델을 바꿔도 천장이 같다는 것은 <b>남은 신호가 거의 없다</b>는 뜻이다.</p>
+    <p><b>T2 읽는 법</b>: 모든 실험이 0.93~0.97이고 격차도 0.01~0.03으로 작다. 차이는 std 한 칸 안이라 순위를 크게 믿을 필요는 없다.</p>
+  </div>
+</section>
+
+<section aria-labelledby="s-new">
+  <h2 id="s-new">최신 결과 해석 (11:25 기준)</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>확인한 것</th><th>수치</th><th>의미</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">experiments.csv</span> 새 행</td><td class="num">없음 (E0~E6 그대로)</td><td>요청한 E7·fold별 블록 제거 실험은 아직 csv에 기록되지 않았다. VSCode 세션은 scratch 탐색과 Prophet 노트북을 먼저 진행했다</td></tr>
+      <tr><td><span class="pill warn">환경 차이</span> VSCode 커널에 xgboost 없음</td><td class="num">E5 = LR+RF만<br>T1 0.579±0.053<br>T2 0.967±0.011</td><td>Public 2차 파일(11:08)은 XGB가 빠진 앙상블로 만들어졌다. T2 점수는 같은 수준이라 손해는 없다. 다만 <b>제출 코드와 보고서 수치가 같은 환경에서 재현돼야</b> 하므로, 최종 전에 xgboost를 설치하거나 앙상블 구성을 하나로 고정해야 한다</td></tr>
+      <tr><td>최종 CV (노트북 §5-1)</td><td class="num">Baseline 0.734 → 최종 0.783</td><td>T1 E6 격차 0.48 → 0.23, T2 E5 격차 0.05 → 0.02. 둘 다 덜 외우고 더 맞힌다</td></tr>
+      <tr><td>이어 붙인 AUC (Private 방식)</td><td class="num">T1 E6 0.570<br>(fold 평균 0.599)</td><td>Private은 200일을 한 번에 채점한다. fold마다 확률 수준이 달라 섞이면 손해를 본다. <b>T1 실제 기대치는 0.57 근처</b>로 잡는 게 안전하다</td></tr>
+      <tr><td>탐색: 주말 0 보정 (미국 지수 3개)</td><td class="num">fold 평균 0.599→0.603<br>평균−std 0.579→0.585<br>이어 붙인 AUC 0.570→0.579</td><td>주말에는 미국 지수 변화율이 항상 0이라 핵심 신호가 7일 중 2일 꺼져 있었다. "마지막 실제 변동일의 변화율"로 채우면 <b>세 지표가 모두 오른 유일한 개선</b>이다. 폭은 작지만 이유가 분명하다 → E7 채택 권장</td></tr>
+      <tr><td>탐색: 효과 없음</td><td class="num">±0.001 이하</td><td>seed 5개 평균, 최근 300·450일만 학습, T2 d3ratio 확장(SH2·8주). T2는 한계에 도달했다</td></tr>
+      <tr><td>Prophet: 요일 통제 AUC</td><td class="num">T1 금융 0.098→0.122<br>T2 쇼핑·포털 0.43→0.25</td><td>요일 효과를 빼면 금융 신호는 오히려 커진다(진짜 정보). T2 쇼핑 신호는 절반 가까이 요일 효과였다</td></tr>
+      <tr><td>Prophet 예측 CV</td><td class="num">T2 0.947 &lt; d3ratio 0.954<br>T1 0.565, 연계절 끄면 0.492</td><td>T2는 d3ratio보다 못하다. T1의 0.565는 2.5년치 데이터에서 1년 주기를 우연히 잡은 것일 가능성이 커서 채택하지 않는다</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="s-cmp">
+  <h2 id="s-cmp">Prophet vs Baseline vs 현재 모델</h2>
+  <p class="muted" style="margin-bottom:10px">모두 같은 시계열 CV(5-fold, gap=3, 같은 분할)로 채점해 공정하게 비교할 수 있다. Prophet 수치는 <span class="mono">02_Prophet_시계열분석.ipynb</span>를 터미널에서 따로 실행해 다시 확인했다(노트북 기록과 같다).</p>
+  <div class="grid2">
+    <div class="tbl"><table style="min-width:0">
+      <thead><tr><th>Target_1 모델</th><th>평균</th><th>std</th><th>평균−std</th></tr></thead>
+      <tbody>
+        <tr><td>Prophet 연계절 끔</td><td class="num">0.492</td><td class="num">0.037</td><td class="num">0.455</td></tr>
+        <tr><td>Baseline E0 (RF, 565개)</td><td class="num">0.522</td><td class="num">0.018</td><td class="num">0.504</td></tr>
+        <tr><td>Prophet P1 (Target 직접)</td><td class="num">0.565</td><td class="num">0.050</td><td class="num">0.515</td></tr>
+        <tr><td>E4_lr 로지스틱</td><td class="num">0.565</td><td class="num">0.055</td><td class="num">0.510</td></tr>
+        <tr><td>E5 앙상블</td><td class="num">0.583</td><td class="num">0.045</td><td class="num">0.538</td></tr>
+        <tr><td>E2 RF (EDA 피처 82개)</td><td class="num">0.597</td><td class="num">0.022</td><td class="num">0.574</td></tr>
+        <tr style="background:var(--now-bg)"><td><b>E6 RF 깊이2 (현재 선택)</b></td><td class="num">0.599</td><td class="num">0.020</td><td class="num">0.579</td></tr>
+        <tr><td class="muted">E7 후보 (주말 0 보정)</td><td class="num">0.603</td><td class="num">–</td><td class="num">0.585</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl"><table style="min-width:0">
+      <thead><tr><th>Target_2 모델</th><th>평균</th><th>std</th><th>평균−std</th></tr></thead>
+      <tbody>
+        <tr><td>Prophet P1 (Target 직접)</td><td class="num">0.929</td><td class="num">0.023</td><td class="num">0.906</td></tr>
+        <tr><td>요일만 (요일별 상승비율)</td><td class="num">0.937</td><td class="num">0.023</td><td class="num">0.914</td></tr>
+        <tr><td>Baseline E0</td><td class="num">0.945</td><td class="num">0.009</td><td class="num">0.936</td></tr>
+        <tr><td>Prophet P2 (대리변수 예측)</td><td class="num">0.947</td><td class="num">0.018</td><td class="num">0.930</td></tr>
+        <tr><td>LR 요일+d3 (+P2)</td><td class="num">0.946 (0.948)</td><td class="num">0.020</td><td class="num">0.926</td></tr>
+        <tr><td>d3ratio 단독</td><td class="num">0.954</td><td class="num">0.016</td><td class="num">0.938</td></tr>
+        <tr><td>E4_lr 로지스틱 (69개)</td><td class="num">0.964</td><td class="num">0.013</td><td class="num">0.951</td></tr>
+        <tr style="background:var(--now-bg)"><td><b>E5 앙상블 (현재 선택)</b></td><td class="num">0.966</td><td class="num">0.010</td><td class="num">0.956</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h3 style="margin-top:18px">"설명력"을 여러 각도로 보면</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>관점</th><th>재는 법</th><th>Prophet</th><th>Baseline E0</th><th>현재 (E6 / E5)</th></tr></thead>
+    <tbody>
+      <tr><td>맞히는 힘</td><td>CV 평균 AUC</td><td class="num">T1 0.565 · T2 0.947</td><td class="num">T1 0.522 · T2 0.945</td><td class="num"><b>T1 0.599 · T2 0.966</b></td></tr>
+      <tr><td>시기 안정성</td><td>fold 간 std (작을수록 좋음)</td><td class="num">T1 0.050 · T2 0.018</td><td class="num">0.018 · 0.009</td><td class="num">0.020 · 0.010</td></tr>
+      <tr><td>외운 정도</td><td>Train−Valid 격차</td><td>측정 안 함 (시간 함수라 외울 변수가 적다)</td><td class="num">T1 0.48 · T2 0.05</td><td class="num">T1 0.23 · T2 0.02</td></tr>
+      <tr><td>보는 정보</td><td>입력</td><td>날짜만 (추세 + 요일 + 1년 주기)</td><td>원변수 565개</td><td>Target별로 고른 피처 82개 / 69개</td></tr>
+      <tr><td>해석 쉬움</td><td>사람에게 설명할 수 있나</td><td><b>가장 쉬움.</b> 성분 분해 그림 한 장</td><td>어려움 (변수 565개)</td><td>보통 (블록 단위로 설명 가능)</td></tr>
+      <tr><td>점수의 출처</td><td>무엇을 끄면 무너지나</td><td>T1: 1년 주기를 끄면 0.49 (우연 의심)<br>T2: 요일 성분</td><td>T1: 없음 (외우기)</td><td>T1: 미국 증시 전일 변화<br>T2: d3ratio (빼면 0.959)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="card" style="margin-top:16px"><img src="현황판_그림/p02.png" alt="Prophet과 현재 모델의 CV AUC 막대 비교" loading="lazy">
+    <dl><span class="cardnum">그림 P2 · Prophet §4</span><h3>CV 성능 비교 (주황 = Prophet, 파랑 = 현재 최종)</h3>
+      <dt>결과</dt><dd>T1에서 Prophet은 0.565지만 오차 막대가 0.5 아래까지 내려간다. 연계절을 끄면 0.49가 된다. T2에서 Prophet은 0.929~0.947로 "요일만"(0.937) 근처이고, d3ratio(0.954)와 현재 E5(0.966)보다 낮다.</dd>
+      <dt>의미</dt><dd>Prophet은 날짜만 보는 모델이다. T2에서는 요일 패턴을 스스로 배워 "요일만"과 같은 수준에 도달한다. T1에서는 날짜에 정보가 없어서, 2.5년 데이터에서 1년 주기를 우연히 잡은 만큼만 점수가 난다.</dd>
+      <dd class="one">한 줄: Prophet은 Baseline보다 낫지만 현재 모델보다 못하고, T1 점수는 믿기 어렵다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/p01.png" alt="변수군별 Prophet 분해: 추세, 요일 성분, 연 계절성" loading="lazy">
+    <dl><span class="cardnum">그림 P1 · Prophet §2</span><h3>변수군을 추세·요일·1년 주기로 쪼개면</h3>
+      <dt>무엇을 보나</dt><dd>각 군이 얼마만큼 추세·요일·1년 주기·나머지(잔차)로 설명되는지를 본다. 이것은 Target이 아니라 <b>변수 자체</b>의 설명력이다.</dd>
+      <dt>결과</dt><dd>금융은 추세 66%·요일 0%, 포털은 요일 54%(평일 +, 토·일 −), 쇼핑은 추세 약 41%·요일 18~29%(월~수 +, 금·토 −), 날씨는 잔차 88%다.</dd>
+      <dt>의미</dt><dd>쇼핑·포털은 요일 리듬이 크기 때문에 T2와 관련된다. 금융은 추세가 지배하고 요일 리듬이 없어서, 원값 대신 변화율로 넣어야 했다. 날씨는 대부분 설명이 안 되는 잡음이다.</dd>
+      <dd class="one">한 줄: 앞서 EDA로 내린 군별 결론을 Prophet이 다른 방법으로 다시 확인해 주었다.</dd></dl></div>
+</section>
+
+<section aria-labelledby="s-next">
+  <h2 id="s-next">최우선 방향 (갱신됨)</h2>
+  <ol class="next">
+    <li><b>E7 = E6 + 미국 지수 주말 0 보정</b>을 <span class="mono">train.ipynb</span>에 정식 실험으로 기록한다. 세 지표가 모두 오른 유일한 후보다.</li>
+    <li><b>환경 고정</b>: VSCode 커널에 xgboost를 설치하거나, E5를 LR+RF로 확정해 csv와 노트북 수치를 맞춘다. 보고서와 zip은 이 환경 기준으로 재현돼야 한다.</li>
+    <li><b>Public 2차 결과 확인</b> (파일은 11:08 생성): T1 0.50~0.70, T2 0.93~0.99 안이면 정상이다. Public에 맞춰 고치지 않는다.</li>
+    <li class="muted">종료: seed 평균, d3ratio 확장, Prophet은 효과가 없어 제외한다.</li>
+    <li><b>2일차</b>: Train 전체로 재학습 → Private 1회 → 보고서. 보고서의 핵심 문장은 "T1은 신호가 약해 단순하고 안정적인 모델을 골랐다"이다.</li>
+  </ol>
+  <p class="read muted">이전 판단 대비 변경: "T1 정규화 그리드"가 최우선이었으나 E6에서 끝났고, 결과가 "병목 아님"이라 우선순위가 <b>안정성과 제출</b>로 넘어갔다.</p>
+</section>
+
+<section aria-labelledby="s-loop">
+  <h2 id="s-loop">실험 한 번 = 확인 루프 한 바퀴</h2>
+  <div class="loop">
+    <div class="box"><h3>1. 가설</h3>EDA 그림에서 나온 한 문장. 예: "T1은 얕은 트리가 낫다"</div>
+    <div class="box"><h3>2. 시계열 CV</h3>과거로 학습 → 미래로 검증, 5 fold, gap=3으로 D+3 누수 차단</div>
+    <div class="box"><h3>3. 세 가지 동시 확인</h3>Valid 평균 ↑ · fold std ↓ · Train−Valid 격차 ↓</div>
+    <div class="box"><h3>4. 기록</h3><span class="mono">experiments.csv</span>에 한 줄. 같은 설정이면 다음 실행 때 건너뜀</div>
+  </div>
+  <div class="verdicts">
+    <div class="v-ok"><b>셋 다 개선 → 채택</b><br>예: E2 피처셋 (T1 0.522→0.597)</div>
+    <div class="v-warn"><b>평균만 오름 → 보류</b><br>std·격차가 그대로면 운일 수 있다</div>
+    <div class="v-no"><b>나빠짐 → 폐기</b><br>예: E3 SelectKBest (T2 0.957→0.930)</div>
+  </div>
+</section>
+
+<section aria-labelledby="s-hyp">
+  <h2 id="s-hyp">EDA 가설 → CV 판정</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>EDA 가설</th><th>CV 결과 (Valid AUC)</th><th>판정</th></tr></thead>
+    <tbody>
+      <tr><td>T2는 요일이 지배한다 (§1)</td><td class="num">요일만 0.926 (단일 분할)</td><td><span class="pill ok">확인</span></td></tr>
+      <tr><td>T2 핵심 파생변수 d3ratio (§8)</td><td class="num">0.967 → 빼면 0.959</td><td><span class="pill ok">확인</span></td></tr>
+      <tr><td>T2 요일 2·5 보강 키워드 z20 (§4)</td><td class="num">0.967 → 빼면 0.964</td><td><span class="pill warn">미미</span></td></tr>
+      <tr><td>T1 변수 적게 + 정규화 (§3-2)</td><td class="num">565개 0.522 → 82개 0.597</td><td><span class="pill ok">확인</span></td></tr>
+      <tr><td>T1 쇼핑 sameWD 압축 유지 (§6)</td><td class="num">0.597 → 빼면 0.584</td><td><span class="pill ok">유지</span></td></tr>
+      <tr><td>T1 하이퍼파라미터·금융 축소 (E6)</td><td class="num">최대 +0.008, 나머지 하락</td><td><span class="pill todo">병목 아님</span></td></tr>
+      <tr><td>T1 Target lag1·2 자기상관 (§1)</td><td class="num">사용 안 함</td><td><span class="pill warn">Leakage</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="s-dict">
+  <h2 id="s-dict">변수 사전 (설명서 기준)</h2>
+  <p class="muted" style="margin-bottom:10px">출처: <span class="mono">별첨) 분석 Mini-Project 변수 설명서.xlsx</span>. 설명서에는 "모든 설명변수는 실습 목적으로 표준화 처리된 값"이라고 적혀 있다. 하루 1행, 924일이다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>접두어 (개수)</th><th>설명서 내용</th><th>한 줄 의미</th><th>모델에서 쓰는 형태</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">Time_step · Weekday</td><td>일자 Index(작을수록 과거), 요일 Index 1~7</td><td>순서와 요일만 알려준다. 실제 날짜는 숨겨져 있다.</td><td class="mono">wd_onehot (요일 7칸 0/1)</td></tr>
+      <tr><td class="mono">Target_1</td><td>D+3일 KOSPI 지수 상승 여부 (1 상승, 0 보합·하락)</td><td>"오늘보다 3일 뒤 KOSPI가 높은가"</td><td>정답 (Train에만 있음)</td></tr>
+      <tr><td class="mono">Target_2</td><td>D+3일 건강식품 지수 상승 여부, 원변수 SH2_쇼핑2_식품_건강식품</td><td>"3일 뒤 건강식품 쇼핑 클릭이 오늘보다 많은가"</td><td>정답 (Train에만 있음)</td></tr>
+      <tr><td class="mono">FI_ (18)</td><td>주가지수(나스닥·다우·S&amp;P500), 유가(브렌트·WTI·두바이·휘발유·경유), 금리(CD91·회사채3년), 원자재(금·옥수수·구리·니켈·가스오일), 환율(위안·엔·달러)</td><td>경제 체온계. 매일 조금씩만 변해 수준(level)보다 <b>변화율</b>에 정보가 있다.</td><td class="mono">fi_chg: 1·3·5일 변화율 + 20일 변동성 (T1)</td></tr>
+      <tr><td class="mono">SH1_ (11)</td><td>쇼핑 레벨1: 패션의류·패션잡화·화장품미용·디지털가전·가구인테리어·육아출산·식품·스포츠레저·생활건강·여가생활편의·면세점</td><td>사람들이 무엇을 많이 클릭했나(대분류). 요일마다 뚜렷한 리듬이 있다.</td><td class="mono">d3ratio (T2 핵심), samewd_grp (T1)</td></tr>
+      <tr><td class="mono">SH2_ (188)</td><td>쇼핑 레벨2: 위 대분류의 세부 품목 (예: 식품_축산, 생활건강_공구, 출산육아_분유)</td><td>대분류를 잘게 쪼갠 것. 수는 많지만 서로 비슷하게 움직여 겹치는 정보가 많다.</td><td class="mono">samewd_grp: 같은 요일 대비 비율의 중앙값 1개로 압축 (T1)</td></tr>
+      <tr><td class="mono">KE_ (51)</td><td>포털 키워드 검색량: 쇼핑(식기세척기·배달음식·홈트…), 금융(보험·대출·부동산…), 기타(코로나·미세먼지·재택근무·AI·삼성…)</td><td>사람들의 관심사. 가끔 확 튀는 날(왜도 1.6)이 있다. QR체크인은 값이 하나뿐이라 제거했다.</td><td class="mono">z20_kw: 최근 20일 평균 대비 위치 (T2), samewd_grp (T1)</td></tr>
+      <tr><td class="mono">WE_ (15)</td><td>오염도(PM10·PM2.5·오존 등), 기온(평균·최고·최저), 풍속·풍향, 강수량</td><td>날씨. 그날그날 출렁일 뿐 두 Target과 안정적인 관계가 거의 없다.</td><td>현재 사용 안 함</td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:16px">변환 이름 사전 (그림에 나오는 접미어)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>이름</th><th>계산</th><th>한 줄 의미</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">level</td><td>원값 그대로</td><td>"오늘 값이 큰가"</td></tr>
+      <tr><td class="mono">chg1 · chg3 · chg7</td><td>1·3·7일 전 대비 변화율</td><td>"요즘 오르는 중인가"</td></tr>
+      <tr><td class="mono">z20</td><td>(오늘 − 20일 평균) ÷ 20일 표준편차</td><td>"최근 평소보다 얼마나 튀었나"</td></tr>
+      <tr><td class="mono">sameWD</td><td>오늘 ÷ 지난 4주 같은 요일 평균</td><td>"요일 효과를 빼고도 많은가"</td></tr>
+      <tr><td class="mono">d3ratio</td><td>지난 4주 'D+3과 같은 요일' 평균 ÷ 오늘</td><td>"평소대로라면 3일 뒤가 오늘보다 클까" (T2 맞춤)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="s-cat">
+  <h2 id="s-cat">카테고리별 관계: 어떻게 확인했나</h2>
+  <p class="muted" style="margin-bottom:10px">모든 카테고리에 같은 4단계를 적용했다. ① 군 평균 흐름(그림 2) ② 성질표(왜도·하루 뒤 자기상관) ③ 6가지 변환별 AUC를 앞·뒤 절반에서 계산(그림 3·4) ④ 상위 변수의 lag와 중복(그림 8·9). "안정 비율"은 변수×변환 조합 중 안정 신호인 비율이다. 아무 관계 없는 변수도 우연히 약 4%는 걸린다(기준 0.03에서 계산).</p>
+  <div class="tbl"><table>
+    <thead><tr><th>카테고리</th><th>성질 (그림 2·성질표)</th><th>T1 KOSPI와의 관계</th><th>T2 건강식품과의 관계</th><th>한 줄 결론</th></tr></thead>
+    <tbody>
+      <tr><td><b>금융 FI</b> 18</td><td>추세가 크고 하루 뒤 값과 거의 같다(0.99). 18개 중 16개는 요일 1·7에 값이 전일과 100% 같다(휴장). 국내유가(휘발유·경유)는 주말에도 변한다</td><td class="num">안정 26/108 (24%)<br>최대 0.094</td><td class="num">안정 8/108 (7%)<br>최대 0.092</td><td>T1의 핵심. S&amp;P500·다우 전일 변화율 +0.10. T2 쪽 신호는 "주말엔 변화율 0"이라 요일을 대신 알려주는 효과로 본다</td></tr>
+      <tr><td><b>포털 키워드 KE</b> 51</td><td>가끔 확 튄다(왜도 1.62). 하루 뒤 상관 0.58로 들쭉날쭉하다</td><td class="num">72/300 (24%)<br>최대 0.079</td><td class="num">245/300 (82%)<br>최대 0.423</td><td>검색량도 요일 리듬을 탄다. T1에선 "같은 요일 대비" 형태로 약한 분위기 신호, T2 애매한 요일(2·5)에선 보험 키워드 z20이 보조 단서</td></tr>
+      <tr><td><b>쇼핑 SH1·SH2</b> 11+188</td><td>후반으로 갈수록 우상향하고 요일 리듬이 강하다(그림 6)</td><td class="num">L1 6/66 (9%)<br>L2 214/1128 (19%)<br>최대 0.086</td><td class="num">L1 40/66 (61%)<br>L2 770/1128 (68%)<br>최대 0.428</td><td>T2의 본체. 건강식품은 식품과 같은 주간 리듬을 탄다. T1에선 소비 분위기라는 약한 보조 신호이고, 수가 많아 중앙값 3개로 압축했다</td></tr>
+      <tr><td><b>날씨 WE</b> 15</td><td>추세 없이 출렁인다. 하루 뒤 상관 0.61</td><td class="num">9/90 (10%)<br>최대 0.053</td><td class="num">8/90 (9%)<br>최대 0.046</td><td>우연 수준(4%)보다 조금 높을 뿐 상위권 없음 → 제외</td></tr>
+    </tbody>
+  </table></div>
+  <p class="read muted">⚠ 같은 군 안의 변수끼리 서로 닮아서(그림 9) 안정 비율은 실제보다 부풀려 보인다. 비율보다 "최대 신호"와 "설명 가능성"을 함께 봐야 한다.</p>
+</section>
+
+<section aria-labelledby="s-wd">
+  <h2 id="s-wd">요일을 어떻게 다뤘나</h2>
+  <div class="fix" style="background:var(--now-bg);margin-bottom:12px">
+    <p><b>새로 확인한 사실: Weekday 1 = 일요일, 7 = 토요일로 보인다.</b> 금융 변수 18개 중 16개가 요일 1·7에서 전일 값과 100% 같고(S&amp;P500·금·달러환율 등, 국내유가 2개 제외), 요일 2~6에서는 2~16%만 같다. 시장이 쉬는 날은 토·일이므로 7=토, 1=일, 2=월 … 6=금이다(데이터에서 추론한 것이고, 설명서에는 없다).</p>
+    <p>이렇게 읽으면 그림 6이 자연스럽다. 식품 클릭은 월(2) 1.21이 최고, 토(7) 0.69가 최저다. Target_2가 거의 항상 상승하는 날은 일·금·토(1·6·7)이고, 3일 뒤가 수·월·화로 장보기 많은 평일이다.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>단계</th><th>한 일</th><th>왜</th></tr></thead>
+    <tbody>
+      <tr><td>1. 요일 효과 크기 재기</td><td>요일별 상승비율(그림 1 가운데), 요일만으로 낸 AUC (T1 0.484 / T2 0.926)</td><td>T2에서 요일이 기준선이다. 다른 변수는 이 0.926을 넘어야 의미가 있다</td></tr>
+      <tr><td>2. 주기 확인</td><td>Target 자기상관 7·14일 +0.7 (그림 1 오른쪽), lag 히트맵 7일 간격 줄무늬 (그림 8)</td><td>리듬이 정확히 일주일인지 확인</td></tr>
+      <tr><td>3. 리듬의 출처 찾기</td><td>쇼핑L1 요일별 지수 (그림 6)로 "3일 뒤 요일 &gt; 오늘 요일"을 7개 요일 모두 검산</td><td>요일 효과가 우연이 아니라 쇼핑 행동에서 나온다는 근거</td></tr>
+      <tr><td>4-a. T2: 리듬을 이용</td><td><span class="mono">d3ratio</span> = 지난 4주 'D+3과 같은 요일' 평균 ÷ 오늘</td><td>요일 숫자만으로는 모르는 "이번 주의 실제 크기"까지 반영</td></tr>
+      <tr><td>4-b. T1: 리듬을 제거</td><td><span class="mono">sameWD</span> = 오늘 ÷ 지난 4주 같은 요일 평균</td><td>요일 효과를 빼고 남은 "평소보다 많다/적다"만 보려고. 안 빼면 요일을 대신 알려주는 변수가 된다</td></tr>
+      <tr><td>5. 요일 넣는 방식</td><td>요일 숫자(1~7) 대신 one-hot 7칸</td><td>숫자로 넣으면 "토(7)가 일(1)보다 7배 크다"는 엉뚱한 순서가 생긴다</td></tr>
+      <tr><td>6. 요일로 안 풀리는 부분</td><td>애매한 요일 2·5만 따로 분석 (그림 7)</td><td>T2에 남은 점수는 여기에만 있다</td></tr>
+    </tbody>
+  </table></div>
+  <p class="read muted">주의: 금융 변화율은 토·일에 항상 0이라 그 자체가 "주말 표시등"이 된다. T1 모델에도 요일 one-hot이 함께 들어 있어 큰 문제는 아니지만, 금융 신호를 해석할 때는 평일만 따로 보는 것이 더 정확하다.</p>
+</section>
+
+<section aria-labelledby="s-check">
+  <h2 id="s-check">변수 선택 점검표 (직접 판단용)</h2>
+  <p class="muted" style="margin-bottom:10px">위에서부터 순서대로 통과해야 채택한다. 한 변수(또는 블록)를 들고 8개 질문에 답해 본다. "현재 상태"는 Claude가 진행한 결과이고, ⚠ 표시는 기준이 느슨하거나 근거가 약한 곳이다. 체크 표시는 이 브라우저에만 저장된다.</p>
+  <div class="tbl"><table id="chk">
+    <thead><tr><th></th><th>질문</th><th>볼 자료</th><th>쉬운 기준</th><th>현재 상태</th></tr></thead>
+    <tbody>
+      <tr><td><input type="checkbox" id="c1"></td><td><b>1. 예측하는 날 알 수 있는 값인가</b> (Leakage)</td><td>코드의 shift 방향</td><td><span class="mono">shift(+n)</span>·과거 rolling만 OK. <span class="mono">shift(-n)</span>, center rolling, Target 자체의 lag 1·2는 탈락</td><td>통과. Target lag는 쓰지 않음</td></tr>
+      <tr><td><input type="checkbox" id="c2"></td><td><b>2. 혼자서 신호가 있나</b></td><td>그림 5, 그림 3</td><td>|AUC−0.5| ≥ 0.03이면 후보, ≥ 0.06이면 확실</td><td>⚠ 0.03은 표본 460일에서 잡음 1배(약 0.027) 수준이라 느슨하다. T1 상위권(0.08~0.10)은 확실하고, 0.03~0.05 구간은 애매하다</td></tr>
+      <tr><td><input type="checkbox" id="c3"></td><td><b>3. 시기가 바뀌어도 같은 방향인가</b></td><td>그림 4</td><td>앞 절반·뒤 절반 AUC가 0.5 기준 같은 쪽. 군 전체 점의 상관이 0.7 이상이면 군 자체가 믿을 만함</td><td>T2 0.97 통과. T1 0.39로 군 전체는 약하고, 개별 상위 변수만 통과</td></tr>
+      <tr><td><input type="checkbox" id="c4"></td><td><b>4. 이유를 한 문장으로 말할 수 있나</b></td><td>변수 사전</td><td>"왜 이 변수가 Target과 관련 있나"를 말할 수 있으면 통과. 못 하면 우연이나 대리 변수를 의심한다</td><td>미국 증시 → KOSPI는 통과. 축산 chg3 → 건강식품은 요일 대리 변수라서 d3ratio 하나로 대체</td></tr>
+      <tr><td><input type="checkbox" id="c5"></td><td><b>5. 원값에 추세가 있나</b></td><td>그림 2</td><td>천천히 오르내리는 흐름이 보이면 원값은 탈락, 변화율·비율로 바꾼다</td><td>금융·쇼핑은 변환해서 사용, 원값은 미사용</td></tr>
+      <tr><td><input type="checkbox" id="c6"></td><td><b>6. 며칠 전 값까지 유효한가</b></td><td>그림 8</td><td>lag 0에서만 진하면 최신 값만 쓴다. 천천히 옅어지면 분위기형 변수다</td><td>금융 chg1은 lag 0에서만 유효 → 최신 값만 사용</td></tr>
+      <tr><td><input type="checkbox" id="c7"></td><td><b>7. 이미 넣은 변수와 겹치나</b></td><td>그림 9</td><td>서로 상관 0.8 이상이면 대표 하나만 남기거나 평균·중앙값으로 압축</td><td>쇼핑·키워드 sameWD는 중앙값 3개로 압축. ⚠ fi_chg 72개는 S&amp;P·다우·나스닥처럼 겹치는 변수가 그대로 들어가 있다</td></tr>
+      <tr><td><input type="checkbox" id="c8"></td><td><b>8. 넣었을 때 CV가 실제로 좋아지나</b></td><td><span class="mono">experiments.csv</span>, <span class="mono">show_progress()</span></td><td>빼고 돌렸을 때 ① 평균 하락이 std의 절반 이상 ② 5개 fold 중 4개 이상에서 하락 ③ Train−Valid 격차가 늘지 않음</td><td>⚠ 평균 하락만 확인했다(samewd_grp −0.013 / std 0.022, d3ratio −0.008 / std 0.010). fold별 비교는 기록되지 않아 미확인</td></tr>
+    </tbody>
+  </table></div>
+  <p class="read"><b>판단 요령</b>: 1번은 하나라도 걸리면 무조건 탈락이다. 2~7번은 EDA 단계의 필터이고, 최종 판정은 8번(CV)이 한다. EDA가 좋아도 8번에서 안 오르면 뺀다. 8번에서 차이가 std 안에 있으면 "효과 없음"으로 보고, 더 단순한 쪽(변수가 적은 쪽)을 고른다.</p>
+</section>
+
+<section aria-labelledby="s-fig">
+  <h2 id="s-fig">EDA 그림 해석</h2>
+  <p class="muted" style="margin-bottom:14px">그림은 <span class="mono">01_EDA_피처인사이트.ipynb</span> 코드를 Train만으로 터미널에서 따로 실행해 저장한 것이다. VSCode 노트북은 건드리지 않았다. 숫자 AUC−0.5는 "0.5에서 얼마나 떨어졌나"이고, 음수는 반대 방향 신호다.</p>
+  <div id="figs">
+
+  <div class="card"><img src="현황판_그림/g01.png" alt="30일 이동 상승비율, 요일별 상승비율, Target 자기상관 3개 패널" loading="lazy">
+    <dl><span class="cardnum">그림 1 · §1</span><h3>Target 구조: 시간·요일·자기상관</h3>
+      <dt>무엇을 보나</dt><dd>정답 자체의 성질이다. 시기마다 오른 비율이 달라지는지, 요일에 따라 다른지, 어제 정답과 오늘 정답이 닮았는지.</dd>
+      <dt>결과</dt><dd>T1은 오른 비율이 0.17~0.83으로 크게 출렁이고, 요일과는 무관하다(요일만 쓴 AUC 0.484). T2는 요일 1·6·7은 거의 항상 상승, 3·4는 거의 항상 하락, 2·5는 애매하다(요일만 쓴 AUC 0.926). T2 자기상관은 7·14일 간격이 +0.7인 일주일 주기다.</dd>
+      <dt>주의</dt><dd>T1의 lag1 0.47은 "오늘~3일 뒤"와 "내일~4일 뒤"가 이틀 겹쳐서 생긴 착시다. 쓰면 Leakage다.</dd>
+      <dd class="one">한 줄: T2는 요일 문제이고, T1은 시기마다 분위기가 바뀌는 어려운 문제다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g02.png" alt="변수군별 표준화 평균의 7일 이동평균 시계열 5개" loading="lazy">
+    <dl><span class="cardnum">그림 2 · §2</span><h3>변수군 흐름: 금융·쇼핑L1·쇼핑L2·키워드·날씨</h3>
+      <dt>무엇을 보나</dt><dd>각 군의 변수를 같은 눈금으로 맞춰 평균 낸 큰 흐름이다. 추세가 있는지, 튀는 구간이 있는지 본다.</dd>
+      <dt>결과</dt><dd>금융은 크게 오르내리는 추세이고 하루 뒤 값과 거의 같다(lag1 자기상관 0.99). 쇼핑은 기간 후반으로 갈수록 우상향하고, 키워드는 맨 끝(t≈920)에 급등한다. 날씨는 추세 없이 출렁이기만 한다.</dd>
+      <dt>의미</dt><dd>추세가 있는 변수의 원값을 그대로 넣으면 "몇 월쯤인가"를 외우게 된다. Test(Train 이후 기간)는 값 범위가 다를 수 있다. 그래서 <b>변화율·비율로 바꿔 넣는다</b>.</dd>
+      <dd class="one">한 줄: 원값은 시기를 외우게 만드니, 변화량으로 바꿔서 써야 한다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g03.png" alt="Target별 변수군×변환 안정 신호 비율 히트맵" loading="lazy">
+    <dl><span class="cardnum">그림 3 · §3-1</span><h3>어떤 형태로 넣어야 신호가 사나</h3>
+      <dt>무엇을 보나</dt><dd>칸마다 해당 군의 변수 중 "앞 기간과 뒤 기간 모두에서 같은 방향으로 맞힌 변수"의 비율이다. 진할수록 쓸 만한 조합이다.</dd>
+      <dt>결과</dt><dd>T1은 금융의 chg3(39%)·chg1(28%), 쇼핑L2·키워드의 sameWD(54%·45%)와 z20(47%)이 진하다. T2는 쇼핑·키워드의 거의 모든 칸이 80~100%로 진하다.</dd>
+      <dt>의미</dt><dd>T2 칸이 다 진한 것은 변수가 다 좋아서가 아니다. 쇼핑·검색이 모두 같은 요일 리듬을 타서 다들 요일을 대신 알려주기 때문이다.</dd>
+      <dd class="one">한 줄: T1은 금융은 변화율로, 쇼핑·키워드는 요일을 뺀 비율로 넣는다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g04.png" alt="앞 절반 AUC 대 뒤 절반 AUC 산점도, T1 상관 0.39, T2 상관 0.97" loading="lazy">
+    <dl><span class="cardnum">그림 4 · §3-2</span><h3>그 신호, 미래에도 통하나</h3>
+      <dt>무엇을 보나</dt><dd>점 하나가 변수×변환 조합 하나다. x는 앞 절반 기간, y는 뒤 절반 기간의 AUC다. 대각선 위에 있으면 시간이 지나도 유지되는 신호다.</dd>
+      <dt>결과</dt><dd>T1은 0.5 근처에 둥근 구름처럼 퍼져 있다(상관 0.39). T2는 대각선을 따라 길게 늘어서 있다(상관 0.97).</dd>
+      <dt>의미</dt><dd>T1에서 "앞 기간에 잘 맞던 변수"가 뒤 기간에도 잘 맞을 확률은 낮다. 변수를 많이 고를수록 우연을 고르게 된다. 그래서 T1은 <b>변수를 적게, 모델은 둔하게</b> 간다.</dd>
+      <dd class="one">한 줄: T1 신호의 대부분은 잡음이고, T2 신호는 진짜다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g05.png" alt="Target별 안정 신호 상위 20 막대" loading="lazy">
+    <dl><span class="cardnum">그림 5 · §3-3</span><h3>가장 믿을 만한 변수 Top 20</h3>
+      <dt>무엇을 보나</dt><dd>막대 길이는 AUC−0.5다. 오른쪽(+)이면 값이 클수록 상승, 왼쪽(−)이면 값이 클수록 하락이다. 색은 변수군이다.</dd>
+      <dt>결과</dt><dd>T1 1~3위는 S&amp;P500·다우의 전일 대비 변화율(+0.10)이다. "어제 미국 증시가 오르면 한국 증시도 따라 오른다"는 경제적으로 말이 되는 신호다. 나머지는 쇼핑L2 sameWD가 +0.08~0.10이다. T2는 상위 20개가 모두 chg3이고 −0.43이다. "3일 전보다 오늘 클릭이 많이 늘었으면 3일 뒤엔 줄어든다"는 뜻이다.</dd>
+      <dt>의미</dt><dd>T2의 −0.43은 축산·공구·암보험 같은 품목이 건강식품과 관련 있어서가 아니다. 모두 요일 리듬을 반영할 뿐이다. 대표 하나(d3ratio)로 충분하다.</dd>
+      <dd class="one">한 줄: T1의 진짜 단서는 미국 증시의 하루 변화이고, T2의 단서는 모두 요일의 다른 이름이다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g06.png" alt="쇼핑L1 클릭량의 요일별 평균 대비 히트맵과 Target_2 상승비율" loading="lazy">
+    <dl><span class="cardnum">그림 6 · §4</span><h3>T2가 요일로 결정되는 이유</h3>
+      <dt>무엇을 보나</dt><dd>쇼핑 대분류별로 요일 평균 클릭 ÷ 전체 평균이다. 빨강은 그 요일에 클릭이 많다는 뜻이다. 맨 아래 줄은 Target_2 상승비율이다.</dd>
+      <dt>결과</dt><dd>식품·생활건강은 요일 2·3·4가 1.13~1.23으로 많고, 6·7이 0.67~0.85로 적다. 요일 1은 식품 0.91이다.</dd>
+      <dt>검산</dt><dd>식품 기준으로 "3일 뒤 요일 값 &gt; 오늘 값"을 따져 보면 1→4, 6→2, 7→3은 상승, 3→6, 4→7, 2→5, 5→1은 하락이다. Target_2 줄(0.92·0.95·0.98 / 0.05·0.02·0.17·0.19)과 7개 요일이 모두 맞는다.</dd>
+      <dd class="one">한 줄: 건강식품도 식품과 같은 주간 리듬을 타기 때문에 요일만 알면 대부분 맞힌다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g07.png" alt="요일 2·5에서만 본 Target_2 신호 Top 15" loading="lazy">
+    <dl><span class="cardnum">그림 7 · §4</span><h3>애매한 요일 2·5에서 남은 단서</h3>
+      <dt>무엇을 보나</dt><dd>요일로 결론이 안 나는 264일만 따로 떼어 본 신호다.</dd>
+      <dt>결과</dt><dd>키워드 z20(암보험·보험·종신보험)과 쇼핑L2 z20(PC부품·pc악세사리)이 −0.22~−0.29다. 최근 평소보다 검색·클릭이 튀었으면 3일 뒤 건강식품은 덜 오른다.</dd>
+      <dt>의미</dt><dd>표본이 264개라 잡음일 수 있다. CV에서 z20_kw를 빼도 0.967→0.964로, 기여는 +0.003뿐이다.</dd>
+      <dd class="one">한 줄: 남은 여지는 있지만 작고 불확실하니, 작은 보너스 정도로만 본다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g08.png" alt="상위 변수의 추가 lag별 AUC-0.5 히트맵" loading="lazy">
+    <dl><span class="cardnum">그림 8 · §5</span><h3>며칠 전 값까지 쓸모 있나</h3>
+      <dt>무엇을 보나</dt><dd>상위 변수를 0~10일 더 과거 값으로 밀었을 때의 신호 세기다.</dd>
+      <dt>결과</dt><dd>T1의 S&amp;P500·다우 chg1은 0일에 0.10이었다가 하루만 밀어도 0.02~0.03으로 사라진다. 쇼핑 sameWD는 0.10에서 천천히 줄어든다. T2는 파랑(−)과 빨강(+)이 7일 간격으로 번갈아 나온다.</dd>
+      <dt>의미</dt><dd>미국 증시 정보는 <b>하루짜리 신선식품</b>이라 가장 최근 값만 넣는다. 쇼핑 sameWD는 천천히 바뀌는 "분위기"라서, 시기를 외우는 것과 구분하기 어렵다. T2는 다시 한번 일주일 주기임을 확인해 준다.</dd>
+      <dd class="one">한 줄: T1의 미국 증시 단서는 어제 값만 유효하다.</dd></dl></div>
+
+  <div class="card"><img src="현황판_그림/g09.png" alt="상위 20 신호 변수 간 상관 히트맵" loading="lazy">
+    <dl><span class="cardnum">그림 9 · §6</span><h3>상위 변수들이 같은 정보인가</h3>
+      <dt>무엇을 보나</dt><dd>상위 20개 변수끼리의 상관이다. 진한 빨강은 거의 같은 정보이고, 흰색은 서로 다른 정보다.</dd>
+      <dt>결과</dt><dd>T1은 금융 덩어리(왼쪽 위)와 쇼핑·키워드 sameWD 덩어리가 서로 흰색이다. 즉 독립적인 단서 2개다. T2는 20개가 거의 전부 빨강이라 사실상 하나의 정보(요일 리듬)다.</dd>
+      <dt>의미</dt><dd>같은 정보를 여러 번 넣으면 점수는 그대로인데 외울 거리만 늘어난다. 그래서 T1은 sameWD 수백 개를 군별 중앙값 3개(samewd_grp)로 압축했다.</dd>
+      <dd class="one">한 줄: T1은 "미국 증시 + 소비 분위기" 두 줄기로 정리되고, T2는 요일 하나로 정리된다.</dd></dl></div>
+
+  </div>
+</section>
+
+<section aria-labelledby="s-log">
+  <h2 id="s-log">갱신 기록</h2>
+  <div class="log mono" id="log">
+    <p>12:45 · "발표용: 변수 관계 → 피처 → 모델 설정" 섹션 추가 (변수별 근거 수치, 피처 구성, E8·E5 하이퍼파라미터와 이유)</p>
+    <p>12:35 ·맨 앞에 "고도화 과정" 섹션 추가(단계별 생각·판단 13단계, 평균 AUC 추이 그래프, 판단 원칙 4가지). 첫 요약 문장을 최종 결론으로 갱신</p>
+    <p>12:25 ·최종 제출 추천(T1=E8, T2=E5)과 fold별 그래프 추가, 점수 차트에 E7·E8·블록 제거(A_) 반영. 금융 휴장 문구를 "18개 중 16개"로 정정(VSCode 세션 지적)</p>
+    <p>12:10 ·Prophet vs Baseline vs 현재 모델 비교표, 설명력 6관점 표, Prophet 그림 2개 추가 (Prophet §4를 터미널에서 다시 실행해 수치 재확인)</p>
+    <p>12:00 ·최신 결과 해석 추가: csv 새 행 없음, VSCode 커널 xgboost 미설치로 E5가 LR+RF로 재실행됨, 이어 붙인 AUC T1 0.570, 주말 0 보정 E7 후보, Prophet 결론. 최우선 순서 갱신</p>
+    <p>11:50 ·public_4반_최승우_2.csv 생성(11:08) 확인. 원본 csv 3개는 cp949 인코딩이라 UTF-8 편집기에서 한글 열 이름이 깨짐(데이터 이상 아님)</p>
+    <p>11:40 ·카테고리별 관계 표, 요일 처리 6단계 추가. 금융 휴장일 패턴으로 Weekday 1=일·7=토 추론</p>
+    <p>11:25 ·변수 선택 점검표 8항목 추가 (약한 근거 3곳 ⚠ 표시)</p>
+    <p>11:10 ·쉬운 설명, 변수 사전, EDA 그림 9개 해석 추가. "과거 Target을 피처로 쓸 수 있다"던 설명 정정(원변수가 데이터에 없음)</p>
+    <p>10:53 · 현황판 생성. E6 반영(VSCode 세션), 최우선을 T1 그리드에서 안정성·제출로 변경</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+// experiments.csv(11:29) 그대로 옮긴 값: [실험, train_mean, valid_mean, valid_std] — A_ 는 블록 제거 진단용
+const DATA = {
+  t1: [["E0_baseline",.9997,.5221,.0181],["E1_rf_reg",.8970,.5397,.0501],["E2_feat_eda",.8981,.5965,.0224],
+       ["E3_select_k30",.8439,.5851,.0298],["E4_lr",.7970,.5649,.0554],["E4_xgb",.9221,.5771,.0416],
+       ["E5_ensemble",.9034,.5835,.0446],["E6_t1_rf_d2",.8255,.5990,.0203],["A_E6-samewd_grp",.8193,.5839,.0212],
+       ["E7_t1_fi_dedup",.8363,.5973,.0476],["E8_t1_us_last",.8150,.6033,.0180]],
+  t2: [["E0_baseline",.9960,.9451,.0093],["E1_rf_reg",.9788,.9367,.0101],["E2_feat_eda",.9742,.9567,.0098],
+       ["E3_select_k30",.9564,.9299,.0157],["E4_lr",.9904,.9643,.0133],["E4_xgb",.9774,.9579,.0104],
+       ["E5_ensemble",.9861,.9665,.0105],["A_E5-d3ratio",.9814,.9593,.0108],["A_E5-z20_kw",.9757,.9640,.0100]]
+};
+// fold별 Valid AUC (왼쪽 = 과거, 오른쪽 = 최근)
+const FOLDS = {
+  t1: [["E0_baseline",[.4873,.5313,.5231,.5392,.5296],"var(--todo)"],["E6_t1_rf_d2",[.5858,.5661,.6164,.6206,.6058],"var(--t2)"],
+       ["E7_t1_fi_dedup",[.5154,.5768,.6497,.6324,.6123],"var(--warn)"],["E8_t1_us_last",[.5748,.5975,.63,.6034,.6109],"var(--t1)"]],
+  t2: [["E0_baseline",[.9467,.9437,.9389,.9616,.9344],"var(--todo)"],["E4_lr",[.9625,.9792,.9472,.9798,.9528],"var(--warn)"],
+       ["A_E5-z20_kw",[.956,.9751,.9618,.9759,.9513],"var(--t1)"],["E5_ensemble",[.9609,.9761,.9641,.98,.9511],"var(--t2)"]]
+};
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent, text) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  parent.appendChild(e); return e;
+}
+function draw(id, rows, lo, hi, step, color) {
+  const W = 560, L = 118, R = 22, T = 10, rowH = 30, H = T + rows.length * rowH + 30;
+  const x = v => L + (v - lo) / (hi - lo) * (W - L - R);
+  const best = rows.reduce((b, r) => (r[2] - r[3] > b[2] - b[3] ? r : b));
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": id === "c1" ? "Target_1 실험별 점수" : "Target_2 실험별 점수" }, document.getElementById(id));
+  for (let v = lo; v <= hi + 1e-9; v += step) {
+    el("line", { x1: x(v), x2: x(v), y1: T, y2: H - 24, stroke: "var(--line)", "stroke-width": 1 }, svg);
+    el("text", { x: x(v), y: H - 8, "text-anchor": "middle" }, svg, v.toFixed(2));
+  }
+  if (lo <= .5) el("line", { x1: x(.5), x2: x(.5), y1: T, y2: H - 24, stroke: "var(--muted)", "stroke-dasharray": "3 3" }, svg);
+  rows.forEach((r, i) => {
+    const [name, tr, va, sd] = r, y = T + i * rowH + rowH / 2, sel = r === best;
+    if (sel) el("rect", { x: 0, y: y - rowH / 2 + 2, width: W, height: rowH - 4, fill: "var(--now-bg)", rx: 4 }, svg);
+    el("text", { x: 4, y: y + 4, class: sel ? "lbl sel" : "lbl" }, svg, name);
+    el("line", { x1: x(va), x2: x(tr), y1: y, y2: y, stroke: "var(--muted)", "stroke-dasharray": "2 3" }, svg);
+    el("line", { x1: x(va - sd), x2: x(va + sd), y1: y, y2: y, stroke: color, "stroke-width": 3, "stroke-linecap": "round" }, svg);
+    el("circle", { cx: x(va), cy: y, r: 5.5, fill: color }, svg);
+    el("circle", { cx: x(tr), cy: y, r: 4.5, fill: "var(--panel)", stroke: "var(--muted)", "stroke-width": 2 }, svg);
+    el("text", { x: x(va), y: y - 9, "text-anchor": "middle" }, svg, va.toFixed(3));
+  });
+}
+document.querySelectorAll('#chk input').forEach(cb => {
+  try { cb.checked = localStorage.getItem('chk-' + cb.id) === '1'; } catch (e) {}
+  cb.addEventListener('change', () => { try { localStorage.setItem('chk-' + cb.id, cb.checked ? '1' : '0'); } catch (e) {} });
+});
+draw("c1", DATA.t1, .45, 1.0, .05, "var(--t1)");
+draw("c2", DATA.t2, .90, 1.0, .02, "var(--t2)");
+function drawFolds(id, series, lo, hi, step) {
+  const W = 560, L = 44, R = 130, T = 12, B = 30, H = 240;
+  const x = i => L + i * (W - L - R) / 4, y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "fold별 Valid AUC" }, document.getElementById(id));
+  for (let v = lo; v <= hi + 1e-9; v += step) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--line)" }, svg);
+    el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, svg, v.toFixed(2));
+  }
+  if (lo < .5 && hi > .5) el("line", { x1: L, x2: W - R, y1: y(.5), y2: y(.5), stroke: "var(--muted)", "stroke-dasharray": "3 3" }, svg);
+  for (let i = 0; i < 5; i++) el("text", { x: x(i), y: H - 10, "text-anchor": "middle" }, svg, `fold${i + 1}`);
+  const ends = [];
+  series.forEach(([name, f, c]) => {
+    el("polyline", { points: f.map((v, i) => `${x(i)},${y(v)}`).join(" "), fill: "none", stroke: c, "stroke-width": 2.5 }, svg);
+    f.forEach((v, i) => el("circle", { cx: x(i), cy: y(v), r: 3.5, fill: c }, svg));
+    ends.push([name, y(f[4]), c]);
+  });
+  ends.sort((a, b) => a[1] - b[1]).forEach((e, i, arr) => { if (i && e[1] - arr[i - 1][1] < 14) e[1] = arr[i - 1][1] + 14; });
+  ends.forEach(([name, yy, c]) => el("text", { x: W - R + 8, y: yy + 4, class: "lbl", style: `fill:${c}` }, svg, name));
+}
+(function journey() {
+  // 두 Target 평균 CV AUC (experiments.csv). E5/E8 단계는 각 시점의 Target별 최선 조합
+  const P = [["1 Baseline", .7336], ["4 E1 정규화", .7382], ["5 E2 피처", .7766], ["7 E5 T2앙상블", .7815], ["8 E6 T1단순화", .7827], ["11 E8 최종", .7849]];
+  const W = 560, L = 44, R = 20, T = 18, B = 34, H = 200, lo = .72, hi = .80;
+  const x = i => L + i * (W - L - R) / (P.length - 1), y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "단계별 평균 CV AUC" }, document.getElementById("jr"));
+  for (let v = lo; v <= hi + 1e-9; v += .02) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--line)" }, svg);
+    el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, svg, v.toFixed(2));
+  }
+  el("polyline", { points: P.map((p, i) => `${x(i)},${y(p[1])}`).join(" "), fill: "none", stroke: "var(--accent)", "stroke-width": 2.5, "stroke-dasharray": "5 4" }, svg);
+  P.forEach(([n, v], i) => {
+    el("circle", { cx: x(i), cy: y(v), r: i === P.length - 1 ? 6 : 4.5, fill: "var(--accent)" }, svg);
+    el("text", { x: x(i), y: y(v) - 10, "text-anchor": "middle" }, svg, v.toFixed(3));
+    el("text", { x: x(i), y: H - 10, "text-anchor": "middle", class: "lbl", style: "font-size:10.5px" }, svg, n);
+  });
+})();
+drawFolds("f1", FOLDS.t1, .45, .70, .05);
+drawFolds("f2", FOLDS.t2, .92, .99, .01);
+</script>

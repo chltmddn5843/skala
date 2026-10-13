@@ -1,0 +1,12 @@
+# 실습 14: 볼륨을 연결한다
+# storageClassName 을 적지 않으면 클러스터 기본값(gp3)이 사용된다.
+# gp3 는 WaitForFirstConsumer 방식이라 Pod 가 연결되기 전까지 Pending 이다.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: __ID__-data
+  labels: {owner: __ID__}
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests: {storage: 1Gi}

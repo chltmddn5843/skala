@@ -1,0 +1,21 @@
+# 실습 14: PVC 를 Pod 에 연결한다.
+# 이 Pod 가 배치되는 순간 Pending 이던 PVC 가 Bound 로 바뀐다.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: __ID__-vol
+  labels: {app: __ID__-vol, owner: __ID__}
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+    - name: app
+      image: busybox:1.36
+      command: ["sh", "-c", "sleep 3600"]
+      resources:
+        requests: {cpu: 10m, memory: 16Mi}
+        limits: {cpu: 50m, memory: 32Mi}
+      volumeMounts:
+        - {name: data, mountPath: /data}
+  volumes:
+    - name: data
+      persistentVolumeClaim: {claimName: __ID__-data}
