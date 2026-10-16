@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>모델결과보고서 4반 최승우</title>
+<style>
+  :root { --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984; --line:#e2e1dc; --blue:#2a78d6; --orange:#eb6834; --soft:#f4f6fa; --warn:#fff6ec; }
+  @page { size: A4; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Apple SD Gothic Neo", "AppleGothic", sans-serif; color: var(--ink); font-size: 10.2pt; line-height: 1.55; margin: 0; background: #fff; }
+  h1 { font-size: 21pt; margin: 0 0 4px; letter-spacing: -0.5px; }
+  h2 { font-size: 14.5pt; margin: 22px 0 8px; padding-bottom: 4px; border-bottom: 2px solid var(--ink); break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: 14px 0 6px; color: var(--ink); break-after: avoid; }
+  p { margin: 4px 0 8px; }
+  .sub { color: var(--ink2); font-size: 10pt; margin-bottom: 12px; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 10px; font-size: 9.2pt; break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 4px 6px; vertical-align: top; text-align: left; }
+  th { background: #f3f2ee; font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .hl { color: var(--blue); font-weight: 700; }
+  figure { margin: 8px 0 12px; break-inside: avoid; }
+  figure img { width: 100%; border: 1px solid var(--line); }
+  figcaption { font-size: 9pt; color: var(--ink2); margin-top: 3px; }
+  figcaption b { color: var(--ink); }
+  .easy { background: var(--soft); border-left: 4px solid var(--blue); padding: 6px 10px; margin: 6px 0 12px; font-size: 9.6pt; break-inside: avoid; }
+  .easy b:first-child { color: var(--blue); }
+  .warn { background: var(--warn); border-left: 4px solid var(--orange); padding: 6px 10px; margin: 6px 0 12px; font-size: 9.6pt; break-inside: avoid; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 12px; }
+  .kpi { border: 1px solid var(--line); padding: 8px 10px; }
+  .kpi .v { font-size: 17pt; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .kpi .l { font-size: 8.6pt; color: var(--ink2); }
+  .flow { display: flex; gap: 6px; align-items: stretch; margin: 8px 0 12px; break-inside: avoid; }
+  .flow .st { flex: 1; border: 1px solid var(--line); border-top: 4px solid var(--blue); padding: 6px 7px; font-size: 8.7pt; }
+  .flow .st b { display: block; font-size: 9.6pt; margin-bottom: 2px; }
+  .flow .ar { align-self: center; color: var(--muted); font-size: 12pt; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .model { border: 1px solid var(--line); padding: 8px 10px; break-inside: avoid; }
+  .model h4 { margin: 0 0 4px; font-size: 10.5pt; }
+  .box { display: inline-block; border: 1px solid var(--line); padding: 1px 6px; margin: 1px 0; background: #fafaf8; font-size: 8.8pt; }
+  .pb { break-before: page; }
+  ul { margin: 4px 0 8px; padding-left: 18px; }
+  li { margin: 2px 0; }
+  code { font-family: Menlo, monospace; font-size: 8.6pt; background: #f3f2ee; padding: 0 3px; }
+  .small { font-size: 8.8pt; color: var(--ink2); }
+</style>
+</head>
+<body>
+
+<h1>모델 결과 보고서</h1>
+<div class="sub">SKALA 4기 · 데이터분석 미니프로젝트 · 4반 최승우 · 2026-10-14<br>
+과제: 3일 뒤 KOSPI(Target_1)와 건강식품 쇼핑 지수(Target_2)가 오늘보다 오를 <b>확률</b> 예측 · 평가지표 AUC</div>
+
+<h2>0. 한 장 요약</h2>
+<div class="kpis">
+  <div class="kpi"><div class="v">0.637</div><div class="l">T1 검증 AUC (Baseline 0.522)</div></div>
+  <div class="kpi"><div class="v">0.967</div><div class="l">T2 검증 AUC (Baseline 0.945)</div></div>
+  <div class="kpi"><div class="v">0.802</div><div class="l">두 Target 평균 (Baseline 0.734, <b>+0.068</b>)</div></div>
+  <div class="kpi"><div class="v">≈0.79</div><div class="l">Private 기대치 (200일을 한 번에 채점하는 방식으로 환산)</div></div>
+</div>
+<table>
+  <tr><th style="width:16%"></th><th>Target_1 · KOSPI</th><th>Target_2 · 건강식품 지수</th></tr>
+  <tr><td>문제의 성격</td><td>신호가 약하고 시기마다 흔들림. 확실한 단서는 <b>직전 미국 증시 등락</b> 하나</td><td>거의 <b>요일 리듬</b> 문제. 요일만 써도 AUC 0.926</td></tr>
+  <tr><td>최종 모델</td><td><span class="hl">E13</span> = 얕은 랜덤포레스트(85개 변수) 50% + 강하게 규제한 로지스틱(핵심 9개) 50%</td><td><span class="hl">E10</span> = 로지스틱 + 랜덤포레스트 + XGBoost 평균(80개 변수)</td></tr>
+  <tr><td>점수를 올린 것</td><td>모델이 아니라 <b>입력</b>: 주말 보정, 변화율→차이, 환율·검색량 신호</td><td>"3일 뒤 요일의 평소 값 ÷ 오늘" 파생변수, 오늘 이상치</td></tr>
+  <tr><td>안전장치</td><td colspan="2">미래 값 사용 금지(과거만 참조) · 시계열 5-fold 검증 + 3일 간격 · "평균 − 표준편차"로 선택 · Public 점수는 선택에 반영하지 않음 · 선택 편향까지 통계 검정으로 확인</td></tr>
+</table>
+
+<h3>분석 파이프라인 전체</h3>
+<div class="flow">
+  <div class="st"><b>① 데이터 이해</b>Target 구조, 요일 번호, 변수군별 성격 (EDA · Prophet)</div><div class="ar">→</div>
+  <div class="st"><b>② 전처리</b>상수 제거, 클릭 0→결측, inf→결측, fold 안에서 중앙값 대체</div><div class="ar">→</div>
+  <div class="st"><b>③ 변수 만들기</b>과거 값만으로 변화량·요일 비교 파생변수</div><div class="ar">→</div>
+  <div class="st"><b>④ 변수 고르기</b>EDA 근거로 블록 선택 → 블록 제거 실험으로 확인</div><div class="ar">→</div>
+  <div class="st"><b>⑤ 모델·검증</b>Target별 모델, 시계열 CV, 평균−std 기준</div><div class="ar">→</div>
+  <div class="st"><b>⑥ 판단 검증</b>잡음·선택 편향·시기 변화 통계 검정</div>
+</div>
+<p class="small">코드: <code>01_EDA_피처인사이트.ipynb</code>(①③) · <code>02_Prophet_시계열분석.ipynb</code>(①) · <code>train.ipynb</code>(②~⑤, 제출 파일 생성) · <code>03_T1_분기점검증.ipynb</code>(⑥). 실험 기록 <code>experiments.csv</code>.</p>
+
+<!-- ============================================================ -->
+<h2 class="pb">1. 데이터 이해 — 두 Target은 전혀 다른 문제였다</h2>
+<figure><img src="현황판_그림/g01.png"><figcaption><b>그림 1.</b> 왼쪽: T1의 30일 상승비율이 0.17~0.83으로 출렁임(국면 변화). 가운데: 요일별 상승비율 — T2만 요일에 따라 0.02~0.98로 갈림. 오른쪽: T2는 정확히 7일 주기.</figcaption></figure>
+<div class="easy"><b>쉽게 말하면</b> — T2는 "3일 뒤가 평일이면 오르고, 주말이면 내린다"에 가깝다. 사람들은 평일에 쇼핑을 더 많이 클릭하기 때문이다. 반대로 T1(KOSPI)은 요일과 무관하고, 오르는 날·내리는 날이 시기마다 몰려 다닌다.</div>
+
+<table>
+  <tr><th>확인한 것</th><th>결과</th><th>그래서</th></tr>
+  <tr><td>요일 번호의 정체 (설명서에 없음)</td><td>금융 18개 중 16개가 요일 1·7에서 전날 값과 100% 같음 (휴장)</td><td><b>1 = 일요일, 7 = 토요일</b>. 주말엔 미국 지수 변화율이 0이 되는 문제 발견 → 주말 보정 변수</td></tr>
+  <tr><td>요일만으로 맞힌 AUC</td><td>T1 0.484 / T2 <b>0.926</b></td><td>T2는 요일을 <b>이용</b>, T1은 요일을 <b>지운다</b></td></tr>
+  <tr><td>변수군별 성격 (Prophet 분해)</td><td>금융: 추세 66% · 포털 검색: 요일 54% · 쇼핑: 추세 40% + 요일 18~29% · 날씨: 설명 안 됨 88%</td><td>금융은 원값 대신 <b>변화량</b>, 쇼핑·검색은 <b>같은 요일끼리 비교</b></td></tr>
+  <tr><td>신호가 시기를 넘어 유지되나 (앞 절반 vs 뒤 절반)</td><td>T1 상관 0.39 (대부분 잡음) / T2 0.97 (안정)</td><td>T1은 강한 규제 + 소수 핵심 변수</td></tr>
+</table>
+
+<div class="two">
+<figure><img src="현황판_그림/g04.png"><figcaption><b>그림 2.</b> 변수마다 앞 절반 AUC(가로)와 뒤 절반 AUC(세로). 점이 대각선에 붙을수록 시간이 지나도 통하는 신호. T1(왼쪽)은 흩어져 있다.</figcaption></figure>
+<figure><img src="현황판_그림/g08.png"><figcaption><b>그림 3.</b> 며칠 전 값까지 신호가 남나. T1의 미국 지수는 <b>하루만 밀어도 사라진다</b> → 최신 값만 쓴다. T2는 7일 간격으로 부호가 반복(요일).</figcaption></figure>
+</div>
+
+<!-- ============================================================ -->
+<h2 class="pb">2. 데이터 설계 — 전처리 · Feature Extraction · Feature Selection</h2>
+<h3>2-1. 전처리</h3>
+<table>
+  <tr><th>처리</th><th>이유</th></tr>
+  <tr><td>값이 하나뿐인 <code>KE_QR체크인</code> 제거 (Train 기준)</td><td>정보 없음</td></tr>
+  <tr><td>쇼핑·검색 클릭량 0 → 결측 (날씨 강수량 0은 유지)</td><td>클릭 0은 실제 0보다 수집 누락일 가능성이 크고, 비율 계산 시 무한대를 만든다</td></tr>
+  <tr><td>변화율의 무한대 → 결측, 결측은 <b>각 fold 학습 구간의 중앙값</b>으로 대체 (Pipeline 안)</td><td>검증 구간 정보가 학습에 새지 않게</td></tr>
+  <tr><td>표준화는 로지스틱에만</td><td>원데이터가 이미 0~1이고 트리는 단위와 무관. 로지스틱은 규제가 변수 크기에 공평하게 걸리도록</td></tr>
+</table>
+
+<h3>2-2. Feature Extraction — 모든 파생변수는 <u>그날까지의 과거 값</u>만 사용</h3>
+<table>
+  <tr><th style="width:17%">파생변수</th><th>계산</th><th>근거 (쉬운 설명)</th><th style="width:7%">사용</th></tr>
+  <tr><td><code>us_last</code></td><td>미국 지수 3개 전일 변화율, 주말 0은 직전 거래일 값으로</td><td>주말엔 미국장이 쉬어 핵심 신호가 7일 중 2일 꺼져 있었다 (일·토 AUC 0.50 → 0.57·0.60)</td><td>T1</td></tr>
+  <tr><td><code>us_diff</code> · <code>fx_diff</code></td><td>미국 지수·환율의 최근 거래일 <b>차이</b></td><td>데이터가 0~1로 눌려 있어 0 근처에서 변화율(%)이 수천 %로 폭발 → 차이가 실제 변화에 비례. 원화 약세(환율↑) → 3일 뒤 KOSPI↓</td><td>T1</td></tr>
+  <tr><td><code>kefin_swd</code></td><td>검색어 6개의 "오늘 ÷ 지난 4주 같은 요일 평균" 중앙값</td><td>평소보다 검색이 많은 날 → 3일 뒤 상승 경향 (§5에서 검증)</td><td>T1</td></tr>
+  <tr><td><code>fi_chg</code> · <code>samewd_grp</code></td><td>금융 1·3·5일 변화율 + 20일 변동성 / 쇼핑·검색 군별 같은 요일 대비 중앙값</td><td>금융은 추세가 커서 원값을 쓰면 "몇 월쯤인가"를 외운다 / 수백 개가 같은 정보라 군별 1개로 압축</td><td>T1</td></tr>
+  <tr><td><code>d3ratio</code></td><td>"지난 4주 동안 <b>3일 뒤와 같은 요일</b>의 평균 ÷ 오늘"</td><td>T2의 정의(3일 뒤 &gt; 오늘)를 이미 아는 과거 값으로 흉내. 단독 AUC 0.954</td><td>T2 핵심</td></tr>
+  <tr><td><code>sh1_anom</code> · <code>z20_kw</code></td><td>쇼핑 11개 "오늘 ÷ 지난 4주 같은 요일 평균" / 검색어 20일 z-score</td><td>오늘이 평소보다 튀면 3일 뒤엔 평소로 돌아온다(평균회귀). 요일로 못 가르는 월·목 보강</td><td>T2</td></tr>
+  <tr><td><code>wd_onehot</code></td><td>요일 7칸 0/1</td><td>숫자 1~7은 크기 순서가 생겨 부적절</td><td>공통</td></tr>
+</table>
+<div class="easy"><b>왜 "지난 4주 같은 요일"인가</b> — 쇼핑·검색은 요일마다 수준이 다르다. 월요일을 지난 월요일들과 비교하면 요일 차이가 사라지고 "평소보다 많다/적다"만 남는다. 1주 전 하루와만 비교하면 그날의 우연에 흔들려서 4주 평균을 썼다(1주 0.935 → 4주 0.952).</div>
+<figure><img src="현황판_그림/p01.png"><figcaption><b>그림 4.</b> Prophet 분해: 검정 = 추세, 막대 = 요일 성분. 포털 검색은 요일이 절반 이상, 금융은 요일 0%·추세 위주 → 변수군마다 다른 변환을 쓴 근거.</figcaption></figure>
+
+<h3>2-3. Feature Selection — 사람이 고르고, 실험으로 확인</h3>
+<table>
+  <tr><th>방법</th><th>결과</th><th>판단</th></tr>
+  <tr><td>EDA 근거로 <b>블록 단위</b> 선택 (565개 → T1 85+9개, T2 80개)</td><td>T1 0.540 → 0.596, 가장 큰 도약</td><td>채택</td></tr>
+  <tr><td>fold 안 자동 선택 8종 (F검정, 상호정보, L1, 트리 중요도)</td><td>모두 하락 (T1 평균−std 0.520~0.565)</td><td>기각: 작은 표본에선 선택 자체가 우연을 고른다</td></tr>
+  <tr><td>블록 하나씩 빼 보기 (5개 fold 중 4개 이상 하락 + 하락폭 ≥ 표준편차/2면 유지)</td><td><code>samewd_grp</code> 빼면 0.599→0.584, <code>d3ratio</code> 빼면 0.967→0.959</td><td>유지</td></tr>
+  <tr><td>금융 상관 0.8 이상 중복 제거 (E7)</td><td>평균은 같고 흔들림 2배 (std 0.048)</td><td>기각</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="pb">3. 모델 설계 — 알고리즘 · 검증 · 최적화</h2>
+<h3>3-1. 검증 설계: 항상 "과거로 학습 → 미래로 시험"</h3>
+<table>
+  <tr><th>장치</th><th>내용</th><th>왜</th></tr>
+  <tr><td>시계열 5-fold</td><td><code>TimeSeriesSplit(n_splits=5, gap=3)</code>. 검증 구간 약 154일 = Public(100일)과 비슷한 규모</td><td>무작위로 섞으면 미래를 보고 과거를 맞히는 셈</td></tr>
+  <tr><td>3일 간격(gap)</td><td>학습 끝과 검증 시작 사이 3일 비움</td><td>Target이 "3일 뒤"라 학습 마지막 날의 정답이 검증 기간 가격을 포함한다</td></tr>
+  <tr><td>Pipeline</td><td>결측 대체·표준화·변수 선택을 fold 학습 구간으로만 학습</td><td>검증 정보 누수 차단</td></tr>
+  <tr><td>선택 기준</td><td><b>검증 평균 − 표준편차</b>, Train−Valid 격차 감시. Public 점수는 반영 안 함</td><td>Private 200일에서 무너지지 않는, 높으면서 꾸준한 모델</td></tr>
+</table>
+
+<p><b>Train 924일을 나눈 방법</b> — 무작위로 섞지 않고 시간 순서대로 5번 나눴다. 매번 과거 전체로 학습하고, 3일을 비운 뒤 다음 154일로 검증한다.</p>
+<div style="break-inside: avoid; margin: 6px 0 10px;">
+<div style="display:grid; grid-template-columns: 46px 1fr; row-gap:4px; font-size:8.6pt; align-items:center;">
+  <div>fold1</div><div style="display:flex;"><div style="width:16.3%;background:#c9dcf3;">&nbsp;학습 151</div><div style="width:0.4%;background:#fff;"></div><div style="width:16.7%;background:#eb6834;color:#fff;">&nbsp;검증</div></div>
+  <div>fold2</div><div style="display:flex;"><div style="width:33.0%;background:#c9dcf3;">&nbsp;학습 305</div><div style="width:0.4%;"></div><div style="width:16.7%;background:#eb6834;color:#fff;">&nbsp;검증</div></div>
+  <div>fold3</div><div style="display:flex;"><div style="width:49.7%;background:#c9dcf3;">&nbsp;학습 459</div><div style="width:0.4%;"></div><div style="width:16.7%;background:#eb6834;color:#fff;">&nbsp;검증</div></div>
+  <div>fold4</div><div style="display:flex;"><div style="width:66.3%;background:#c9dcf3;">&nbsp;학습 613</div><div style="width:0.4%;"></div><div style="width:16.7%;background:#eb6834;color:#fff;">&nbsp;검증</div></div>
+  <div>fold5</div><div style="display:flex;"><div style="width:83.0%;background:#c9dcf3;">&nbsp;학습 767</div><div style="width:0.4%;"></div><div style="width:16.7%;background:#eb6834;color:#fff;">&nbsp;검증</div></div>
+  <div>최종</div><div style="display:flex;"><div style="width:100%;background:#2a78d6;color:#fff;">&nbsp;Train 924일 전체로 재학습 → Test(Public 100일 · Private 200일) 예측</div></div>
+</div>
+<div class="small" style="margin-top:3px;">Time_step 1 → 924 (왼쪽 → 오른쪽). 학습과 검증 사이 흰 틈 = 비운 3일.</div>
+</div>
+<table>
+  <tr><th>fold</th><th>학습 (Time_step)</th><th>비운 3일</th><th>검증 (Time_step)</th><th class="num">학습 / 검증 일수</th></tr>
+  <tr><td>1</td><td>1 ~ 151</td><td>152 ~ 154</td><td>155 ~ 308</td><td class="num">151 / 154</td></tr>
+  <tr><td>2</td><td>1 ~ 305</td><td>306 ~ 308</td><td>309 ~ 462</td><td class="num">305 / 154</td></tr>
+  <tr><td>3</td><td>1 ~ 459</td><td>460 ~ 462</td><td>463 ~ 616</td><td class="num">459 / 154</td></tr>
+  <tr><td>4</td><td>1 ~ 613</td><td>614 ~ 616</td><td>617 ~ 770</td><td class="num">613 / 154</td></tr>
+  <tr><td>5</td><td>1 ~ 767</td><td>768 ~ 770</td><td>771 ~ 924</td><td class="num">767 / 154</td></tr>
+</table>
+<div class="easy"><b>쉽게 말하면</b> — 시험은 항상 "공부한 기간 다음"에 본다. 실제 평가도 Train 이후의 날들을 맞히는 구조라 같은 방식으로 연습했다. 제공된 Baseline은 시간순 7:3 분할(앞 70% 학습, 뒤 30% 검증) <b>한 번</b>이었다. 그러면 점수가 그 한 시기의 운에 좌우되고, 간격이 없어 학습 마지막 날의 "3일 뒤" 정답이 검증 기간 가격과 겹친다. 그래서 5번 나누고 3일을 비웠으며, Baseline(E0)도 이 방식으로 다시 쟀다. 검증 구간 154일은 Public(100일)과 Private(200일) 사이 크기이고, 시기가 다른 5개 구간의 <b>평균과 흔들림(표준편차)</b>을 함께 보고 모델을 골랐다.</div>
+
+<h3>3-2. 최종 모델 구조</h3>
+<div class="two">
+  <div class="model"><h4>Target_1 · E13 (94개 변수)</h4>
+    <div class="box">RandomForest 300그루 · 깊이 2 · 잎 최소 20일 · 변수 √n</div> ← 85개: <code>fi_chg</code> 72, <code>samewd_grp</code> 3, <code>wd_onehot</code> 7, <code>us_last</code> 3<br>
+    <div class="box">표준화 → 로지스틱 L2, C = 0.01 (강한 규제)</div> ← 9개: 미국 지수 3, 환율 2, 유가 3 차이 + <code>kefin_swd</code><br>
+    <b>두 확률을 50:50 평균</b><br>
+    <span class="small">RF는 여러 변수의 약한 조합을, LR은 원인이 분명한 소수 신호를 맡는다. LR 단독(3개 변수, 0.625)이 RF 85개(0.603)보다 높았던 것이 이 구조의 출발점.</span>
+  </div>
+  <div class="model"><h4>Target_2 · E10 (80개 변수)</h4>
+    <div class="box">표준화 → 로지스틱 L2, C = 0.1</div><br>
+    <div class="box">RandomForest 300 · 깊이 4 · 잎 20</div><br>
+    <div class="box">XGBoost 300 · 깊이 2 · 학습률 0.03 · λ=5 · 표본 80%·변수 50%</div><br>
+    <b>세 확률 평균 (soft voting)</b> ← <code>wd_onehot</code> 7, <code>d3ratio</code> 12, <code>z20_kw</code> 50, <code>sh1_anom</code> 11<br>
+    <span class="small">관계가 단순해 로지스틱 단독도 0.964. 트리가 "요일 × 평소 대비" 조합을 보완하고, 성격이 다른 모델 평균으로 시기별 흔들림을 줄인다.</span>
+  </div>
+</div>
+
+<h3>3-3. 최적화 과정 — 실험 16개(T1)의 흐름</h3>
+<figure><img src="현황판_그림/f_r01_실험흐름.png"><figcaption><b>그림 5.</b> ● 검증 AUC(가로 막대 = 표준편차), ○ 학습 AUC. 둘 사이 점선이 길수록 "외워서 맞힌" 정도(과적합). 파랑 = 최종.</figcaption></figure>
+<table>
+  <tr><th>단계</th><th>시도</th><th class="num">T1 검증 AUC</th><th>배운 것</th></tr>
+  <tr><td>E0 → E1</td><td>같은 변수, 나무만 얕게</td><td class="num">0.522 → 0.540</td><td>격차는 줄지만 점수는 그대로 → <b>모델이 아니라 입력이 문제</b></td></tr>
+  <tr><td>E2</td><td>EDA 근거 변수 82개</td><td class="num">0.596</td><td>가장 큰 도약</td></tr>
+  <tr><td>E4·E5·E6</td><td>로지스틱·XGB·앙상블, 깊이·잎·C 그리드 24개</td><td class="num">0.565~0.599</td><td>하이퍼파라미터는 병목이 아님. 같은 점수면 단순한 쪽(깊이 2)</td></tr>
+  <tr><td>E8</td><td>주말 미국 지수 보정</td><td class="num">0.603</td><td>이유가 분명한 개선</td></tr>
+  <tr><td>E11 → E12</td><td>미국장 로지스틱 혼합 → 변화율을 차이로 + 환율</td><td class="num">0.615 → 0.621</td><td>핵심 신호를 단순 모델에 맡기기</td></tr>
+  <tr><td><b>E13</b></td><td>+ 유가 차이, 검색량 심리</td><td class="num"><b>0.637</b></td><td>§5에서 우연이 아님을 검정</td></tr>
+</table>
+<figure><img src="현황판_그림/r02.png"><figcaption><b>그림 6.</b> T1에서 규제를 강하게 할수록 과적합 격차는 0.48 → 0.21로 줄었지만 검증 점수는 0.60 근처에서 멈췄다 → 남은 한계는 모델이 아니라 <b>데이터에 담긴 신호의 양</b>. 그 뒤의 개선(E11~E13)은 모두 새 입력에서 나왔다.</figcaption></figure>
+
+<!-- ============================================================ -->
+<h2 class="pb">4. 결과</h2>
+<table>
+  <tr><th></th><th class="num">Baseline (E0)</th><th class="num">최종</th><th class="num">개선</th><th class="num">검증 표준편차</th><th class="num">학습−검증 격차</th><th class="num">이어 붙인 검증 AUC*</th></tr>
+  <tr><td>T1 (E13)</td><td class="num">0.522</td><td class="num"><b>0.637</b></td><td class="num">+0.115</td><td class="num">0.033</td><td class="num">0.124 (Baseline 0.478)</td><td class="num">0.620</td></tr>
+  <tr><td>T2 (E10)</td><td class="num">0.945</td><td class="num"><b>0.967</b></td><td class="num">+0.022</td><td class="num">0.008</td><td class="num">0.021</td><td class="num">0.964</td></tr>
+  <tr><td><b>평균</b></td><td class="num">0.734</td><td class="num"><b>0.802</b></td><td class="num"><b>+0.068</b></td><td></td><td></td><td class="num"><b>0.792</b></td></tr>
+</table>
+<p class="small">* 5개 fold의 검증 예측을 이어 붙여 한 번에 계산한 AUC. Private은 200일을 한 번에 채점하므로 이 값이 기대치에 더 가깝다.</p>
+<figure><img src="현황판_그림/f_r03_fold별.png"><figcaption><b>그림 7.</b> fold별 검증 AUC. 최종(파랑)이 과거·최근 어느 시기에서나 Baseline(연회색)보다 높다. 특정 시기 운이 아니라는 뜻.</figcaption></figure>
+<figure><img src="실습자료/데이타분석미니프로젝트_종합실습/T1_예측모델.png"><figcaption><b>그림 8.</b> T1 예측 모델 진단: 예측 확률 상위 20%의 실제 상승률 0.73 (평균 0.52). 미국장이 크게 오른 날 확률이 높아지고, 로지스틱 계수는 검색량 심리·미국 지수(+), 환율(−) 순.</figcaption></figure>
+
+<h3>Public 리더보드 — 참고만 하고 선택에는 쓰지 않았다</h3>
+<figure><img src="현황판_그림/f_lb_public.png"><figcaption><b>그림 9.</b> Public 3회 제출. T1은 1회차가 가장 높았지만, 100일짜리 AUC는 우연만으로 ±0.11 흔들린다(주황 막대). 세 회차 차이(최대 0.03)는 그 안에 있다. 770일로 잰 CV(파랑)는 E13이 가장 높다.</figcaption></figure>
+<div class="easy"><b>왜 Public 1등 구성을 고르지 않았나</b> — 100일 시험 한 번의 점수에 맞추면 그 100일에 과적합한다. Private은 다른 200일이다. 770일 검증 + 통계 검정(§5)에서 일관되게 앞선 E13을 고른 것이 Private에 더 안전하다. T2는 CV와 Public이 같은 방향(E10 개선)이었다.</div>
+
+<h3>왜 Public에서 1회차(E8)가 E13보다 높았나 — Test 정답 없이 분석</h3>
+<p>차이는 T1에서만 났다(T2는 Public에서도 E10 &gt; E5). 우리 검증 예측과 <b>Test 설명변수의 분포만</b> 써서 원인을 찾았다.</p>
+<figure><img src="현황판_그림/v11_변동성_E8E13.png"><figcaption><b>그림 10.</b> 왼쪽: 오늘 미국 지수 등락폭. Public 구간(주황 배경)에 Train에서 본 적 없는 크기의 변동이 몰려 있다(폭락·급반등, Train 끝의 코로나 검색량 급등과 이어짐). 오른쪽: 검증 770일에서 변동이 큰 날엔 E8이, 평범한 날엔 E13이 강하다.</figcaption></figure>
+<table>
+  <tr><th>구간 구성 (변동 큰 날 비율)</th><th class="num">E8 기대 AUC</th><th class="num">E13 기대 AUC</th><th class="num">E13이 나을 확률</th></tr>
+  <tr><td>우리 검증 770일 (20%)</td><td class="num">0.579</td><td class="num">0.620</td><td class="num">96%</td></tr>
+  <tr><td><b>Public 100일 (72%)</b></td><td class="num">0.765</td><td class="num">0.766</td><td class="num"><b>51%</b></td></tr>
+  <tr><td><b>Private 200일 (52%)</b></td><td class="num">0.702</td><td class="num"><b>0.719</b></td><td class="num">82%</td></tr>
+</table>
+<p class="small">검증 예측을 각 구간의 "변동 큰 날" 비율에 맞춰 200일씩 2,000번 다시 뽑아 계산한 기대 AUC.</p>
+<div class="easy"><b>쉽게 말하면</b> — 미국장이 크게 움직인 날은 그 방향만으로 3일 뒤가 꽤 맞는다(AUC 0.8대). 이때 랜덤포레스트(E8)는 극단값을 "Train에서 본 가장 큰 값" 정도로만 다뤄 안정적이지만, E13의 로지스틱은 극단값을 직선으로 그대로 늘려 확률을 0.01~0.98까지 밀어붙였다(Train에서는 0.14~0.87). Public은 이런 날이 72%라 두 모델의 기대치가 <b>같았고</b>, 실제 0.007 차이는 동전 던지기 수준이다. Private은 앞 100일만 극단이고 뒤 100일은 비교적 잠잠해 E13이 여전히 유리하다(+0.017). 단, Train 최대를 넘는 극단값 날의 위험은 검증 구간에 그런 날이 없어 이 추정에 들어 있지 않다.</div>
+
+<h3>그렇다면 변동이 큰 날만 E8로 바꾸면? → 이득 없음 (기각)</h3>
+<p>"변동이 큰 날"은 <b>미리 예측할 필요가 없다</b>. 기준이 <i>오늘 이미 마감된 미국장 등락폭</i>이라 예측 시점에 알고 있는 값이다. 경계값은 매 fold 학습 구간의 상위 20%로만 정했다.</p>
+<table>
+  <tr><th>모델</th><th class="num">CV 평균</th><th class="num">평균−std</th><th class="num">검증 구성 기대 AUC</th><th class="num">Private 구성 기대 AUC</th><th class="num">Private에서 E13보다 나을 확률</th></tr>
+  <tr><td>E13 (현재)</td><td class="num"><b>0.637</b></td><td class="num"><b>0.604</b></td><td class="num"><b>0.621</b></td><td class="num">0.718</td><td class="num">—</td></tr>
+  <tr><td>S1: 오늘 등락폭이 크면 E8</td><td class="num">0.623</td><td class="num">0.580</td><td class="num">0.612</td><td class="num">0.720</td><td class="num">58% ❌</td></tr>
+  <tr><td>S2: 최근 20일 변동성이 크면 E8 (위기 국면)</td><td class="num">0.627</td><td class="num">0.596</td><td class="num">0.614</td><td class="num">0.717</td><td class="num">48% ❌</td></tr>
+</table>
+<div class="easy"><b>쉽게 말하면</b> — 변동 큰 날에 E8이 강한 것은 맞지만, 날마다 다른 모델의 확률을 섞으면 두 모델의 확률 수준이 달라 한 줄로 세울 때(AUC) 손해가 생긴다. 그 비용이 이득을 상쇄해 Private 구성에서도 E13과 같고, 평범한 날이 많은 구성에서는 0.008 손해였다. 미리 정한 기준(Private 구성에서 나을 확률 ≥ 90%, 평범한 구성 손실 ≤ 0.005)을 둘 다 넘지 못해 <b>E13을 유지</b>했다.</div>
+
+<!-- ============================================================ -->
+<h2 class="pb">5. 판단 검증 — "이 개선이 우연은 아닌가"를 통계로 확인</h2>
+<p>T1은 신호가 약해, 후보를 여러 개 시도하다 보면 우연히 좋아 보이는 것을 고를 위험이 있다. 마지막 세 가지 판단을 <b>결과를 보기 전에 기준을 정해 두고</b> 검정했다 (<code>03_T1_분기점검증.ipynb</code>).</p>
+<div class="easy"><b>검정 도구 두 가지 (시계열용)</b><br>
+· <b>순환 이동 검정</b>: 변수를 통째로 k일 밀어 붙인다. 변수 자체의 흐름은 그대로, Target과의 날짜 관계만 끊긴다 → "이런 흐름을 가진 아무 변수"가 우연히 낼 수 있는 점수의 기준선.<br>
+· <b>블록 부트스트랩</b>: 20일씩 연속 구간을 뽑아 다시 이어 붙여 수천 번 재계산 → 기간이 달랐다면 결과가 얼마나 흔들렸을지.</div>
+
+<h3>5-1. 검색량 심리 신호는 믿을 만한가 → 믿을 만함, 단 정체는 "검색량 공통 요인"</h3>
+<figure><img src="현황판_그림/v1_신호시기별.png"><figcaption><b>그림 11.</b> 150일씩 끊어 본 AUC. 회색 띠 = 순수 잡음 범위, 검정 = 미국장(기준). 검색량 심리(파랑)는 88% 기간에서 같은 방향이지만 Time_step 170~450 구간엔 잡음 범위로 약해진다.</figcaption></figure>
+<div class="two">
+<figure><img src="현황판_그림/v2_독립성.png"><figcaption><b>그림 12.</b> 가운데: 미국장 조건이 같아도 검색량 심리가 높을수록 상승률↑ (미국 강세일 0.56 → 0.63 → 0.73) → 미국장과 다른 정보. 오른쪽: 계수 부호가 5개 fold 모두 같음.</figcaption></figure>
+<figure><img src="현황판_그림/v3_키워드공통요인.png"><figcaption><b>그림 13.</b> 검색어 50개 중 90%가 같은 방향(빨강 = 고른 6개). 고른 6개(0.581)와 나머지(0.582)가 같다 → "금융 심리"보다는 <b>"평소보다 검색이 많은 날"</b>이라는 공통 요인.</figcaption></figure>
+</div>
+<table>
+  <tr><th>기준 (미리 정함)</th><th>검색량 심리 <code>kefin_swd</code></th></tr>
+  <tr><td>순환 이동 p &lt; 0.05</td><td>✅ 0.002</td></tr>
+  <tr><td>블록 부트스트랩 95% 구간이 0.5 제외</td><td>✅ 0.521 ~ 0.636</td></tr>
+  <tr><td>앞·뒤 절반 같은 방향 / 150일 창 70% 이상 같은 방향</td><td>✅ 0.550·0.606 / ✅ 88%</td></tr>
+  <tr><td>fold별 계수 부호 일치, 미국장 고정 후에도 효과</td><td>✅ 5/5 · ✅ 3개 조건 모두 증가</td></tr>
+</table>
+
+<h3>5-2. E12에서 멈출까, E13까지 갈까 → E13 (선택 편향을 감안해도 진짜 개선)</h3>
+<div class="two">
+<figure><img src="현황판_그림/v4_잡음기준선.png"><figcaption><b>그림 14.</b> 파랑: 의미 없는 변수를 넣었을 때 개선(≈0). 주황: 그런 후보 15개 중 <b>가장 좋은 것</b>을 골랐을 때(운만으로 얻는 몫, 평균 +0.010). 빨강(실제 +0.016)이 그보다 오른쪽.</figcaption></figure>
+<figure><img src="현황판_그림/v5_시기별OOF.png"><figcaption><b>그림 15.</b> 150일 구간별 검증 AUC. 아래 막대 빨강 = E13 우세, 90% 구간에서 앞섬. 최근 300일 0.605 → 0.625.</figcaption></figure>
+</div>
+<table>
+  <tr><th>기준 (미리 정함)</th><th>결과</th><th></th></tr>
+  <tr><td>블록 부트스트랩에서 E13 &gt; E12일 확률 ≥ 90%</td><td>99% (차이 +0.020, 95% 구간 +0.004 ~ +0.039)</td><td>✅</td></tr>
+  <tr><td>"잡음 후보 15개 중 최고"보다 클 확률 p &lt; 0.10</td><td>p ≈ 0.016</td><td>✅</td></tr>
+  <tr><td>랜덤포레스트 난수 10개 중 8개 이상 E13 우세</td><td>10 / 10 (차이 +0.014 ~ +0.017)</td><td>✅</td></tr>
+</table>
+
+<h3>5-3. 시기가 바뀌는 T1, 최근 데이터에 무게를 더 주면? → 지금 방식 유지</h3>
+<div class="two">
+<figure><img src="현황판_그림/v6_국면계수.png"><figcaption><b>그림 16.</b> 200일 창마다 다시 추정한 계수. 미국 지수(파랑)는 <b>전 기간 양수</b> — 핵심 관계는 시기와 무관하게 안정적이다. 환율·검색량은 크기가 오르내린다.</figcaption></figure>
+<figure><img src="현황판_그림/v7_학습창가중.png"><figcaption><b>그림 17.</b> 최근 250·400·550일만 학습하거나, 반감기 120·250·500일로 최근에 무게를 준 6가지 모두 E13보다 낮다(상자가 0의 왼쪽).</figcaption></figure>
+</div>
+<div class="easy"><b>쉽게 말하면</b> — 오래된 데이터도 같은 규칙("미국장이 오르면 KOSPI도 오른다")을 가르쳐 준다. 최근만 보면 표본이 줄어 잃는 것이 더 크다. 그래서 Train 924일 전체를 같은 무게로 학습한다.</div>
+
+<h3>5-4. Prophet이 남긴 단서 — T1에 1년 주기가 있나? → 없음 (기각)</h3>
+<p>Prophet으로 T1을 직접 예측했을 때 1년 주기를 켜면 0.565, 끄면 0.492였다. 그래서 1년 주기 위치(sin·cos)를 E13의 로지스틱 쪽에 넣어 같은 방식으로 검정했다.</p>
+<div class="two">
+<figure><img src="현황판_그림/v8_1년주기.png"><figcaption><b>그림 18.</b> 왼쪽: 해마다 같은 시기의 상승률이 서로 다른 모양(1↔2년 차 상관 0.20, 2↔3년 차 −0.51). 오른쪽: 1년 주기만으로는 미래 구간을 못 맞힌다(CV 0.495).</figcaption></figure>
+<figure><img src="현황판_그림/v9_1년주기검정.png"><figcaption><b>그림 19.</b> 오른쪽: 1년 주기(주황)의 개선 +0.001은 아무 주기의 느린 파동(회색)과 다르지 않다(p = 0.17).</figcaption></figure>
+</div>
+<table>
+  <tr><th>기준 (미리 정함)</th><th>결과</th><th></th></tr>
+  <tr><td>블록 부트스트랩에서 후보 &gt; E13일 확률 ≥ 95%</td><td>14%</td><td>❌</td></tr>
+  <tr><td>무작위 주기 파동보다 나을 p &lt; 0.05</td><td>0.171</td><td>❌</td></tr>
+  <tr><td>최근 fold 4·5 ≥ E13</td><td>0.6305 vs 0.6322</td><td>❌</td></tr>
+  <tr><td>seed 10개 중 8개 이상 우세</td><td>10/10 (차이 +0.001)</td><td>✅</td></tr>
+</table>
+<div class="easy"><b>쉽게 말하면</b> — 924일은 1년이 2.5번뿐이라, Prophet의 1년 주기는 "매년 반복되는 계절"이 아니라 그 기간의 오르내림을 따라 그린 곡선이었다. 미래에 반복된다는 근거가 없어 쓰지 않았다. Prophet의 쓸모는 예측이 아니라 <b>변수군 성격을 설명</b>하는 데(그림 4) 있었다.</div>
+
+<h3>5-5. 최신 논문 방법 — TabPFN(작은 표 데이터용 기초 모델) → 기각, 최근 구간 우세는 관찰</h3>
+<p>TabPFN(Hollmann et al., <i>Nature</i> 2025)은 합성 데이터로 사전학습한 신경망이 학습 구간을 예시로 보고 바로 예측하는 방식이다. 표본 1만 개 이하에서 부스팅보다 강하다고 보고돼, 과적합이 가장 큰 문제였던 T1에 시험했다. <b>외부 데이터와 새 변수 없이</b> E13과 같은 입력만 썼고, 사전학습 가중치는 공개된 v2를 사용했다.</p>
+<figure><img src="현황판_그림/v10_TabPFN.png"><figcaption><b>그림 20.</b> 왼쪽: fold별 E13 대비 차이(빨강 = TabPFN 우세). 학습 기간이 짧은 초반 fold에서 크게 지고, 최근 fold 4·5에서는 앞선다. 오른쪽: 검증 구간 전체 기준으로는 E13보다 낫다고 할 수 없다.</figcaption></figure>
+<table>
+  <tr><th>후보 (미리 3개로 고정)</th><th class="num">CV 평균 ± std</th><th class="num">평균−std</th><th class="num">E13보다 나을 확률</th><th>판정</th></tr>
+  <tr><td>E13 (현재)</td><td class="num">0.637 ± 0.033</td><td class="num">0.604</td><td class="num">—</td><td>유지</td></tr>
+  <tr><td>C1 TabPFN 단독 (핵심 9개)</td><td class="num">0.611 ± 0.050</td><td class="num">0.561</td><td class="num">23%</td><td>❌</td></tr>
+  <tr><td>C2 TabPFN(85개) + 로지스틱</td><td class="num">0.626 ± 0.067</td><td class="num">0.559</td><td class="num">21%</td><td>❌</td></tr>
+  <tr><td>C3 E13 + C1 평균</td><td class="num">0.632 ± 0.046</td><td class="num">0.586</td><td class="num">52%</td><td>❌</td></tr>
+</table>
+<div class="easy"><b>쉽게 말하면</b> — 전체 기간으로 보면 TabPFN은 E13을 넘지 못했다. 다만 학습 데이터가 600일 이상인 최근 구간에서는 앞섰고(최근 308일 +0.02, 나을 확률 88%), 같은 검증 구간에서 학습 기간을 150일 → 767일로 늘릴수록 차이가 +0.004 → +0.03으로 커졌다. 데이터가 더 쌓이면 유리해질 가능성이 있지만, 결과를 보고 고른 관찰이라 이번 제출에는 반영하지 않았다. (분석 코드 <code>04_T1_TabPFN검증.ipynb</code>는 별도 패키지 <code>tabpfn</code>이 필요해 제출 코드에서 제외)</div>
+
+<!-- ============================================================ -->
+<h2 class="pb">6. 인사이트 · 한계 · 재현 방법</h2>
+<h3>6-1. 인사이트</h3>
+<ol>
+  <li><b>점수를 올린 것은 입력이었다.</b> 모델만 바꾼 E1은 +0.018, 변수를 바꾼 E2는 +0.057. 마지막 개선(E8→E13 +0.034)도 모두 새 입력에서 나왔다.</li>
+  <li><b>데이터의 "생김새"가 변수 설계를 정한다.</b> 주말 휴장(→ 직전 거래일 값), 0~1 압축(→ 변화율 대신 차이), 요일 리듬(→ 같은 요일끼리 비교).</li>
+  <li><b>신호의 성격이 모델을 정한다.</b> 약하고 흔들리는 T1은 얕은 트리 + 강한 규제의 단순 모델, 단순하고 뚜렷한 T2는 로지스틱 중심 앙상블.</li>
+  <li><b>비즈니스 관점</b>: 건강식품 클릭은 평일(특히 월~수)에 몰리고 주말에 빠진다 → 판촉·재고는 주초 집중. KOSPI는 전날 밤 미국장·환율·검색 활동으로 3일 뒤 방향을 약하게나마(상위 20% 확률 구간 실제 상승 73%) 가늠할 수 있다.</li>
+</ol>
+<h3>6-2. 한계</h3>
+<ul>
+  <li>T1은 신호 자체가 약하다. 100~200일 평가에서는 ±0.06~0.08 흔들리는 것이 정상 범위다.</li>
+  <li>EDA 변수 고르기에 Train 전체를 사용해 CV가 약간 낙관적일 수 있다 (선택 편향 검정 §5-2로 일부 보정).</li>
+  <li>검색량 심리는 Time_step 170~450처럼 약해지는 시기가 있다. 해석은 "금융 심리"가 아니라 "검색 활동 공통 요인"으로 한정한다.</li>
+  <li>요일 번호(1=일, 7=토)와 클릭 0의 결측 처리, 평일 공휴일(국내 금리·환율 정지일) 추정은 데이터에서 추론한 것이다. 실제 날짜가 없어 미래 공휴일은 쓸 수 없다.</li>
+</ul>
+<h3>6-3. 재현 방법 (운영 가이드)</h3>
+<table>
+  <tr><th style="width:5%">#</th><th>할 일</th><th>결과</th></tr>
+  <tr><td>1</td><td>압축을 풀면 <code>1_notebooks</code>(노트북) · <code>2_data</code>(제공 데이터) · <code>3_outputs</code>(제출본·실험 기록) · <code>4_figures</code>(보고서 그림, 번호순) 폴더. 커널: Python 3.11 (scikit-learn 1.9, xgboost, pandas)</td><td>노트북은 <code>1_notebooks</code>에서 실행 (상대경로)</td></tr>
+  <tr><td>2</td><td><code>1_notebooks/train.ipynb</code> §1에서 <code>MODE = 'private'</code> 확인 후 <b>Run All</b></td><td>§4 실험은 <code>experiments.csv</code> 캐시로 몇 초 만에 지나가고(<code>FORCE=True</code>면 전부 재학습), §5에서 T1=E13·T2=E10 자동 선택 → Train 924일 전체로 재학습</td></tr>
+  <tr><td>3</td><td>§6 제출 셀</td><td><code>3_outputs/private_4반_최승우.csv</code> 생성 + 형식 검증(열 이름·행 수·0~1·결측 없음)</td></tr>
+  <tr><td>4</td><td>(선택) <code>01_EDA</code> · <code>02_Prophet</code> · <code>03_T1_분기점검증</code></td><td>보고서 그림 1~4, 10~19의 근거 (그림 20의 04_T1_TabPFN검증은 tabpfn 패키지가 필요해 제외)</td></tr>
+</table>
+<div class="warn"><b>Leakage 방지 체크</b> — ① 모든 파생변수는 <code>shift(+n)</code>·과거 rolling만 사용(미래 값·중앙 정렬 없음) ② Test 행의 Target은 어디에도 쓰지 않음 ③ Test는 학습에 쓰지 않고, 시간순으로 이어 붙여 Test 행이 <b>자기보다 과거의 설명변수</b>만 참조하게 함 ④ 결측 대체·표준화는 fold 학습 구간으로만 학습 ⑤ 상수 제거·상관 계산은 Train 행만 사용.</div>
+
+</body>
+</html>
