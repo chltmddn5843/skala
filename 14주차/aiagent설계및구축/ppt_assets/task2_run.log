@@ -1,0 +1,78 @@
+14:28:32 | INFO    | ===== 시나리오 1: thread=pf-001 =====
+14:28:32 | INFO    | [MEMORY_LOAD    ] user_id=user_001 | risk=중립형 | history_count=1
+14:28:32 | INFO    | [STATE_UPDATE   ] node=load_memory | changes={'profile': '{"risk_profile": "중립형", "horizon": "3년 이상", "prefe...', 'approval_status': 'pending', 'rejection_count': '0', 'feedback': '', 'candidates': '[]', 'portfolio': '{}'}
+14:28:32 | INFO    | [AGENT_SWITCH   ] frm=supervisor | to=market_analyst | by=code | reason=후보군 없음
+14:28:32 | INFO    | [STATE_UPDATE   ] node=supervisor | changes={'next_agent': 'market_analyst'}
+14:28:32 | INFO    | [BRIDGE         ] to=market_analyst | passed_fields=['profile', 'feedback'] | withheld=['assets', 'target_account']
+14:28:32 | INFO    | [AGENT_START    ] agent=market_analyst/fetch_market_data | rows=8
+14:28:36 | INFO    | [AGENT_DONE     ] agent=market_analyst/extract_candidates | candidates=['KR_LARGE', 'US_SP500', 'US_DIV', 'KTB_10Y', 'MMF'] | summary=현재 시장은 미국과 국내 대형주 ETF가 안정적인 수익과 적당한 변동성을 보이고 있으며, ...
+14:28:36 | INFO    | [STATE_UPDATE   ] node=market_analyst | changes={'candidates': '[{"ticker": "KR_LARGE", "name": "국내 대형주 ETF", "typ...'}
+14:28:36 | INFO    | [AGENT_SWITCH   ] frm=supervisor | to=portfolio_planner | by=code | reason=후보군 준비됨
+14:28:36 | INFO    | [STATE_UPDATE   ] node=supervisor | changes={'next_agent': 'portfolio_planner'}
+14:28:36 | INFO    | [AGENT_START    ] agent=portfolio_planner/draft_allocation | revision=0 | feedback=없음
+14:28:39 | INFO    | [AGENT_DONE     ] agent=portfolio_planner/finalize_proposal | allocation={'KR_LARGE': '30.0%', 'US_DIV': '30.0%', 'KTB_10Y': '30.0%', 'MMF': '10.0%'}
+14:28:39 | INFO    | [STATE_UPDATE   ] node=portfolio_planner | changes={'portfolio': '{"allocations": [{"ticker": "KR_LARGE", "name": "국...'}
+14:28:39 | INFO    | [INTERRUPT      ] node=human_review | amount=20,000,000원 | message=approve(승인) 또는 reject(+feedback 수정 제안)를 입력하세요.
+14:28:39 | INFO    |     제안: 국내 대형주 ETF 30.0% 6,000,000원 | 국내 대형주 ETF는 안정적인 수익과 적당한 변동성, 배당 수익도 기대 ...
+14:28:39 | INFO    |     제안: 미국 배당성장 ETF 30.0% 6,000,000원 | 미국 배당성장 ETF는 배당 선호 고객에게 적합하며, 금리 인하기에 배당...
+14:28:39 | INFO    |     제안: 국고채 10년 ETF 30.0% 6,000,000원 | 국고채 10년 ETF는 안정적인 채권 수익과 낮은 변동성으로 중립형 투자...
+14:28:39 | INFO    |     제안: MMF(초단기채) 10.0% 2,000,000원 | 현금성 자산인 MMF는 대기자금 파킹에 적합하며, 안정적인 수익과 매우 ...
+14:28:39 | INFO    | [INTERRUPT      ] node=human_review | amount=20,000,000원 | message=입력 오류({'action': 'reject'}): approve 또는 feedback 이 포함된 reject 만 허용됩니다.
+14:28:39 | INFO    |     제안: 국내 대형주 ETF 30.0% 6,000,000원 | 국내 대형주 ETF는 안정적인 수익과 적당한 변동성, 배당 수익도 기대 ...
+14:28:39 | INFO    |     제안: 미국 배당성장 ETF 30.0% 6,000,000원 | 미국 배당성장 ETF는 배당 선호 고객에게 적합하며, 금리 인하기에 배당...
+14:28:39 | INFO    |     제안: 국고채 10년 ETF 30.0% 6,000,000원 | 국고채 10년 ETF는 안정적인 채권 수익과 낮은 변동성으로 중립형 투자...
+14:28:39 | INFO    |     제안: MMF(초단기채) 10.0% 2,000,000원 | 현금성 자산인 MMF는 대기자금 파킹에 적합하며, 안정적인 수익과 매우 ...
+14:28:39 | INFO    | [HUMAN_REJECT   ] feedback=인플레이션 대비로 금을 10% 정도 넣고, 국내 주식 비중은 15% 이하로 줄여주세요.
+14:28:39 | INFO    | [STATE_UPDATE   ] node=human_review | changes={'approval_status': 'rejected', 'feedback': '인플레이션 대비로 금을 10% 정도 넣고, 국내 주식 비중은 15% 이하로 줄여주세요.'}
+14:28:39 | INFO    | [TIME_TRAVEL    ] to=supervisor 실행 직전 | step=3 | checkpoint=1f1cb7de-ed47
+14:28:40 | INFO    | [AGENT_SWITCH   ] frm=supervisor | to=market_analyst | by=llm | reason=고객이 금 자산을 10% 포함하기를 원하며, 현재 후보군에 금 관련 자산이 없어 후보군을 다시 선정해야 합니...
+14:28:40 | INFO    | [STATE_UPDATE   ] node=supervisor | changes={'approval_status': 'rework'}
+14:28:40 | INFO    | [BRIDGE         ] to=market_analyst | passed_fields=['profile', 'feedback'] | withheld=['assets', 'target_account']
+14:28:40 | INFO    | [AGENT_START    ] agent=market_analyst/fetch_market_data | rows=8
+14:28:42 | INFO    | [AGENT_DONE     ] agent=market_analyst/extract_candidates | candidates=['GOLD', 'US_DIV', 'US_SP500', 'KR_LARGE', 'KTB_10Y'] | summary=현재 시장은 미국 주식과 배당주 ETF가 안정적인 수익과 배당을 제공하며, 금은 인플레이션...
+14:28:42 | INFO    | [STATE_UPDATE   ] node=market_analyst | changes={'candidates': '[{"ticker": "GOLD", "name": "금현물", "type": "원자재", ...'}
+14:28:42 | INFO    | [AGENT_SWITCH   ] frm=supervisor | to=portfolio_planner | by=code | reason=후보군 준비됨
+14:28:42 | INFO    | [STATE_UPDATE   ] node=supervisor | changes={'next_agent': 'portfolio_planner'}
+14:28:42 | INFO    | [AGENT_START    ] agent=portfolio_planner/draft_allocation | revision=1 | feedback=인플레이션 대비로 금을 10% 정도 넣고, 국내 주식 비중은 15% 이하로 줄여주세요.
+14:28:45 | INFO    | [AGENT_DONE     ] agent=portfolio_planner/finalize_proposal | allocation={'GOLD': '10.0%', 'KR_LARGE': '15.0%', 'US_DIV': '35.0%', 'KTB_10Y': '30.0%', 'US_SP500': '10.0%'}
+14:28:45 | INFO    | [STATE_UPDATE   ] node=portfolio_planner | changes={'portfolio': '{"allocations": [{"ticker": "GOLD", "name": "금현물",...', 'approval_status': 'pending'}
+14:28:45 | INFO    | [INTERRUPT      ] node=human_review | amount=20,000,000원 | message=approve(승인) 또는 reject(+feedback 수정 제안)를 입력하세요.
+14:28:45 | INFO    |     제안: 금현물 10.0% 2,000,000원 | 고객 요청에 따라 인플레이션 대비 및 지정학적 리스크 헤지 수단으로 금 ...
+14:28:45 | INFO    |     제안: 국내 대형주 ETF 15.0% 3,000,000원 | 국내 대형주 ETF 비중을 고객 요청에 맞춰 15% 이하로 제한하여 안정...
+14:28:45 | INFO    |     제안: 미국 배당성장 ETF 35.0% 7,000,000원 | 배당 선호 고객에게 적합한 미국 배당성장 ETF 비중 확대, 금리 인하기...
+14:28:45 | INFO    |     제안: 국고채 10년 ETF 30.0% 6,000,000원 | 안정적인 채권 수익과 낮은 변동성으로 중립형 투자자에게 적합한 국고채 1...
+14:28:45 | INFO    |     제안: 미국 S&P500 ETF 10.0% 2,000,000원 | 미국 대형주 ETF로 안정적인 성장과 배당 수익 제공, 변동성 관리에 도...
+14:28:45 | INFO    | [HUMAN_APPROVE  ] amount=20,000,000원 | account=110-**-***789
+14:28:45 | INFO    | [STATE_UPDATE   ] node=human_review | changes={'approval_status': 'approved'}
+14:28:45 | INFO    | [GUARDRAIL_PASS ] amount=20,000,000원 | account=110-**-***789
+14:28:45 | INFO    | [STATE_UPDATE   ] node=guardrail | changes={'guardrail': '{"passed": true, "violations": []}'}
+14:28:45 | INFO    |     매수 체결: 금현물 2,000,000원 (10.0%)
+14:28:45 | INFO    |     매수 체결: 국내 대형주 ETF 3,000,000원 (15.0%)
+14:28:45 | INFO    |     매수 체결: 미국 배당성장 ETF 7,000,000원 (35.0%)
+14:28:45 | INFO    |     매수 체결: 국고채 10년 ETF 6,000,000원 (30.0%)
+14:28:45 | INFO    |     매수 체결: 미국 S&P500 ETF 2,000,000원 (10.0%)
+14:28:45 | INFO    | [TRANSFER_DONE  ] tx_id=TX-BED490C3 | amount=20,000,000원 | cash_after=60,000,000원 | memory=history 저장
+14:28:45 | INFO    | [STATE_UPDATE   ] node=execute_transfer | changes={'assets': '{"cash": 60000000, "holdings": {"미국 S&P500 ETF": 2...', 'approval_status': 'completed', 'tx_id': 'TX-BED490C3'}
+14:28:45 | INFO    | ===== 시나리오 2: thread=pf-002 (가드레일 검증) =====
+14:28:45 | INFO    | [MEMORY_LOAD    ] user_id=user_001 | risk=중립형 | history_count=2
+14:28:45 | INFO    | [STATE_UPDATE   ] node=load_memory | changes={'profile': '{"risk_profile": "중립형", "horizon": "3년 이상", "prefe...', 'approval_status': 'pending', 'rejection_count': '0', 'feedback': '', 'candidates': '[]', 'portfolio': '{}'}
+14:28:45 | INFO    | [AGENT_SWITCH   ] frm=supervisor | to=market_analyst | by=code | reason=후보군 없음
+14:28:45 | INFO    | [STATE_UPDATE   ] node=supervisor | changes={'next_agent': 'market_analyst'}
+14:28:45 | INFO    | [BRIDGE         ] to=market_analyst | passed_fields=['profile', 'feedback'] | withheld=['assets', 'target_account']
+14:28:45 | INFO    | [AGENT_START    ] agent=market_analyst/fetch_market_data | rows=8
+14:28:48 | INFO    | [AGENT_DONE     ] agent=market_analyst/extract_candidates | candidates=['KR_LARGE', 'US_SP500', 'US_DIV', 'KTB_10Y', 'GOLD'] | summary=현재 시장은 미국과 국내 대형주 ETF가 안정적인 수익과 적당한 변동성을 보이고 있으며, ...
+14:28:48 | INFO    | [STATE_UPDATE   ] node=market_analyst | changes={'candidates': '[{"ticker": "KR_LARGE", "name": "국내 대형주 ETF", "typ...'}
+14:28:48 | INFO    | [AGENT_SWITCH   ] frm=supervisor | to=portfolio_planner | by=code | reason=후보군 준비됨
+14:28:48 | INFO    | [STATE_UPDATE   ] node=supervisor | changes={'next_agent': 'portfolio_planner'}
+14:28:48 | INFO    | [AGENT_START    ] agent=portfolio_planner/draft_allocation | revision=0 | feedback=없음
+14:28:50 | INFO    | [AGENT_DONE     ] agent=portfolio_planner/finalize_proposal | allocation={'KR_LARGE': '20.0%', 'US_DIV': '35.0%', 'KTB_10Y': '30.0%', 'US_SP500': '15.0%'}
+14:28:50 | INFO    | [STATE_UPDATE   ] node=portfolio_planner | changes={'portfolio': '{"allocations": [{"ticker": "KR_LARGE", "name": "국...'}
+14:28:50 | INFO    | [INTERRUPT      ] node=human_review | amount=50,000,000원 | message=approve(승인) 또는 reject(+feedback 수정 제안)를 입력하세요.
+14:28:50 | INFO    |     제안: 국내 대형주 ETF 20.0% 10,000,000원 | 국내 대형주 ETF로 안정적인 수익과 기업 밸류업 정책 수혜 기대, 중립...
+14:28:50 | INFO    |     제안: 미국 배당성장 ETF 35.0% 17,500,000원 | 고객 선호 배당 ETF로 금리 인하기 배당주 재평가로 배당 수익률 높아 ...
+14:28:50 | INFO    |     제안: 국고채 10년 ETF 30.0% 15,000,000원 | 채권형 자산으로 변동성 낮고 배당 수익률 높아 포트폴리오 안정성 강화 및...
+14:28:50 | INFO    |     제안: 미국 S&P500 ETF 15.0% 7,500,000원 | 미국 기업 이익 성장에 따른 안정적 수익과 적당한 변동성 보유, 장기 성...
+14:28:50 | INFO    | [HUMAN_APPROVE  ] amount=50,000,000원 | account=999-**-***999
+14:28:50 | INFO    | [STATE_UPDATE   ] node=human_review | changes={'approval_status': 'approved'}
+14:28:50 | INFO    | [GUARDRAIL_BLOCK] violations=['1회 한도 30,000,000원 초과', '비정상(신고) 계좌']
+14:28:50 | INFO    | [STATE_UPDATE   ] node=guardrail | changes={'guardrail': '{"passed": false, "violations": ["1회 한도 30,000,000...', 'approval_status': 'blocked'}

@@ -1,0 +1,54 @@
+{"ts": "2026-10-19T14:28:32", "event": "MEMORY_LOAD", "user_id": "user_001", "risk": "중립형", "history_count": 1}
+{"ts": "2026-10-19T14:28:32", "event": "STATE_UPDATE", "node": "load_memory", "changes": {"profile": "{\"risk_profile\": \"중립형\", \"horizon\": \"3년 이상\", \"prefe...", "approval_status": "pending", "rejection_count": "0", "feedback": "", "candidates": "[]", "portfolio": "{}"}}
+{"ts": "2026-10-19T14:28:32", "event": "AGENT_SWITCH", "frm": "supervisor", "to": "market_analyst", "by": "code", "reason": "후보군 없음"}
+{"ts": "2026-10-19T14:28:32", "event": "STATE_UPDATE", "node": "supervisor", "changes": {"next_agent": "market_analyst"}}
+{"ts": "2026-10-19T14:28:32", "event": "BRIDGE", "to": "market_analyst", "passed_fields": ["profile", "feedback"], "withheld": ["assets", "target_account"]}
+{"ts": "2026-10-19T14:28:32", "event": "AGENT_START", "agent": "market_analyst/fetch_market_data", "rows": 8}
+{"ts": "2026-10-19T14:28:36", "event": "AGENT_DONE", "agent": "market_analyst/extract_candidates", "candidates": ["KR_LARGE", "US_SP500", "US_DIV", "KTB_10Y", "MMF"], "summary": "현재 시장은 미국과 국내 대형주 ETF가 안정적인 수익과 적당한 변동성을 보이고 있으며, ..."}
+{"ts": "2026-10-19T14:28:36", "event": "STATE_UPDATE", "node": "market_analyst", "changes": {"candidates": "[{\"ticker\": \"KR_LARGE\", \"name\": \"국내 대형주 ETF\", \"typ..."}}
+{"ts": "2026-10-19T14:28:36", "event": "AGENT_SWITCH", "frm": "supervisor", "to": "portfolio_planner", "by": "code", "reason": "후보군 준비됨"}
+{"ts": "2026-10-19T14:28:36", "event": "STATE_UPDATE", "node": "supervisor", "changes": {"next_agent": "portfolio_planner"}}
+{"ts": "2026-10-19T14:28:36", "event": "AGENT_START", "agent": "portfolio_planner/draft_allocation", "revision": 0, "feedback": "없음"}
+{"ts": "2026-10-19T14:28:39", "event": "AGENT_DONE", "agent": "portfolio_planner/finalize_proposal", "allocation": {"KR_LARGE": "30.0%", "US_DIV": "30.0%", "KTB_10Y": "30.0%", "MMF": "10.0%"}}
+{"ts": "2026-10-19T14:28:39", "event": "STATE_UPDATE", "node": "portfolio_planner", "changes": {"portfolio": "{\"allocations\": [{\"ticker\": \"KR_LARGE\", \"name\": \"국..."}}
+{"ts": "2026-10-19T14:28:39", "event": "INTERRUPT", "node": "human_review", "amount": "20,000,000원", "message": "approve(승인) 또는 reject(+feedback 수정 제안)를 입력하세요."}
+{"ts": "2026-10-19T14:28:39", "event": "INTERRUPT", "node": "human_review", "amount": "20,000,000원", "message": "입력 오류({'action': 'reject'}): approve 또는 feedback 이 포함된 reject 만 허용됩니다."}
+{"ts": "2026-10-19T14:28:39", "event": "HUMAN_REJECT", "feedback": "인플레이션 대비로 금을 10% 정도 넣고, 국내 주식 비중은 15% 이하로 줄여주세요."}
+{"ts": "2026-10-19T14:28:39", "event": "STATE_UPDATE", "node": "human_review", "changes": {"approval_status": "rejected", "feedback": "인플레이션 대비로 금을 10% 정도 넣고, 국내 주식 비중은 15% 이하로 줄여주세요."}}
+{"ts": "2026-10-19T14:28:39", "event": "TIME_TRAVEL", "to": "supervisor 실행 직전", "step": 3, "checkpoint": "1f1cb7de-ed47"}
+{"ts": "2026-10-19T14:28:40", "event": "AGENT_SWITCH", "frm": "supervisor", "to": "market_analyst", "by": "llm", "reason": "고객이 금 자산을 10% 포함하기를 원하며, 현재 후보군에 금 관련 자산이 없어 후보군을 다시 선정해야 합니..."}
+{"ts": "2026-10-19T14:28:40", "event": "STATE_UPDATE", "node": "supervisor", "changes": {"approval_status": "rework"}}
+{"ts": "2026-10-19T14:28:40", "event": "BRIDGE", "to": "market_analyst", "passed_fields": ["profile", "feedback"], "withheld": ["assets", "target_account"]}
+{"ts": "2026-10-19T14:28:40", "event": "AGENT_START", "agent": "market_analyst/fetch_market_data", "rows": 8}
+{"ts": "2026-10-19T14:28:42", "event": "AGENT_DONE", "agent": "market_analyst/extract_candidates", "candidates": ["GOLD", "US_DIV", "US_SP500", "KR_LARGE", "KTB_10Y"], "summary": "현재 시장은 미국 주식과 배당주 ETF가 안정적인 수익과 배당을 제공하며, 금은 인플레이션..."}
+{"ts": "2026-10-19T14:28:42", "event": "STATE_UPDATE", "node": "market_analyst", "changes": {"candidates": "[{\"ticker\": \"GOLD\", \"name\": \"금현물\", \"type\": \"원자재\", ..."}}
+{"ts": "2026-10-19T14:28:42", "event": "AGENT_SWITCH", "frm": "supervisor", "to": "portfolio_planner", "by": "code", "reason": "후보군 준비됨"}
+{"ts": "2026-10-19T14:28:42", "event": "STATE_UPDATE", "node": "supervisor", "changes": {"next_agent": "portfolio_planner"}}
+{"ts": "2026-10-19T14:28:42", "event": "AGENT_START", "agent": "portfolio_planner/draft_allocation", "revision": 1, "feedback": "인플레이션 대비로 금을 10% 정도 넣고, 국내 주식 비중은 15% 이하로 줄여주세요."}
+{"ts": "2026-10-19T14:28:45", "event": "AGENT_DONE", "agent": "portfolio_planner/finalize_proposal", "allocation": {"GOLD": "10.0%", "KR_LARGE": "15.0%", "US_DIV": "35.0%", "KTB_10Y": "30.0%", "US_SP500": "10.0%"}}
+{"ts": "2026-10-19T14:28:45", "event": "STATE_UPDATE", "node": "portfolio_planner", "changes": {"portfolio": "{\"allocations\": [{\"ticker\": \"GOLD\", \"name\": \"금현물\",...", "approval_status": "pending"}}
+{"ts": "2026-10-19T14:28:45", "event": "INTERRUPT", "node": "human_review", "amount": "20,000,000원", "message": "approve(승인) 또는 reject(+feedback 수정 제안)를 입력하세요."}
+{"ts": "2026-10-19T14:28:45", "event": "HUMAN_APPROVE", "amount": "20,000,000원", "account": "110-**-***789"}
+{"ts": "2026-10-19T14:28:45", "event": "STATE_UPDATE", "node": "human_review", "changes": {"approval_status": "approved"}}
+{"ts": "2026-10-19T14:28:45", "event": "GUARDRAIL_PASS", "amount": "20,000,000원", "account": "110-**-***789"}
+{"ts": "2026-10-19T14:28:45", "event": "STATE_UPDATE", "node": "guardrail", "changes": {"guardrail": "{\"passed\": true, \"violations\": []}"}}
+{"ts": "2026-10-19T14:28:45", "event": "TRANSFER_DONE", "tx_id": "TX-BED490C3", "amount": "20,000,000원", "cash_after": "60,000,000원", "memory": "history 저장"}
+{"ts": "2026-10-19T14:28:45", "event": "STATE_UPDATE", "node": "execute_transfer", "changes": {"assets": "{\"cash\": 60000000, \"holdings\": {\"미국 S&P500 ETF\": 2...", "approval_status": "completed", "tx_id": "TX-BED490C3"}}
+{"ts": "2026-10-19T14:28:45", "event": "MEMORY_LOAD", "user_id": "user_001", "risk": "중립형", "history_count": 2}
+{"ts": "2026-10-19T14:28:45", "event": "STATE_UPDATE", "node": "load_memory", "changes": {"profile": "{\"risk_profile\": \"중립형\", \"horizon\": \"3년 이상\", \"prefe...", "approval_status": "pending", "rejection_count": "0", "feedback": "", "candidates": "[]", "portfolio": "{}"}}
+{"ts": "2026-10-19T14:28:45", "event": "AGENT_SWITCH", "frm": "supervisor", "to": "market_analyst", "by": "code", "reason": "후보군 없음"}
+{"ts": "2026-10-19T14:28:45", "event": "STATE_UPDATE", "node": "supervisor", "changes": {"next_agent": "market_analyst"}}
+{"ts": "2026-10-19T14:28:45", "event": "BRIDGE", "to": "market_analyst", "passed_fields": ["profile", "feedback"], "withheld": ["assets", "target_account"]}
+{"ts": "2026-10-19T14:28:45", "event": "AGENT_START", "agent": "market_analyst/fetch_market_data", "rows": 8}
+{"ts": "2026-10-19T14:28:48", "event": "AGENT_DONE", "agent": "market_analyst/extract_candidates", "candidates": ["KR_LARGE", "US_SP500", "US_DIV", "KTB_10Y", "GOLD"], "summary": "현재 시장은 미국과 국내 대형주 ETF가 안정적인 수익과 적당한 변동성을 보이고 있으며, ..."}
+{"ts": "2026-10-19T14:28:48", "event": "STATE_UPDATE", "node": "market_analyst", "changes": {"candidates": "[{\"ticker\": \"KR_LARGE\", \"name\": \"국내 대형주 ETF\", \"typ..."}}
+{"ts": "2026-10-19T14:28:48", "event": "AGENT_SWITCH", "frm": "supervisor", "to": "portfolio_planner", "by": "code", "reason": "후보군 준비됨"}
+{"ts": "2026-10-19T14:28:48", "event": "STATE_UPDATE", "node": "supervisor", "changes": {"next_agent": "portfolio_planner"}}
+{"ts": "2026-10-19T14:28:48", "event": "AGENT_START", "agent": "portfolio_planner/draft_allocation", "revision": 0, "feedback": "없음"}
+{"ts": "2026-10-19T14:28:50", "event": "AGENT_DONE", "agent": "portfolio_planner/finalize_proposal", "allocation": {"KR_LARGE": "20.0%", "US_DIV": "35.0%", "KTB_10Y": "30.0%", "US_SP500": "15.0%"}}
+{"ts": "2026-10-19T14:28:50", "event": "STATE_UPDATE", "node": "portfolio_planner", "changes": {"portfolio": "{\"allocations\": [{\"ticker\": \"KR_LARGE\", \"name\": \"국..."}}
+{"ts": "2026-10-19T14:28:50", "event": "INTERRUPT", "node": "human_review", "amount": "50,000,000원", "message": "approve(승인) 또는 reject(+feedback 수정 제안)를 입력하세요."}
+{"ts": "2026-10-19T14:28:50", "event": "HUMAN_APPROVE", "amount": "50,000,000원", "account": "999-**-***999"}
+{"ts": "2026-10-19T14:28:50", "event": "STATE_UPDATE", "node": "human_review", "changes": {"approval_status": "approved"}}
+{"ts": "2026-10-19T14:28:50", "event": "GUARDRAIL_BLOCK", "violations": ["1회 한도 30,000,000원 초과", "비정상(신고) 계좌"]}
+{"ts": "2026-10-19T14:28:50", "event": "STATE_UPDATE", "node": "guardrail", "changes": {"guardrail": "{\"passed\": false, \"violations\": [\"1회 한도 30,000,000...", "approval_status": "blocked"}}
